@@ -6,3 +6,5 @@ export { default as ChattingAmico } from "./chatting-amico.svg";
 export { default as WomanStanding } from "./woman-standing.png";
 export { default as LineGridPattern } from "./line-grid-pattern.svg";
 export { default as GrowthPartner } from "./growth-partner.png";
+
+export { default as GetSykaFooter } from "./getSykaFooter.png";

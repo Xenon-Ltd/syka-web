@@ -15,6 +15,9 @@ module.exports = {
       fontSize: {
         "4.5xl": "2.5rem",
       },
+      boxShadow: {
+        xenon: "2px 17px 38.8px 0px rgba(33, 33, 33, 0.23)",
+      },
       colors: {
         xenon: {
           DEFAULT: "#008EDB",

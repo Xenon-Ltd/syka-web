@@ -74,6 +74,7 @@ export default function Home() {
         />
       </section>
       <WhyYouShouldChooseSyka />
+      <section className="h-32"></section>
     </main>
   );
 }

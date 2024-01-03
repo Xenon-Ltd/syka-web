@@ -1,3 +1,11 @@
+import {
+  BarChartIcon,
+  CoinsSwapIcon,
+  FileLockIcon,
+  LayersThreeIcon,
+  Users01Icon,
+} from "@/assets/icons";
+import Image from "next/image";
 import React from "react";
 
 const whys = [
@@ -5,31 +13,31 @@ const whys = [
     title: "Swift Transactions, Unmatched Speed",
     description:
       "At Syka, we understand the importance of time in business. Experience lightning-fast transactions, quick approvals, and instant updates. Your business moves at the speed of Syka.",
-    icon: "",
+    icon: CoinsSwapIcon,
   },
   {
     title: "Excellence in Customer Service",
     description:
       "Your success is our priority. Syka Business Banking comes with a dedicated account manager for every business. Enjoy personalized support that goes beyond transactions – it's a partnership focused on your business growth.",
-    icon: "",
+    icon: Users01Icon,
   },
   {
     title: "Advanced Analytics",
     description:
       "Gain insights into your business's financial health with Syka's advanced analytics. From expense tracking to revenue projections, make informed decisions backed by data. Stay steps ahead in your financial strategy.",
-    icon: "",
+    icon: BarChartIcon,
   },
   {
     title: "Multi-Layered Security Protocols",
     description:
       "Security isn't just a feature; it's our commitment. Syka employs multi-layered security protocols to ensure your financial data is protected at every level. Your peace of mind is our top priority.",
-    icon: "",
+    icon: LayersThreeIcon,
   },
   {
     title: "Seamless Integration, Effortless Operations",
     description:
       "Syka integrates seamlessly with your business processes. From invoicing to expenses, payments to analytics, experience a unified platform that simplifies financial operations. Efficiency is the cornerstone of Syka.",
-    icon: "",
+    icon: FileLockIcon,
   },
 ];
 
@@ -68,7 +76,9 @@ const WhyYouShouldChooseSyka = () => {
                 className="flex flex-col items-center gap-4 w-[360px] h-[230px]"
               >
                 <div className="flex items-center justify-center w-14 h-14 bg-white rounded-full">
-                  <div className="flex items-center justify-center w-10 h-10 bg-xenon/10 rounded-full"></div>
+                  <div className="flex items-center justify-center w-10 h-10 bg-xenon/10 rounded-full">
+                    <Image src={why.icon} alt="icon" className="w-6 h-6" />
+                  </div>
                 </div>
                 <p className="font-bold text-lg text-xenon-primary">
                   {why.title}
