@@ -1,6 +1,6 @@
 "use client";
+import { WomanSmilingAtPhone } from "@/assets/images";
 import {
-  Card,
   Invoicing,
   MultiCurrency,
   Scheduled,
@@ -8,11 +8,8 @@ import {
   Secure,
 } from "@/assets/images/OurOfferings";
 import { cn } from "@/utils";
-import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import React, { useLayoutEffect, useState } from "react";
-
-const MotionImage = motion(Image);
 
 const offerings = [
   {
@@ -60,50 +57,43 @@ const UnlockSykaPayAdvantage = () => {
   }, [currentItem]);
 
   return (
-    <section className="flex flex-col items-center gap-16 bg-[#E4F3FB] py-20">
-      <h2 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
-        Our Business Offering
-      </h2>
-      <div className="w-full px-10 flex flex-row items-center justify-between">
-        <div className="flex flex-col">
-          {offerings.map((offering, index) => (
-            <div
-              key={index}
-              onClick={() => setCurrentItem(index)}
-              className={cn(
-                "flex flex-col border-l-[4px] w-[583px] px-6 py-4 cursor-pointer duration-75",
-                index === currentItem ? "border-xenon" : "border-gray-200",
-              )}
-            >
-              <p
+    <section className="flex bg-[#E4F3FB] py-20 w-screen">
+      <div className="flex flex-col items-center gap-16 w-[1211px] mx-auto">
+        <h2 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
+          Unlock The Syka Pay Advantage
+        </h2>
+        <div className="w-full px-10 flex flex-row items-center justify-between">
+          <div className="flex flex-col">
+            {offerings.map((offering, index) => (
+              <div
+                key={index}
+                onClick={() => setCurrentItem(index)}
                 className={cn(
-                  "text-lg font-semibold mb-1.5 duration-75",
-                  index === currentItem ? "text-xenon" : "text-black",
+                  "flex flex-col border-l-[4px] w-[583px] px-6 py-4 cursor-pointer duration-75",
+                  index === currentItem ? "border-xenon" : "border-gray-200",
                 )}
               >
-                {offering.title}
-              </p>
-              <p className={cn("text-xenon-gray mb-4")}>
-                {offering.description}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="h-[805px] w-[523px] relative">
-          <AnimatePresence mode="wait">
-            {offerings.map((offering, index) => (
-              <MotionImage
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: index === currentItem ? 1 : 0 }}
-                transition={{ duration: 0.5 }}
-                exit={{ opacity: 0 }}
-                src={offering.image}
-                className="absolute right-0 top-0 h-full w-full object-contain"
-                alt="offerings"
-              />
+                <p
+                  className={cn(
+                    "text-lg font-semibold mb-1.5 duration-75",
+                    index === currentItem ? "text-xenon" : "text-black",
+                  )}
+                >
+                  {offering.title}
+                </p>
+                <p className={cn("text-xenon-gray mb-4")}>
+                  {offering.description}
+                </p>
+              </div>
             ))}
-          </AnimatePresence>
+          </div>
+          <div className="h-[805px] w-[523px] relative">
+            <Image
+              src={WomanSmilingAtPhone}
+              className="absolute right-0 top-0 h-full w-full object-contain"
+              alt="offerings"
+            />
+          </div>
         </div>
       </div>
     </section>

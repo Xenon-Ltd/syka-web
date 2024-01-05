@@ -66,7 +66,7 @@ const OurBusinessOfferings = () => {
   }, [currentItem]);
 
   return (
-    <section className="flex flex-col items-center gap-16">
+    <section className="flex flex-col items-center gap-16 w-[1211px] mx-auto">
       <h2 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
         Our Business Offering
       </h2>

@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-[200px] min-h-screen w-[1211px] mx-auto">
-      <section className="relative flex flex-row items-center justify-between gap-14 h-[572px]">
+    <main className="flex flex-col gap-[200px] min-h-screen">
+      <section className="relative flex flex-row items-center justify-between gap-14 h-[572px] w-[1211px] mx-auto">
         <div className="flex flex-col z-10">
           <h1 className="font-dmSans mb-6 font-bold text-4.5xl text-xenon-gray leading-[50px] text-balance">
             <span className="text-xenon">Elevate Your Business</span> with Syka,
@@ -45,7 +45,7 @@ export default function Home() {
         />
       </section>
       <OurBusinessOfferings />
-      <section className="relative w-full rounded-[32px] h-[470px] bg-xenon flex flex-row">
+      <section className="relative rounded-[32px] h-[470px] bg-xenon flex flex-row w-[1211px] mx-auto">
         <div className="flex flex-col justify-between text-white h-full p-14 z-10">
           <div className="flex flex-col gap-4">
             <h3 className="font-dmSans font-bold text-4.5xl w-[520px]">
