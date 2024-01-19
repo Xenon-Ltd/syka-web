@@ -67,10 +67,10 @@ const OurBusinessOfferings = () => {
           >
             <Image
               src={GlyphBg}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen z-10"
               alt="bg-glyph"
             />
-            <div className="flex">
+            <div className="flex z-20">
               <Image
                 src={offering.image}
                 className={cn(
@@ -83,7 +83,7 @@ const OurBusinessOfferings = () => {
               />
             </div>
 
-            <div className="w-[560px] flex flex-col">
+            <div className="w-[560px] flex flex-col z-20">
               <p className="text-2xl font-medium text-xenon-500 leading-6 font-dmSans mb-2">
                 {offering.title}
               </p>
