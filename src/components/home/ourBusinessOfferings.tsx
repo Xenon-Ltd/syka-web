@@ -1,24 +1,22 @@
 "use client";
 import {
   Card,
+  GlyphBg,
   Invoicing,
   MultiCurrency,
   Scheduled,
   Seamless,
   Secure,
-} from "@/assets/images/OurOfferings";
+} from "@/assets/images/OurBusinessOffering";
 import { cn } from "@/utils";
-import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import React, { useLayoutEffect, useState } from "react";
-
-const MotionImage = motion(Image);
+import React from "react";
 
 const offerings = [
   {
     title: "Invoicing Made Effortlesss",
     description:
-      "Say goodbye to manual invoicing hassles. Syka's user-friendly platform allows you to create, send, and track professional invoices with just a few clicks.",
+      "Syka's user-friendly platform allows you to create, send, and track professional invoices with just a few clicks. Streamline your billing process and focus on what matters most – growing your business.",
     image: Invoicing,
   },
   {
@@ -30,88 +28,75 @@ const offerings = [
   {
     title: "Secure Checkouts Services",
     description:
-      "Provide your customers with a seamless and secure checkout experience. Syka ensures every transaction is protected, giving both you and your clients peace of mind.",
+      "Syka ensures every transaction is protected, giving both you and your clients peace of mind. Build trust and foster lasting relationships with hassle-free payments.",
     image: Secure,
   },
   {
     title: "Scheduled Payments",
     description:
-      "Take control of your financial schedule with Syka's scheduled payment feature. Set up recurring payments, automate transactions, and stay organized without missing a beat. ",
+      "Take control of your financial schedule with Syka's scheduled payment feature. Set up recurring payments, automate transactions, and stay organized without missing a beat. Effortlessly manage your cash flow and focus on strategic business decisions.",
     image: Scheduled,
   },
   {
     title: "Multi Currency Capabilities",
     description:
-      "Expand your horizons with Syka's multi currency support. Conduct business globally, accept payments in different currencies, and watch your business reach new heights. ",
+      "Conduct business globally, accept payments in different currencies, and watch your business reach new heights. Break down barriers and tap into international markets effortlessly.",
     image: MultiCurrency,
   },
   {
     title: "Card Services Tailored for Corporates",
     description:
-      "Empower your corporate entities with Syka's card services. Whether virtual or physical, our cards provide the flexibility and control your business needs.",
+      "Whether virtual or physical, our cards provide the flexibility and control your business needs. Streamline expenses, manage transactions, and take charge of your finances.",
     image: Card,
   },
 ];
 
 const OurBusinessOfferings = () => {
-  const [currentItem, setCurrentItem] = useState(0);
-
-  useLayoutEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentItem((prev) => (prev + 1) % offerings.length);
-    }, 4000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [currentItem]);
-
   return (
-    <section className="flex flex-col items-center gap-16 w-[1211px] mx-auto">
+    <section className="flex flex-col items-center gap-16">
       <h2 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
         Our Business Offering
       </h2>
-      <div className="w-full px-10 flex flex-row items-center justify-between">
-        <div className="flex flex-col">
-          {offerings.map((offering, index) => (
-            <div
-              key={index}
-              onClick={() => setCurrentItem(index)}
-              className={cn(
-                "flex flex-col border-l-[4px] w-[583px] px-6 py-4 cursor-pointer duration-75",
-                index === currentItem ? "border-xenon" : "border-gray-200",
-              )}
-            >
-              <p
+      {offerings.map((offering, index) => (
+        <div key={offering.title} className="relative w-full">
+          <div
+            className={cn(
+              "h-[400px] w-[1211px] mx-auto flex flex-row items-center justify-between my-28",
+              index % 2 === 0 ? "flex-row-reverse" : "",
+            )}
+          >
+            <Image
+              src={GlyphBg}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen"
+              alt="bg-glyph"
+            />
+            <div className="flex">
+              <Image
+                src={offering.image}
                 className={cn(
-                  "text-lg font-semibold mb-1.5 duration-75",
-                  index === currentItem ? "text-xenon" : "text-black",
+                  "h-[400px] w-auto",
+                  index < 5 && "scale-[120%]",
+                  index === 4 && "h-[360px]",
+                  index === 5 && "h-[300px]",
                 )}
-              >
+                alt="offering-image"
+              />
+            </div>
+
+            <div className="w-[560px] flex flex-col">
+              <p className="text-2xl font-medium text-xenon-500 leading-6 font-dmSans mb-2">
                 {offering.title}
               </p>
-              <p className={cn("text-xenon-gray mb-4")}>
+              <p className="leading-[30px] text-[#475467] mb-8">
                 {offering.description}
               </p>
+              <button className="text-lg text-xenon-500 underline underline-offset-8 w-fit">
+                Get Started
+              </button>
             </div>
-          ))}
+          </div>
         </div>
-        <div className="h-[805px] w-[523px] relative">
-          <AnimatePresence mode="wait">
-            {offerings.map((offering, index) => (
-              <MotionImage
-                key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: index === currentItem ? 1 : 0 }}
-                transition={{ duration: 0.5 }}
-                exit={{ opacity: 0 }}
-                src={offering.image}
-                className="absolute right-0 top-0 h-full w-full object-contain"
-                alt="offerings"
-              />
-            ))}
-          </AnimatePresence>
-        </div>
-      </div>
+      ))}
     </section>
   );
 };

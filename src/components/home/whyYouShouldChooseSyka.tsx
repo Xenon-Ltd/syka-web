@@ -1,10 +1,12 @@
 import {
-  BarChartIcon,
-  CoinsSwapIcon,
-  FileLockIcon,
-  LayersThreeIcon,
-  Users01Icon,
-} from "@/assets/icons";
+  Advanced,
+  Customer,
+  MultiLayered,
+  Seamless,
+  Security,
+  Transactions,
+} from "@/assets/images/whyChooseSyka";
+import { cn } from "@/utils";
 import Image from "next/image";
 import React from "react";
 
@@ -12,82 +14,72 @@ const whys = [
   {
     title: "Swift Transactions, Unmatched Speed",
     description:
-      "At Syka, we understand the importance of time in business. Experience lightning-fast transactions, quick approvals, and instant updates. Your business moves at the speed of Syka.",
-    icon: CoinsSwapIcon,
+      "At Syka, we understand the importance of time in business. Experience lightning-fast transactions, quick approvals, and instant updates.",
+    Image: Transactions,
   },
   {
     title: "Excellence in Customer Service",
     description:
-      "Your success is our priority. Syka Business Banking comes with a dedicated account manager for every business. Enjoy personalized support that goes beyond transactions – it's a partnership focused on your business growth.",
-    icon: Users01Icon,
+      " Enjoy personalized support that goes beyond transactions – it's a partnership focused on your business growth.",
+    Image: Customer,
   },
   {
-    title: "Advanced Analytics",
+    title: "Fortified Security at Every Step",
     description:
-      "Gain insights into your business's financial health with Syka's advanced analytics. From expense tracking to revenue projections, make informed decisions backed by data. Stay steps ahead in your financial strategy.",
-    icon: BarChartIcon,
+      "We employ cutting-edge technology to safeguard your transactions, data, and sensitive information.",
+    Image: Security,
+  },
+  {
+    title: "Seemless Integration, Effortless Operations",
+    description:
+      "From invoicing to expenses, payments to analytics, experience a unified platform that simplifies financial operations.",
+    Image: Seamless,
   },
   {
     title: "Multi-Layered Security Protocols",
     description:
-      "Security isn't just a feature; it's our commitment. Syka employs multi-layered security protocols to ensure your financial data is protected at every level. Your peace of mind is our top priority.",
-    icon: LayersThreeIcon,
+      "Syka employs multi-layered security protocols to ensure your financial data is protected at every level. Your peace of mind is our top priority",
+    Image: MultiLayered,
   },
   {
-    title: "Seamless Integration, Effortless Operations",
+    title: "Advanced Analytics",
     description:
-      "Syka integrates seamlessly with your business processes. From invoicing to expenses, payments to analytics, experience a unified platform that simplifies financial operations. Efficiency is the cornerstone of Syka.",
-    icon: FileLockIcon,
+      "From expense tracking to revenue projections, make informed decisions backed by data.",
+    Image: Advanced,
   },
 ];
 
 const WhyYouShouldChooseSyka = () => {
   return (
-    <section className="relative">
-      <div className="opacity-0 bg-xenon/10 py-16 w-screen top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="w-[1211px] mx-auto flex flex-col gap-16 items-center">
-          <h3 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
-            Why You Should Choose Syka
-          </h3>
-          <div className="flex flex-row flex-wrap items-center justify-center">
-            {whys.map((why, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-center gap-4 w-[300px] h-[300px]"
-              >
-                <h4 className="font-dmSans font-bold text-2xl text-xenon-gray">
-                  {why.title}
-                </h4>
-                <p className="text-lg text-center">{why.description}</p>
-              </div>
-            ))}
+    <section className="w-[1211px] mx-auto flex flex-col gap-16 items-center my-24">
+      <h3 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
+        Why You Should Choose Syka
+      </h3>
+      <div className="flex flex-row flex-wrap items-center gap-11 justify-center">
+        {whys.map((why, index) => (
+          <div
+            key={index}
+            className="flex flex-col p-8 gap-4 w-[325px] h-[394px] bg-[#EFF8FB] rounded-2xl"
+          >
+            <p className="font-bold text-lg text-xenon leading-[18px]">
+              {why.title}
+            </p>
+            <p className="">{why.description}</p>
+            <div className="flex flex-1 items-center justify-center">
+              <Image
+                src={why.Image}
+                alt="icon"
+                className={cn(
+                  index < 2 && "w-full",
+                  index === 2 && "w-[160px]",
+                  index === 3 && "w-[160px]",
+                  index === 4 && "w-[125px]",
+                  index === 5 && "w-[188px]",
+                )}
+              />
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="absolute bg-xenon/10 py-16 w-screen top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="w-[1211px] mx-auto flex flex-col gap-16 items-center">
-          <h3 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
-            Why You Should Choose Syka
-          </h3>
-          <div className="flex flex-row flex-wrap items-center gap-16 justify-center">
-            {whys.map((why, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center gap-4 w-[360px] h-[230px]"
-              >
-                <div className="flex items-center justify-center w-14 h-14 bg-white rounded-full">
-                  <div className="flex items-center justify-center w-10 h-10 bg-xenon/10 rounded-full">
-                    <Image src={why.icon} alt="icon" className="w-6 h-6" />
-                  </div>
-                </div>
-                <p className="font-bold text-lg text-xenon-primary">
-                  {why.title}
-                </p>
-                <p className="text-center">{why.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
