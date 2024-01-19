@@ -10,7 +10,7 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="relative flex flex-col justify-between h-[560px] w-full bg-xenon-primary">
-      <div className="absolute bottom-[80%] flex-1 left-1/2 -translate-x-1/2 h-[370px] items-center rounded-3xl w-[1211px] mx-auto flex flex-row bg-white shadow-xenon shadow-[rgba(33,33,33,0.23)]">
+      <div className="absolute bottom-[80%] flex-1 left-1/2 -translate-x-1/2 h-[370px] items-center rounded-3xl w-[1211px] mx-auto flex flex-row bg-white shadow-xenon_sh">
         <div className="flex flex-col gap-11 ml-[138px]">
           <p className="font-dmSans text-4.5xl font-bold w-[580px] text-xenon-gray leading-[46px]">
             Get the app <span className="text-xenon">now</span>, take control of
