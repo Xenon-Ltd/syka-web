@@ -61,7 +61,7 @@ const OurBusinessOfferings = () => {
         <div key={offering.title} className="relative w-full">
           <div
             className={cn(
-              "h-[400px] w-[1211px] mx-auto flex flex-row items-center justify-between my-28",
+              "h-[400px] w-[1211px] mx-auto flex flex-row items-center justify-between my-14",
               index % 2 === 0 ? "flex-row-reverse" : "",
             )}
           >
