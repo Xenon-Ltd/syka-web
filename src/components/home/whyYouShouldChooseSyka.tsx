@@ -51,8 +51,8 @@ const whys = [
 
 const WhyYouShouldChooseSyka = () => {
   return (
-    <section className="w-[1211px] mx-auto flex flex-col gap-16 items-center my-24">
-      <h3 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
+    <section className="xl:w-[1211px] mx-auto flex flex-col gap-16 items-center my-24">
+      <h3 className="font-dmSans font-bold text-2xl xl:text-4.5xl text-xenon-gray">
         Why You Should Choose Syka
       </h3>
       <div className="flex flex-row flex-wrap items-center gap-11 justify-center">

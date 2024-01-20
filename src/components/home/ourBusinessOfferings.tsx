@@ -54,49 +54,56 @@ const offerings = [
 const OurBusinessOfferings = () => {
   return (
     <section className="flex flex-col items-center gap-16">
-      <h2 className="font-dmSans font-bold text-4.5xl text-xenon-gray">
+      <h2 className="font-dmSans font-bold text-2xl xl:text-4.5xl text-xenon-gray">
         Our Business Offering
       </h2>
-      {offerings.map((offering, index) => (
-        <div key={offering.title} className="relative w-full">
-          <div
-            className={cn(
-              "h-[400px] w-[1211px] mx-auto flex flex-row items-center justify-between my-14",
-              index % 2 === 0 ? "flex-row-reverse" : "",
-            )}
-          >
-            <Image
-              src={GlyphBg}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen z-10"
-              alt="bg-glyph"
-            />
-            <div className="flex z-20">
+      <div className="flex flex-col items-center gap-24 xl:gap-16">
+        {offerings.map((offering, index) => (
+          <div key={offering.title} className="relative w-full">
+            <div
+              className={cn(
+                "xl:h-[400px] xl:w-[1211px] mx-auto flex flex-col-reverse px-6 xl:px-0 items-center justify-between xl:my-14",
+                index % 2 === 0 ? "xl:flex-row-reverse" : "xl:flex-row",
+              )}
+            >
               <Image
-                src={offering.image}
-                className={cn(
-                  "h-[400px] w-auto",
-                  index < 5 && "scale-[120%]",
-                  index === 4 && "h-[360px]",
-                  index === 5 && "h-[300px]",
-                )}
-                alt="offering-image"
+                src={GlyphBg}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen z-10"
+                alt="bg-glyph"
               />
-            </div>
+              <div className="w-full xl:hidden flex py-6">
+                <button className="text-lg text-xenon-500 underline underline-offset-8 w-fit">
+                  Get Started
+                </button>
+              </div>
+              <div className="flex z-20">
+                <Image
+                  src={offering.image}
+                  className={cn(
+                    "h-auto xl:h-[400px] w-auto max-h-[350px] xl:max-h-[400px]",
+                    index < 5 && "scale-[120%]",
+                    index === 4 && "h-[360px]",
+                    index === 5 && "h-auto xl:h-[300px] aspect-[375/228]",
+                  )}
+                  alt="offering-image"
+                />
+              </div>
 
-            <div className="w-[560px] flex flex-col z-20">
-              <p className="text-2xl font-medium text-xenon-500 leading-6 font-dmSans mb-2">
-                {offering.title}
-              </p>
-              <p className="leading-[30px] text-[#475467] mb-8">
-                {offering.description}
-              </p>
-              <button className="text-lg text-xenon-500 underline underline-offset-8 w-fit">
-                Get Started
-              </button>
+              <div className="xl:w-[560px] flex flex-col z-20">
+                <p className="text-2xl font-medium text-xenon-500 leading-6 font-dmSans mb-2">
+                  {offering.title}
+                </p>
+                <p className="leading-[30px] text-[#475467] mb-8">
+                  {offering.description}
+                </p>
+                <button className="hidden xl:block text-lg text-xenon-500 underline underline-offset-8 w-fit">
+                  Get Started
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 };
