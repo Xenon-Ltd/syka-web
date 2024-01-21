@@ -19,7 +19,7 @@ export default function RootLayout({
       lang="en"
       className={`${FONTS.dmSans.variable} ${FONTS.lato.variable} w-screen overflow-x-clip`}
     >
-      <body suppressHydrationWarning className="">
+      <body suppressHydrationWarning>
         <Header />
         {children}
         <Footer />

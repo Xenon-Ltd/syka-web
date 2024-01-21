@@ -45,7 +45,7 @@ export default function Home() {
         />
       </section>
       <OurBusinessOfferings />
-      <section className="relative rounded-3xl xl:rounded-[32px] xl:h-[470px] bg-xenon flex flex-col xl:flex-row xl:w-[1211px] mx-6 xl:mx-auto">
+      <section className="relative rounded-3xl xl:rounded-[32px] xl:h-[470px] bg-xenon flex flex-col xl:flex-row xl:w-[1211px] mx-6 xl:mx-auto xl:-mt-16">
         <div className="flex flex-col justify-between text-white h-full py-12 px-6 xl:p-14 z-10">
           <div className="flex flex-col gap-4">
             <h3 className="font-dmSans font-bold text-3xl leading-[46px] xl:text-4.5xl xl:w-[520px]">
