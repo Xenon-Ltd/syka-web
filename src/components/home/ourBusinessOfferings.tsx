@@ -57,23 +57,23 @@ const OurBusinessOfferings = () => {
       <h2 className="font-dmSans font-bold text-2xl xl:text-4.5xl text-xenon-gray">
         Our Business Offering
       </h2>
-      <div className="flex flex-col items-center gap-24 xl:gap-8 w-full">
+      <div className="flex flex-col items-center gap-24 xl:gap-6 w-full">
         {offerings.map((offering, index) => (
           <div
             key={offering.title}
             className="relative w-full overflow-visible"
           >
+            <Image
+              src={GlyphBg}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen z-10"
+              alt="bg-glyph"
+            />
             <div
               className={cn(
-                "xl:h-[400px] xl:w-[1211px] overflow-visible mx-auto flex flex-col-reverse px-6 xl:px-0 items-center justify-between xl:my-14",
+                "xl:h-[400px] xl:w-[1211px] overflow-visible mx-auto flex flex-col-reverse px-6 xl:px-0 items-center justify-between xl:my-14 z-20",
                 index % 2 === 0 ? "xl:flex-row-reverse" : "xl:flex-row",
               )}
             >
-              <Image
-                src={GlyphBg}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-screen z-10"
-                alt="bg-glyph"
-              />
               <div className="w-full xl:hidden flex py-6">
                 <button className="text-lg text-xenon-500 underline underline-offset-8 w-fit">
                   Get Started
