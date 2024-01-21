@@ -82,7 +82,7 @@ const OurBusinessOfferings = () => {
                   className={cn(
                     "h-auto xl:h-[400px] w-auto max-h-[350px] xl:max-h-[400px]",
                     index < 5 && "scale-[120%]",
-                    index === 4 && "h-[360px]",
+                    index === 4 && "h-auto aspect-[350/275]",
                     index === 5 && "h-auto xl:h-[300px] aspect-[375/228]",
                   )}
                   alt="offering-image"

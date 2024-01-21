@@ -29,7 +29,13 @@ const Header = () => {
   return (
     <header className="relative my-3 xl:my-5 mb-24 flex flex-row items-center justify-between w-full xl:max-w-[1211px] mx-auto">
       <div className="flex flex-row items-center gap-16">
-        <Image src={SykaLogo} className="w-auto h-14 xl:h-16" alt="Syka Logo" />
+        <Image
+          src={SykaLogo}
+          height={192}
+          width={486}
+          className="w-auto h-14 xl:h-16"
+          alt="Syka Logo"
+        />
         <nav>
           <ul className="hidden xl:flex flex-row items-center gap-8 text-xenon-gray">
             {links.map((link) => (
