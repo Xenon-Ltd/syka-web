@@ -14,15 +14,21 @@ module.exports = {
       },
       fontSize: {
         "4.5xl": "2.5rem",
+        "5.5xl": "3.5rem",
       },
       boxShadow: {
         xenon_sh: "2px 17px 38.8px 0px rgba(33, 33, 33, 0.23)",
+        xenon_btn: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px",
+        xenon_card:
+          "0px 9.040969848632812px 54.245819091796875px 0px #9AA9B31F",
       },
       colors: {
         xenon: {
           DEFAULT: "#008EDB",
+          brand: "#1377BC",
           primary: "#25205C",
           gray: "#3D4756",
+          text: "#3D4756",
           50: "#EBF8FF",
           100: "#D6F1FF",
           200: "#ADE2FF",

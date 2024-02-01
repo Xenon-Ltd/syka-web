@@ -78,7 +78,11 @@ const Header = () => {
         </div>
         <nav className="flex flex-col gap-8 px-8 py-4">
           {links.map((link) => (
-            <Link href={link.href} key={link.href}>
+            <Link
+              onClick={() => setisSheetOpen(false)}
+              href={link.href}
+              key={link.href}
+            >
               <p className="text-xenon-gray">{link.label}</p>
             </Link>
           ))}

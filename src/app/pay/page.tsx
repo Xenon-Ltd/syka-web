@@ -1,6 +1,6 @@
 import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
 import { GrowthPartner, ManNotificationReceived } from "@/assets/images";
-import UnlockSykaPayAdvantage from "@/components/home/unlockSykaPayAdvantage";
+import UnlockSykaPayAdvantage from "@/components/business/unlockSykaPayAdvantage";
 import CountriesWeSupport from "@/components/pay/countries";
 import Image from "next/image";
 import React from "react";
@@ -43,7 +43,7 @@ export default function pay() {
           style={{
             borderTopRightRadius: "50%",
           }}
-          className="w-[681px] h-full overflow-clip shrink-0 z-10"
+          className="w-[408px] h-full overflow-clip shrink-0 z-10"
         >
           <Image
             src={ManNotificationReceived}
