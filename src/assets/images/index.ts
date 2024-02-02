@@ -1,5 +1,6 @@
 export { default as SykaLogoBlue } from "./syka-logo-blue.svg";
 export { default as SykaLogo } from "./syka-logo.svg";
+export { default as SykaOpenGraph } from "./open-graph.png";
 export { default as LoginImage } from "./login-image.png";
 export { default as UsersChart } from "./users-chart.svg";
 export { default as ChattingAmico } from "./chatting-amico.svg";

@@ -3,10 +3,25 @@ import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { SykaOpenGraph } from "@/assets/images";
 
 export const metadata: Metadata = {
   title: "Syka",
-  description: "Syka Bank",
+  description: "SykaBank - Say hello to digital banking",
+  openGraph: {
+    title: "Syka",
+    description: "SykaBank - Say hello to digital banking",
+    url: "https://www.sykabank.com",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: SykaOpenGraph.src,
+        width: 1200,
+        height: 675,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
