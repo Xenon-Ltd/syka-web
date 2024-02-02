@@ -11,6 +11,7 @@ import {
   WomanExcitedOnPhone,
   WomanSmilingAtPhone,
 } from "@/assets/images";
+import EverythingYouGet from "@/components/home/everything-you-get";
 import Features from "@/components/home/features";
 import GetMoreDone from "@/components/home/get-more-done";
 import Image from "next/image";
@@ -145,7 +146,7 @@ export default function Home() {
       </section>
 
       <section className="xl:h-[458px] h-[427px] relative flex flex-col items-center py-12 xl:py-16 px-7 xl:px-0 bg-[#E4F4FB]">
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-6 xl:w-[880px]">
           <p className="text-2xl xl:text-[43px] font-dmSans font-bold text-xenon-text text-center text-balance">
             Manage <span className="text-xenon-500">both</span> your accounts
             from one app
@@ -283,7 +284,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="xl:h-32 h-80"></section>
+      <EverythingYouGet />
+
+      <section className="xl:h-32 h-[28rem]"></section>
     </main>
   );
 }
