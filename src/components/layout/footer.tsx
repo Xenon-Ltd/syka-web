@@ -8,6 +8,8 @@ import Image from "next/image";
 import React from "react";
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="relative flex flex-col justify-between xl:h-[560px] w-full bg-xenon-primary">
       <div className="absolute bottom-[80%] flex-1 left-1/2 -translate-x-1/2 xl:h-[370px] items-center rounded-3xl w-[calc(100vw-48px)] xl:w-[1211px] xl:mx-auto flex flex-col xl:flex-row gap-20 xl:gap-0 bg-white shadow-xenon_sh">
@@ -75,8 +77,11 @@ const Footer = () => {
         </div>
       </div>
       <div className="xl:w-[1211px] shrink-0 w-screen mx-auto py-4 xl:h-[72px] flex-1 flex items-center justify-center border-t border-white/20">
-        <p className="text-white text-center">© 2023 Xenon Fintech Ltd.</p>
+        <p className="text-white text-center">© {year} Xenon Fintech Ltd.</p>
       </div>
+      <p className="hidden opacity-0">
+        Code was painstakenly written by Brian Newton. github/CozyBrian
+      </p>
     </footer>
   );
 };

@@ -25,7 +25,7 @@ const everythingYouGet = [
 
 const EverythingYouGet = () => {
   return (
-    <section className="xl:w-[1045px] flex flex-col items-center gap-14 mx-auto">
+    <section className="xl:w-[1045px] flex flex-col items-center gap-14 mx-auto px-5 xl:px-0">
       <p className="text-2xl xl:text-[32px] font-dmSans font-bold text-xenon-primary text-center text-balance gap-12">
         Everything <span className="text-xenon-sky">you</span> get with Syka
       </p>
@@ -46,7 +46,7 @@ const EverythingYouGet = () => {
                       alt="tick-circle"
                       className="w-6 h-6"
                     />
-                    <p className="shrink-0">{everythingYouGet[i * 6 + j]}</p>
+                    <p className="">{everythingYouGet[i * 6 + j]}</p>
                   </div>
                 ))}
             </div>
