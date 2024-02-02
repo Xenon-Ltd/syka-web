@@ -20,7 +20,7 @@ const InvestInGlobal = () => {
           </div>
         </div>
         <div className="xl:w-[480px] xl:h-full relative pl-8 xl:pl-0">
-          <div className="xl:w-[480px] xl:absolute -bottom-[1px] shrink-0">
+          <div className="xl:w-[480px] h-auto xl:absolute -bottom-[1px] shrink-0">
             <Image
               src={DashboardShot}
               className="w-full h-full xl:aspect-auto object-cover"

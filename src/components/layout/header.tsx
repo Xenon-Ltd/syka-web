@@ -17,7 +17,7 @@ const links = [
     href: "/business",
   },
   {
-    label: "Company",
+    label: "Pay",
     href: "/pay",
   },
 ];
