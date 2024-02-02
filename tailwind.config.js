@@ -21,10 +21,12 @@ module.exports = {
         xenon_btn: "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px",
         xenon_card:
           "0px 9.040969848632812px 54.245819091796875px 0px #9AA9B31F",
+        xenon_light: "0px 4px 30px 0px #BAC1C60F",
       },
       colors: {
         xenon: {
           DEFAULT: "#008EDB",
+          sky: "#29AAE1",
           brand: "#1377BC",
           primary: "#25205C",
           gray: "#3D4756",

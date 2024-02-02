@@ -1,10 +1,18 @@
 import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
 import {
+  CircleGridPattern,
+  DashboardShot,
   HelloSyka,
   ManHoldingCupTalking,
+  SecureAccounts,
+  Switch,
+  TransferToLocal,
+  WavyLineMouse,
+  WomanExcitedOnPhone,
   WomanSmilingAtPhone,
 } from "@/assets/images";
 import Features from "@/components/home/features";
+import GetMoreDone from "@/components/home/get-more-done";
 import Image from "next/image";
 
 export default function Home() {
@@ -136,7 +144,144 @@ export default function Home() {
         </div>
       </section>
 
-      <section></section>
+      <section className="xl:h-[458px] h-[427px] relative flex flex-col items-center py-12 xl:py-16 px-7 xl:px-0 bg-[#E4F4FB]">
+        <div className="flex flex-col items-center gap-6">
+          <p className="text-2xl xl:text-[43px] font-dmSans font-bold text-xenon-text text-center text-balance">
+            Manage <span className="text-xenon-500">both</span> your accounts
+            from one app
+          </p>
+          <p className="text-base xl:text-2xl text-[#8893A4] xl:text-balance text-center">
+            Easily switch between both accounts for a smoother experience. Track
+            your spending and be notified of any activity for both accounts, all
+            from your Syka app.
+          </p>
+        </div>
+        <div className="relative w-full">
+          <div className="absolute top-8 left-1/2 -translate-x-1/2 xl:w-[600px] w-screen max-w-[600px] shrink-0">
+            <Image
+              src={Switch}
+              className="w-full h-full xl:aspect-auto object-cover"
+              alt="hero-image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="xl:w-[1112px] flex flex-col xl:flex-row items-center justify-between gap-12 py-4 xl:py-0 px-7 xl:px-0 mx-auto">
+        <div className="xl:w-[514px] hidden xl:block shrink-0">
+          <Image
+            src={WomanExcitedOnPhone}
+            className="w-full h-full xl:aspect-auto object-cover"
+            alt="hero-image"
+          />
+        </div>
+        <div className="flex flex-col gap-3 xl:w-[520px]">
+          <p className="text-2xl xl:text-3xl font-dmSans font-bold ">
+            Open your account in a few simple steps
+          </p>
+          <p className="text-base xl:text-2xl text-[#8893A4]">
+            If you’re a small business owner with just your ID, we’ll get you
+            set up with a Syka business account in no time. No extra documents,
+            no phone calls and no long wait times.
+          </p>
+          <div className="w-fit hidden xl:block">
+            <button className="h-12 w-fit px-10 mt-6 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
+              Join the waitlist
+            </button>
+          </div>
+        </div>
+        <div className="xl:w-[514px] xl:hidden block shrink-0">
+          <Image
+            src={WomanExcitedOnPhone}
+            className="w-full h-full xl:aspect-auto object-cover"
+            alt="hero-image"
+          />
+        </div>
+        <div className="w-fit xl:hidden block">
+          <button className="h-12 w-fit px-10 mt-6 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
+            Join the waitlist
+          </button>
+        </div>
+      </section>
+
+      <section className="flex flex-row items-center justify-center px-4">
+        <div className="xl:w-[1110px] xl:h-[420px] mx-auto flex flex-col xl:flex-row items-center justify-between gap-10 rounded-[32px] overflow-clip bg-gradient-to-br from-[#1377BC] via-[#434FBB] to-[#9762B8]">
+          <div className="flex flex-1 h-full flex-col pt-14 px-8 xl:py-16 xl:pl-11">
+            <p className="text-2xl font-bold text-white xl:w-[460px] leading-[32px]">
+              Invest in global companies’ shares buy, sell, and send digital
+              currencies at the touch of a button
+            </p>
+            <div className="xl:w-[480px] shrink-0">
+              <Image
+                src={WavyLineMouse}
+                className="w-full h-full xl:aspect-auto object-cover"
+                alt="hero-image"
+              />
+            </div>
+          </div>
+          <div className="xl:w-[480px] xl:h-full relative pl-8 xl:pl-0">
+            <div className="xl:w-[480px] xl:absolute -bottom-[1px] shrink-0">
+              <Image
+                src={DashboardShot}
+                className="w-full h-full xl:aspect-auto object-cover"
+                alt="hero-image"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <GetMoreDone />
+
+      <section className="xl:h-[674px] bg-[#25205C] flex flex-col items-center py-14 xl:pt-14 px-5 xl:px-0">
+        <div className="relative xl:w-[1110px] h-full mx-auto gap-14 flex flex-col items-center">
+          <Image
+            src={CircleGridPattern}
+            alt="circle grid pattern"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[80%] w-[368px] h-[368px]"
+          />
+          <div className="flex flex-col items-center gap-2 text-center xl:w-[610px]">
+            <p className="text-sm xl:text-lg font-lato font-semibold text-[#7688A2] uppercase">
+              END-TO-END SECURITY
+            </p>
+            <p className="text-2xl xl:text-[32px] font-dmSans font-bold text-white">
+              Secured transactions with{" "}
+              <span className="text-xenon-sky">global</span> and{" "}
+              <span className="text-xenon-sky">local</span> transfers
+            </p>
+          </div>
+          <div className="flex flex-col xl:flex-row justify-between gap-10 w-full">
+            <div className="relative xl:w-[508px] xl:h-[564px] aspect-[508/564] px-10 xl:px-14 py-8 xl:py-11 bg-[#E4F4FB] rounded-[32px] shadow-xenon_light shadow-[#00000014]">
+              <p className="text-lg xl:text-2xl font-semibold text-xenon-text">
+                Transfer to locals as secured and swift as lighting.
+              </p>
+              <div className="flex flex-1">
+                <div className="xl:w-[444px] w-[85%] absolute bottom-0 right-0 shrink-0">
+                  <Image
+                    src={TransferToLocal}
+                    className="w-full h-full xl:aspect-auto object-cover"
+                    alt="hero-image"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="relative xl:w-[508px] xl:h-[564px] aspect-[508/564] px-10 xl:px-14 py-8 xl:py-11 overflow-clip bg-gradient-to-br from-[#1377BC] via-[#434FBB] to-[#9762B8] shadow-xenon_light shadow-[#00000014] rounded-[32px]">
+              <p className="text-lg xl:text-2xl font-semibold text-white">
+                Secured accounts that says goodbye to financial borders
+              </p>
+              <div className="flex flex-1">
+                <div className="xl:w-[444px] w-[85%] absolute bottom-0 right-0 shrink-0">
+                  <Image
+                    src={SecureAccounts}
+                    className="w-full h-full xl:aspect-auto object-cover"
+                    alt="hero-image"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="xl:h-32 h-80"></section>
     </main>

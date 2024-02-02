@@ -4,7 +4,7 @@ import {
   EmptyWalletAddIcon,
   ExportIcon,
   PresentationChartIcon,
-} from "@/assets/images/Features";
+} from "@/assets/icons/Features";
 import Image from "next/image";
 import React from "react";
 
@@ -43,7 +43,7 @@ const featuresData = [
 const Features = () => {
   return (
     <section className="flex flex-col items-center justify-center gap-10 xl:w-[1200px] mx-auto px-7 xl:px-0">
-      <div className="h-[246px] w-full flex flex-col xl:grid xl:grid-cols-3 gap-10">
+      <div className="xl:h-[246px] w-full flex flex-col xl:grid xl:grid-cols-3 gap-10">
         {featuresData.slice(0, 3).map((item) => (
           <div
             key={item.label}
