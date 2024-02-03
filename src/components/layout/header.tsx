@@ -52,7 +52,7 @@ const Header = () => {
         </nav>
       </div>
       <button className="hidden xl:block h-12 px-8 bg-xenon hover:bg-xenon-600 rounded-lg text-white duration-100">
-        Join the Waitlist
+        Get Started
       </button>
       <button
         onClick={() => setisSheetOpen((prev) => !prev)}

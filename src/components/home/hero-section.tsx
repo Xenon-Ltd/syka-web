@@ -21,7 +21,7 @@ const HeroSection = () => {
           </p>
         </div>
         <button className="h-12 w-fit px-10 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
-          Join the waitlist
+          Get Started
         </button>
         <div className="hidden xl:flex flex-row gap-4 mt-8 ">
           <button>
