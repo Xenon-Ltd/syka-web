@@ -22,3 +22,11 @@ export { default as DashboardShot } from "./dashboard-shot.png";
 export { default as WavyLineMouse } from "./wavy-line-mouse.png";
 export { default as Switch } from "./switch.png";
 export { default as GetSykaFooter } from "./getSykaFooter.png";
+
+export {
+  PayCrossBorder,
+  PayGlobe,
+  PayHeroDialog,
+  PayInvoices,
+  PayTransactions,
+} from "./Pay";
