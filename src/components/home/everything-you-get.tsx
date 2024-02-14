@@ -4,7 +4,7 @@ import React from "react";
 
 const everythingYouGet = [
   "Fully-fledged digital sign-up",
-  "24/7 cutomerr support",
+  "24/7 customer support",
   "Mobile and online banking",
   "Expense categorized",
   "Overdraft management",
