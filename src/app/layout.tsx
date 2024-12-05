@@ -1,9 +1,7 @@
 import FONTS from "@/assets/font";
-import "./globals.css";
-import type { Metadata } from "next";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
 import { SykaOpenGraph } from "@/assets/images";
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Syka",
@@ -35,9 +33,7 @@ export default function RootLayout({
       className={`${FONTS.dmSans.variable} ${FONTS.lato.variable} w-screen overflow-x-clip`}
     >
       <body suppressHydrationWarning>
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );
