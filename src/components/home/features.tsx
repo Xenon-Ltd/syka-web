@@ -6,6 +6,7 @@ import {
   PresentationChartIcon,
 } from "@/assets/icons/Features";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const featuresData = [
@@ -80,9 +81,11 @@ const Features = () => {
         ))}
       </div>
       <div className="w-fit mt-12 xl:mt-16">
-        <button className="h-12 w-fit px-10 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
-          Get Started
-        </button>
+        <Link href={"/signup"}>
+          <button className="h-12 w-fit px-10 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
+            Get Started
+          </button>
+        </Link>
       </div>
     </section>
   );

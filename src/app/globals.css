@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.label {
+    @apply block text-sm  font-semibold;
+  }
+  
+  .input {
+    @apply mt-1.5 bg-white border outline-none w-full h-11 py-2.5 px-[14px] text-[#667085] placeholder:text-[#667085]  rounded-lg;
+  }
+  
+  .PhoneInputInput {
+    outline: none;
+    height: 44px;
+    border-width: 1px 0;
+    border-color: #d0d5dd;
+    border-style: solid;
+  }
+  

@@ -41,7 +41,7 @@ const Header = () => {
             {links.map((link) => (
               <li
                 className={cn(
-                  pathname === link.href && "text-xenon-primary font-bold",
+                  pathname === link.href && "text-xenon-primary font-bold"
                 )}
                 key={link.href}
               >
@@ -51,9 +51,11 @@ const Header = () => {
           </ul>
         </nav>
       </div>
-      <button className="hidden xl:block h-12 px-8 bg-xenon hover:bg-xenon-600 rounded-lg text-white duration-100">
-        Get Started
-      </button>
+      <Link href={"/signup"}>
+        <button className="hidden xl:block h-12 px-8 bg-xenon hover:bg-xenon-600 rounded-lg text-white duration-100">
+          Get Started
+        </button>
+      </Link>
       <button
         onClick={() => setisSheetOpen((prev) => !prev)}
         className="xl:hidden block text-xenon"
@@ -63,7 +65,7 @@ const Header = () => {
       <div
         className={cn(
           "fixed top-0 left-0 w-full h-full bg-white z-50 transform transition-transform duration-300",
-          isSheetOpen ? "translate-x-0" : "-translate-x-full",
+          isSheetOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-row items-center justify-between px-4 py-4">

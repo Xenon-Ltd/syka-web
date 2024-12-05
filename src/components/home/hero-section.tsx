@@ -1,6 +1,7 @@
 import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
 import { HelloSyka } from "@/assets/images";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const HeroSection = () => {
@@ -20,9 +21,11 @@ const HeroSection = () => {
             you more control over your finances.
           </p>
         </div>
-        <button className="h-12 w-fit px-10 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
-          Get Started
-        </button>
+        <Link href={"/signup"}>
+          <button className="hidden xl:block h-12 px-8 bg-xenon hover:bg-xenon-600 rounded-lg text-white duration-100">
+            Get Started
+          </button>
+        </Link>
         <div className="hidden xl:flex flex-row gap-4 mt-8 ">
           <button>
             <Image
