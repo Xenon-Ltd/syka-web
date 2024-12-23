@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { SykaOpenGraph } from "@/assets/images";
+import { Analytics } from "@vercel/analytics/react"
+
 
 export const metadata: Metadata = {
   title: "Syka",
@@ -38,6 +40,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
