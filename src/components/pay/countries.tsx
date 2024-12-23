@@ -134,7 +134,7 @@ const CountriesWeSupport = () => {
                 className="w-full h-full"
               />
             </div>
-            <p className="text-base">{country.name}</p> 
+            <p className="text-base">{country.name}</p>
           </div>
         ))}
       </div>
