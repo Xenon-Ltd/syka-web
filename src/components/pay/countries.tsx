@@ -1,4 +1,3 @@
-import { HourGlass03 } from "@/assets/icons";
 import * as COUNTRIES_ICON from "@/assets/icons/countries";
 import Image from "next/image";
 import React from "react";
