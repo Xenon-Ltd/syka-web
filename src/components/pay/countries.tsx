@@ -4,7 +4,7 @@ import React from "react";
 
 const countries = [
   {
-    name: "Ghana",
+    name: "Ghana (GHS)",
     Icon: COUNTRIES_ICON.GH,
     pending: false,
   },
@@ -69,7 +69,7 @@ const countries = [
     pending: false,
   },
   {
-    name: "Turkey (TRY)",
+    name: "Thailand (THR)",
     Icon: COUNTRIES_ICON.TH,
     pending: false,
   },
