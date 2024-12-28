@@ -6,7 +6,6 @@ import Footer from "@/components/layout/footer";
 import { SykaOpenGraph } from "@/assets/images";
 import { Analytics } from "@vercel/analytics/react";
 
-
 export const metadata: Metadata = {
   title: "Syka",
   description: "SykaBank - Say hello to digital banking",
