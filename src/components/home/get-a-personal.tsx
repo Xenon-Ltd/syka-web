@@ -1,4 +1,4 @@
-import { WomanSmilingAtPhone } from "@/assets/images";
+import { WomanSmilingAtPhoneNew } from "@/assets/images";
 import Image from "next/image";
 import React from "react";
 
@@ -8,7 +8,7 @@ const GetAPersonalAccount = () => {
       <div className="w-[1128px] flex flex-col-reverse xl:flex-row gap-20 items-center justify-between mx-auto">
         <div className="xl:w-[525px] shrink-0">
           <Image
-            src={WomanSmilingAtPhone}
+            src={WomanSmilingAtPhoneNew}
             className="w-full h-full xl:aspect-auto object-cover"
             alt="hero-image"
           />
@@ -18,15 +18,16 @@ const GetAPersonalAccount = () => {
             GET A SYKA PERSONAL ACCOUNT
           </p>
           <p className="text-2xl xl:text-3xl font-dmSans font-bold text-xenon-text">
-            Take <span className="text-xenon-500">control</span> of your
-            financial life
+            The Modern Financial Stack for a{" "}
+            <span className="text-xenon-500">Borderless</span> World
           </p>
           <p className="text-base xl:text-2xl text-[#8893A4] xl:w-[439px]">
-            Open a free account right from your phone. Create saving jar, split
-            bills and do everything you used to do in a branch on your phone.
+            A modern, borderless payments platform that helps businesses send,
+            receive, and manage global payments faster, with transparent pricing
+            and no unnecessary complexity.{" "}
           </p>
           <button className="h-12 w-fit px-10 mt-6 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
-            Get Started
+            Get Started for free
           </button>
         </div>
       </div>

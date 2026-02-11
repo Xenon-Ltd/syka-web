@@ -23,6 +23,16 @@ export { default as WavyLineMouse } from "./wavy-line-mouse.png";
 export { default as Switch } from "./switch.png";
 export { default as GetSykaFooter } from "./getSykaFooter.png";
 
+export { default as SendMoneyGlobally } from "./send-money-mobile.svg";
+export { default as WomanSmilingAtPhoneNew } from "./woman-smiling-at-phone-new.png";
+
+export { default as GetPaidFaster } from "./get-paid-faster.png";
+export { default as LightningFlowTransfers } from "./lightning-flow-transfers.png";
+export { default as SpendableBalance } from "./spendable-balance.png";
+export { default as LocalPresence } from "./your-local-presence.png";
+
+export { default as EndToEndSecurityImage } from "./end-to-end-secu.svg";
+
 export {
   PayCrossBorder,
   PayGlobe,

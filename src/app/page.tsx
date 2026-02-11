@@ -1,36 +1,21 @@
-import EndToEnd from "@/components/home/end-to-end";
-import EverythingYouGet from "@/components/home/everything-you-get";
-import Features from "@/components/home/features";
-import FewSimpleSteps from "@/components/home/few-simple-steps";
+import CountriesSupported from "@/components/home/countries-supported";
+import EndToEndSecurity from "@/components/home/end-to-end-security";
 import GetAPersonalAccount from "@/components/home/get-a-personal";
-import GetMoreDone from "@/components/home/get-more-done";
-import HeroSection from "@/components/home/hero-section";
-import InvestInGlobal from "@/components/home/invest-in-global";
-import ManageBothAccounts from "@/components/home/manage-both-accounts";
-import OpenABusinessAccount from "@/components/home/open-a-business-account";
+import Hero from "@/components/home/hero";
+import MoreThanTransfers from "@/components/home/more-than-transfers";
 
 export default function Home() {
   return (
     <main className="flex flex-col gap-28 xl:gap-[200px] min-h-screen">
-      <HeroSection />
+      <Hero />
 
       <GetAPersonalAccount />
 
-      <Features />
+      <MoreThanTransfers />
 
-      <OpenABusinessAccount />
+      <EndToEndSecurity />
 
-      <ManageBothAccounts />
-
-      <FewSimpleSteps />
-
-      <InvestInGlobal />
-
-      <GetMoreDone />
-
-      <EndToEnd />
-
-      <EverythingYouGet />
+      <CountriesSupported />
 
       <section className="xl:h-32 h-[28rem]"></section>
     </main>
