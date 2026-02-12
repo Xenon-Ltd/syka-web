@@ -1,3 +1,4 @@
+import BuiltOnStability from "@/components/home/built-on-stability";
 import CountriesSupported from "@/components/home/countries-supported";
 import EndToEndSecurity from "@/components/home/end-to-end-security";
 import GetAPersonalAccount from "@/components/home/get-a-personal";
@@ -14,6 +15,8 @@ export default function Home() {
       <MoreThanTransfers />
 
       <EndToEndSecurity />
+
+      <BuiltOnStability />
 
       <CountriesSupported />
 
