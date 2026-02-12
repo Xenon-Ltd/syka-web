@@ -9,7 +9,7 @@ import Image from "next/image";
 
 export default function MoreThanTransfers() {
   return (
-    <div className="py-16">
+    <section className="items-center justify-between xl:h-[572px] xl:w-[1092px] mx-auto px-6 xl:px-0">
       {/* Header Section */}
       <div className="mb-12 text-center">
         <h2 className="text-5xl font-bold text-gray-900 mb-3">
@@ -108,6 +108,6 @@ export default function MoreThanTransfers() {
           <Image src={LocalPresence} alt="Local Presence" />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

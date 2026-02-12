@@ -7,11 +7,15 @@ import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
 function Hero() {
   const countryFlags = [GH, NG, GB, US, MORE];
   return (
-    <div>
+    <section className="flex flex-col xl:flex-row items-center justify-between gap-14 xl:h-[572px] xl:w-[1092px] mx-auto px-6 xl:px-0 xl:mt-12 mt-4">
+      {" "}
       <div className="flex w-full items-center justify-center mx-auto">
+        {" "}
         <div className="w-1/2">
+          {" "}
           <div className="text-2xl flex gap-4 items-center">
-            <p>Available in</p>
+            {" "}
+            <p>Available in</p>{" "}
             <div className="flex items-center gap-1">
               {countryFlags.map((src, index) => (
                 <Image
@@ -48,32 +52,7 @@ function Hero() {
           <Image src={SendMoneyGlobally} alt="phone-image" width={500} />
         </div>
       </div>
-      <div className="text-center mt-10">
-        <p className="text-4xl font-semibold">
-          Move digital dollars across borders in minutes.
-        </p>
-        <p className="text-xl mt-4">
-          Simple, fast and transparent global payments.
-        </p>
-
-        <div className="flex flex-row mt-6 gap-4 justify-center">
-          <button>
-            <Image
-              src={PlayStoreBadgeIcon}
-              className="h-10 w-[135px]"
-              alt="play-store-badge"
-            />
-          </button>
-          <button>
-            <Image
-              src={AppStoreBadgeIcon}
-              className="h-10 w-[135px]"
-              alt="app-store-badge"
-            />
-          </button>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 

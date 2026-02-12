@@ -4,7 +4,7 @@ import React from "react";
 
 function EndToEndSecurity() {
   return (
-    <div className="flex">
+    <div className="relative flex flex-col xl:flex-row items-center justify-between gap-14 xl:h-[572px] xl:w-[1092px] mx-auto px-6 xl:px-0 xl:mt-12 mt-4">
       <div>
         <Image src={EndToEndSecurityImage} alt="endtoend" />
       </div>
