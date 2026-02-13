@@ -4,8 +4,8 @@ import React from "react";
 
 const GetAPersonalAccount = () => {
   return (
-    <section className="flex items-center justify-center xl:h-[700px] py-16 xl:py-0 px-7 xl:px-0 bg-[#E4F4FB]">
-      <div className="w-[1128px] flex flex-col-reverse xl:flex-row gap-20 items-center justify-between mx-auto">
+    <section className="py-16 xl:py-24 bg-[#E4F4FB]">
+      <div className="max-w-[1092px] mx-auto px-6 xl:px-0 flex flex-col-reverse xl:flex-row gap-12 xl:gap-20 items-center justify-between">
         <div className="xl:w-[525px] shrink-0">
           <Image
             src={WomanSmilingAtPhoneNew}
@@ -17,11 +17,11 @@ const GetAPersonalAccount = () => {
           <p className="text-sm xl:text-lg font-lato font-semibold text-[#7688A2] uppercase">
             GET A SYKA PERSONAL ACCOUNT
           </p>
-          <p className="text-2xl xl:text-3xl font-dmSans font-bold text-xenon-text">
+          <p className="text-3xl xl:text-4xl font-dmSans font-bold text-gray-900">
             The Modern Financial Stack for a{" "}
             <span className="text-xenon-500">Borderless</span> World
           </p>
-          <p className="text-base xl:text-2xl text-[#8893A4] xl:w-[439px]">
+          <p className="text-base xl:text-lg text-gray-600 max-w-md">
             A modern, borderless payments platform that helps businesses send,
             receive, and manage global payments faster, with transparent pricing
             and no unnecessary complexity.{" "}

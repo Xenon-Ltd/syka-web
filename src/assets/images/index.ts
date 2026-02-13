@@ -33,6 +33,14 @@ export { default as LocalPresence } from "./your-local-presence.png";
 
 export { default as EndToEndSecurityImage } from "./end-to-end-secu.svg";
 
+export { default as BankGradeSecurity } from "./bank-grade-secu.png";
+export { default as StablecoinPowered } from "./stablecoin-powered.svg";
+export { default as TransparentWallet } from "./transparent-wallet.png";
+
+export { default as ForFreelancersAndRemoteWorkers } from "./for-freelancers-remote.png";
+export { default as ForSMEsAndStartups } from "./smes-startups.jpg";
+export { default as ForDigitalNomadsAndExpats } from "./digital-nomads-expats.png";
+
 export {
   PayCrossBorder,
   PayGlobe,

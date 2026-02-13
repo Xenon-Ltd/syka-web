@@ -7,15 +7,11 @@ import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
 function Hero() {
   const countryFlags = [GH, NG, GB, US, MORE];
   return (
-    <section className="flex flex-col xl:flex-row items-center justify-between gap-14 xl:h-[572px] xl:w-[1092px] mx-auto px-6 xl:px-0 xl:mt-12 mt-4">
-      {" "}
-      <div className="flex w-full items-center justify-center mx-auto">
-        {" "}
-        <div className="w-1/2">
-          {" "}
+    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 xl:mt-12 mt-4">
+      <div className="flex flex-col xl:flex-row items-center justify-between gap-10 xl:gap-14">
+        <div className="w-full xl:w-1/2">
           <div className="text-2xl flex gap-4 items-center">
-            {" "}
-            <p>Available in</p>{" "}
+            <p>Available in</p>
             <div className="flex items-center gap-1">
               {countryFlags.map((src, index) => (
                 <Image
@@ -29,11 +25,11 @@ function Hero() {
             </div>
           </div>
           <div>
-            <p className="text-4xl font-bold leading-tight my-4">
+            <p className="text-3xl xl:text-4xl font-bold leading-tight my-4 text-gray-900">
               Send Money <span>Globally,</span> <br />
               Without the heavy fees.
             </p>
-            <p>
+            <p className="text-base text-gray-600">
               Go beyong transfers. spend, receive, and manage your global <br />
               business with virtual accounts & cards.
             </p>
@@ -48,7 +44,7 @@ function Hero() {
             </div>
           </div>
         </div>
-        <div className="w-1/2">
+        <div className="w-full xl:w-1/2">
           <Image src={SendMoneyGlobally} alt="phone-image" width={500} />
         </div>
       </div>

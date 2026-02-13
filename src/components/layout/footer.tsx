@@ -53,9 +53,9 @@ const Footer = () => {
     <footer className="relative flex flex-col justify-between xl:h-[560px] w-full bg-xenon-primary">
       <div className="absolute bottom-[80%] flex-1 left-1/2 -translate-x-1/2 xl:h-[370px] items-center rounded-3xl w-[calc(100vw-48px)] xl:w-[1211px] xl:mx-auto flex flex-col xl:flex-row gap-20 xl:gap-0 bg-white shadow-xenon_sh">
         <div className="flex flex-col gap-11 xl:ml-[138px] px-6 xl:px-0 pt-14">
-          <p className="font-dmSans text-4.5xl font-bold xl:w-[580px] text-xenon-gray leading-[46px]">
-            Get the app <span className="text-xenon">now</span>, take control of
-            your financial wealth
+          <p className="font-dmSans text-4xl font-bold xl:w-[580px] text-xenon-gray leading-[46px]">
+            Join businesses and individuals moving money the{" "}
+            <span className="text-xenon">modern</span> way.
           </p>
           <div className="flex flex-row gap-4">
             <button>

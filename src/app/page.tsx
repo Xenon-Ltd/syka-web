@@ -5,18 +5,20 @@ import EndToEndSecurity from "@/components/home/end-to-end-security";
 import GetAPersonalAccount from "@/components/home/get-a-personal";
 import Hero from "@/components/home/hero";
 import MoreThanTransfers from "@/components/home/more-than-transfers";
+import SocialProof from "@/components/home/social-proof";
+import SolutionsThatFit from "@/components/home/solutions-that-fit";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-28 xl:gap-[200px] min-h-screen">
+    <main className="flex flex-col gap-24 xl:gap-32 min-h-screen">
       <Hero />
 
-      <div className="text-center">
-        <p className="text-4xl font-semibold">
+      <div className="max-w-[1092px] mx-auto px-6 xl:px-0 text-center">
+        <p className="text-3xl xl:text-4xl font-bold text-gray-900">
           Move digital dollars across borders in minutes.
         </p>
-        <p className="text-xl mt-4">
+        <p className="text-xl mt-4 text-gray-600">
           Simple, fast and transparent global payments.
         </p>
 
@@ -46,9 +48,13 @@ export default function Home() {
 
       <BuiltOnStability />
 
+      <SolutionsThatFit />
+
+      <SocialProof />
+
       <CountriesSupported />
 
-      <section className="xl:h-32 h-[28rem]"></section>
+      <div className="h-24 xl:h-32" />
     </main>
   );
 }

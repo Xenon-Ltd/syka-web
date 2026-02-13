@@ -45,8 +45,14 @@ const countries = [
 
 function CountryItem({ icon, name }: CountryItemProps) {
   return (
-    <div className="flex items-center gap-2 w-fit px-8 py-1 rounded-full bg-gray-100 my-1">
-      <Image src={icon} alt={`${name} flag`} width={28} height={28} />
+    <div className="flex items-center gap-3 w-fit px-8 py-1 rounded-full bg-gray-100 my-0">
+      <Image
+        src={icon}
+        alt={`${name} flag`}
+        width={20}
+        height={20}
+        className="border rounded-full"
+      />
       <p>{name}</p>
     </div>
   );
@@ -54,10 +60,12 @@ function CountryItem({ icon, name }: CountryItemProps) {
 
 export default function CountriesSupported() {
   return (
-    <div>
-      <p>Countries We Currently Support</p>
+    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 mb-20">
+      <p className="text-3xl xl:text-4xl font-bold text-gray-900 text-center">
+        Countries We Currently Support
+      </p>
 
-      <div className="flex gap-2 flex-wrap mt-4 items-center justify-center">
+      <div className="flex gap-3 flex-wrap mt-8 items-center justify-center">
         {countries.map((country) => (
           <CountryItem
             key={country.name}
@@ -66,6 +74,6 @@ export default function CountriesSupported() {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }

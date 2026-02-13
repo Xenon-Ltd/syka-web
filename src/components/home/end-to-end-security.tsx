@@ -4,16 +4,19 @@ import React from "react";
 
 function EndToEndSecurity() {
   return (
-    <div className="relative flex flex-col xl:flex-row items-center justify-between gap-14 xl:h-[572px] xl:w-[1092px] mx-auto px-6 xl:px-0 xl:mt-12 mt-4">
+    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 flex flex-col xl:flex-row items-center justify-between gap-10 xl:gap-14">
       <div>
         <Image src={EndToEndSecurityImage} alt="endtoend" />
       </div>
       <div className="flex flex-col justify-center">
-        <p>END-TO-END SECURITY</p>
-        <p>
-          Send Money <span>Globally</span> in Three Simple Steps
+        <p className="text-sm xl:text-base font-semibold uppercase text-[#7688A2] tracking-wide">
+          END-TO-END SECURITY
         </p>
-        <p>
+        <p className="text-3xl xl:text-4xl font-bold text-gray-900 mt-2">
+          Send Money <span className="text-xenon-500">Globally</span> in <br />{" "}
+          Three Simple Steps
+        </p>
+        <p className="text-base text-gray-600 mt-3">
           Fund your Syka wallet, move money instantly across borders, convert
           currencies when needed, and manage spending or invoice payments from a
           single platform.
@@ -22,7 +25,7 @@ function EndToEndSecurity() {
           Get Started for free
         </button>
       </div>
-    </div>
+    </section>
   );
 }
 
