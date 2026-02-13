@@ -45,7 +45,7 @@ const countries = [
 
 function CountryItem({ icon, name }: CountryItemProps) {
   return (
-    <div className="flex items-center gap-3 w-fit px-8 py-1 rounded-full bg-gray-100 my-0">
+    <div className="flex items-center gap-3 w-fit px-4 md:px-8 py-1 rounded-full bg-gray-100 my-0">
       <Image
         src={icon}
         alt={`${name} flag`}
@@ -60,8 +60,8 @@ function CountryItem({ icon, name }: CountryItemProps) {
 
 export default function CountriesSupported() {
   return (
-    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 mb-20">
-      <p className="text-3xl xl:text-4xl font-bold text-gray-900 text-center">
+    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 mb-80 sm:mb-20">
+      <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900 text-center">
         Countries We Currently Support
       </p>
 

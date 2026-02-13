@@ -15,10 +15,10 @@ export default function Home() {
       <Hero />
 
       <div className="max-w-[1092px] mx-auto px-6 xl:px-0 text-center">
-        <p className="text-3xl xl:text-4xl font-bold text-gray-900">
+        <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
           Move digital dollars across borders in minutes.
         </p>
-        <p className="text-xl mt-4 text-gray-600">
+        <p className="text-base md:text-xl mt-4 text-gray-600">
           Simple, fast and transparent global payments.
         </p>
 

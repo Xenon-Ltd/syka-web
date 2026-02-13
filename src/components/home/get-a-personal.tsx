@@ -17,7 +17,7 @@ const GetAPersonalAccount = () => {
           <p className="text-sm xl:text-lg font-lato font-semibold text-[#7688A2] uppercase">
             GET A SYKA PERSONAL ACCOUNT
           </p>
-          <p className="text-3xl xl:text-4xl font-dmSans font-bold text-gray-900">
+          <p className="text-2xl md:text-3xl xl:text-4xl font-dmSans font-bold text-gray-900">
             The Modern Financial Stack for a{" "}
             <span className="text-xenon-500">Borderless</span> World
           </p>

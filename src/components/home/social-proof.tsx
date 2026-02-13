@@ -38,7 +38,7 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="bg-white rounded-2xl p-6 flex flex-col justify-between h-[280px] w-full">
+    <div className="bg-white rounded-2xl p-6 flex flex-col justify-between min-h-[280px] w-full">
       <div>
         <div className="mb-4">
           <Image
@@ -101,7 +101,7 @@ function SocialProof() {
           <p className="text-sm font-semibold uppercase tracking-wide text-white/70 mb-2">
             SOCIAL PROOF
           </p>
-          <h2 className="text-3xl xl:text-4xl font-bold text-white">
+          <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-white">
             What Our <span className="text-xenon-400">Customers</span> Have to
             Say
           </h2>

@@ -12,8 +12,8 @@ function EndToEndSecurity() {
         <p className="text-sm xl:text-base font-semibold uppercase text-[#7688A2] tracking-wide">
           END-TO-END SECURITY
         </p>
-        <p className="text-3xl xl:text-4xl font-bold text-gray-900 mt-2">
-          Send Money <span className="text-xenon-500">Globally</span> in <br />{" "}
+        <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900 mt-2">
+          Send Money <span className="text-xenon-500">Globally</span> in
           Three Simple Steps
         </p>
         <p className="text-base text-gray-600 mt-3">

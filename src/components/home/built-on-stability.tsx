@@ -10,10 +10,10 @@ function BuiltOnStability() {
   return (
     <section className="max-w-[1092px] mx-auto px-6 xl:px-0">
       <div className="text-center mb-12">
-        <h2 className="text-3xl xl:text-4xl font-bold text-gray-900">
+        <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
           Built on <span className="text-xenon-500">Stability,</span>
         </h2>
-        <p className="text-3xl xl:text-4xl font-bold text-gray-900">
+        <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
           Guarded by <span className="text-xenon-500">Security</span>
         </p>
       </div>
