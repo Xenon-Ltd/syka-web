@@ -29,7 +29,7 @@ function Hero() {
               Send Money <span>Globally,</span> Without the heavy fees.
             </p>
             <p className="text-base text-gray-600">
-              Go beyong transfers. spend, receive, and manage your global
+              Go beyond transfers. spend, receive, and manage your global
               business with virtual accounts & cards.
             </p>
 
@@ -44,7 +44,12 @@ function Hero() {
           </div>
         </div>
         <div className="w-full xl:w-1/2">
-          <Image src={SendMoneyGlobally} alt="phone-image" width={500} className="w-full max-w-[500px]" />
+          <Image
+            src={SendMoneyGlobally}
+            alt="phone-image"
+            width={500}
+            className="w-full max-w-[500px]"
+          />
         </div>
       </div>
     </section>
