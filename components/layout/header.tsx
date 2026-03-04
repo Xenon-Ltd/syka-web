@@ -1,0 +1,346 @@
+"use client";
+import { MenuIcon } from "@/assets/icons";
+import { SykaLogo } from "@/assets/_images";
+import { cn } from "@/lib/utils";
+import { ChevronDown, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+
+type DropdownItem = {
+  label: string;
+  href: string;
+};
+
+type TopLevelItem =
+  | {
+      label: string;
+      type: "link";
+      href: string;
+    }
+  | {
+      label: string;
+      type: "dropdown";
+      items: DropdownItem[];
+    };
+
+type RouteVariant = "personal" | "business";
+
+const routeSwitchLinks = [
+  {
+    label: "Personal",
+    href: "/",
+  },
+  {
+    label: "Business",
+    href: "/business",
+  },
+];
+
+const productsItem: TopLevelItem = {
+  label: "Products",
+  type: "dropdown",
+  items: [
+    { label: "Virtual Accounts", href: "#" },
+    { label: "Virtual Cards", href: "#" },
+    { label: "Invoicing", href: "#" },
+    { label: "Payments", href: "#" },
+    { label: "Treasury Management", href: "#" },
+  ],
+};
+
+const companyItem: TopLevelItem = {
+  label: "Company",
+  type: "dropdown",
+  items: [
+    { label: "About Us", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Press", href: "#" },
+    { label: "Careers", href: "#" },
+    { label: "Community", href: "#" },
+  ],
+};
+
+const supportItem: TopLevelItem = {
+  label: "Support",
+  type: "link",
+  href: "#",
+};
+
+const developersItem: TopLevelItem = {
+  label: "Developers",
+  type: "dropdown",
+  items: [{ label: "API Documentation", href: "#" }],
+};
+
+const Header = () => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
+  const dropdownContainerRef = useRef<HTMLDivElement>(null);
+  const isBusinessRoute = pathname.startsWith("/business");
+  const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
+
+  const navItems: TopLevelItem[] = isBusinessRoute
+    ? [productsItem, companyItem, developersItem, supportItem]
+    : [productsItem, companyItem, supportItem];
+
+  const segmentPillTranslateClass =
+    routeVariant === "business" ? "translate-x-full" : "translate-x-0";
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownContainerRef.current &&
+        !dropdownContainerRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdown(null);
+      }
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenDropdown(null);
+        setIsSheetOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeydown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, []);
+
+  return (
+    <header className="relative my-3 xl:my-5 mb-24 flex flex-row items-center justify-between w-full xl:max-w-[1211px] mx-auto">
+      <div className="hidden xl:flex xl:items-center xl:gap-12">
+        <Link href="/" aria-label="Go to Syka home">
+          <Image
+            src={SykaLogo}
+            height={192}
+            width={486}
+            className="h-11 w-auto"
+            alt="Syka Logo"
+          />
+        </Link>
+        <div className="relative inline-flex items-center rounded-full bg-[#EDF0F5] p-1">
+          <span
+            aria-hidden
+            className={cn(
+              "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F2AE00] transition-transform duration-300 ease-out",
+              segmentPillTranslateClass,
+            )}
+          />
+          {routeSwitchLinks.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? routeVariant === "personal"
+                : routeVariant === "business";
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "relative z-10 w-24 rounded-full px-4 py-1.5 text-center text-sm font-medium transition-colors",
+                  isActive
+                    ? "text-white"
+                    : "text-[#2C2F54] hover:text-[#1E213F]",
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <nav ref={dropdownContainerRef} className="hidden xl:block">
+        <ul className="flex items-center gap-10 text-[21px] text-[#4A4E66]">
+          {navItems.map((item) =>
+            item.type === "link" ? (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className="text-base font-medium transition-colors hover:text-[#1F2238]"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ) : (
+              <li
+                key={item.label}
+                className="group relative"
+                onBlur={(event) => {
+                  if (
+                    openDropdown === item.label &&
+                    !event.currentTarget.contains(
+                      event.relatedTarget as Node | null,
+                    )
+                  ) {
+                    setOpenDropdown(null);
+                  }
+                }}
+              >
+                <button
+                  type="button"
+                  aria-expanded={openDropdown === item.label}
+                  className="flex items-center gap-1 text-base font-medium text-[#4A4E66] transition-colors hover:text-[#1F2238] focus:outline-none"
+                  onClick={() =>
+                    setOpenDropdown((prev) =>
+                      prev === item.label ? null : item.label,
+                    )
+                  }
+                >
+                  <span>{item.label}</span>
+                  <ChevronDown className="size-4" />
+                </button>
+                <div
+                  className={cn(
+                    "absolute top-full left-0 mt-3 min-w-52 rounded-xl border border-[#E6E8F1] bg-white p-2 shadow-lg",
+                    openDropdown === item.label
+                      ? "block"
+                      : "hidden group-hover:block group-focus-within:block",
+                  )}
+                >
+                  <ul className="space-y-1">
+                    {item.items.map((subItem) => (
+                      <li key={subItem.label}>
+                        <Link
+                          href={subItem.href}
+                          className="block rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]"
+                        >
+                          {subItem.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ),
+          )}
+        </ul>
+      </nav>
+
+      <Link
+        href="#"
+        className="hidden h-12 items-center rounded-lg bg-[#2094DF] px-10 text-lg font-semibold text-white transition-colors hover:bg-[#1886CE] xl:inline-flex"
+      >
+        Get started
+      </Link>
+
+      <div className="flex w-full items-center justify-between xl:hidden">
+        <Link href="/" aria-label="Go to Syka home">
+          <Image
+            src={SykaLogo}
+            height={192}
+            width={486}
+            className="h-11 w-auto"
+            alt="Syka Logo"
+          />
+        </Link>
+        <button
+          onClick={() => setIsSheetOpen((prev) => !prev)}
+          className="text-[#2094DF]"
+          aria-label="Toggle menu"
+        >
+          <MenuIcon />
+        </button>
+      </div>
+
+      <div
+        className={cn(
+          "fixed top-0 left-0 z-50 h-full w-full transform bg-white transition-transform duration-300",
+          isSheetOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
+        <div className="flex items-center justify-between border-b border-[#ECEEF5] px-4 py-4">
+          <Link href="/" aria-label="Go to Syka home">
+            <Image src={SykaLogo} className="h-10 w-auto" alt="Syka Logo" />
+          </Link>
+          <button
+            onClick={() => setIsSheetOpen(false)}
+            className="text-[#2094DF]"
+            aria-label="Close menu"
+          >
+            <X className="size-6" />
+          </button>
+        </div>
+
+        <div className="px-4 pt-5">
+          <div className="relative inline-flex items-center rounded-full bg-[#EDF0F5] p-1">
+            <span
+              aria-hidden
+              className={cn(
+                "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F2AE00] transition-transform duration-300 ease-out",
+                segmentPillTranslateClass,
+              )}
+            />
+            {routeSwitchLinks.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? routeVariant === "personal"
+                  : routeVariant === "business";
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsSheetOpen(false)}
+                  className={cn(
+                    "relative z-10 w-24 rounded-full px-4 py-1.5 text-center text-sm font-medium transition-colors",
+                    isActive
+                      ? "text-white"
+                      : "text-[#2C2F54] hover:text-[#1E213F]",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        <nav className="mt-8 flex flex-col gap-8 px-4 pb-10">
+          {navItems.map((item) =>
+            item.type === "link" ? (
+              <Link
+                onClick={() => setIsSheetOpen(false)}
+                href={item.href}
+                key={item.label}
+                className="text-base font-semibold text-[#1F2238]"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <section key={item.label}>
+                <p className="mb-3 text-xs font-bold tracking-[0.14em] text-[#8B90A6] uppercase">
+                  {item.label}
+                </p>
+                <ul className="space-y-3">
+                  {item.items.map((subItem) => (
+                    <li key={subItem.label}>
+                      <Link
+                        onClick={() => setIsSheetOpen(false)}
+                        href={subItem.href}
+                        className="text-base text-[#343955]"
+                      >
+                        {subItem.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ),
+          )}
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
