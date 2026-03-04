@@ -4,28 +4,28 @@ import React from "react";
 
 function EndToEndSecurity() {
   return (
-    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 flex flex-col xl:flex-row-reverse items-center justify-between gap-10 xl:gap-14">
-      <div>
+    <section className="mx-auto mt-20 flex max-w-[1092px] flex-col items-center justify-between gap-10 px-6 xl:mt-24 xl:flex-row-reverse xl:gap-16 xl:px-0">
+      <div className="w-full xl:w-[520px]">
         <Image
           src={EndToEndSecurityImage}
           alt="endtoend"
-          className="scale-x-[-1]"
+          className="w-full scale-x-[-1]"
         />
       </div>
-      <div className="flex flex-col justify-center">
-        <p className="text-sm xl:text-base font-semibold uppercase text-[#7688A2] tracking-wide">
+      <div className="flex w-full flex-col xl:w-[460px]">
+        <p className="text-xs font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
           END-TO-END SECURITY
         </p>
-        <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900 mt-2">
-          Send Money <span className="text-xenon-500">Globally</span> in Three
+        <h2 className="mt-3 text-[40px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733]">
+          Send Money <span className="text-xenon">Globally</span> in Three
           Simple Steps
-        </p>
-        <p className="text-base text-gray-600 mt-3">
+        </h2>
+        <p className="mt-4 max-w-[440px] text-[15px] leading-[1.7] text-[#4E576A]">
           Fund your Syka wallet, move money instantly across borders, convert
           currencies when needed, and manage spending or invoice payments from a
           single platform.
         </p>
-        <button className="h-12 w-fit px-10 mt-6 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
+        <button className="mt-7 h-11 w-fit rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
           Get Started for free
         </button>
       </div>

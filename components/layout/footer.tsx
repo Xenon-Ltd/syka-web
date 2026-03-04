@@ -54,10 +54,10 @@ const Footer = () => {
   const isBusinessRoute = pathname.startsWith("/business");
 
   return (
-    <footer className="relative mt-16 flex w-full flex-col bg-xenon-primary xl:mt-20">
-      <div className="w-[calc(100vw-48px)] xl:w-[1211px] xl:h-[370px] xl:mx-auto flex flex-col xl:flex-row items-center gap-20 xl:gap-0 rounded-3xl bg-white shadow-xenon_sh">
-        <div className="flex flex-col gap-11 xl:ml-[138px] px-6 xl:px-0 pt-14">
-          <p className="font-dmSans text-4xl font-bold xl:w-[580px] text-xenon-gray leading-[46px]">
+    <footer className="relative mt-28 flex w-full flex-col bg-xenon-primary xl:min-h-[560px]">
+      <div className="absolute top-0 left-1/2 flex w-[calc(100vw-48px)] -translate-x-1/2 -translate-y-[22%] flex-col items-center gap-12 rounded-3xl bg-white px-6 pt-10 pb-6 shadow-xenon_sh xl:h-[370px] xl:w-[1211px] xl:flex-row xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0">
+        <div className="flex flex-col gap-8 xl:ml-[86px] xl:py-12">
+          <p className="font-dmSans text-[40px] leading-[1.1] font-bold xl:w-[560px] text-xenon-gray">
             {isBusinessRoute ? (
               <>
                 Ready To Transform Your{" "}
@@ -70,7 +70,7 @@ const Footer = () => {
               </>
             )}
           </p>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-3">
             <button>
               <Image
                 src={AppStoreBadgeIcon}
@@ -90,10 +90,10 @@ const Footer = () => {
         <Image
           src={GetSykaFooter}
           alt="growth-partner"
-          className="xl:w-[468px] xl:h-[298px] xl:self-end"
+          className="w-full max-w-[430px] xl:h-[290px] xl:w-[430px] xl:self-end"
         />
       </div>
-      <div className="xl:w-[1211px] mx-auto pt-12 xl:pt-16 flex flex-col-reverse xl:flex-row gap-20 xl:justify-between pb-11">
+      <div className="mx-auto flex flex-col-reverse gap-16 px-6 pb-10 pt-[210px] xl:w-[1211px] xl:flex-row xl:justify-between xl:px-0 xl:pt-[210px]">
         <div className="flex flex-col items-center xl:items-start gap-3 w-[366px]">
           <div className="w-[190px] h-[82px] p-2.5">
             <Image
@@ -135,12 +135,16 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="xl:w-[1211px] shrink-0 w-screen mx-auto py-4 xl:h-[72px] flex-1 flex items-center justify-center border-t border-white/20">
-        <p className="text-white text-center">© {year} 2026 Syka Ltd.</p>
+      <p className="text-center text-white">© {year} Syka Ltd.</p>
+
+      <div className="mx-auto flex w-screen shrink-0 flex-1 items-center justify-center border-t border-white/20 py-4 text-white xl:h-[72px] xl:w-[1211px]">
+        Syka is a product of Xenon Ltd, which is a financial technology company
+        and not a bank. Our services are provided by our partner banks and other
+        financial institutions that are duly licensed by BOG.{" "}
       </div>
-      <p className="hidden opacity-0">
+      <p className="hidden">
         Code was painstakenly written by Brian Newton. github/CozyBrian
-        <span>Updated in 2025 by Vincent Kwaku. github.com/thelocalgodd</span>
+        <span>Updated in 2026 by Vincent Kwaku. github.com/thelocalgodd</span>
       </p>
     </footer>
   );

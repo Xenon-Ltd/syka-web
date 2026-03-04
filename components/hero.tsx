@@ -1,55 +1,85 @@
 import Image from "next/image";
 import React from "react";
 import { GH, NG, GB, US, MORE } from "@/assets/icons/countries";
-import { SendMoneyGlobally } from "@/assets/images";
 import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
+import { PhoneWithFrame } from "@/assets/images";
 
 function Hero() {
   const countryFlags = [GH, NG, GB, US, MORE];
   return (
-    <section className="max-w-[1092px] mx-auto px-6 xl:px-0 xl:mt-12 mt-4">
-      <div className="flex flex-col xl:flex-row items-center justify-between gap-10 xl:gap-14">
-        <div className="w-full xl:w-1/2">
-          <div className="text-base md:text-2xl flex gap-4 items-center">
+    <section className="mx-auto mt-4 max-w-[1092px] px-6 xl:mt-8 xl:px-0">
+      <div className="flex flex-col items-center justify-between gap-10 xl:flex-row mt-8 xl:gap-16 xl:mt-18">
+        <div className="w-full xl:w-[510px]">
+          <div className="flex items-center gap-4 text-sm text-[#6A7284] xl:text-base">
             <p>Available in</p>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               {countryFlags.map((src, index) => (
                 <Image
                   key={index}
                   src={src}
                   alt="country-flag"
-                  width={32}
-                  height={32}
+                  width={24}
+                  height={24}
+                  className="size-6"
                 />
               ))}
             </div>
           </div>
-          <div>
-            <p className="text-2xl md:text-3xl xl:text-4xl font-bold leading-tight my-4 text-gray-900">
-              Send Money <span>Globally,</span> Without the heavy fees.
-            </p>
-            <p className="text-base text-gray-600">
-              Go beyond transfers. spend, receive, and manage your global
-              business with virtual accounts & cards.
+
+          <div className="mt-5">
+            <h1 className="max-w-[470px] text-[38px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733]">
+              Send Money <span className="text-xenon">Globally,</span> Without
+              the heavy fees.
+            </h1>
+            <p className="mt-4 max-w-[420px] text-[15px] leading-[1.7] text-[#4E576A]">
+              Go beyond transfers. Manage your global payments, receive funds,
+              and spend in multiple currencies with fewer fees and full
+              visibility.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
-              <button className="h-12 w-fit px-10 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <button className="h-11 w-fit rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
                 Get Started
               </button>
-              <button className="h-12 border px-10 rounded-lg border-xenon-300">
+              <button className="h-11 w-fit rounded-lg border border-[#C6D5E3] px-7 text-sm font-semibold text-[#31435D] transition-colors hover:bg-[#F5F8FC]">
                 See How It Works
               </button>
             </div>
           </div>
         </div>
-        <div className="w-full xl:w-1/2">
+
+        <div className="relative w-full xl:w-[520px]">
           <Image
-            src={SendMoneyGlobally}
+            src={PhoneWithFrame}
             alt="phone-image"
-            width={500}
-            className="w-full max-w-[500px]"
+            width={480}
+            className="relative z-10 w-full max-w-[480px] xl:ml-auto"
           />
+        </div>
+      </div>
+
+      <div className="mt-20 flex flex-col items-center text-center xl:mt-24">
+        <p className="text-[31px] leading-[1.25] font-bold text-[#121733]">
+          Moves Digital Dollars Across Borders In Minutes
+        </p>
+        <p className="mt-2 text-sm text-[#677287]">
+          simple, fast and transparent global payments
+        </p>
+        <div className="mt-5 flex items-center gap-3">
+          <button aria-label="Google Play">
+            <Image
+              src={PlayStoreBadgeIcon}
+              alt="google-play-badge"
+              className="h-10 w-[135px]"
+            />
+          </button>
+          <button aria-label="App Store">
+            <Image
+              src={AppStoreBadgeIcon}
+              alt="app-store-badge"
+              className="h-10 w-[135px]"
+            />
+          </button>
         </div>
       </div>
     </section>

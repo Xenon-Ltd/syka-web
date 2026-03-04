@@ -45,19 +45,17 @@ function SolutionsThatFit() {
   const [mobileActiveIndex, setMobileActiveIndex] = useState<number>(0);
 
   return (
-    <section className="max-w-[1092px] mx-auto px-6 xl:px-0">
-      {/* Heading */}
-      <div className="mb-10">
-        <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
+    <section className="mx-auto mt-20 max-w-[1092px] px-6 xl:mt-24 xl:px-0">
+      <div className="mb-8 xl:mb-10">
+        <h2 className="text-[35px] leading-[1.1] font-bold text-[#121733]">
           Solutions That Fit
         </h2>
-        <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
+        <p className="mt-2 text-[35px] leading-[1.1] font-bold text-[#121733]">
           Your <span className="text-xenon">Workflow</span>
         </p>
       </div>
 
-      {/* Desktop Accordion */}
-      <div className="hidden xl:flex gap-4 h-[420px]">
+      <div className="hidden h-[336px] gap-3 xl:flex">
         {solutions.map((solution, index) => {
           const isExpanded = index === activeIndex;
           return (
@@ -65,7 +63,7 @@ function SolutionsThatFit() {
               key={index}
               layout
               onClick={() => setActiveIndex(index)}
-              className={`${solution.bg} rounded-2xl overflow-hidden cursor-pointer relative`}
+              className={`${solution.bg} relative cursor-pointer overflow-hidden rounded-2xl`}
               animate={{ flex: isExpanded ? 3 : 1 }}
               transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             >
@@ -80,10 +78,10 @@ function SolutionsThatFit() {
                       transition={{ duration: 0.25 }}
                       className="flex h-full flex-col"
                     >
-                      <h3 className="text-lg font-bold text-gray-900">
+                      <h3 className="text-[25px] leading-[1.2] font-bold text-[#121733]">
                         {solution.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                      <p className="mt-2 text-sm leading-[1.7] text-[#4E576A]">
                         {solution.description}
                       </p>
                       <div className="relative mt-4 flex-1 overflow-hidden rounded-xl">
@@ -104,7 +102,7 @@ function SolutionsThatFit() {
                       transition={{ duration: 0.25 }}
                       className="flex h-full items-center justify-center text-center"
                     >
-                      <h3 className="text-lg font-bold text-gray-900">
+                      <h3 className="text-[24px] leading-[1.2] font-bold text-[#121733]">
                         {solution.title}
                       </h3>
                     </motion.div>
@@ -116,7 +114,6 @@ function SolutionsThatFit() {
         })}
       </div>
 
-      {/* Mobile Stacked Layout */}
       <div className="xl:hidden flex flex-col gap-6">
         {solutions.map((solution, index) => {
           const isExpanded = mobileActiveIndex === index;

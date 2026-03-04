@@ -4,29 +4,29 @@ import React from "react";
 
 const GetAPersonalAccount = () => {
   return (
-    <section className="py-16 xl:py-24 bg-[#E4F4FB]">
-      <div className="max-w-[1092px] mx-auto px-6 xl:px-0 flex flex-col-reverse xl:flex-row gap-12 xl:gap-20 items-center justify-between">
-        <div className="xl:w-[525px] shrink-0">
+    <section className="mt-20 bg-[#E4F4FB] py-16 xl:mt-24 xl:py-14">
+      <div className="mx-auto flex max-w-[1092px] flex-col-reverse items-center justify-between gap-12 px-6 xl:flex-row xl:gap-16 xl:px-0">
+        <div className="w-full xl:w-[520px] xl:shrink-0">
           <Image
             src={WomanSmilingAtPhoneNew}
-            className="w-full h-full xl:aspect-auto object-cover"
+            className="h-full w-full object-cover"
             alt="hero-image"
           />
         </div>
-        <div className="flex flex-col gap-3 xl:w-[492px]">
-          <p className="text-sm xl:text-lg font-lato font-semibold text-[#7688A2] uppercase">
+        <div className="flex w-full flex-col xl:w-[476px]">
+          <p className="text-xs font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
             GET A SYKA PERSONAL ACCOUNT
           </p>
-          <p className="text-2xl md:text-3xl xl:text-4xl font-dmSans font-bold text-gray-900">
+          <h2 className="mt-3 text-[40px] leading-[1.08] font-bold tracking-[-0.01em] text-[#111831]">
             The Modern Financial Stack for a{" "}
-            <span className="text-xenon-500">Borderless</span> World
-          </p>
-          <p className="text-base xl:text-lg text-gray-600 max-w-md">
+            <span className="text-xenon">Borderless</span> World
+          </h2>
+          <p className="mt-4 max-w-[430px] text-[15px] leading-[1.7] text-[#4E576A]">
             A modern, borderless payments platform that helps businesses send,
             receive, and manage global payments faster, with transparent pricing
-            and no unnecessary complexity.{" "}
+            and no unnecessary complexity.
           </p>
-          <button className="h-12 w-fit px-10 mt-6 bg-xenon-brand hover:bg-xenon-600 hover:shadow-xenon_sh hover:shadow-xenon-600/20 hover:-translate-y-1 rounded-lg text-white duration-100">
+          <button className="mt-7 h-11 w-fit rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
             Get Started for free
           </button>
         </div>

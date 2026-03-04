@@ -1,6 +1,6 @@
 "use client";
 
-import { GH, NG, GB, IN, BR, US } from "@/assets/icons/countries";
+import { GH, NG, GB } from "@/assets/icons/countries";
 import Image, { StaticImageData } from "next/image";
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,47 +16,47 @@ const testimonials: Testimonial[] = [
   {
     countryFlag: GH,
     feedback:
-      '"Finally, a financial tool that speaks my language: fast, digital, and borderless. Getting paid in USD as a freelancer was never this easy."',
-    name: "Alex C.",
-    title: "Tech Startup Founder",
+      '"The onboarding was simple and payments started flowing immediately. We finally have a reliable way to collect international client payments."',
+    name: "Esi K.",
+    title: "Freelancer",
   },
   {
     countryFlag: NG,
     feedback:
-      '"Syka cut our international vendor payment costs by 85% and eliminated the 3-day wait. The virtual EUR accounts have been a game-changer for our EU clients."',
-    name: "Alex C.",
-    title: "Tech Startup Founder",
+      '"We now pay suppliers across borders from one dashboard. Reconciliation is easier and transfer delays are no longer a blocker."',
+    name: "Obi J.",
+    title: "Finance Associate",
   },
   {
     countryFlag: GB,
     feedback:
-      '"Syka cut our international vendor payment costs by 85% and eliminated the 3-day wait. The virtual EUR accounts have been a game-changer for our EU clients."',
-    name: "Alex C.",
-    title: "Tech Startup Founder",
+      '"The virtual cards are practical for SaaS subscriptions and online spend controls. It removed a lot of manual overhead from our team."',
+    name: "Liam W.",
+    title: "Startup Founder",
   },
 ];
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="bg-white rounded-2xl p-6 flex flex-col justify-between min-h-[280px] w-full">
+    <div className="flex min-h-[248px] w-full flex-col justify-between rounded-2xl bg-white p-6">
       <div>
         <div className="mb-4">
           <Image
             src={testimonial.countryFlag}
             alt="country flag"
-            width={48}
-            height={48}
-            className="rounded-full"
+            width={44}
+            height={44}
+            className="size-11 rounded-full border border-[#DEE5EF]"
           />
         </div>
-        <p className="text-sm text-gray-600 leading-relaxed">
+        <p className="text-sm leading-[1.7] text-[#4D576C]">
           {testimonial.feedback}
         </p>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="mt-5 flex items-center gap-3">
         <div>
-          <p className="text-sm font-bold text-gray-900">{testimonial.name}</p>
-          <p className="text-xs text-gray-500">{testimonial.title}</p>
+          <p className="text-sm font-bold text-[#121733]">{testimonial.name}</p>
+          <p className="text-xs text-[#758198]">{testimonial.title}</p>
         </div>
       </div>
     </div>
@@ -88,26 +88,23 @@ function SocialProof() {
   const desktopCards = testimonials.slice(activeIndex * 3, activeIndex * 3 + 3);
 
   const variants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
+    enter: (dir: number) => ({ x: dir > 0 ? 200 : -200, opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -300 : 300, opacity: 0 }),
+    exit: (dir: number) => ({ x: dir > 0 ? -200 : 200, opacity: 0 }),
   };
 
   return (
-    <section className="py-16 xl:py-24 bg-[#25205C]">
-      <div className="max-w-[1092px] mx-auto px-6 xl:px-0">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-white/70 mb-2">
+    <section className="mt-20 bg-[#1E1A63] py-16 xl:mt-24 xl:py-20">
+      <div className="mx-auto max-w-[1092px] px-6 xl:px-0">
+        <div className="mb-8 text-center xl:mb-10">
+          <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-white/65 uppercase">
             SOCIAL PROOF
           </p>
-          <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-white">
-            What Our <span className="text-xenon-400">Customers</span> Have to
-            Say
+          <h2 className="text-[35px] leading-[1.1] font-bold text-white">
+            What Our <span className="text-xenon">Customers</span> Have to Say
           </h2>
         </div>
 
-        {/* Desktop Carousel (3 cards) */}
         <div className="hidden xl:block relative overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -117,7 +114,7 @@ function SocialProof() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
               className="grid grid-cols-3 gap-6"
             >
               {desktopCards.map((testimonial, i) => (
@@ -129,12 +126,12 @@ function SocialProof() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Desktop Dots */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="mt-8 flex justify-center gap-2">
             {Array.from({ length: totalPages }).map((_, i) => (
               <button
                 key={i}
                 onClick={() => goToPage(i)}
+                aria-label={`Go to testimonial page ${i + 1}`}
                 className={`w-2.5 h-2.5 rounded-full transition-colors duration-200 ${
                   i === activeIndex ? "bg-white" : "bg-white/30"
                 }`}
@@ -143,7 +140,6 @@ function SocialProof() {
           </div>
         </div>
 
-        {/* Mobile Carousel (1 card) */}
         <div className="xl:hidden relative overflow-hidden">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -174,12 +170,12 @@ function SocialProof() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Mobile Dots */}
           <div className="flex justify-center gap-2 mt-8">
             {Array.from({ length: totalPagesMobile }).map((_, i) => (
               <button
                 key={i}
                 onClick={() => goToPage(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
                 className={`w-2 h-2 rounded-full transition-colors duration-200 ${
                   i === activeIndex ? "bg-white" : "bg-white/30"
                 }`}

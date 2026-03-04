@@ -8,45 +8,45 @@ import React from "react";
 
 function BuiltOnStability() {
   return (
-    <section className="max-w-[1092px] mx-auto px-6 xl:px-0">
-      <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
-          Built on <span className="text-xenon-500">Stability,</span>
+    <section className="mx-auto mt-20 max-w-[1092px] px-6 xl:mt-24 xl:px-0">
+      <div className="mb-10 xl:mb-12">
+        <h2 className="text-[35px] leading-[1.1] font-bold text-[#121733]">
+          Built on <span className="text-xenon">Stability,</span>
         </h2>
-        <p className="text-2xl md:text-3xl xl:text-4xl font-bold text-gray-900">
-          Guarded by <span className="text-xenon-500">Security</span>
+        <p className="mt-2 text-[35px] leading-[1.1] font-bold text-[#121733]">
+          Guarded by <span className="text-xenon">Security</span>
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="border border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center">
-          <Image src={StablecoinPowered} alt="Stablecoin Powered" width={150} />
-          <p className="text-xl font-bold text-gray-900 mb-2">
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="flex min-h-[248px] flex-col rounded-2xl border border-[#E9EEF5] bg-white p-7">
+          <Image src={StablecoinPowered} alt="Stablecoin Powered" width={74} />
+          <p className="mt-4 text-[20px] leading-[1.2] font-bold text-[#121733]">
             Stablecoin-Powered
           </p>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="mt-3 text-sm leading-[1.7] text-[#546076]">
             We use fully-backed, regulated stablecoins for predictable value
           </p>
         </div>
-        <div className="border border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center">
+        <div className="flex min-h-[248px] flex-col rounded-2xl border border-[#E9EEF5] bg-white p-7">
           <Image
             src={BankGradeSecurity}
             alt="Bank Grade Security"
-            width={150}
+            width={74}
           />
-          <p className="text-xl font-bold text-gray-900 mb-2">
+          <p className="mt-4 text-[20px] leading-[1.2] font-bold text-[#121733]">
             Bank-Grade Security
           </p>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="mt-3 text-sm leading-[1.7] text-[#546076]">
             SOC 2 compliant, encryption, and multi-sig custody protocols,
             operating within global compliance frameworks.
           </p>
         </div>
-        <div className="border border-gray-200 rounded-2xl p-6 flex flex-col items-center text-center">
-          <Image src={TransparentWallet} alt="Transparent Wallet" width={150} />
-          <p className="text-xl font-bold text-gray-900 mb-2">
+        <div className="flex min-h-[248px] flex-col rounded-2xl border border-[#E9EEF5] bg-white p-7">
+          <Image src={TransparentWallet} alt="Transparent Wallet" width={74} />
+          <p className="mt-4 text-[20px] leading-[1.2] font-bold text-[#121733]">
             Transparent Wallet
           </p>
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="mt-3 text-sm leading-[1.7] text-[#546076]">
             You control your funds, with clear balances, real-time visibility,
             and no hidden restrictions
           </p>

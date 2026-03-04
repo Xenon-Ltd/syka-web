@@ -48,3 +48,5 @@ export {
   PayInvoices,
   PayTransactions,
 } from "./Pay";
+
+export { default as PhoneWithFrame } from "./phone-with-frame.svg";
