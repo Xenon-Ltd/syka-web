@@ -1,6 +1,6 @@
 "use client";
 import { MenuIcon } from "@/assets/icons";
-import { SykaLogo } from "@/assets/_images";
+import { SykaLogo } from "@/assets/images";
 import { cn } from "@/lib/utils";
 import { ChevronDown, X } from "lucide-react";
 import Image from "next/image";

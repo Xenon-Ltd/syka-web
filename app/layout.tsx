@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { dmSans, lato } from "@/assets/font";
-import { SykaOpenGraph } from "@/assets/_images";
+import { SykaOpenGraph } from "@/assets/images";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 

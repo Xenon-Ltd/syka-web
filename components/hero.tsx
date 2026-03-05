@@ -7,10 +7,10 @@ import { PhoneWithFrame } from "@/assets/images";
 function Hero() {
   const countryFlags = [GH, NG, GB, US, MORE];
   return (
-    <section className="mx-auto mt-4 max-w-[1092px] px-6 xl:mt-8 xl:px-0">
-      <div className="flex flex-col items-center justify-between gap-10 xl:flex-row mt-8 xl:gap-16 xl:mt-18">
+    <section className="mx-auto mt-4 max-w-[1092px] px-5 sm:px-6 xl:mt-8 xl:px-0">
+      <div className="mt-6 flex flex-col items-center justify-between gap-10 xl:mt-18 xl:flex-row xl:gap-16">
         <div className="w-full xl:w-[510px]">
-          <div className="flex items-center gap-4 text-sm text-[#6A7284] xl:text-base">
+          <div className="flex items-center gap-3 text-xs text-[#6A7284] sm:text-sm xl:gap-4 xl:text-base">
             <p>Available in</p>
             <div className="flex items-center gap-1.5">
               {countryFlags.map((src, index) => (
@@ -27,21 +27,21 @@ function Hero() {
           </div>
 
           <div className="mt-5">
-            <h1 className="max-w-[470px] text-[38px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733]">
+            <h1 className="max-w-[470px] text-[34px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733] sm:text-[38px]">
               Send Money <span className="text-xenon">Globally,</span> Without
               the heavy fees.
             </h1>
-            <p className="mt-4 max-w-[420px] text-[15px] leading-[1.7] text-[#4E576A]">
+            <p className="mt-4 max-w-[420px] text-sm leading-[1.7] text-[#4E576A] sm:text-[15px]">
               Go beyond transfers. Manage your global payments, receive funds,
               and spend in multiple currencies with fewer fees and full
               visibility.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <button className="h-11 w-fit rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
+              <button className="h-11 w-full rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
                 Get Started
               </button>
-              <button className="h-11 w-fit rounded-lg border border-[#C6D5E3] px-7 text-sm font-semibold text-[#31435D] transition-colors hover:bg-[#F5F8FC]">
+              <button className="h-11 w-full rounded-lg border border-[#C6D5E3] px-7 text-sm font-semibold text-[#31435D] transition-colors hover:bg-[#F5F8FC] sm:w-fit">
                 See How It Works
               </button>
             </div>
@@ -58,11 +58,11 @@ function Hero() {
         </div>
       </div>
 
-      <div className="mt-20 flex flex-col items-center text-center xl:mt-24">
-        <p className="text-[31px] leading-[1.25] font-bold text-[#121733]">
+      <div className="mt-16 flex flex-col items-center text-center xl:mt-24">
+        <p className="text-2xl leading-[1.25] font-bold text-[#121733] sm:text-[31px]">
           Moves Digital Dollars Across Borders In Minutes
         </p>
-        <p className="mt-2 text-sm text-[#677287]">
+        <p className="mt-2 px-2 text-xs text-[#677287] sm:text-sm">
           simple, fast and transparent global payments
         </p>
         <div className="mt-5 flex items-center gap-3">

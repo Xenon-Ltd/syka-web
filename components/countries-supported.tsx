@@ -60,8 +60,8 @@ function CountryItem({ icon, name }: CountryItemProps) {
 
 export default function CountriesSupported() {
   return (
-    <section className="mx-auto mt-16 mb-16 max-w-[1092px] px-6 xl:mt-20 xl:mb-10 xl:px-0">
-      <p className="text-center text-[35px] leading-[1.1] font-bold text-[#121733]">
+    <section className="mx-auto mt-16 mb-14 max-w-[1092px] px-5 sm:px-6 xl:mt-20 xl:mb-10 xl:px-0">
+      <p className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
         Countries We Currently Support
       </p>
 

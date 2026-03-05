@@ -94,13 +94,13 @@ function SocialProof() {
   };
 
   return (
-    <section className="mt-20 bg-[#1E1A63] py-16 xl:mt-24 xl:py-20">
-      <div className="mx-auto max-w-[1092px] px-6 xl:px-0">
+    <section className="mt-16 bg-[#1E1A63] py-14 xl:mt-24 xl:py-20">
+      <div className="mx-auto max-w-[1092px] px-5 sm:px-6 xl:px-0">
         <div className="mb-8 text-center xl:mb-10">
           <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-white/65 uppercase">
             SOCIAL PROOF
           </p>
-          <h2 className="text-[35px] leading-[1.1] font-bold text-white">
+          <h2 className="text-[30px] leading-[1.1] font-bold text-white sm:text-[35px]">
             What Our <span className="text-xenon">Customers</span> Have to Say
           </h2>
         </div>

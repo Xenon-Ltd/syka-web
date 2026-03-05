@@ -4,8 +4,8 @@ import React from "react";
 
 const GetAPersonalAccount = () => {
   return (
-    <section className="mt-20 bg-[#E4F4FB] py-16 xl:mt-24 xl:py-14">
-      <div className="mx-auto flex max-w-[1092px] flex-col-reverse items-center justify-between gap-12 px-6 xl:flex-row xl:gap-16 xl:px-0">
+    <section className="mt-16 bg-[#E4F4FB] py-14 xl:mt-24 xl:py-14">
+      <div className="mx-auto flex max-w-[1092px] flex-col-reverse items-center justify-between gap-10 px-5 sm:px-6 xl:flex-row xl:gap-16 xl:px-0">
         <div className="w-full xl:w-[520px] xl:shrink-0">
           <Image
             src={WomanSmilingAtPhoneNew}
@@ -17,16 +17,16 @@ const GetAPersonalAccount = () => {
           <p className="text-xs font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
             GET A SYKA PERSONAL ACCOUNT
           </p>
-          <h2 className="mt-3 text-[40px] leading-[1.08] font-bold tracking-[-0.01em] text-[#111831]">
+          <h2 className="mt-3 text-[32px] leading-[1.1] font-bold tracking-[-0.01em] text-[#111831] sm:text-[40px] sm:leading-[1.08]">
             The Modern Financial Stack for a{" "}
             <span className="text-xenon">Borderless</span> World
           </h2>
-          <p className="mt-4 max-w-[430px] text-[15px] leading-[1.7] text-[#4E576A]">
+          <p className="mt-4 max-w-[430px] text-sm leading-[1.7] text-[#4E576A] sm:text-[15px]">
             A modern, borderless payments platform that helps businesses send,
             receive, and manage global payments faster, with transparent pricing
             and no unnecessary complexity.
           </p>
-          <button className="mt-7 h-11 w-fit rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
+          <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
             Get Started for free
           </button>
         </div>

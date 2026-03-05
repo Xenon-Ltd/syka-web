@@ -45,12 +45,12 @@ function SolutionsThatFit() {
   const [mobileActiveIndex, setMobileActiveIndex] = useState<number>(0);
 
   return (
-    <section className="mx-auto mt-20 max-w-[1092px] px-6 xl:mt-24 xl:px-0">
+    <section className="mx-auto mt-16 max-w-[1092px] px-5 sm:px-6 xl:mt-24 xl:px-0">
       <div className="mb-8 xl:mb-10">
-        <h2 className="text-[35px] leading-[1.1] font-bold text-[#121733]">
+        <h2 className="text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
           Solutions That Fit
         </h2>
-        <p className="mt-2 text-[35px] leading-[1.1] font-bold text-[#121733]">
+        <p className="mt-2 text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
           Your <span className="text-xenon">Workflow</span>
         </p>
       </div>
@@ -123,7 +123,7 @@ function SolutionsThatFit() {
               layout
               onClick={() => setMobileActiveIndex(index)}
               className={`${solution.bg} cursor-pointer overflow-hidden rounded-2xl p-5`}
-              animate={{ height: isExpanded ? 430 : 180 }}
+              animate={{ height: isExpanded ? 420 : 160 }}
               transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             >
               <AnimatePresence mode="wait" initial={false}>

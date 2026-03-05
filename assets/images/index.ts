@@ -50,3 +50,15 @@ export {
 } from "./Pay";
 
 export { default as PhoneWithFrame } from "./phone-with-frame.svg";
+export { default as WorldMap } from "./world-map.svg";
+export { default as SecurityLock } from "./security-lock.svg";
+
+export { default as ForGlobalTeamsAndContractors } from "./global-teams-contractors.png";
+export { default as ForCrossBorderBusinesses } from "./cross-border-businesses.png";
+export { default as ForSMEsAndStartupsBiz } from "./sme-startup.png";
+
+export { default as InstantSettlement } from "./instant-settlement.png";
+export { default as WhatsappSMSNative } from "./whatsapp-sms-natiive.png";
+export { default as PatchyInternet } from "./patchy-internet.png";
+export { default as FullCompliance } from "./full-compliance.png";
+export { default as MobileFirst } from "./mobile-first.png";
