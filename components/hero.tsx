@@ -32,9 +32,9 @@ function Hero() {
               the heavy fees.
             </h1>
             <p className="mt-4 max-w-[420px] text-sm leading-[1.7] text-[#4E576A] sm:text-[15px]">
-              Go beyond transfers. Manage your global payments, receive funds,
-              and spend in multiple currencies with fewer fees and full
-              visibility.
+              Syka is payment infrastructure built for African entrepreneurs to
+              send, receive, and store value globally using stablecoins
+              instantly, cheaply, and without discrimination.
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">

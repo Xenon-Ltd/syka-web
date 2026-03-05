@@ -23,7 +23,7 @@ function EndToEndSecurity() {
         <p className="mt-4 max-w-[440px] text-sm leading-[1.7] text-[#4E576A] sm:text-[15px]">
           Fund your Syka wallet, move money instantly across borders, convert
           currencies when needed, and manage spending or invoice payments from a
-          single platform.
+          single platform.{" "}
         </p>
         <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
           Get Started for free

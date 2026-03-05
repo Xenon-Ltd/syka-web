@@ -30,7 +30,7 @@ export default function PowerYourBusiness() {
           <span className="text-xenon">Borderless</span> Payments.
         </h1>
         <p className="mx-auto mt-4 max-w-[470px] text-sm leading-[1.7] text-[#505A6E] sm:text-[15px]">
-          Everything your business needs for real-time global transactions.
+          Level the playing ground for African businesses.{" "}
         </p>
 
         <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">

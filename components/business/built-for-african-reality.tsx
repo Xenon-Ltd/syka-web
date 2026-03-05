@@ -17,31 +17,31 @@ const features: Feature[] = [
   {
     title: "Instant Settlement in USDT",
     description:
-      "Move value in minutes with stable settlement and predictable treasury movement.",
+      "Receive stable dollar payments instantly, without delays or intermediaries.",
     icon: InstantSettlement,
   },
   {
     title: "WhatsApp and SMS Native",
     description:
-      "Approve and track payouts through channels teams already use every day.",
+      "Adapted to send and receive payments directly through WhatsApp or SMS.",
     icon: WhatsappSMSNative,
   },
   {
     title: "Patchy Internet Friendly",
     description:
-      "Operational flows are designed for low bandwidth and unstable network zones.",
+      "Optimized for low bandwidth so payments go through, even on unstable networks.",
     icon: PatchyInternet,
   },
   {
     title: "Full Compliance",
     description:
-      "Policy controls and auditable records that support regulated operations.",
+      "Fully compliant infrastructure with fair access for African businesses.",
     icon: FullCompliance,
   },
   {
     title: "Mobile-first",
     description:
-      "Built for finance teams and operators working from mobile workflows.",
+      "Designed for accessibility and effortless reach wherever you are",
     icon: MobileFirst,
   },
 ];

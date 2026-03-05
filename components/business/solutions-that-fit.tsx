@@ -21,7 +21,7 @@ const industries: IndustryCard[] = [
   {
     title: "SMEs & Startups",
     description:
-      "Receive and disburse across borders with lean operations and clear FX visibility.",
+      "Receive global payments, manage multi-currency wallets, and grow without banking limits.",
     bg: "bg-linear-to-r from-[#31A9DB] to-[#1B71A8]",
     image: ForSMEsAndStartupsBiz,
     textColor: "text-white",
@@ -29,7 +29,7 @@ const industries: IndustryCard[] = [
   {
     title: "Global Teams & Contractors",
     description:
-      "Pay multi-market talent in local currencies with one treasury workflow.",
+      "Pay remote staff and freelancers worldwide in stable dollars, instantly and compliantly.",
     bg: "bg-linear-to-r from-[#DCECF7] to-[#C2DDEE]",
     image: ForGlobalTeamsAndContractors,
     textColor: "text-[#223047]",
@@ -37,7 +37,7 @@ const industries: IndustryCard[] = [
   {
     title: "Cross-Border Businesses",
     description:
-      "Control collections, payouts, and settlement with stable global rails.",
+      "Send, receive, and settle international transactions without delays or hidden fees.",
     bg: "bg-linear-to-r from-[#1B71A8] to-[#31A9DB]",
     image: ForCrossBorderBusinesses,
     textColor: "text-white",

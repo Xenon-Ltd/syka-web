@@ -27,8 +27,8 @@ export default function MoreThanTransfers() {
                 Get Paid Faster, On Your Terms
               </h3>
               <p className="mt-3 max-w-[340px] text-sm leading-[1.6] text-white/90">
-                Generate and send sleek, professional invoices in multiple
-                currencies.
+                Generate links or invoices, integrate our API, and accept USDT,
+                USDC, and cards globally with funds arriving in seconds.
               </p>
               <button className="mt-auto flex items-center gap-2 pt-4 text-sm text-white">
                 <span>Get Now</span>
@@ -51,8 +51,8 @@ export default function MoreThanTransfers() {
                 Lightning-Flow Transfers
               </h3>
               <p className="mt-3 max-w-[320px] text-sm leading-[1.6] text-[#505A6E]">
-                Send transfers instantly across supported regions with full
-                tracking and transparent conversion rates.
+                Send USDT globally, pay multiple recipients, and automate
+                recurring payments with no banks or delays.
               </p>
               <button className="mt-auto flex items-center gap-2 pt-4 text-sm text-xenon">
                 <span>Get Now</span>
@@ -75,8 +75,8 @@ export default function MoreThanTransfers() {
             Spendable Balance
           </h3>
           <p className="mt-3 max-w-[290px] text-sm leading-[1.6] text-white/90">
-            Keep a card-ready balance for online payments and subscriptions,
-            with instant visibility and controls.
+            Create secure, disposable virtual debit cards directly from your
+            Syka balance
           </p>
           <button className="mt-6 flex items-center gap-2 text-sm text-white">
             <span>Get Now</span>
@@ -99,8 +99,8 @@ export default function MoreThanTransfers() {
             Your Local Presence, Anywhere
           </h3>
           <p className="mt-3 max-w-[360px] text-sm leading-[1.6] text-[#505A6E]">
-            Access local account details in major currencies so clients can pay
-            you with less friction and better confidence.
+            Hold USDT or USDC, convert when needed, and manage multi-currency
+            (USD, EUR, GBP) balances in real time.{" "}
           </p>
           <button className="mt-auto flex items-center gap-2 pt-4 text-sm text-xenon">
             <span>Get Now</span>

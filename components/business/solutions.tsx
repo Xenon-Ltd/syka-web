@@ -16,8 +16,9 @@ export default function Solutions() {
             <span className="text-xenon">Global</span> Payment Collection
           </h2>
           <p className="mt-4 max-w-[420px] text-sm leading-[1.7] text-[#4D576C] sm:text-[15px]">
-            Collect, hold, and settle in multiple currencies with transparent
-            conversion rates and complete control over your treasury.
+            Get paid globally in USD, EUR, or GBP and convert instantly to USDT.
+            Share payment links or use checkout pages, with instant settlement
+            and no setup or monthly fees.{" "}
           </p>
           <button className="mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
             <span>Get started for free</span>

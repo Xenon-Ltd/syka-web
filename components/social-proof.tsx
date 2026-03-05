@@ -16,21 +16,21 @@ const testimonials: Testimonial[] = [
   {
     countryFlag: GH,
     feedback:
-      '"The onboarding was simple and payments started flowing immediately. We finally have a reliable way to collect international client payments."',
+      '"Finally, a financial tool that speaks my language: fast, digital, and borderless. Getting paid in USD as a freelancer was never this easy."',
     name: "Esi K.",
     title: "Freelancer",
   },
   {
     countryFlag: NG,
     feedback:
-      '"We now pay suppliers across borders from one dashboard. Reconciliation is easier and transfer delays are no longer a blocker."',
+      "“Syka cut our international vendor payment costs by 85% and eliminated the 3-day wait. The virtual EUR accounts have been a game-changer for our EU clients.”",
     name: "Obi J.",
     title: "Finance Associate",
   },
   {
     countryFlag: GB,
     feedback:
-      '"The virtual cards are practical for SaaS subscriptions and online spend controls. It removed a lot of manual overhead from our team."',
+      "Syka cut our international vendor payment costs by 85% and eliminated the 3-day wait. The virtual EUR accounts have been a game-changer for our EU clients.",
     name: "Liam W.",
     title: "Startup Founder",
   },

@@ -22,9 +22,9 @@ const GetAPersonalAccount = () => {
             <span className="text-xenon">Borderless</span> World
           </h2>
           <p className="mt-4 max-w-[430px] text-sm leading-[1.7] text-[#4E576A] sm:text-[15px]">
-            A modern, borderless payments platform that helps businesses send,
-            receive, and manage global payments faster, with transparent pricing
-            and no unnecessary complexity.
+            Built for African entrepreneurs facing systemic payment barriers,
+            our modern borderless platform enables fast, transparent global
+            transactions without unnecessary complexity.
           </p>
           <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
             Get Started for free

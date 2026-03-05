@@ -24,15 +24,12 @@ function BuiltOnStability() {
             Stablecoin-Powered
           </p>
           <p className="mt-3 text-sm leading-[1.7] text-[#546076]">
-            We use fully-backed, regulated stablecoins for predictable value
+            We use fully-backed, regulated stablecoins for predictable
+            value.{" "}
           </p>
         </div>
         <div className="flex min-h-[248px] flex-col rounded-2xl border border-[#E9EEF5] bg-white p-7">
-          <Image
-            src={BankGradeSecurity}
-            alt="Bank Grade Security"
-            width={74}
-          />
+          <Image src={BankGradeSecurity} alt="Bank Grade Security" width={74} />
           <p className="mt-4 text-[20px] leading-[1.2] font-bold text-[#121733]">
             Bank-Grade Security
           </p>
