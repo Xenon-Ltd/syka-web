@@ -1,5 +1,4 @@
 "use client";
-import { ArrowRightCircleIcon } from "lucide-react";
 
 // lottie files
 import SendAnimation from "@/assets/lottie-files/Send.json";

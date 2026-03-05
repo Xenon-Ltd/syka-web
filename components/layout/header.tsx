@@ -1,6 +1,7 @@
 "use client";
 import { MenuIcon } from "@/assets/icons";
 import { SykaLogo } from "@/assets/images";
+import { PRODUCT_ITEMS } from "@/components/dropdown-pages/product-config";
 import { cn } from "@/lib/utils";
 import { ChevronDown, X } from "lucide-react";
 import Image from "next/image";
@@ -38,18 +39,6 @@ const routeSwitchLinks = [
   },
 ];
 
-const productsItem: TopLevelItem = {
-  label: "Products",
-  type: "dropdown",
-  items: [
-    { label: "Virtual Accounts", href: "#" },
-    { label: "Virtual Cards", href: "#" },
-    { label: "Invoicing", href: "#" },
-    { label: "Payments", href: "#" },
-    { label: "Treasury Management", href: "#" },
-  ],
-};
-
 const companyItem: TopLevelItem = {
   label: "Company",
   type: "dropdown",
@@ -77,14 +66,26 @@ const developersItem: TopLevelItem = {
 const Header = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
   const isBusinessRoute = pathname.startsWith("/business");
   const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
+  const productBasePath = isBusinessRoute ? "/business" : "/";
+
+  const productsItem: TopLevelItem = {
+    label: "Products",
+    type: "dropdown",
+    items: PRODUCT_ITEMS.map((item) => ({
+      label: item.label,
+      href: `${productBasePath}?product=${item.slug}`,
+    })),
+  };
 
   const navItems: TopLevelItem[] = isBusinessRoute
     ? [productsItem, companyItem, developersItem, supportItem]
     : [productsItem, companyItem, supportItem];
+  const activeDropdown = openDropdown ?? hoveredDropdown;
 
   const segmentPillTranslateClass =
     routeVariant === "business" ? "translate-x-full" : "translate-x-0";
@@ -96,12 +97,14 @@ const Header = () => {
         !dropdownContainerRef.current.contains(event.target as Node)
       ) {
         setOpenDropdown(null);
+        setHoveredDropdown(null);
       }
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpenDropdown(null);
+        setHoveredDropdown(null);
         setIsSheetOpen(false);
       }
     };
@@ -116,7 +119,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="relative my-3 xl:my-5 mb-24 flex flex-row items-center justify-between w-full xl:max-w-[1211px] mx-auto">
+    <header className="relative z-40 my-3 mb-24 flex w-full flex-row items-center justify-between xl:mx-auto xl:my-5 xl:max-w-[1211px]">
       <div className="hidden xl:flex xl:items-center xl:gap-12">
         <Link href="/" aria-label="Go to Syka home">
           <Image
@@ -175,25 +178,26 @@ const Header = () => {
               <li
                 key={item.label}
                 className="group relative"
+                onMouseEnter={() => setHoveredDropdown(item.label)}
+                onMouseLeave={() => setHoveredDropdown(null)}
                 onBlur={(event) => {
                   if (
-                    openDropdown === item.label &&
+                    activeDropdown === item.label &&
                     !event.currentTarget.contains(
                       event.relatedTarget as Node | null,
                     )
                   ) {
                     setOpenDropdown(null);
+                    setHoveredDropdown(null);
                   }
                 }}
               >
                 <button
                   type="button"
-                  aria-expanded={openDropdown === item.label}
+                  aria-expanded={activeDropdown === item.label}
                   className="flex items-center gap-1 text-base font-medium text-[#4A4E66] transition-colors hover:text-[#1F2238] focus:outline-none"
                   onClick={() =>
-                    setOpenDropdown((prev) =>
-                      prev === item.label ? null : item.label,
-                    )
+                    setOpenDropdown((prev) => (prev === item.label ? null : item.label))
                   }
                 >
                   <span>{item.label}</span>
@@ -201,24 +205,28 @@ const Header = () => {
                 </button>
                 <div
                   className={cn(
-                    "absolute top-full left-0 mt-3 min-w-52 rounded-xl border border-[#E6E8F1] bg-white p-2 shadow-lg",
-                    openDropdown === item.label
-                      ? "block"
-                      : "hidden group-hover:block group-focus-within:block",
+                    "absolute top-full left-0 z-[120] min-w-52 pt-2",
+                    activeDropdown === item.label ? "block" : "hidden",
                   )}
                 >
-                  <ul className="space-y-1">
-                    {item.items.map((subItem) => (
-                      <li key={subItem.label}>
-                        <Link
-                          href={subItem.href}
-                          className="block rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]"
-                        >
-                          {subItem.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="rounded-xl border border-[#E6E8F1] bg-white p-2 shadow-lg">
+                    <ul className="space-y-1">
+                      {item.items.map((subItem) => (
+                        <li key={subItem.label}>
+                          <Link
+                            href={subItem.href}
+                            className="block rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]"
+                            onClick={() => {
+                              setOpenDropdown(null);
+                              setHoveredDropdown(null);
+                            }}
+                          >
+                            {subItem.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </li>
             ),
