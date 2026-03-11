@@ -15,6 +15,8 @@ import {
   TH,
   TR,
   VN,
+  US,
+  CN,
 } from "@/assets/icons/countries";
 import Image from "next/image";
 
@@ -30,42 +32,44 @@ const countries = [
   { name: "Argentina (ARS)", icon: AR },
   { name: "Brazil (BRL)", icon: BR },
   { name: "Chile (CLP)", icon: CL },
-  { name: "European Union (EUR)", icon: EURO },
+  { name: "Eurozone Countries (EUR)", icon: EURO },
   { name: "United Kingdom (GBP)", icon: GB },
   { name: "Indonesia (IDR)", icon: ID },
   { name: "India (INR)", icon: IN },
   { name: "Mexico (MXN)", icon: MX },
   { name: "Nigeria (NGN)", icon: NG },
   { name: "Peru (PEN)", icon: PE },
-  { name: "Phillipines (PHP)", icon: PH },
+  { name: "China (CNY)", icon: CN },
+  { name: "United States (USD)", icon: US },
   { name: "Thailand (THB)", icon: TH },
   { name: "Turkey (TRY)", icon: TR },
   { name: "Vietnam (VND)", icon: VN },
+  { name: "Phillipines (PHP)", icon: PH },
 ];
 
 function CountryItem({ icon, name }: CountryItemProps) {
   return (
-    <div className="my-0 flex w-fit items-center gap-2 rounded-full bg-[#F3F6FA] px-3 py-1.5 md:px-4">
+    <div className="my-2 flex w-fit items-center gap-2 rounded-full bg-[#F3F6FA] px-3 py-1.5 md:px-4">
       <Image
         src={icon}
         alt={`${name} flag`}
-        width={16}
-        height={16}
+        width={24}
+        height={24}
         className="rounded-full border border-[#D4DEE9]"
       />
-      <p className="text-xs text-[#445066]">{name}</p>
+      <p className="text-base text-[#445066]">{name}</p>
     </div>
   );
 }
 
 export default function CountriesSupported() {
   return (
-    <section className="mx-auto mt-16 mb-14 max-w-[1092px] px-5 sm:px-6 xl:mt-20 xl:mb-10 xl:px-0">
+    <section className="mx-auto mt-16 mb-14 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:mb-44 xl:px-0">
       <p className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
         Countries We Currently Support
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5">
         {countries.map((country) => (
           <CountryItem
             key={country.name}

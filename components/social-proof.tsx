@@ -2,8 +2,9 @@
 
 import { GH, NG, GB } from "@/assets/icons/countries";
 import Image, { StaticImageData } from "next/image";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Testimonial {
   countryFlag: StaticImageData | string;
@@ -34,11 +35,18 @@ const testimonials: Testimonial[] = [
     name: "Liam W.",
     title: "Startup Founder",
   },
+  {
+    countryFlag: GH,
+    feedback:
+      "Our cross-border collections now settle the same day, and reconciliation has become much easier for our operations team.",
+    name: "Ama T.",
+    title: "Operations Manager",
+  },
 ];
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="flex min-h-[248px] w-full flex-col justify-between rounded-2xl bg-white p-6">
+    <div className="flex min-h-[230px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-6">
       <div>
         <div className="mb-4">
           <Image
@@ -53,7 +61,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           {testimonial.feedback}
         </p>
       </div>
-      <div className="mt-5 flex items-center gap-3">
+      <div className="flex items-center gap-2 mt-8">
         <div>
           <p className="text-sm font-bold text-[#121733]">{testimonial.name}</p>
           <p className="text-xs text-[#758198]">{testimonial.title}</p>
@@ -70,19 +78,29 @@ function SocialProof() {
   const totalPages = Math.ceil(testimonials.length / 3);
   const totalPagesMobile = testimonials.length;
 
-  const advance = useCallback(() => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % totalPages);
-  }, [totalPages]);
-
-  useEffect(() => {
-    const interval = setInterval(advance, 5000);
-    return () => clearInterval(interval);
-  }, [advance]);
-
   const goToPage = (index: number) => {
     setDirection(index > activeIndex ? 1 : -1);
     setActiveIndex(index);
+  };
+
+  const goToPreviousDesktop = () => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const goToNextDesktop = () => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % totalPages);
+  };
+
+  const goToPreviousMobile = () => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev - 1 + totalPagesMobile) % totalPagesMobile);
+  };
+
+  const goToNextMobile = () => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % totalPagesMobile);
   };
 
   const desktopCards = testimonials.slice(activeIndex * 3, activeIndex * 3 + 3);
@@ -94,9 +112,9 @@ function SocialProof() {
   };
 
   return (
-    <section className="mt-16 bg-[#1E1A63] py-14 xl:mt-24 xl:py-20">
-      <div className="mx-auto max-w-[1092px] px-5 sm:px-6 xl:px-0">
-        <div className="mb-8 text-center xl:mb-10">
+    <section className="mt-16 bg-[#1E1A63] py-14 xl:mt-24 xl:flex xl:min-h-[90vh] xl:items-center xl:py-20">
+      <div className="mx-auto max-w-[1292px] px-5 sm:px-6 xl:px-0">
+        <div className="mb-8 text-center xl:mb-10 max-w-[1092px] mx-auto">
           <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-white/65 uppercase">
             SOCIAL PROOF
           </p>
@@ -105,26 +123,44 @@ function SocialProof() {
           </h2>
         </div>
 
-        <div className="hidden xl:block relative overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeIndex}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="grid grid-cols-3 gap-6"
-            >
-              {desktopCards.map((testimonial, i) => (
-                <TestimonialCard
-                  key={`${activeIndex}-${i}`}
-                  testimonial={testimonial}
-                />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+        <div className="relative hidden xl:block">
+          <button
+            onClick={goToPreviousDesktop}
+            aria-label="Previous testimonials"
+            className="absolute top-1/2 left-0 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors hover:bg-white/25"
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            onClick={goToNextDesktop}
+            aria-label="Next testimonials"
+            className="absolute top-1/2 right-0 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors hover:bg-white/25"
+          >
+            <ChevronRight size={18} />
+          </button>
+
+          <div className="overflow-hidden px-14">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="grid grid-cols-3 gap-6"
+              >
+                {desktopCards.map((testimonial, i) => (
+                  <TestimonialCard
+                    key={`${activeIndex}-${i}`}
+                    testimonial={testimonial}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           <div className="mt-8 flex justify-center gap-2">
             {Array.from({ length: totalPages }).map((_, i) => (
@@ -140,35 +176,54 @@ function SocialProof() {
           </div>
         </div>
 
-        <div className="xl:hidden relative overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeIndex}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -50) {
-                  setDirection(1);
-                  setActiveIndex((prev) => (prev + 1) % totalPagesMobile);
-                } else if (info.offset.x > 50) {
-                  setDirection(-1);
-                  setActiveIndex(
-                    (prev) => (prev - 1 + totalPagesMobile) % totalPagesMobile,
-                  );
-                }
-              }}
-              className="max-w-sm mx-auto"
-            >
-              <TestimonialCard testimonial={testimonials[activeIndex]} />
-            </motion.div>
-          </AnimatePresence>
+        <div className="relative xl:hidden">
+          <button
+            onClick={goToPreviousMobile}
+            aria-label="Previous testimonial"
+            className="absolute top-1/2 left-0 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors hover:bg-white/25"
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          <button
+            onClick={goToNextMobile}
+            aria-label="Next testimonial"
+            className="absolute top-1/2 right-0 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors hover:bg-white/25"
+          >
+            <ChevronRight size={16} />
+          </button>
+
+          <div className="overflow-hidden px-12">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(_, info) => {
+                  if (info.offset.x < -50) {
+                    setDirection(1);
+                    setActiveIndex((prev) => (prev + 1) % totalPagesMobile);
+                  } else if (info.offset.x > 50) {
+                    setDirection(-1);
+                    setActiveIndex(
+                      (prev) =>
+                        (prev - 1 + totalPagesMobile) % totalPagesMobile,
+                    );
+                  }
+                }}
+                className="mx-auto max-w-sm"
+              >
+                <TestimonialCard testimonial={testimonials[activeIndex]} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           <div className="flex justify-center gap-2 mt-8">
             {Array.from({ length: totalPagesMobile }).map((_, i) => (

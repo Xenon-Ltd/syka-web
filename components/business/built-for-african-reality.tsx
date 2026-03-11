@@ -48,14 +48,14 @@ const features: Feature[] = [
 
 export default function BuiltForAfricanReality() {
   return (
-    <section className="mx-auto mt-16 max-w-[1092px] px-5 sm:px-6 xl:mt-20 xl:px-0">
+    <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:min-h-[90vh] xl:px-0 xl:flex xl:flex-col xl:justify-center">
       <div className="mb-10">
         <h2 className="text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
           Built for African <span className="text-xenon">Reality</span>
         </h2>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-wrap justify-center gap-x-32 gap-y-24 xl:gap-x-40 mb-16">
         {features.map((feature) => {
           return (
             <article

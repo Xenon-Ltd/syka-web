@@ -9,7 +9,7 @@ const countryFlags = [GH, NG, GB, US, MORE];
 
 export default function PowerYourBusiness() {
   return (
-    <section className="mx-auto mt-8 max-w-[1092px] px-5 sm:px-6 xl:mt-14 xl:px-0">
+    <section className="mx-auto mt-8 max-w-[1292px] px-5 sm:px-6 xl:mt-14 xl:px-0">
       <div className="mx-auto max-w-[740px] text-center">
         <div className="flex items-center justify-center gap-1.5">
           {countryFlags.map((flag, index) => (
@@ -48,7 +48,7 @@ export default function PowerYourBusiness() {
       <div className="mt-8"></div>
       <Lottie animationData={WorldMapAnimation} loop={true} autoplay />
 
-      <div className="mt-14 flex flex-col items-center text-center xl:mt-16">
+      <div className="mt-14 flex flex-col items-center text-center xl:mt-16 md:mb-16">
         <p className="text-[28px] leading-[1.2] font-bold text-[#121733] sm:text-[36px]">
           Instant Payments, <span className="text-xenon">Zero</span> Limits
         </p>

@@ -16,8 +16,8 @@ const securityPoints = [
 
 export default function Security() {
   return (
-    <section className="mt-16 bg-[#E8F4FB] py-14 xl:mt-20 xl:py-16">
-      <div className="mx-auto flex max-w-[1092px] flex-col items-center gap-10 px-5 sm:px-6 xl:flex-row xl:justify-between xl:gap-16 xl:px-0">
+    <section className="mt-16 bg-[#E8F4FB] py-14 xl:mt-20 xl:min-h-[90vh] xl:py-16 xl:flex xl:items-center">
+      <div className="mx-auto flex max-w-[1292px] flex-col items-center gap-10 px-5 sm:px-6 xl:flex-row xl:justify-between xl:gap-16 xl:px-0 w-full">
         <div className="w-full xl:w-[470px]">
           <p className="text-xs font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
             SECURITY
@@ -49,7 +49,12 @@ export default function Security() {
         </div>
 
         <div className="flex h-[380px] w-full max-w-[520px] items-center justify-center rounded-2xl bg-[#26216F] p-6">
-          <Image src={SecurityLock} alt="security-lock" className="w-full" />
+          <Image
+            src={SecurityLock}
+            alt="security-lock"
+            sizes="(max-width: 1280px) 100vw, 520px"
+            className="w-full"
+          />
         </div>
       </div>
     </section>

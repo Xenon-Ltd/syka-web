@@ -27,7 +27,7 @@ export { default as SendMoneyGlobally } from "./send-money-mobile.svg";
 export { default as WomanSmilingAtPhoneNew } from "./woman-smiling-at-phone-new.png";
 
 export { default as GetPaidFaster } from "./get-paid-faster.png";
-export { default as LightningFlowTransfers } from "./lightning-flow-transfers.png";
+export { default as LightningFlowTransfers } from "./lightning-flow-transfers.svg";
 export { default as SpendableBalance } from "./spendable-balance.png";
 export { default as LocalPresence } from "./your-local-presence.png";
 
@@ -49,7 +49,7 @@ export {
   PayTransactions,
 } from "./Pay";
 
-export { default as PhoneWithFrame } from "./phone-with-frame.svg";
+export { default as PhoneWithFrame } from "./phone-with-frame.png";
 export { default as WorldMap } from "./world-map.svg";
 export { default as SecurityLock } from "./security-lock.svg";
 

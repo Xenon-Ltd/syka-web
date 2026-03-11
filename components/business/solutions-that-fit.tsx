@@ -45,10 +45,10 @@ const industries: IndustryCard[] = [
 ];
 
 export default function SolutionsThatFitBusiness() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="mx-auto mt-16 max-w-[1092px] px-5 sm:px-6 xl:mt-20 xl:px-0">
+    <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:px-0">
       <div className="mb-8 xl:mb-10">
         <h2 className="text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
           Solutions That Fit
@@ -60,7 +60,7 @@ export default function SolutionsThatFitBusiness() {
 
       <div
         className="hidden h-[338px] gap-3 xl:flex"
-        onMouseLeave={() => setActiveIndex(null)}
+        onMouseLeave={() => setActiveIndex(0)}
       >
         {industries.map((card, index) => {
           const isExpanded = index === activeIndex;
@@ -92,12 +92,14 @@ export default function SolutionsThatFitBusiness() {
                       <p className="mt-2 max-w-[360px] text-sm leading-[1.7]">
                         {card.description}
                       </p>
-                      <div className="relative mt-4 flex-1 overflow-hidden rounded-xl bg-white/20 p-2">
+                      <div className="relative mt-4 flex-1 overflow-hidden rounded-xl">
                         <Image
                           src={card.image}
                           alt={card.title}
                           fill
-                          className="object-contain object-center"
+                          sizes="(max-width: 1279px) 100vw, 33vw"
+                          placeholder="blur"
+                          className="object-cover object-center"
                         />
                       </div>
                     </motion.div>
@@ -134,12 +136,14 @@ export default function SolutionsThatFitBusiness() {
               <div className={`flex flex-col ${textColor}`}>
                 <h3 className="text-xl font-bold">{card.title}</h3>
                 <p className="mt-2 text-sm leading-[1.7]">{card.description}</p>
-                <div className="relative mt-4 h-[190px] overflow-hidden rounded-xl bg-white/20 p-2">
+                <div className="relative mt-4 h-[190px] overflow-hidden rounded-xl">
                   <Image
                     src={card.image}
                     alt={card.title}
                     fill
-                    className="object-contain object-center"
+                    sizes="100vw"
+                    placeholder="blur"
+                    className="object-cover object-center"
                   />
                 </div>
               </div>

@@ -98,7 +98,7 @@ export default function Solutions() {
       <section className="xl:hidden mt-16 bg-[#E8F4FB]">
         <div ref={mobileTrackRef} className="relative h-[300vh]">
           <div className="sticky top-0 flex h-screen items-center">
-            <div className="mx-auto flex w-full max-w-[1092px] flex-col gap-10 px-5 sm:px-6">
+            <div className="mx-auto flex w-full max-w-[1292px] flex-col gap-10 px-5 sm:px-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeStep.id}-mobile-copy`}
@@ -152,7 +152,7 @@ export default function Solutions() {
       <section className="hidden bg-[#E8F4FB] xl:block">
         <div ref={desktopTrackRef} className="relative h-[300vh]">
           <div className="sticky top-0 flex h-screen items-center">
-            <div className="mx-auto grid w-full max-w-[1640px]  grid-cols-[1fr_1.15fr] items-center h-full gap-24 px-6">
+            <div className="mx-auto grid h-full w-full max-w-[1292px] grid-cols-[1fr_1.15fr] items-center gap-24 px-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStep.id}

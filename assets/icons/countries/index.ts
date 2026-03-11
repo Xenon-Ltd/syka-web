@@ -21,4 +21,5 @@ export { default as TH } from "./TH.svg";
 export { default as TR } from "./TR.svg";
 export { default as VN } from "./VN.svg";
 export { default as US } from "./US.svg";
+export { default as CN } from "./CN.svg";
 export { default as MORE } from "./MORE.svg";

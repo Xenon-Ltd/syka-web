@@ -4,11 +4,12 @@ import React from "react";
 
 function EndToEndSecurity() {
   return (
-    <section className="mx-auto mt-16 flex max-w-[1092px] flex-col items-center justify-between gap-10 px-5 sm:px-6 xl:mt-24 xl:flex-row-reverse xl:gap-16 xl:px-0">
+    <section className="mx-auto mt-16 flex max-w-[1292px] flex-col items-center justify-between gap-10 px-5 sm:px-6 xl:mt-24 xl:flex-row-reverse xl:gap-16 xl:px-0">
       <div className="w-full xl:w-[520px]">
         <Image
           src={EndToEndSecurityImage}
           alt="endtoend"
+          sizes="(max-width: 1280px) 100vw, 520px"
           className="w-full scale-x-[-1]"
         />
       </div>

@@ -8,7 +8,7 @@ import React from "react";
 
 function BuiltOnStability() {
   return (
-    <section className="mx-auto mt-16 max-w-[1092px] px-5 sm:px-6 xl:mt-24 xl:px-0">
+    <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-24 xl:px-0">
       <div className="mb-10 xl:mb-12">
         <h2 className="text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
           Built on <span className="text-xenon">Stability,</span>

@@ -7,7 +7,7 @@ import { PhoneWithFrame } from "@/assets/images";
 function Hero() {
   const countryFlags = [GH, NG, GB, US, MORE];
   return (
-    <section className="mx-auto mt-4 max-w-[1092px] px-5 sm:px-6 xl:mt-8 xl:px-0">
+    <section className="mx-auto mt-4 max-w-[1292px] px-5 sm:px-6 xl:mt-8 xl:px-0">
       <div className="mt-6 flex flex-col items-center justify-between gap-10 xl:mt-18 xl:flex-row xl:gap-16">
         <div className="w-full xl:w-[510px]">
           <div className="flex items-center gap-3 text-xs text-[#6A7284] sm:text-sm xl:gap-4 xl:text-base">
@@ -53,6 +53,9 @@ function Hero() {
             src={PhoneWithFrame}
             alt="phone-image"
             width={480}
+            sizes="(max-width: 1280px) 100vw, 480px"
+            placeholder="blur"
+            priority
             className="relative z-10 w-full max-w-[480px] xl:ml-auto"
           />
         </div>
