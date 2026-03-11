@@ -1,9 +1,11 @@
+"use client";
 import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
-import { GH, GB, NG, US } from "@/assets/icons/countries";
-import { WorldMap } from "@/assets/images";
+import { GH, GB, NG, US, MORE } from "@/assets/icons/countries";
+import Lottie from "lottie-react";
 import Image from "next/image";
+import WorldMapAnimation from "@/assets/lottie-files/Map.json";
 
-const countryFlags = [GH, NG, GB, US];
+const countryFlags = [GH, NG, GB, US, MORE];
 
 export default function PowerYourBusiness() {
   return (
@@ -43,7 +45,8 @@ export default function PowerYourBusiness() {
         </div>
       </div>
 
-      <Image src={WorldMap} alt="world-map" className="mt-14 w-full" />
+      <div className="mt-8"></div>
+      <Lottie animationData={WorldMapAnimation} loop={true} autoplay />
 
       <div className="mt-14 flex flex-col items-center text-center xl:mt-16">
         <p className="text-[28px] leading-[1.2] font-bold text-[#121733] sm:text-[36px]">
