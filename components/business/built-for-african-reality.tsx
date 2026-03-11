@@ -55,10 +55,13 @@ export default function BuiltForAfricanReality() {
         </h2>
       </div>
 
-      <div className="grid place-items-center justify-center gap-8 sm:grid-cols-1 lg:grid-cols-3">
+      <div className="flex flex-wrap justify-center gap-8">
         {features.map((feature) => {
           return (
-            <article key={feature.title} className="rounded-2xl text-center">
+            <article
+              key={feature.title}
+              className="flex w-full max-w-[320px] flex-col items-center rounded-2xl text-center"
+            >
               <div className="mb-4 inline-flex size-[84px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white">
                 <Image
                   src={feature.icon}

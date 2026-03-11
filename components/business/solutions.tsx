@@ -42,6 +42,7 @@ const solutionSteps: SolutionStep[] = [
 ];
 
 export default function Solutions() {
+  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
   const desktopTrackRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -49,8 +50,9 @@ export default function Solutions() {
     let frameId = 0;
 
     const updateActiveStep = () => {
-      const track = desktopTrackRef.current;
-      if (!track || window.innerWidth < 1280) {
+      const track =
+        window.innerWidth < 1280 ? mobileTrackRef.current : desktopTrackRef.current;
+      if (!track) {
         return;
       }
 
@@ -93,38 +95,57 @@ export default function Solutions() {
 
   return (
     <>
-      <section className="xl:hidden mt-16 bg-[#E8F4FB] py-14">
-        <div className="mx-auto flex max-w-[1092px] flex-col gap-10 px-5 sm:px-6">
-          {solutionSteps.map((step) => (
-            <div key={step.id} className="grid justify-items-center gap-12">
-              <div className="mx-auto text-center">
-                <p className="text-xs font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
-                  SOLUTIONS
-                </p>
-                <h2 className="mt-3 max-w-[560px] text-[32px] leading-[1.1] font-bold text-[#121733] sm:text-[38px]">
-                  {step.highlight ? (
-                    <>
-                      {step.heading.split(step.highlight)[0]}
-                      <span className="text-xenon">{step.highlight}</span>
-                      {step.heading.split(step.highlight)[1]}
-                    </>
-                  ) : (
-                    step.heading
-                  )}
-                </h2>
-                <p className="mt-4 max-w-[540px] text-sm leading-[1.7] text-[#4D576C] sm:text-[15px]">
-                  {step.description}
-                </p>
-                <button className="mx-auto mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
-                  <span>Get started for free</span>
-                </button>
-              </div>
+      <section className="xl:hidden mt-16 bg-[#E8F4FB]">
+        <div ref={mobileTrackRef} className="relative h-[300vh]">
+          <div className="sticky top-0 flex h-screen items-center">
+            <div className="mx-auto flex w-full max-w-[1092px] flex-col gap-10 px-5 sm:px-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeStep.id}-mobile-copy`}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -18 }}
+                  transition={{ duration: 0.34, ease: "easeOut" }}
+                  className="mx-auto text-center"
+                >
+                  <p className="text-xs font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
+                    SOLUTIONS
+                  </p>
+                  <h2 className="mt-3 max-w-[560px] text-[32px] leading-[1.1] font-bold text-[#121733] sm:text-[38px]">
+                    {activeStep.highlight ? (
+                      <>
+                        {activeStep.heading.split(activeStep.highlight)[0]}
+                        <span className="text-xenon">{activeStep.highlight}</span>
+                        {activeStep.heading.split(activeStep.highlight)[1]}
+                      </>
+                    ) : (
+                      activeStep.heading
+                    )}
+                  </h2>
+                  <p className="mt-4 max-w-[540px] text-sm leading-[1.7] text-[#4D576C] sm:text-[15px]">
+                    {activeStep.description}
+                  </p>
+                  <button className="mx-auto mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
+                    <span>Get started for free</span>
+                  </button>
+                </motion.div>
+              </AnimatePresence>
 
-              <div className="mx-auto h-[320px] w-full max-w-[580px]">
-                <Lottie animationData={step.animationData} loop autoplay />
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeStep.id}-mobile-card`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.34, ease: "easeOut" }}
+                >
+                  <div className="mx-auto h-[320px] w-full max-w-[580px]">
+                    <Lottie animationData={activeStep.animationData} loop autoplay />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
