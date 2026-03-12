@@ -23,24 +23,24 @@ export default function PowerYourBusiness() {
               className="size-6"
             />
           ))}
-          <p className="ml-2 text-xs text-[#657089] sm:text-sm">
+          <p className="ml-2 text-[13px] text-[#657089] sm:text-[16px]">
             Over 2000 businesses in 27 countries and still growing
           </p>
         </div>
 
-        <h1 className="mt-4 text-[34px] leading-[1.1] font-bold text-[#121733] sm:text-[52px]">
+        <h1 className="mt-4 text-[37px] leading-[1.1] font-bold text-[#121733] sm:text-[57px]">
           Power Your Business With{" "}
           <span className="text-xenon">Borderless</span> Payments.
         </h1>
-        <p className="mx-auto mt-4 max-w-[470px] text-sm leading-[1.7] text-[#505A6E] sm:text-[15px]">
+        <p className="mx-auto mt-4 max-w-[470px] text-[15px] leading-[1.7] text-[#505A6E] sm:text-[16px]">
           Level the playing ground for African businesses.{" "}
         </p>
 
         <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-          <button className="h-11 rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
+          <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
             Get started now
           </button>
-          <button className="h-11 rounded-lg border border-[#C9D6E4] px-7 text-sm font-semibold text-[#324258] transition-colors hover:bg-[#F3F7FB]">
+          <button className="h-11 rounded-lg border border-[#C9D6E4] px-7 text-[15px] font-semibold text-[#324258] transition-colors hover:bg-[#F3F7FB]">
             See How It Works
           </button>
         </div>
@@ -50,10 +50,10 @@ export default function PowerYourBusiness() {
       <Lottie animationData={WorldMapAnimation} loop={true} autoplay />
 
       <div className="mt-14 flex flex-col items-center text-center xl:mt-16 md:mb-16">
-        <p className="text-[28px] leading-[1.2] font-bold text-[#121733] sm:text-[36px]">
+        <p className="text-[31px] leading-[1.2] font-bold text-[#121733] sm:text-[40px]">
           Instant Payments, <span className="text-xenon">Zero</span> Limits
         </p>
-        <p className="mt-2 text-xs text-[#657089] sm:text-sm">
+        <p className="mt-2 text-[13px] text-[#657089] sm:text-[16px]">
           Simple, fast and transparent global payments
         </p>
         <div className="mt-5 flex items-center gap-3">

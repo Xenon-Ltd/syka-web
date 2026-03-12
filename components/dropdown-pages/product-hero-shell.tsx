@@ -16,7 +16,7 @@ export default function ProductHeroShell({
   children,
 }: ProductHeroShellProps) {
   return (
-    <section className="mt-8 flex min-h-screen items-center px-5 sm:px-6 xl:mt-14 xl:px-0">
+    <section className="mt-8 flex min-h-[85vh] items-center px-5 sm:px-6 xl:mt-0 xl:px-0">
       <div className="mx-auto grid h-full w-full max-w-[1292px] items-center gap-12 xl:grid-cols-[1fr_1.12fr] xl:gap-20">
         <div className="w-full">
           <p className="text-xs font-semibold tracking-[0.08em] text-[#7A89A2] uppercase">

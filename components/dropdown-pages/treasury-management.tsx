@@ -12,7 +12,7 @@ export default function TreasuryManagementPage() {
       description="Monitor balances, optimize liquidity, and protect your funds with powerful treasury tools built for modern businesses."
       ctaLabel="Get started with SYKA"
     >
-      <div className="mx-auto h-[420px] w-full max-w-[760px] sm:h-[500px]">
+      <div className="mx-auto h-[430px] w-full max-w-[700px] sm:h-[560px]">
         <Lottie
           animationData={TreasuryAnimation}
           loop

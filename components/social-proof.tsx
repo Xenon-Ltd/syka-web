@@ -57,14 +57,14 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             className="size-11 rounded-full border border-[#DEE5EF]"
           />
         </div>
-        <p className="text-sm leading-[1.7] text-[#4D576C]">
+        <p className="text-[15px] leading-[1.7] text-[#4D576C]">
           {testimonial.feedback}
         </p>
       </div>
       <div className="flex items-center gap-2 mt-8">
         <div>
-          <p className="text-sm font-bold text-[#121733]">{testimonial.name}</p>
-          <p className="text-xs text-[#758198]">{testimonial.title}</p>
+          <p className="text-[15px] font-bold text-[#121733]">{testimonial.name}</p>
+          <p className="text-[13px] text-[#758198]">{testimonial.title}</p>
         </div>
       </div>
     </div>
@@ -115,10 +115,10 @@ function SocialProof() {
     <section className="mt-16 bg-[#1E1A63] py-14 xl:mt-24 xl:flex xl:min-h-[90vh] xl:items-center xl:py-20">
       <div className="mx-auto max-w-[1292px] px-5 sm:px-6 xl:px-0">
         <div className="mb-8 text-center xl:mb-10 max-w-[1092px] mx-auto">
-          <p className="mb-2 text-xs font-semibold tracking-[0.18em] text-white/65 uppercase">
+          <p className="mb-2 text-[13px] font-semibold tracking-[0.18em] text-white/65 uppercase">
             SOCIAL PROOF
           </p>
-          <h2 className="text-[30px] leading-[1.1] font-bold text-white sm:text-[35px]">
+          <h2 className="text-[33px] leading-[1.1] font-bold text-white sm:text-[39px]">
             What Our <span className="text-xenon">Customers</span> Have to Say
           </h2>
         </div>

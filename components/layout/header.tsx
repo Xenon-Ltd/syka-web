@@ -242,29 +242,16 @@ const Header = () => {
                         <li key={subItem.label}>
                           <Link
                             href={subItem.href}
-                            className={cn(
-                              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]",
-                              item.label === "Developers" &&
-                                "py-3 text-[24px] leading-none",
-                            )}
+                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]"
                             onClick={() => {
                               setOpenDropdown(null);
                               setHoveredDropdown(null);
                             }}
                           >
                             <span
-                              className={cn(
-                                "inline-flex size-8 shrink-0 items-center justify-center rounded-xl bg-[#8CC3DE] text-white",
-                                item.label === "Developers" &&
-                                  "size-[88px] rounded-[28px]",
-                              )}
+                              className="inline-flex size-8 shrink-0 items-center justify-center rounded-xl bg-[#8CC3DE] text-white"
                             >
-                              <subItem.icon
-                                className={cn(
-                                  "size-4",
-                                  item.label === "Developers" && "size-[44px]",
-                                )}
-                              />
+                              <subItem.icon className="size-4" />
                             </span>
                             <span>{subItem.label}</span>
                           </Link>

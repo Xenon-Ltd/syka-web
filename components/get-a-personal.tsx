@@ -16,19 +16,19 @@ const GetAPersonalAccount = () => {
           />
         </div>
         <div className="flex w-full flex-col xl:w-full">
-          <p className="text-xs font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
+          <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
             GET A SYKA PERSONAL ACCOUNT
           </p>
-          <h2 className="mt-3 text-[32px] leading-[1.1] font-bold tracking-[-0.01em] text-[#111831] sm:text-[40px] sm:leading-[1.08]">
+          <h2 className="mt-3 text-[35px] leading-[1.1] font-bold tracking-[-0.01em] text-[#111831] sm:text-[44px] sm:leading-[1.08]">
             The Modern Financial Stack for a{" "}
             <span className="text-xenon">Borderless</span> World
           </h2>
-          <p className="mt-4 max-w-full text-sm leading-[1.7] text-[#4E576A] sm:text-[15px]">
+          <p className="mt-4 max-w-full text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px]">
             Built for African entrepreneurs facing systemic payment barriers,
             our modern borderless platform enables fast, transparent global
             transactions without unnecessary complexity.
           </p>
-          <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
+          <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
             Get Started for free
           </button>
         </div>

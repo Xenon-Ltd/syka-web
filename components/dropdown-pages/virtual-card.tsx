@@ -12,7 +12,7 @@ export default function VirtualCardPage() {
       description="Generate secure virtual cards for teams, subscriptions, and vendors, with real-time tracking and built-in spending limits."
       ctaLabel="Create a Card"
     >
-      <div className="mx-auto h-[420px] w-full max-w-[760px] sm:h-[500px]">
+      <div className="mx-auto h-[430px] w-full max-w-[700px] sm:h-[560px]">
         <Lottie
           animationData={VirtualCardsAnimation}
           loop

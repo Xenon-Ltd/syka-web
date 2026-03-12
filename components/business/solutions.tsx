@@ -51,7 +51,9 @@ export default function Solutions() {
 
     const updateActiveStep = () => {
       const track =
-        window.innerWidth < 1280 ? mobileTrackRef.current : desktopTrackRef.current;
+        window.innerWidth < 1280
+          ? mobileTrackRef.current
+          : desktopTrackRef.current;
       if (!track) {
         return;
       }
@@ -108,24 +110,26 @@ export default function Solutions() {
                   transition={{ duration: 0.34, ease: "easeOut" }}
                   className="mx-auto text-center"
                 >
-                  <p className="text-xs font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
+                  <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
                     SOLUTIONS
                   </p>
-                  <h2 className="mt-3 max-w-[560px] text-[32px] leading-[1.1] font-bold text-[#121733] sm:text-[38px]">
+                  <h2 className="mt-3 max-w-[560px] text-[35px] leading-[1.1] font-bold text-[#121733] sm:text-[42px]">
                     {activeStep.highlight ? (
                       <>
                         {activeStep.heading.split(activeStep.highlight)[0]}
-                        <span className="text-xenon">{activeStep.highlight}</span>
+                        <span className="text-xenon">
+                          {activeStep.highlight}
+                        </span>
                         {activeStep.heading.split(activeStep.highlight)[1]}
                       </>
                     ) : (
                       activeStep.heading
                     )}
                   </h2>
-                  <p className="mt-4 max-w-[540px] text-sm leading-[1.7] text-[#4D576C] sm:text-[15px]">
+                  <p className="mt-4 max-w-[540px] text-[15px] leading-[1.7] text-[#4D576C] sm:text-[16px]">
                     {activeStep.description}
                   </p>
-                  <button className="mx-auto mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
+                  <button className="mx-auto mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
                     <span>Get started for free</span>
                   </button>
                 </motion.div>
@@ -140,7 +144,11 @@ export default function Solutions() {
                   transition={{ duration: 0.34, ease: "easeOut" }}
                 >
                   <div className="mx-auto h-[320px] w-full max-w-[580px]">
-                    <Lottie animationData={activeStep.animationData} loop autoplay />
+                    <Lottie
+                      animationData={activeStep.animationData}
+                      loop
+                      autoplay
+                    />
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -162,7 +170,7 @@ export default function Solutions() {
                   transition={{ duration: 0.34, ease: "easeOut" }}
                   className="mx-auto w-full max-w-[720px]  flex flex-col items-start justify-center h-full text-left"
                 >
-                  <p className="text-xs font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
+                  <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
                     SOLUTIONS
                   </p>
                   <h2 className="mt-3 max-w-[720px] text-[48px] leading-[1.08] font-bold text-[#121733]">
@@ -181,7 +189,7 @@ export default function Solutions() {
                   <p className="mt-4 max-w-[600px] text-[15px] leading-[1.7] text-[#4D576C]">
                     {activeStep.description}
                   </p>
-                  <button className="mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-sm font-semibold text-white transition-colors hover:bg-xenon-600">
+                  <button className="mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
                     <span>Get started for free</span>
                   </button>
                 </motion.div>

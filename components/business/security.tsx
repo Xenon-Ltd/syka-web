@@ -18,29 +18,32 @@ export default function Security() {
   return (
     <section className="mt-16 bg-[#E8F4FB] py-14 xl:mt-20 xl:min-h-[90vh] xl:py-16 xl:flex xl:items-center">
       <div className="mx-auto flex max-w-[1292px] flex-col items-center gap-10 px-5 sm:px-6 xl:flex-row xl:justify-between xl:gap-16 xl:px-0 w-full">
-        <div className="w-full xl:w-[470px]">
-          <p className="text-xs font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
+        <div className="w-full xl:w-[570px]">
+          <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
             SECURITY
           </p>
-          <h2 className="mt-3 text-[32px] leading-[1.1] font-bold text-[#121733] sm:text-[40px]">
+          <h2 className="mt-3 text-[35px] leading-[1.1] font-bold text-[#121733] sm:text-[44px]">
             Your Assets and Data Are Always{" "}
             <span className="text-xenon">Safe</span>
           </h2>
 
-          <div className="mt-6 grid gap-10 sm:grid-cols-2">
+          <div className="mt-6 grid gap-2 sm:grid-cols-2">
             {securityPoints.map((point, index) => (
-              <article key={point.title} className=" py-4">
-                <div className="mb-3 inline-flex size-9 items-center justify-center rounded-full border bg-xenon text-white">
+              <article
+                key={point.title}
+                className="py-4 border rounded-lg px-4"
+              >
+                <div className="mb-3 inline-flex size-12 items-center justify-center rounded-full border bg-xenon text-white">
                   {index === 0 ? (
-                    <ShieldCheck size={18} />
+                    <ShieldCheck size={24} />
                   ) : (
-                    <LockKeyhole size={18} />
+                    <LockKeyhole size={24} />
                   )}
                 </div>
-                <h3 className="text-sm font-bold text-[#1C2740]">
+                <h3 className="text-[15px] font-bold text-[#1C2740]">
                   {point.title}
                 </h3>
-                <p className="mt-2 text-xs leading-[1.7] text-[#546178]">
+                <p className="mt-2 text-[15px] leading-[1.7] text-[#546178]">
                   {point.description}
                 </p>
               </article>

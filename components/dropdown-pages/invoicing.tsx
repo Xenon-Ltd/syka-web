@@ -12,7 +12,7 @@ export default function InvoicingPage() {
       description="Create professional invoices, track payments in real time, and accept global payments without friction."
       ctaLabel="Create Invoice"
     >
-      <div className="mx-auto h-[420px] w-full max-w-[760px] sm:h-[500px]">
+      <div className="mx-auto h-[430px] w-full max-w-[700px] sm:h-[560px]">
         <Lottie
           animationData={InvoicingAnimation}
           loop

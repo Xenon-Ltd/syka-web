@@ -49,7 +49,7 @@ const countries = [
 
 function CountryItem({ icon, name }: CountryItemProps) {
   return (
-    <div className="my-2 flex w-fit items-center gap-2 rounded-full bg-[#F3F6FA] px-3 py-1.5 md:px-4">
+    <div className="flex w-fit items-center gap-2 rounded-full bg-[#F3F6FA] pt-[8px] pr-[25px] pb-[8px] pl-[18px]">
       <Image
         src={icon}
         alt={`${name} flag`}
@@ -69,7 +69,7 @@ export default function CountriesSupported() {
         Countries We Currently Support
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px]">
         {countries.map((country) => (
           <CountryItem
             key={country.name}

@@ -57,11 +57,11 @@ export { default as ForGlobalTeamsAndContractors } from "./global-teams-contract
 export { default as ForCrossBorderBusinesses } from "./cross-border-businesses.png";
 export { default as ForSMEsAndStartupsBiz } from "./sme-startup.png";
 
-export { default as InstantSettlement } from "./instant-settlement.png";
-export { default as WhatsappSMSNative } from "./whatsapp-sms-natiive.png";
-export { default as PatchyInternet } from "./patchy-internet.png";
-export { default as FullCompliance } from "./full-compliance.png";
-export { default as MobileFirst } from "./mobile-first.png";
+export { default as InstantSettlement } from "./instant-settlement.svg";
+export { default as WhatsappSMSNative } from "./whatsapp-sms-native.svg";
+export { default as PatchyInternet } from "./patchy-internet.svg";
+export { default as FullCompliance } from "./full-compliance.svg";
+export { default as MobileFirst } from "./mobile-first.svg";
 
 // used by
 export { default as SonaQode } from "./sonaqode.png";

@@ -50,10 +50,10 @@ export default function SolutionsThatFitBusiness() {
   return (
     <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:px-0">
       <div className="mb-8 xl:mb-10">
-        <h2 className="text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
+        <h2 className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
           Solutions That Fit
         </h2>
-        <p className="mt-2 text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
+        <p className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
           Your <span className="text-xenon">Industry</span>
         </p>
       </div>
@@ -86,10 +86,10 @@ export default function SolutionsThatFitBusiness() {
                       transition={{ duration: 0.25 }}
                       className={`flex h-full flex-col ${textColor}`}
                     >
-                      <h3 className="text-[24px] leading-[1.2] font-bold">
+                      <h3 className="text-[26px] leading-[1.2] font-bold">
                         {card.title}
                       </h3>
-                      <p className="mt-2 max-w-[360px] text-sm leading-[1.7]">
+                      <p className="mt-2 max-w-[360px] text-[15px] leading-[1.7]">
                         {card.description}
                       </p>
                       <div className="relative mt-4 flex-1 overflow-hidden rounded-xl">
@@ -112,7 +112,7 @@ export default function SolutionsThatFitBusiness() {
                       transition={{ duration: 0.2 }}
                       className={`flex h-full items-center justify-center text-center ${textColor}`}
                     >
-                      <h3 className="text-[22px] leading-[1.2] font-bold">
+                      <h3 className="text-[26px] leading-[1.2] font-bold">
                         {card.title}
                       </h3>
                     </motion.div>
@@ -134,8 +134,8 @@ export default function SolutionsThatFitBusiness() {
               className={`${card.bg} overflow-hidden rounded-2xl p-5`}
             >
               <div className={`flex flex-col ${textColor}`}>
-                <h3 className="text-xl font-bold">{card.title}</h3>
-                <p className="mt-2 text-sm leading-[1.7]">{card.description}</p>
+                <h3 className="text-[22px] font-bold">{card.title}</h3>
+                <p className="mt-2 text-[15px] leading-[1.7]">{card.description}</p>
                 <div className="relative mt-4 h-[190px] overflow-hidden rounded-xl">
                   <Image
                     src={card.image}
