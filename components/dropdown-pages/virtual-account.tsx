@@ -11,9 +11,8 @@ export default function VirtualAccountPage() {
       title="Get Paid Globally"
       description="Create dedicated virtual accounts to receive, hold, and manage funds across borders."
       ctaLabel="Create a Virtual Account"
-      frameClassName="bg-[#272165]"
     >
-      <div className="mx-auto h-[380px] w-full max-w-[600px] sm:h-[420px] sm:p-4">
+      <div className="mx-auto h-[420px] w-full max-w-[760px] sm:h-[500px]">
         <Lottie
           animationData={VirtualAccountsAnimation}
           loop

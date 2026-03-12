@@ -30,7 +30,7 @@ export default function MoreThanTransfers() {
                 Generate links or invoices, integrate our API, and accept USDT,
                 USDC, and cards globally with funds arriving in seconds.
               </p>
-              <button className="mt-4 flex items-center gap-2 text-sm text-white">
+              <button className="mt-4 flex items-center gap-2 text-sm text-white transition-[gap] duration-300 ease-out group-hover:gap-3">
                 <span>Get Now</span>
                 <ArrowRightCircleIcon size={18} />
               </button>
@@ -56,7 +56,7 @@ export default function MoreThanTransfers() {
                 Send USDT globally, pay multiple recipients, and automate
                 recurring payments with no banks or delays.
               </p>
-              <button className="mt-4 flex items-center gap-2 text-sm text-xenon">
+              <button className="mt-4 flex items-center gap-2 text-sm text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3">
                 <span>Get Now</span>
                 <ArrowRightCircleIcon size={18} />
               </button>
@@ -81,7 +81,7 @@ export default function MoreThanTransfers() {
             Create secure, disposable virtual debit cards directly from your
             Syka balance
           </p>
-          <button className="mt-6 flex items-center gap-2 text-sm text-white">
+          <button className="mt-6 flex items-center gap-2 text-sm text-white transition-[gap] duration-300 ease-out group-hover:gap-3">
             <span>Get Now</span>
             <ArrowRightCircleIcon size={18} />
           </button>
@@ -107,7 +107,7 @@ export default function MoreThanTransfers() {
             Hold USDT or USDC, convert when needed, and manage multi-currency
             (USD, EUR, GBP) balances in real time.{" "}
           </p>
-          <button className="mt-4 flex items-center gap-2 text-sm text-xenon">
+          <button className="mt-4 flex items-center gap-2 text-sm text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3">
             <span>Get Now</span>
             <ArrowRightCircleIcon size={18} />
           </button>

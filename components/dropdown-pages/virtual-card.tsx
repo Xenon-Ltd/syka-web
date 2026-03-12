@@ -11,9 +11,8 @@ export default function VirtualCardPage() {
       title="Issue Cards. Control Every Spend."
       description="Generate secure virtual cards for teams, subscriptions, and vendors, with real-time tracking and built-in spending limits."
       ctaLabel="Create a Card"
-      frameClassName="bg-[#272165]"
     >
-      <div className="mx-auto h-[380px] w-full max-w-[600px] sm:h-[420px] sm:p-4">
+      <div className="mx-auto h-[420px] w-full max-w-[760px] sm:h-[500px]">
         <Lottie
           animationData={VirtualCardsAnimation}
           loop

@@ -1,9 +1,27 @@
 "use client";
 import { MenuIcon } from "@/assets/icons";
 import { SykaLogo } from "@/assets/images";
-import { PRODUCT_ITEMS } from "@/components/dropdown-pages/product-config";
+import {
+  PRODUCT_ITEMS,
+  type ProductSlug,
+} from "@/components/dropdown-pages/product-config";
 import { cn } from "@/lib/utils";
-import { ChevronDown, X } from "lucide-react";
+import {
+  BookText,
+  BriefcaseBusiness,
+  ChevronDown,
+  CreditCard,
+  FileCode2,
+  Landmark,
+  Megaphone,
+  Newspaper,
+  ReceiptText,
+  Send,
+  Sparkles,
+  WalletCards,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,6 +30,7 @@ import React, { useEffect, useRef, useState } from "react";
 type DropdownItem = {
   label: string;
   href: string;
+  icon: LucideIcon;
 };
 
 type TopLevelItem =
@@ -43,11 +62,11 @@ const companyItem: TopLevelItem = {
   label: "Company",
   type: "dropdown",
   items: [
-    { label: "About Us", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Press", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Community", href: "#" },
+    { label: "About Us", href: "#", icon: Sparkles },
+    { label: "Blog", href: "#", icon: BookText },
+    { label: "Press", href: "#", icon: Newspaper },
+    { label: "Careers", href: "#", icon: BriefcaseBusiness },
+    { label: "Community", href: "#", icon: Megaphone },
   ],
 };
 
@@ -60,7 +79,7 @@ const supportItem: TopLevelItem = {
 const developersItem: TopLevelItem = {
   label: "Developers",
   type: "dropdown",
-  items: [{ label: "API Documentation", href: "#" }],
+  items: [{ label: "API Documentation", href: "#", icon: FileCode2 }],
 };
 
 const Header = () => {
@@ -72,6 +91,13 @@ const Header = () => {
   const isBusinessRoute = pathname.startsWith("/business");
   const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
   const productBasePath = isBusinessRoute ? "/business" : "/";
+  const productIcons: Record<ProductSlug, LucideIcon> = {
+    "virtual-account": Landmark,
+    "virtual-card": CreditCard,
+    invoicing: ReceiptText,
+    payments: Send,
+    "treasury-management": WalletCards,
+  };
 
   const productsItem: TopLevelItem = {
     label: "Products",
@@ -79,6 +105,7 @@ const Header = () => {
     items: PRODUCT_ITEMS.map((item) => ({
       label: item.label,
       href: `${productBasePath}?product=${item.slug}`,
+      icon: productIcons[item.slug],
     })),
   };
 
@@ -215,13 +242,31 @@ const Header = () => {
                         <li key={subItem.label}>
                           <Link
                             href={subItem.href}
-                            className="block rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]"
+                            className={cn(
+                              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[#4A4E66] transition-colors hover:bg-[#F5F7FB] hover:text-[#1F2238]",
+                              item.label === "Developers" &&
+                                "py-3 text-[24px] leading-none",
+                            )}
                             onClick={() => {
                               setOpenDropdown(null);
                               setHoveredDropdown(null);
                             }}
                           >
-                            {subItem.label}
+                            <span
+                              className={cn(
+                                "inline-flex size-8 shrink-0 items-center justify-center rounded-xl bg-[#8CC3DE] text-white",
+                                item.label === "Developers" &&
+                                  "size-[88px] rounded-[28px]",
+                              )}
+                            >
+                              <subItem.icon
+                                className={cn(
+                                  "size-4",
+                                  item.label === "Developers" && "size-[44px]",
+                                )}
+                              />
+                            </span>
+                            <span>{subItem.label}</span>
                           </Link>
                         </li>
                       ))}
@@ -335,9 +380,12 @@ const Header = () => {
                       <Link
                         onClick={() => setIsSheetOpen(false)}
                         href={subItem.href}
-                        className="text-base text-[#343955]"
+                        className="flex items-center gap-3 text-base text-[#343955]"
                       >
-                        {subItem.label}
+                        <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#8CC3DE] text-white">
+                          <subItem.icon className="size-3.5" />
+                        </span>
+                        <span>{subItem.label}</span>
                       </Link>
                     </li>
                   ))}

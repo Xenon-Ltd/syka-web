@@ -50,31 +50,31 @@ export default function BuiltForAfricanReality() {
   return (
     <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:min-h-[90vh] xl:px-0 xl:flex xl:flex-col xl:justify-center">
       <div className="mb-10">
-        <h2 className="text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
+        <h2 className="text-[32px] leading-[1.1] font-bold text-[#121733] sm:text-[40px]">
           Built for African <span className="text-xenon">Reality</span>
         </h2>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-x-32 gap-y-24 xl:gap-x-40 mb-16">
+      <div className="mb-16 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((feature) => {
           return (
             <article
               key={feature.title}
-              className="flex w-full max-w-[320px] flex-col items-center rounded-2xl text-center"
+              className="mx-auto flex w-full max-w-[360px] flex-col items-center rounded-2xl text-center"
             >
-              <div className="mb-4 inline-flex size-[84px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white">
+              <div className="mb-5 inline-flex size-[104px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white">
                 <Image
                   src={feature.icon}
                   alt={feature.title}
-                  width={44}
-                  height={44}
-                  className="size-11 object-contain"
+                  width={56}
+                  height={56}
+                  className="size-14 object-contain"
                 />
               </div>
-              <h3 className="text-lg font-bold text-[#121733]">
+              <h3 className="text-[22px] leading-[1.25] font-bold text-[#121733]">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-[1.7] text-[#505A6E]">
+              <p className="mt-3 text-[15px] leading-[1.75] text-[#505A6E]">
                 {feature.description}
               </p>
             </article>

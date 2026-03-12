@@ -4,6 +4,7 @@ import { GH, GB, NG, US, MORE } from "@/assets/icons/countries";
 import Lottie from "lottie-react";
 import Image from "next/image";
 import WorldMapAnimation from "@/assets/lottie-files/Map.json";
+import CompaniesMarquee from "@/components/business/companies-marquee";
 
 const countryFlags = [GH, NG, GB, US, MORE];
 
@@ -71,6 +72,8 @@ export default function PowerYourBusiness() {
             />
           </button>
         </div>
+
+        <CompaniesMarquee />
       </div>
     </section>
   );

@@ -62,3 +62,8 @@ export { default as WhatsappSMSNative } from "./whatsapp-sms-natiive.png";
 export { default as PatchyInternet } from "./patchy-internet.png";
 export { default as FullCompliance } from "./full-compliance.png";
 export { default as MobileFirst } from "./mobile-first.png";
+
+// used by
+export { default as SonaQode } from "./sonaqode.png";
+export { default as Maryhealth } from "./mary-health.png";
+export { default as JSSquared } from "./js-squared.png";

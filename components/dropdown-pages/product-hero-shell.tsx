@@ -1,5 +1,3 @@
-import { Star } from "lucide-react";
-import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 type ProductHeroShellProps = {
@@ -7,7 +5,6 @@ type ProductHeroShellProps = {
   title: string;
   description: string;
   ctaLabel: string;
-  frameClassName: string;
   children: ReactNode;
 };
 
@@ -16,17 +13,16 @@ export default function ProductHeroShell({
   title,
   description,
   ctaLabel,
-  frameClassName,
   children,
 }: ProductHeroShellProps) {
   return (
-    <section className="mx-auto mt-8 w-full max-w-[1211px] px-5 sm:px-6 xl:mt-14 xl:px-0">
-      <div className="mx-auto flex w-full max-w-[1092px] flex-col items-center gap-10 xl:flex-row xl:justify-between xl:gap-16">
-        <div className="w-full xl:w-[570px]">
+    <section className="mt-8 flex min-h-screen items-center px-5 sm:px-6 xl:mt-14 xl:px-0">
+      <div className="mx-auto grid h-full w-full max-w-[1292px] items-center gap-12 xl:grid-cols-[1fr_1.12fr] xl:gap-20">
+        <div className="w-full">
           <p className="text-xs font-semibold tracking-[0.08em] text-[#7A89A2] uppercase">
             {eyebrow}
           </p>
-          <h1 className="mt-4 text-[35px] leading-[1.05] font-semibold text-[#3E4A5E] sm:text-[56px]">
+          <h1 className="mt-4 max-w-[660px] text-[35px] leading-[1.05] font-semibold text-[#3E4A5E] sm:text-[56px]">
             {title}
           </h1>
           <p className="mt-4 max-w-[560px] text-[18px] leading-[1.5] text-[#77859C]">
@@ -37,7 +33,7 @@ export default function ProductHeroShell({
           </button>
         </div>
 
-        <div>{children}</div>
+        <div className="w-full">{children}</div>
       </div>
     </section>
   );
