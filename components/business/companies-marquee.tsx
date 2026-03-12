@@ -13,27 +13,33 @@ const companyLogos: CompanyLogo[] = [
   { name: "SonaQode", image: SonaQode },
   { name: "JS Squared", image: JSSquared },
 ];
-
-const marqueeLogos = [...companyLogos, ...companyLogos];
+const marqueeSegmentLogos = [...companyLogos, ...companyLogos, ...companyLogos];
 
 export default function CompaniesMarquee() {
   return (
     <div className="mt-10 w-full rounded-[24px] bg-[#F4F6F8] py-5">
       <div className="overflow-hidden">
-        <div className="marquee-track flex w-max items-center gap-14 px-6 sm:gap-20">
-          {marqueeLogos.map((logo, index) => (
+        <div className="marquee-track flex w-max items-center">
+          {[0, 1].map((groupIndex) => (
             <div
-              key={`${logo.name}-${index}`}
-              className="relative h-10 w-[150px] shrink-0 sm:h-12 sm:w-[190px]"
+              key={`group-${groupIndex}`}
+              className="flex shrink-0 items-center gap-14 pr-14 sm:gap-20 sm:pr-20"
             >
-              <Image
-                src={logo.image}
-                alt={logo.name}
-                fill
-                sizes="(max-width: 640px) 150px, 190px"
-                placeholder="blur"
-                className="object-contain object-center"
-              />
+              {marqueeSegmentLogos.map((logo, logoIndex) => (
+                <div
+                  key={`${logo.name}-${groupIndex}-${logoIndex}`}
+                  className="relative h-10 w-[150px] shrink-0 sm:h-12 sm:w-[190px]"
+                >
+                  <Image
+                    src={logo.image}
+                    alt={logo.name}
+                    fill
+                    sizes="(max-width: 640px) 150px, 190px"
+                    placeholder="blur"
+                    className="object-contain object-center"
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -41,7 +47,8 @@ export default function CompaniesMarquee() {
 
       <style jsx>{`
         .marquee-track {
-          animation: company-marquee 18s linear infinite;
+          will-change: transform;
+          animation: company-marquee 24s linear infinite;
         }
 
         @keyframes company-marquee {
