@@ -90,7 +90,7 @@ const Footer = () => {
         <Image
           src={GetSykaFooter}
           alt="growth-partner"
-          className="w-full max-w-[430px] xl:h-[290px] xl:w-[430px] xl:self-end"
+          className="w-full max-w-[430px] xl:h-[290px] xl:w-[430px] xl:self-end -m-5 md:m-0"
         />
       </div>
       <div className="mt-28 mx-auto flex flex-col-reverse gap-12 px-5 pb-10 pt-10 sm:px-6 xl:w-[1211px] xl:flex-row xl:justify-between xl:px-0 xl:pt-[210px]">
