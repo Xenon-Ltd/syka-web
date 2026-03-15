@@ -5,6 +5,10 @@ import Solutions from "@/components/business/solutions";
 import SolutionsThatFit from "@/components/business/solutions-that-fit";
 import CountriesSupported from "@/components/countries-supported";
 import {
+  DEVELOPER_COMPONENTS,
+  parseDeveloperSlug,
+} from "@/components/dropdown-pages/developer-config";
+import {
   parseProductSlug,
   PRODUCT_COMPONENTS,
 } from "@/components/dropdown-pages/product-config";
@@ -12,6 +16,7 @@ import SocialProof from "@/components/social-proof";
 
 type BusinessPageProps = {
   searchParams?: Promise<{
+    developer?: string | string[];
     product?: string | string[];
   }>;
 };
@@ -19,14 +24,20 @@ type BusinessPageProps = {
 export default async function BusinessPage({ searchParams }: BusinessPageProps) {
   const resolvedSearchParams = await searchParams;
   const selectedProduct = parseProductSlug(resolvedSearchParams?.product);
+  const selectedDeveloper = parseDeveloperSlug(resolvedSearchParams?.developer);
   const SelectedProductComponent = selectedProduct
     ? PRODUCT_COMPONENTS[selectedProduct]
     : null;
+  const SelectedDeveloperComponent = selectedDeveloper
+    ? DEVELOPER_COMPONENTS[selectedDeveloper]
+    : null;
+  const SelectedTopComponent =
+    SelectedProductComponent ?? SelectedDeveloperComponent;
 
   return (
     <main>
-      {SelectedProductComponent ? (
-        <SelectedProductComponent />
+      {SelectedTopComponent ? (
+        <SelectedTopComponent />
       ) : (
         <>
           <PowerYourBusiness />

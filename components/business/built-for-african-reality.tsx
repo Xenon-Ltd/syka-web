@@ -76,23 +76,23 @@ export default function BuiltForAfricanReality() {
   return (
     <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:min-h-[90vh] xl:px-0 xl:flex xl:flex-col xl:justify-center">
       <div className="mb-10">
-        <h2 className="text-[35px] leading-[1.1] font-bold text-[#121733] sm:text-[44px]">
+        <h2 className="text-[30px] md:text-[35px] text-center md:text-start leading-[1.1] font-bold text-[#121733] sm:text-[44px]">
           Built for African <span className="text-xenon">Reality</span>
         </h2>
       </div>
 
       <div className="mb-16 space-y-12">
-        <div className="flex flex-wrap justify-center gap-x-10 gap-y-12">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
           {topRowFeatures.map((feature) => renderFeatureCard(feature))}
         </div>
-        <div className="flex flex-wrap justify-center gap-x-10 gap-y-12">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
           {bottomRowFeatures.map((feature) => renderFeatureCard(feature))}
         </div>
       </div>
 
       <div className="mt-8 text-center">
         <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
-          Schedule a Demo
+          Get started for free
         </button>
       </div>
     </section>

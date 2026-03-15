@@ -15,7 +15,7 @@ const GetAPersonalAccount = () => {
             placeholder="blur"
           />
         </div>
-        <div className="flex w-full flex-col xl:w-full">
+        <div className="flex w-full flex-col text-center xl:w-full xl:text-left">
           <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
             GET A SYKA PERSONAL ACCOUNT
           </p>
@@ -24,11 +24,11 @@ const GetAPersonalAccount = () => {
             <span className="text-xenon">Borderless</span> World
           </h2>
           <p className="mt-4 max-w-full text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px]">
-            Built for African entrepreneurs facing systemic payment barriers,
-            our modern borderless platform enables fast, transparent global
-            transactions without unnecessary complexity.
+            A modern, borderless payments platform that helps businesses send,
+            receive, and manage global payments faster, with transparent pricing
+            and no unnecessary complexity.{" "}
           </p>
-          <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
+          <button className="mt-7 h-11 w-fit mx-auto rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600 sm:mx-auto sm:w-fit xl:mx-0">
             Get Started for free
           </button>
         </div>

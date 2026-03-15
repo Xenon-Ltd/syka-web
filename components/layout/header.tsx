@@ -2,6 +2,10 @@
 import { MenuIcon } from "@/assets/icons";
 import { SykaLogo } from "@/assets/images";
 import {
+  DEVELOPER_ITEMS,
+  type DeveloperSlug,
+} from "@/components/dropdown-pages/developer-config";
+import {
   PRODUCT_ITEMS,
   type ProductSlug,
 } from "@/components/dropdown-pages/product-config";
@@ -76,12 +80,6 @@ const supportItem: TopLevelItem = {
   href: "#",
 };
 
-const developersItem: TopLevelItem = {
-  label: "Developers",
-  type: "dropdown",
-  items: [{ label: "API Documentation", href: "#", icon: FileCode2 }],
-};
-
 const Header = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -91,12 +89,16 @@ const Header = () => {
   const isBusinessRoute = pathname.startsWith("/business");
   const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
   const productBasePath = isBusinessRoute ? "/business" : "/";
+  const developerBasePath = isBusinessRoute ? "/business" : "/";
   const productIcons: Record<ProductSlug, LucideIcon> = {
     "virtual-account": Landmark,
     "virtual-card": CreditCard,
     invoicing: ReceiptText,
     payments: Send,
     "treasury-management": WalletCards,
+  };
+  const developerIcons: Record<DeveloperSlug, LucideIcon> = {
+    "api-documentation": FileCode2,
   };
 
   const productsItem: TopLevelItem = {
@@ -106,6 +108,15 @@ const Header = () => {
       label: item.label,
       href: `${productBasePath}?product=${item.slug}`,
       icon: productIcons[item.slug],
+    })),
+  };
+  const developersItem: TopLevelItem = {
+    label: "Developers",
+    type: "dropdown",
+    items: DEVELOPER_ITEMS.map((item) => ({
+      label: item.label,
+      href: `${developerBasePath}?developer=${item.slug}`,
+      icon: developerIcons[item.slug],
     })),
   };
 

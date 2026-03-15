@@ -9,8 +9,8 @@ function Hero() {
   return (
     <section className="mx-auto mt-4 max-w-[1292px] px-5 sm:px-6 xl:mt-8 xl:px-0">
       <div className="mt-6 flex flex-col items-center justify-between gap-10 xl:mt-18 xl:flex-row xl:gap-16">
-        <div className="w-full xl:w-[510px]">
-          <div className="flex items-center gap-3 text-[13px] text-[#6A7284] sm:text-[16px] xl:gap-4 xl:text-[18px]">
+        <div className="w-full text-center xl:w-[510px] xl:text-left">
+          <div className="flex items-center justify-center gap-3 text-[13px] text-[#6A7284] sm:text-[16px] xl:justify-start xl:gap-4 xl:text-[18px]">
             <p>Available in</p>
             <div className="flex items-center gap-1.5">
               {countryFlags.map((src, index) => (
@@ -27,17 +27,16 @@ function Hero() {
           </div>
 
           <div className="mt-5">
-            <h1 className="max-w-[470px] text-[37px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733] sm:text-[42px]">
+            <h1 className="mx-auto max-w-[470px] text-[37px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733] sm:text-[42px] xl:mx-0">
               Send Money <span className="text-xenon">Globally,</span> Without
               the heavy fees.
             </h1>
-            <p className="mt-4 max-w-[420px] text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px]">
-              Syka is payment infrastructure built for African entrepreneurs to
-              send, receive, and store value globally using stablecoins
-              instantly, cheaply, and without discrimination.
+            <p className="mx-auto mt-4 max-w-[420px] text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px] xl:mx-0">
+              Go beyond transfers spend, receive, and manage your global
+              business with virtual accounts & cards.{" "}
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex justify-center gap-3 xl:justify-start">
               <button className="h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
                 Get Started
               </button>
@@ -66,7 +65,7 @@ function Hero() {
           Moves Digital Dollars Across Borders In Minutes
         </p>
         <p className="mt-2 px-2 text-[13px] text-[#677287] sm:text-[16px]">
-          simple, fast and transparent global payments
+          Simple, fast and transparent global payments
         </p>
         <div className="mt-5 flex items-center gap-3">
           <button aria-label="Google Play">

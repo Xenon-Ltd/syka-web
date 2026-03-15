@@ -13,7 +13,7 @@ function EndToEndSecurity() {
           className="w-full scale-x-[-1]"
         />
       </div>
-      <div className="flex w-full flex-col xl:w-[460px]">
+      <div className="flex w-full flex-col text-center xl:w-[460px] xl:text-left">
         <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7688A2] uppercase">
           END-TO-END SECURITY
         </p>
@@ -21,12 +21,12 @@ function EndToEndSecurity() {
           Send Money <span className="text-xenon">Globally</span> in Three
           Simple Steps
         </h2>
-        <p className="mt-4 max-w-[440px] text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px]">
+        <p className="mx-auto mt-4 max-w-[440px] text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px] xl:mx-0">
           Fund your Syka wallet, move money instantly across borders, convert
           currencies when needed, and manage spending or invoice payments from a
           single platform.{" "}
         </p>
-        <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600 sm:w-fit">
+        <button className="mt-7 h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600 sm:mx-auto sm:w-fit xl:mx-0">
           Get Started for free
         </button>
       </div>

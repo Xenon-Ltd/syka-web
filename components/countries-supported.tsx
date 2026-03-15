@@ -1,3 +1,5 @@
+"use client";
+
 import {
   GH,
   AE,
@@ -19,6 +21,7 @@ import {
   CN,
 } from "@/assets/icons/countries";
 import Image from "next/image";
+import { useState } from "react";
 
 interface CountryItemProps {
   icon: string;
@@ -63,13 +66,38 @@ function CountryItem({ icon, name }: CountryItemProps) {
 }
 
 export default function CountriesSupported() {
+  const [showAllCountries, setShowAllCountries] = useState(false);
+  const mobileCountries = showAllCountries ? countries : countries.slice(0, 5);
+
   return (
     <section className="mx-auto mt-16 mb-14 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:mb-44 xl:px-0">
       <p className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
         Countries We Currently Support
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px]">
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] md:hidden">
+        {mobileCountries.map((country) => (
+          <CountryItem
+            key={country.name}
+            icon={country.icon}
+            name={country.name}
+          />
+        ))}
+      </div>
+
+      {!showAllCountries && (
+        <div className="mt-6 flex justify-center md:hidden">
+          <button
+            type="button"
+            onClick={() => setShowAllCountries(true)}
+            className="h-11 rounded-lg border border-xenon px-6 text-[15px] font-semibold text-xenon transition-colors hover:bg-[#F3F7FB]"
+          >
+            Show all countries we support
+          </button>
+        </div>
+      )}
+
+      <div className="mt-8 hidden flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] md:flex">
         {countries.map((country) => (
           <CountryItem
             key={country.name}

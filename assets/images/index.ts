@@ -67,3 +67,5 @@ export { default as MobileFirst } from "./mobile-first.svg";
 export { default as SonaQode } from "./sonaqode.png";
 export { default as Maryhealth } from "./mary-health.png";
 export { default as JSSquared } from "./js-squared.png";
+
+export { default as APIDocs } from "./api-docs.jpg";

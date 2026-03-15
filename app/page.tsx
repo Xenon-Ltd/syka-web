@@ -1,6 +1,10 @@
 import BuiltOnStability from "@/components/built-on-stability";
 import CountriesSupported from "@/components/countries-supported";
 import {
+  DEVELOPER_COMPONENTS,
+  parseDeveloperSlug,
+} from "@/components/dropdown-pages/developer-config";
+import {
   parseProductSlug,
   PRODUCT_COMPONENTS,
 } from "@/components/dropdown-pages/product-config";
@@ -13,6 +17,7 @@ import SolutionsThatFit from "@/components/solutions-that-fit";
 
 type HomePageProps = {
   searchParams?: Promise<{
+    developer?: string | string[];
     product?: string | string[];
   }>;
 };
@@ -20,14 +25,20 @@ type HomePageProps = {
 export default async function Home({ searchParams }: HomePageProps) {
   const resolvedSearchParams = await searchParams;
   const selectedProduct = parseProductSlug(resolvedSearchParams?.product);
+  const selectedDeveloper = parseDeveloperSlug(resolvedSearchParams?.developer);
   const SelectedProductComponent = selectedProduct
     ? PRODUCT_COMPONENTS[selectedProduct]
     : null;
+  const SelectedDeveloperComponent = selectedDeveloper
+    ? DEVELOPER_COMPONENTS[selectedDeveloper]
+    : null;
+  const SelectedTopComponent =
+    SelectedProductComponent ?? SelectedDeveloperComponent;
 
   return (
     <main className="overflow-x-clip">
-      {SelectedProductComponent ? (
-        <SelectedProductComponent />
+      {SelectedTopComponent ? (
+        <SelectedTopComponent />
       ) : (
         <>
           <Hero />

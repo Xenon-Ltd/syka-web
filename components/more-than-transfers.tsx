@@ -10,7 +10,7 @@ import Image from "next/image";
 export default function MoreThanTransfers() {
   return (
     <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-24 xl:px-0">
-      <div className="mb-10 xl:mb-12">
+      <div className="mb-10 text-center xl:mb-12 xl:text-left">
         <h2 className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
           More Than Transfers.
         </h2>
@@ -27,8 +27,8 @@ export default function MoreThanTransfers() {
                 Get Paid Faster, On Your Terms
               </h3>
               <p className="mt-3 max-w-[340px] text-[15px] leading-[1.6] text-white/90">
-                Generate links or invoices, integrate our API, and accept USDT,
-                USDC, and cards globally with funds arriving in seconds.
+                Generate and send sleek, professional invoices in multiple
+                currencies.{" "}
               </p>
               <button className="mt-4 flex items-center gap-2 text-[15px] text-white transition-[gap] duration-300 ease-out group-hover:gap-3">
                 <span>Get Now</span>
@@ -42,7 +42,7 @@ export default function MoreThanTransfers() {
                 fill
                 sizes="(max-width: 768px) 100vw, 230px"
                 placeholder="blur"
-                className="p-0 object-contain object-center md:object-right-bottom transition-transform duration-500 ease-out group-hover:scale-105"
+                className="p-0 object-contain object-right-bottom transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
           </article>
@@ -67,19 +67,19 @@ export default function MoreThanTransfers() {
                 alt="Lightning-Flow Transfers"
                 fill
                 sizes="(max-width: 768px) 100vw, 230px"
-                className="p-0 object-contain object-center md:object-right-bottom transition-transform duration-500 ease-out group-hover:scale-125"
+                className="p-0 object-contain object-right-bottom transition-transform duration-500 ease-out group-hover:scale-125"
               />
             </div>
           </article>
         </div>
 
-        <article className="group flex min-h-[470px] flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#2A85D8] to-[#5E49C7] p-5 text-white sm:min-h-[524px] sm:p-7">
+        <article className="group flex min-h-[470px] flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#2A85D8] to-[#5E49C7] p-5 text-left text-white sm:min-h-[524px] sm:p-7">
           <h3 className="text-[26px] leading-[1.15] font-bold sm:text-[29px]">
             Spendable Balance
           </h3>
           <p className="mt-3 max-w-[290px] text-[15px] leading-[1.6] text-white/90">
             Create secure, disposable virtual debit cards directly from your
-            Syka balance
+            Syka balance{" "}
           </p>
           <button className="mt-6 flex items-center gap-2 text-[15px] text-white transition-[gap] duration-300 ease-out group-hover:gap-3">
             <span>Get Now</span>
@@ -104,22 +104,22 @@ export default function MoreThanTransfers() {
             Your Local Presence, Anywhere
           </h3>
           <p className="mt-3 max-w-[360px] text-[15px] leading-[1.6] text-[#505A6E]">
-            Hold USDT or USDC, convert when needed, and manage multi-currency
-            (USD, EUR, GBP) balances in real time.{" "}
+            Get dedicated virtual account details in major currencies (USD, EUR,
+            GBP){" "}
           </p>
           <button className="mt-4 flex items-center gap-2 text-[15px] text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3">
             <span>Get Now</span>
             <ArrowRightCircleIcon size={18} />
           </button>
         </div>
-        <div className="relative h-56 w-full shrink-0 md:min-h-[264px] md:h-[400px] md:w-[355px]">
+        <div className="relative h-64 w-full shrink-0 md:min-h-[264px] md:h-[400px] md:w-[355px]">
           <Image
             src={LocalPresence}
             alt="Local Presence"
             fill
             sizes="(max-width: 768px) 100vw, 355px"
             placeholder="blur"
-            className="object-cover object-right md:pr-10 md:mt-10 transition-transform duration-500 ease-out group-hover:scale-105"
+            className="object-contain object-bottom md:object-cover md:object-right md:pr-10 md:mt-10 transition-transform duration-500 ease-out group-hover:scale-105"
           />
         </div>
       </article>

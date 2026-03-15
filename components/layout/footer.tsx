@@ -55,9 +55,9 @@ const Footer = () => {
 
   return (
     <footer className="relative mt-14 flex w-full flex-col bg-xenon-primary xl:mt-28 xl:min-h-[560px]">
-      <div className="mx-auto flex w-[calc(100vw-32px)] flex-col items-center gap-10 rounded-3xl bg-white px-5 pt-8 pb-5 shadow-xenon_sh sm:w-[calc(100vw-48px)] sm:px-6 sm:pt-10 sm:pb-6 xl:absolute xl:top-0 xl:left-1/2 xl:h-[370px] xl:w-[1211px] xl:-translate-x-1/2 xl:-translate-y-[22%] xl:flex-row xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0">
-        <div className="flex flex-col gap-8 xl:ml-[86px] xl:py-12">
-          <p className="font-dmSans text-[31px] leading-[1.1] font-bold text-xenon-gray sm:text-[36px] xl:w-[560px] xl:text-[40px]">
+      <div className="relative z-10 mx-auto flex w-[calc(100vw-32px)] flex-col items-center gap-8 overflow-visible rounded-[32px] bg-white px-5 pt-10 pb-0 shadow-xenon_sh sm:w-[calc(100vw-48px)] sm:px-6 sm:pt-10 sm:pb-6 xl:absolute xl:top-0 xl:left-1/2 xl:h-[370px] xl:w-[1211px] xl:-translate-x-1/2 xl:-translate-y-[22%] xl:flex-row xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0">
+        <div className="flex flex-col items-center gap-8 text-center xl:ml-[86px] xl:items-start xl:py-12 xl:text-left">
+          <p className="max-w-[290px] font-dmSans text-[31px] leading-[1.1] font-bold text-xenon-gray sm:max-w-none sm:text-[36px] xl:w-[560px] xl:text-[40px]">
             {isBusinessRoute ? (
               <>
                 Ready To Transform Your{" "}
@@ -70,7 +70,10 @@ const Footer = () => {
               </>
             )}
           </p>
-          <div className="flex flex-row gap-3">
+          <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#7C859A] sm:max-w-[420px] sm:text-[15px]">
+            Join 3,000+ African businesses using Syka to compete globally.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3 xl:justify-start">
             <button>
               <Image
                 src={AppStoreBadgeIcon}
@@ -87,13 +90,15 @@ const Footer = () => {
             </button>
           </div>
         </div>
-        <Image
-          src={GetSykaFooter}
-          alt="growth-partner"
-          className="w-full max-w-[430px] xl:h-[290px] xl:w-[430px] xl:self-end -m-5 md:m-0"
-        />
+        <div className="pointer-events-none relative z-10 mt-auto w-[calc(100%+20px)] max-w-[320px] self-stretch sm:mb-0 sm:w-full sm:max-w-[430px] xl:mt-auto xl:mb-0 xl:self-end">
+          <Image
+            src={GetSykaFooter}
+            alt="growth-partner"
+            className="block w-full xl:h-[290px] xl:w-[430px]"
+          />
+        </div>
       </div>
-      <div className="mt-28 mx-auto flex flex-col-reverse gap-12 px-5 pb-10 pt-10 sm:px-6 xl:w-[1211px] xl:flex-row xl:justify-between xl:px-0 xl:pt-[210px]">
+      <div className="mx-auto mt-16 flex flex-col-reverse gap-12 px-5 pb-10 pt-10 sm:mt-28 sm:px-6 sm:pt-10 xl:w-[1211px] xl:flex-row xl:justify-between xl:px-0 xl:pt-[210px]">
         <div className="flex w-full max-w-[366px] flex-col items-center gap-3 xl:items-start">
           <div className="w-[190px] h-[82px] p-2.5 ">
             <Image
@@ -120,7 +125,7 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="xl:hidden grid grid-cols-2 w-full">
+        <div className="grid w-full grid-cols-2 gap-8 xl:hidden">
           {FooterLinks.slice(0, 2).map((section, i) => (
             <div key={`${section.title}-${i}`} className="flex flex-col gap-5">
               <p className="text-[#8893A4] font-bold text-lg">

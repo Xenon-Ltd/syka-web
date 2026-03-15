@@ -23,12 +23,12 @@ export default function PowerYourBusiness() {
               className="size-6"
             />
           ))}
-          <p className="ml-2 text-[13px] text-[#657089] sm:text-[16px]">
-            Over 2000 businesses in 27 countries and still growing
+          <p className="ml-2 text-[13px] text-left text-[#657089] sm:text-[16px]">
+            Over 3000 businesses in 7 countries use SYKA{" "}
           </p>
         </div>
 
-        <h1 className="mt-4 text-[37px] leading-[1.1] font-bold text-[#121733] sm:text-[57px]">
+        <h1 className="mt-4 text-[32px] max-w-[350px] md:max-w-full mx:w-full mx-auto md:text-[37px] leading-[1.1] font-bold text-[#121733] sm:text-[57px]">
           Power Your Business With{" "}
           <span className="text-xenon">Borderless</span> Payments.
         </h1>
@@ -36,11 +36,11 @@ export default function PowerYourBusiness() {
           Level the playing ground for African businesses.{" "}
         </p>
 
-        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+        <div className="mt-7 flex justify-center gap-3 sm:flex-row">
           <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
-            Get started now
+            Get started for free
           </button>
-          <button className="h-11 rounded-lg border border-[#C9D6E4] px-7 text-[15px] font-semibold text-[#324258] transition-colors hover:bg-[#F3F7FB]">
+          <button className="h-11 rounded-lg border border-xenon px-7 text-[15px] font-semibold text-xenon transition-colors hover:bg-[#F3F7FB]">
             See How It Works
           </button>
         </div>

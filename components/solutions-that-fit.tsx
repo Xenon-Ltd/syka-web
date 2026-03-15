@@ -49,7 +49,7 @@ function SolutionsThatFit() {
 
   return (
     <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-24 xl:px-0">
-      <div className="mb-8 xl:mb-10">
+      <div className="mb-8 text-center xl:mb-10 xl:text-left">
         <h2 className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
           Solutions That Fit
         </h2>
@@ -84,15 +84,17 @@ function SolutionsThatFit() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className={`flex h-full flex-col ${textColor}`}
+                      className={`flex h-full items-stretch gap-5 ${textColor}`}
                     >
-                      <h3 className="text-[26px] leading-[1.2] font-bold">
-                        {card.title}
-                      </h3>
-                      <p className="mt-2 max-w-[360px] text-[15px] leading-[1.7]">
-                        {card.description}
-                      </p>
-                      <div className="relative mt-4 flex-1 overflow-hidden rounded-xl">
+                      <div className="flex min-w-0 flex-1 flex-col justify-center">
+                        <h3 className="text-[26px] leading-[1.2] font-bold">
+                          {card.title}
+                        </h3>
+                        <p className="mt-2 max-w-[260px] text-[15px] leading-[1.7]">
+                          {card.description}
+                        </p>
+                      </div>
+                      <div className="relative w-[46%] overflow-hidden rounded-xl">
                         <Image
                           src={card.image}
                           alt={card.title}
@@ -133,9 +135,13 @@ function SolutionsThatFit() {
               key={card.title}
               className={`${card.bg} overflow-hidden rounded-2xl p-5`}
             >
-              <div className={`flex flex-col ${textColor}`}>
+              <div
+                className={`flex flex-col items-center text-center ${textColor}`}
+              >
                 <h3 className="text-[22px] font-bold">{card.title}</h3>
-                <p className="mt-2 text-[15px] leading-[1.7]">{card.description}</p>
+                <p className="mt-2 text-[15px] leading-[1.7]">
+                  {card.description}
+                </p>
                 <div className="relative mt-4 h-[190px] overflow-hidden rounded-xl">
                   <Image
                     src={card.image}
