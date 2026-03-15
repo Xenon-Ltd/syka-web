@@ -19,10 +19,10 @@ export default function Security() {
     <section className="mt-16 bg-[#26216F] py-14 xl:mt-20 xl:min-h-[90vh] xl:py-16 xl:flex xl:items-center">
       <div className="mx-auto flex max-w-[1292px] flex-col items-center gap-10 px-5 sm:px-6 xl:flex-row xl:justify-between xl:gap-16 xl:px-0 w-full">
         <div className="w-full xl:w-[570px]">
-          <p className="text-center text-[13px] font-semibold tracking-[0.18em] text-[#B4B8F7] uppercase">
+          <p className="text-center text-[13px] font-semibold tracking-[0.18em] text-[#B4B8F7] uppercase xl:text-left">
             SECURITY
           </p>
-          <h2 className="mt-3 text-center text-[35px] leading-[1.1] font-bold text-white sm:text-[44px]">
+          <h2 className="mt-3 text-center text-[35px] leading-[1.1] font-bold text-white sm:text-[44px] xl:text-left">
             Your Assets and Data Are Always{" "}
             <span className="text-[#8FE0FF]">Safe</span>
           </h2>
