@@ -54,9 +54,9 @@ const Footer = () => {
   const isBusinessRoute = pathname.startsWith("/business");
 
   return (
-    <footer className="relative mt-14 flex w-full flex-col bg-xenon-primary xl:mt-28 xl:min-h-[560px]">
-      <div className="relative z-10 mx-auto flex w-[calc(100vw-32px)] flex-col items-center gap-8 overflow-visible rounded-[32px] bg-white px-5 pt-10 pb-0 shadow-xenon_sh sm:w-[calc(100vw-48px)] sm:px-6 sm:pt-10 sm:pb-6 xl:absolute xl:top-0 xl:left-1/2 xl:h-[370px] xl:w-[1211px] xl:-translate-x-1/2 xl:-translate-y-[22%] xl:flex-row xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0">
-        <div className="flex flex-col items-center gap-8 text-center xl:ml-[86px] xl:items-start xl:py-12 xl:text-left">
+    <footer className="relative mt-14 flex w-full flex-col bg-xenon-primary lg:min-h-[560px] xl:mt-28">
+      <div className="relative z-10 mx-auto flex w-[calc(100vw-32px)] flex-col items-center gap-8 overflow-visible rounded-[32px] bg-white px-5 pt-10 pb-0 shadow-xenon_sh sm:w-[calc(100vw-48px)] sm:px-6 sm:pt-10 sm:pb-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:pb-0 xl:absolute xl:top-0 xl:left-1/2 xl:h-[370px] xl:w-[1211px] xl:-translate-x-1/2 xl:-translate-y-[22%] xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0">
+        <div className="flex flex-col items-center gap-8 text-center lg:max-w-[420px] lg:items-start lg:py-10 lg:text-left xl:ml-[86px] xl:max-w-none xl:py-12">
           <p className="max-w-[290px] font-dmSans text-[31px] leading-[1.1] font-bold text-xenon-gray sm:max-w-none sm:text-[36px] xl:w-[560px] xl:text-[40px]">
             {isBusinessRoute ? (
               <>
@@ -73,7 +73,7 @@ const Footer = () => {
           <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#7C859A] sm:max-w-[420px] sm:text-[15px]">
             Join 3,000+ African businesses using Syka to compete globally.
           </p>
-          <div className="flex flex-wrap justify-center gap-3 xl:justify-start">
+          <div className="flex flex-wrap justify-center gap-3 lg:justify-start xl:justify-start">
             <button>
               <Image
                 src={AppStoreBadgeIcon}
@@ -90,7 +90,7 @@ const Footer = () => {
             </button>
           </div>
         </div>
-        <div className="pointer-events-none relative z-10 mt-auto w-[calc(100%+20px)] max-w-[320px] self-stretch sm:mb-0 sm:w-full sm:max-w-[430px] xl:mt-auto xl:mb-0 xl:self-end">
+        <div className="pointer-events-none relative z-10 mt-auto w-[calc(100%+20px)] max-w-[320px] self-stretch sm:w-full sm:max-w-[430px] lg:mt-0 lg:w-[360px] lg:max-w-[360px] lg:self-end xl:mt-auto xl:w-[430px] xl:max-w-[430px] xl:self-end">
           <Image
             src={GetSykaFooter}
             alt="growth-partner"
@@ -98,8 +98,8 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className="mx-auto mt-16 flex flex-col-reverse gap-12 px-5 pb-10 pt-10 sm:mt-28 sm:px-6 sm:pt-10 xl:w-[1211px] xl:flex-row xl:justify-between xl:px-0 xl:pt-[210px]">
-        <div className="flex w-full max-w-[366px] flex-col items-center gap-3 xl:items-start">
+      <div className="mx-auto mt-16 flex flex-col-reverse gap-12 px-5 pb-10 pt-10 sm:mt-28 sm:px-6 sm:pt-10 lg:flex-row lg:justify-between lg:pt-16 xl:w-[1211px] xl:px-0 xl:pt-[210px]">
+        <div className="flex w-full max-w-[366px] flex-col items-center gap-3 lg:items-start">
           <div className="w-[190px] h-[82px] p-2.5 ">
             <Image
               src={SykaLogoWhite}
@@ -107,11 +107,11 @@ const Footer = () => {
               alt="Syka Logo"
             />
           </div>
-          <p className="text-white leading-[27.36px] text-center xl:text-start">
+          <p className="text-center leading-[27.36px] text-white lg:text-start">
             Syka. The Smarter Bridge Between Borders.
           </p>
         </div>
-        <div className="hidden xl:grid grid-cols-4 w-full">
+        <div className="hidden lg:grid lg:grid-cols-4 w-full">
           {FooterLinks.map((section, i) => (
             <div key={`${section.title}-${i}`} className="flex flex-col gap-5">
               <p className="text-[#8893A4] font-bold text-lg">
@@ -125,7 +125,7 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        <div className="grid w-full grid-cols-2 gap-8 xl:hidden">
+        <div className="grid w-full grid-cols-2 gap-8 lg:hidden">
           {FooterLinks.slice(0, 2).map((section, i) => (
             <div key={`${section.title}-${i}`} className="flex flex-col gap-5">
               <p className="text-[#8893A4] font-bold text-lg">

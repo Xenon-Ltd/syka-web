@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { EASE_OUT } from "@/lib/animation";
 import SendAnimation from "@/assets/lottie-files/Send.json";
 import AccountsAnimation from "@/assets/lottie-files/Accounts.json";
 import TreasuryAnimation from "@/assets/lottie-files/Treasury.json";
@@ -51,7 +52,7 @@ export default function Solutions() {
 
     const updateActiveStep = () => {
       const track =
-        window.innerWidth < 1280
+        window.innerWidth < 1024
           ? mobileTrackRef.current
           : desktopTrackRef.current;
       if (!track) {
@@ -97,7 +98,7 @@ export default function Solutions() {
 
   return (
     <>
-      <section className="xl:hidden mt-16 bg-[#E8F4FB]">
+      <section className="mt-16 bg-[#E8F4FB] lg:hidden">
         <div ref={mobileTrackRef} className="relative h-[300vh]">
           <div className="sticky top-0 flex h-screen items-center">
             <div className="mx-auto flex w-full max-w-[1292px] flex-col gap-10 px-5 sm:px-6">
@@ -107,13 +108,13 @@ export default function Solutions() {
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -18 }}
-                  transition={{ duration: 0.34, ease: "easeOut" }}
+                  transition={{ duration: 0.28, ease: EASE_OUT }}
                   className="mx-auto text-center"
                 >
                   <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
                     SOLUTIONS
                   </p>
-                  <h2 className="mt-3 max-w-[560px] text-[35px] leading-[1.1] font-bold text-[#121733] sm:text-[42px]">
+                  <h2 className="mt-3 max-w-[760px] text-[35px] leading-[1.1] font-bold text-[#121733] sm:text-[42px]">
                     {activeStep.highlight ? (
                       <>
                         {activeStep.heading.split(activeStep.highlight)[0]}
@@ -141,7 +142,7 @@ export default function Solutions() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.34, ease: "easeOut" }}
+                  transition={{ duration: 0.28, ease: EASE_OUT }}
                 >
                   <div className="mx-auto h-[320px] w-full max-w-[580px]">
                     <Lottie
@@ -157,17 +158,17 @@ export default function Solutions() {
         </div>
       </section>
 
-      <section className="hidden bg-[#E8F4FB] xl:block">
+      <section className="hidden bg-[#E8F4FB] lg:block">
         <div ref={desktopTrackRef} className="relative h-[300vh]">
           <div className="sticky top-0 flex h-screen items-center">
-            <div className="mx-auto grid h-full w-full max-w-[1292px] grid-cols-[1fr_1.15fr] items-center gap-24 px-6">
+            <div className="mx-auto grid h-full w-full max-w-[1292px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-12 px-6 xl:grid-cols-[1fr_1.15fr] xl:gap-24">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStep.id}
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -18 }}
-                  transition={{ duration: 0.34, ease: "easeOut" }}
+                  transition={{ duration: 0.28, ease: EASE_OUT }}
                   className="mx-auto w-full max-w-[720px]  flex flex-col items-start justify-center h-full text-left"
                 >
                   <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
@@ -201,15 +202,16 @@ export default function Solutions() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.34, ease: "easeOut" }}
-                  className="w-full h-full flex items-center justify-center"
+                  transition={{ duration: 0.28, ease: EASE_OUT }}
+                  className="flex h-full w-full min-w-0 items-center justify-end overflow-hidden"
                 >
-                  <div className="relative">
-                    <div className="mx-auto h-[full] w-full max-w-[700px]">
+                  <div className="relative w-full min-w-0 overflow-hidden">
+                    <div className="ml-auto w-full max-w-[400px] overflow-hidden xl:max-w-[700px]">
                       <Lottie
                         animationData={activeStep.animationData}
                         loop
                         autoplay
+                        className="h-full w-full"
                       />
                     </div>
                   </div>

@@ -21,7 +21,9 @@ import {
   CN,
 } from "@/assets/icons/countries";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
 
 interface CountryItemProps {
   icon: string;
@@ -29,7 +31,6 @@ interface CountryItemProps {
 }
 
 const countries = [
-  // ghana uae argentina brazil chile european union uk indonesia india mexico nigera peru phillipines thailand turkey vietnam
   { name: "Ghana (GHS)", icon: GH },
   { name: "United Arab Emirates (AED)", icon: AE },
   { name: "Argentina (ARS)", icon: AR },
@@ -68,42 +69,60 @@ function CountryItem({ icon, name }: CountryItemProps) {
 export default function CountriesSupported() {
   const [showAllCountries, setShowAllCountries] = useState(false);
   const mobileCountries = showAllCountries ? countries : countries.slice(0, 5);
+  const ref = useRef(null);
+  const isInView = useInView(ref, IN_VIEW_OPTS);
 
   return (
-    <section className="mx-auto mt-16 mb-14 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:mb-44 xl:px-0">
-      <p className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]">
+    <section
+      ref={ref}
+      className="mx-auto mt-16 mb-14 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:mb-44 xl:px-0"
+    >
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: EASE_OUT }}
+        className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]"
+      >
         Countries We Currently Support
-      </p>
+      </motion.p>
 
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] md:hidden">
-        {mobileCountries.map((country) => (
-          <CountryItem
+      {/* Mobile — staggered pills */}
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] lg:hidden">
+        {mobileCountries.map((country, i) => (
+          <motion.div
             key={country.name}
-            icon={country.icon}
-            name={country.name}
-          />
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.35, ease: EASE_OUT, delay: i * 0.04 }}
+          >
+            <CountryItem icon={country.icon} name={country.name} />
+          </motion.div>
         ))}
       </div>
 
       {!showAllCountries && (
-        <div className="mt-6 flex justify-center md:hidden">
+        <div className="mt-6 flex justify-center lg:hidden">
           <button
             type="button"
             onClick={() => setShowAllCountries(true)}
-            className="h-11 rounded-lg border border-xenon px-6 text-[15px] font-semibold text-xenon transition-colors hover:bg-[#F3F7FB]"
+            className="h-11 rounded-lg border border-xenon px-6 text-[15px] font-semibold text-xenon transition-colors duration-200 hover:bg-[#F3F7FB]"
           >
             Show all countries we support
           </button>
         </div>
       )}
 
-      <div className="mt-8 hidden flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] md:flex">
-        {countries.map((country) => (
-          <CountryItem
+      {/* Desktop — staggered pills */}
+      <div className="mt-8 hidden flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] lg:flex">
+        {countries.map((country, i) => (
+          <motion.div
             key={country.name}
-            icon={country.icon}
-            name={country.name}
-          />
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.35, ease: EASE_OUT, delay: i * 0.03 }}
+          >
+            <CountryItem icon={country.icon} name={country.name} />
+          </motion.div>
         ))}
       </div>
     </section>

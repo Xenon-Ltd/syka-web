@@ -6,8 +6,9 @@ import {
   ForDigitalNomadsAndExpats,
 } from "@/assets/images";
 import Image, { StaticImageData } from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_IN_OUT } from "@/lib/animation";
 
 type IndustryCard = {
   title: string;
@@ -46,20 +47,32 @@ const industries: IndustryCard[] = [
 
 function SolutionsThatFit() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, IN_VIEW_OPTS);
 
   return (
-    <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-24 xl:px-0">
-      <div className="mb-8 text-center xl:mb-10 xl:text-left">
-        <h2 className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
+    <section ref={ref} className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0">
+      {/* Heading */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="mb-8 text-center lg:mb-10 lg:text-left"
+      >
+        <motion.h2 variants={fadeUp} className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
           Solutions That Fit
-        </h2>
-        <p className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
+        </motion.h2>
+        <motion.p variants={fadeUp} className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
           Your <span className="text-xenon">Workflow</span>
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
-      <div
-        className="hidden h-[338px] gap-3 xl:flex"
+      {/* Desktop accordion */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: EASE_IN_OUT, delay: 0.15 }}
+        className="hidden h-[338px] gap-3 lg:flex"
         onMouseLeave={() => setActiveIndex(0)}
       >
         {industries.map((card, index) => {
@@ -73,20 +86,20 @@ function SolutionsThatFit() {
               onMouseEnter={() => setActiveIndex(index)}
               className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl`}
               animate={{ flex: isExpanded ? 2.2 : 1 }}
-              transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+              transition={{ duration: 0.4, ease: EASE_IN_OUT }}
             >
               <motion.div layout className="h-full p-6">
                 <AnimatePresence mode="wait" initial={false}>
                   {isExpanded ? (
                     <motion.div
-                      key={`expanded-industry-${index}`}
+                      key={`expanded-${index}`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.2, ease: EASE_IN_OUT }}
                       className={`flex h-full items-stretch gap-5 ${textColor}`}
                     >
-                      <div className="flex min-w-0 flex-1 flex-col justify-center">
+                      <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left">
                         <h3 className="text-[26px] leading-[1.2] font-bold">
                           {card.title}
                         </h3>
@@ -99,7 +112,7 @@ function SolutionsThatFit() {
                           src={card.image}
                           alt={card.title}
                           fill
-                          sizes="(max-width: 1279px) 100vw, 33vw"
+                          sizes="(max-width: 1023px) 100vw, 33vw"
                           placeholder="blur"
                           className="object-cover object-center"
                         />
@@ -107,11 +120,11 @@ function SolutionsThatFit() {
                     </motion.div>
                   ) : (
                     <motion.div
-                      key={`collapsed-industry-${index}`}
+                      key={`collapsed-${index}`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.15 }}
                       className={`flex h-full items-center justify-center text-center ${textColor}`}
                     >
                       <h3 className="text-[26px] leading-[1.2] font-bold">
@@ -124,24 +137,23 @@ function SolutionsThatFit() {
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
-      <div className="xl:hidden flex flex-col gap-4">
-        {industries.map((card) => {
+      {/* Mobile stack */}
+      <div className="flex flex-col gap-4 lg:hidden">
+        {industries.map((card, i) => {
           const textColor = card.textColor ?? "text-[#223047]";
-
           return (
-            <div
+            <motion.div
               key={card.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.45, ease: EASE_IN_OUT, delay: i * 0.08 }}
               className={`${card.bg} overflow-hidden rounded-2xl p-5`}
             >
-              <div
-                className={`flex flex-col items-center text-center ${textColor}`}
-              >
+              <div className={`flex flex-col items-center text-center ${textColor}`}>
                 <h3 className="text-[22px] font-bold">{card.title}</h3>
-                <p className="mt-2 text-[15px] leading-[1.7]">
-                  {card.description}
-                </p>
+                <p className="mt-2 text-[15px] leading-[1.7]">{card.description}</p>
                 <div className="relative mt-4 h-[190px] overflow-hidden rounded-xl">
                   <Image
                     src={card.image}
@@ -153,7 +165,7 @@ function SolutionsThatFit() {
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

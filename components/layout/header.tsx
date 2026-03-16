@@ -157,8 +157,8 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="relative z-40 my-3 mb-24 flex w-full flex-row items-center justify-between xl:mx-auto xl:my-5 xl:max-w-[1211px]">
-      <div className="hidden xl:flex xl:items-center xl:gap-12">
+    <header className="relative z-40 my-3 mb-24 flex w-full flex-row items-center justify-between lg:mx-auto lg:my-5 lg:max-w-[1211px] lg:px-5 xl:px-0">
+      <div className="hidden lg:flex lg:items-center lg:gap-8 xl:gap-12">
         <Link href="/" aria-label="Go to Syka home">
           <Image
             src={SykaLogo}
@@ -200,7 +200,7 @@ const Header = () => {
         </div>
       </div>
 
-      <nav ref={dropdownContainerRef} className="hidden xl:block">
+      <nav ref={dropdownContainerRef} className="hidden lg:block">
         <ul className="flex items-center gap-10 text-[21px] text-[#4A4E66]">
           {navItems.map((item) =>
             item.type === "link" ? (
@@ -279,12 +279,12 @@ const Header = () => {
 
       <Link
         href="#"
-        className="hidden h-12 items-center rounded-lg bg-[#2094DF] px-10 text-lg font-semibold text-white transition-colors hover:bg-[#1886CE] xl:inline-flex"
+        className="hidden h-12 items-center rounded-lg bg-[#2094DF] px-8 text-lg font-semibold text-white transition-colors hover:bg-[#1886CE] lg:inline-flex xl:px-10"
       >
         Get started
       </Link>
 
-      <div className="flex w-full items-center justify-between xl:hidden">
+      <div className="flex w-full items-center justify-between lg:hidden">
         <Link href="/" aria-label="Go to Syka home">
           <Image
             src={SykaLogo}

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FullCompliance,
   InstantSettlement,
@@ -6,6 +8,9 @@ import {
   WhatsappSMSNative,
 } from "@/assets/images";
 import Image, { StaticImageData } from "next/image";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
 
 type Feature = {
   title: string;
@@ -49,10 +54,15 @@ const features: Feature[] = [
 export default function BuiltForAfricanReality() {
   const topRowFeatures = features.slice(0, 3);
   const bottomRowFeatures = features.slice(3);
+  const ref = useRef(null);
+  const isInView = useInView(ref, IN_VIEW_OPTS);
 
-  const renderFeatureCard = (feature: Feature) => (
-    <article
+  const renderFeatureCard = (feature: Feature, i: number) => (
+    <motion.article
       key={feature.title}
+      initial={{ opacity: 0, y: 28 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.09 }}
       className="mx-auto flex w-full max-w-[360px] flex-col items-center rounded-2xl text-center"
     >
       <div className="mb-5 inline-flex size-[204px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white">
@@ -70,31 +80,52 @@ export default function BuiltForAfricanReality() {
       <p className="mt-3 text-[15px] leading-[1.75] text-[#505A6E]">
         {feature.description}
       </p>
-    </article>
+    </motion.article>
   );
 
   return (
-    <section className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:min-h-[90vh] xl:px-0 xl:flex xl:flex-col xl:justify-center">
-      <div className="mb-10">
-        <h2 className="text-[30px] md:text-[35px] text-center md:text-start leading-[1.1] font-bold text-[#121733] sm:text-[44px]">
+    <section
+      ref={ref}
+      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-20 lg:flex lg:min-h-[90vh] lg:flex-col lg:justify-center lg:px-0"
+    >
+      {/* Heading */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="mb-10"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[44px] lg:text-start lg:text-[35px]"
+        >
           Built for African <span className="text-xenon">Reality</span>
-        </h2>
-      </div>
+        </motion.h2>
+      </motion.div>
 
+      {/* Feature cards — staggered */}
       <div className="mb-16 space-y-12">
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
-          {topRowFeatures.map((feature) => renderFeatureCard(feature))}
+          {topRowFeatures.map((feature, i) => renderFeatureCard(feature, i))}
         </div>
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
-          {bottomRowFeatures.map((feature) => renderFeatureCard(feature))}
+          {bottomRowFeatures.map((feature, i) =>
+            renderFeatureCard(feature, i + 3),
+          )}
         </div>
       </div>
 
-      <div className="mt-8 text-center">
-        <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.45, ease: EASE_OUT, delay: 0.5 }}
+        className="mt-8 text-center"
+      >
+        <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600">
           Get started for free
         </button>
-      </div>
+      </motion.div>
     </section>
   );
 }
