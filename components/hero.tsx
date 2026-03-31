@@ -70,7 +70,7 @@ function Hero() {
 
             <motion.div
               variants={fadeUp}
-              className="mt-7 flex justify-center gap-3 lg:justify-start"
+              className="mt-7 flex flex-col md:flex-row justify-center gap-3 lg:justify-start"
             >
               <button className="h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:w-fit">
                 Get Started

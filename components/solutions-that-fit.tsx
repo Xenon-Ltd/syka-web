@@ -149,12 +149,12 @@ function SolutionsThatFit() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.45, ease: EASE_IN_OUT, delay: i * 0.08 }}
-              className={`${card.bg} overflow-hidden rounded-2xl p-5`}
+              className={`${card.bg} min-h-[430px] overflow-hidden rounded-2xl p-5 sm:min-h-[450px] sm:p-6`}
             >
-              <div className={`flex flex-col items-center text-center ${textColor}`}>
+              <div className={`flex h-full flex-col items-center text-center ${textColor}`}>
                 <h3 className="text-[22px] font-bold">{card.title}</h3>
                 <p className="mt-2 text-[15px] leading-[1.7]">{card.description}</p>
-                <div className="relative mt-4 h-[190px] overflow-hidden rounded-xl">
+                <div className="relative mt-4 h-[260px] w-full overflow-hidden rounded-xl sm:h-[280px]">
                   <Image
                     src={card.image}
                     alt={card.title}

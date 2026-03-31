@@ -73,7 +73,7 @@ export default function PowerYourBusiness() {
 
         <motion.div
           variants={fadeUp}
-          className="mt-7 flex justify-center gap-3 sm:flex-row"
+          className="mt-7 flex flex-col md:flex-row justify-center gap-3 sm:flex-row"
         >
           <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600">
             Get started for free
@@ -89,9 +89,14 @@ export default function PowerYourBusiness() {
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.25 }}
-        className="mt-16"
+        className="mt-16 -mx-32 flex justify-center overflow-hidden sm:mx-0"
       >
-        <Lottie animationData={WorldMapAnimation} loop={true} autoplay />
+        <Lottie
+          animationData={WorldMapAnimation}
+          loop={true}
+          autoplay
+          className="w-[160vw] max-w-none sm:w-full"
+        />
       </motion.div>
 
       {/* Tagline + store badges + marquee */}

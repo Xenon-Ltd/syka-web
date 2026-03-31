@@ -156,7 +156,7 @@ export default function SolutionsThatFitBusiness() {
                 <p className="mt-2 max-w-[32ch] text-[15px] leading-[1.7]">
                   {card.description}
                 </p>
-                <div className="relative mt-4 h-[190px] w-full overflow-hidden rounded-xl">
+                <div className="relative mt-4 h-[240px] w-full overflow-hidden rounded-xl sm:h-[260px]">
                   <Image
                     src={card.image}
                     alt={card.title}

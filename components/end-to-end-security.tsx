@@ -4,7 +4,12 @@ import { EndToEndSecurityImage } from "@/assets/images";
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
+import {
+  fadeUp,
+  staggerContainer,
+  IN_VIEW_OPTS,
+  EASE_OUT,
+} from "@/lib/animation";
 
 function EndToEndSecurity() {
   const ref = useRef(null);
@@ -13,7 +18,7 @@ function EndToEndSecurity() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 flex max-w-[1292px] flex-col items-center justify-between gap-10 px-5 sm:px-6 lg:mt-24 lg:flex-row-reverse lg:gap-16 lg:px-0"
+      className="mx-auto mt-16 flex max-w-[1292px] flex-col-reverse items-center justify-between gap-10 px-5 sm:px-6 lg:mt-24 lg:flex-row-reverse lg:gap-16 lg:px-0"
     >
       {/* Image — slides in from right */}
       <motion.div

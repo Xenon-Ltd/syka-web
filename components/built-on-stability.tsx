@@ -8,7 +8,12 @@ import {
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
+import {
+  fadeUp,
+  staggerContainer,
+  IN_VIEW_OPTS,
+  EASE_OUT,
+} from "@/lib/animation";
 
 const cards = [
   {
@@ -36,7 +41,10 @@ function BuiltOnStability() {
   const isInView = useInView(ref, IN_VIEW_OPTS);
 
   return (
-    <section ref={ref} className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0">
+    <section
+      ref={ref}
+      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0"
+    >
       {/* Heading */}
       <motion.div
         variants={staggerContainer}
@@ -44,10 +52,16 @@ function BuiltOnStability() {
         animate={isInView ? "visible" : "hidden"}
         className="mb-10 text-center lg:mb-12 lg:text-left"
       >
-        <motion.h2 variants={fadeUp} className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
+        <motion.h2
+          variants={fadeUp}
+          className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]"
+        >
           Built on <span className="text-xenon">Stability,</span>
         </motion.h2>
-        <motion.p variants={fadeUp} className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
+        <motion.p
+          variants={fadeUp}
+          className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]"
+        >
           Guarded by <span className="text-xenon">Security</span>
         </motion.p>
       </motion.div>
@@ -62,7 +76,7 @@ function BuiltOnStability() {
             transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.1 }}
             className="flex min-h-[248px] flex-col items-center rounded-2xl bg-white p-7 text-center shadow-sm lg:items-start lg:text-left"
           >
-            <Image src={card.src} alt={card.alt} width={74} />
+            <Image src={card.src} alt={card.alt} width={140} />
             <p className="mt-4 text-[22px] leading-[1.2] font-bold text-[#121733]">
               {card.title}
             </p>

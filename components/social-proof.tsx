@@ -5,7 +5,13 @@ import Image, { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT, EASE_IN_OUT } from "@/lib/animation";
+import {
+  fadeUp,
+  staggerContainer,
+  IN_VIEW_OPTS,
+  EASE_OUT,
+  EASE_IN_OUT,
+} from "@/lib/animation";
 
 interface Testimonial {
   countryFlag: StaticImageData | string;
@@ -45,9 +51,17 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({
+  testimonial,
+  className = "",
+}: {
+  testimonial: Testimonial;
+  className?: string;
+}) {
   return (
-    <div className="flex min-h-[230px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-6">
+    <div
+      className={`flex min-h-[230px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-6 ${className}`}
+    >
       <div>
         <div className="mb-4">
           <Image
@@ -64,7 +78,9 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       </div>
       <div className="mt-8 flex items-center gap-2">
         <div>
-          <p className="text-[15px] font-bold text-[#121733]">{testimonial.name}</p>
+          <p className="text-[15px] font-bold text-[#121733]">
+            {testimonial.name}
+          </p>
           <p className="text-[13px] text-[#758198]">{testimonial.title}</p>
         </div>
       </div>
@@ -97,11 +113,6 @@ function SocialProof() {
   const totalPages = Math.ceil(testimonials.length / desktopCardsPerPage);
   const totalPagesMobile = testimonials.length;
   const desktopActiveIndex = Math.min(activeIndex, Math.max(totalPages - 1, 0));
-
-  const goToPage = (index: number) => {
-    setDirection(index > activeIndex ? 1 : -1);
-    setActiveIndex(index);
-  };
 
   const goToDesktopPage = (index: number) => {
     setDirection(index > desktopActiveIndex ? 1 : -1);
@@ -142,7 +153,7 @@ function SocialProof() {
   return (
     <section
       ref={ref}
-      className="mt-16 bg-[#1E1A63] py-14 lg:mt-24 lg:flex lg:min-h-[90vh] lg:items-center lg:py-20"
+      className="bg-black py-14 lg:mt-24 lg:flex lg:min-h-[90vh] lg:items-center lg:bg-[#1E1A63] lg:py-20"
     >
       <div className="mx-auto max-w-[1292px] px-5 sm:px-6 lg:px-0">
         {/* Heading */}
@@ -229,24 +240,9 @@ function SocialProof() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
-          className="relative lg:hidden"
+          className="lg:hidden"
         >
-          <button
-            onClick={goToPreviousMobile}
-            aria-label="Previous testimonial"
-            className="absolute top-1/2 left-0 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
-          >
-            <ChevronLeft size={16} />
-          </button>
-          <button
-            onClick={goToNextMobile}
-            aria-label="Next testimonial"
-            className="absolute top-1/2 right-0 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
-          >
-            <ChevronRight size={16} />
-          </button>
-
-          <div className="overflow-hidden px-12">
+          <div className="overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={activeIndex}
@@ -266,28 +262,36 @@ function SocialProof() {
                   } else if (info.offset.x > 50) {
                     setDirection(-1);
                     setActiveIndex(
-                      (prev) => (prev - 1 + totalPagesMobile) % totalPagesMobile,
+                      (prev) =>
+                        (prev - 1 + totalPagesMobile) % totalPagesMobile,
                     );
                   }
                 }}
-                className="mx-auto max-w-sm"
+                className="mx-auto w-full max-w-[26rem]"
               >
-                <TestimonialCard testimonial={testimonials[activeIndex]} />
+                <TestimonialCard
+                  testimonial={testimonials[activeIndex]}
+                  className="max-w-none"
+                />
               </motion.div>
             </AnimatePresence>
           </div>
 
-          <div className="mt-8 flex justify-center gap-2">
-            {Array.from({ length: totalPagesMobile }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goToPage(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-                className={`h-2 w-2 rounded-full transition-colors duration-200 ${
-                  i === activeIndex ? "bg-white" : "bg-white/30"
-                }`}
-              />
-            ))}
+          <div className="mt-4 flex justify-end gap-3">
+            <button
+              onClick={goToPreviousMobile}
+              aria-label="Previous testimonial"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              onClick={goToNextMobile}
+              aria-label="Next testimonial"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+            >
+              <ChevronRight size={16} />
+            </button>
           </div>
         </motion.div>
       </div>

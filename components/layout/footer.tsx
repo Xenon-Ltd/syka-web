@@ -54,8 +54,12 @@ const Footer = () => {
   const isBusinessRoute = pathname.startsWith("/business");
 
   return (
-    <footer className="relative mt-14 flex w-full flex-col bg-xenon-primary lg:min-h-[560px] xl:mt-28">
-      <div className="relative z-10 mx-auto flex w-[calc(100vw-32px)] flex-col items-center gap-8 overflow-visible rounded-[32px] bg-white px-5 pt-10 pb-0 shadow-xenon_sh sm:w-[calc(100vw-48px)] sm:px-6 sm:pt-10 sm:pb-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:pb-0 xl:absolute xl:top-0 xl:left-1/2 xl:h-[370px] xl:w-[1211px] xl:-translate-x-1/2 xl:-translate-y-[22%] xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0">
+    <footer className="relative mt-22 flex w-full flex-col bg-xenon-primary lg:min-h-[560px] xl:mt-28">
+      <div
+        className={`relative z-10 mx-auto flex w-[calc(100vw-32px)] flex-col items-center gap-8 overflow-visible rounded-[32px] bg-white px-5 pt-10 pb-0 shadow-xenon_sh sm:w-[calc(100vw-48px)] sm:px-6 sm:pt-10 sm:pb-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:pb-0 xl:absolute xl:top-0 xl:left-1/2 xl:h-[370px] xl:w-[1211px] xl:-translate-x-1/2 xl:-translate-y-[22%] xl:gap-0 xl:px-0 xl:pt-0 xl:pb-0 ${
+          isBusinessRoute ? "-mt-14 sm:-mt-16 lg:mt-0 xl:mt-0" : ""
+        }`}
+      >
         <div className="flex flex-col items-center gap-8 text-center lg:max-w-[420px] lg:items-start lg:py-10 lg:text-left xl:ml-[86px] xl:max-w-none xl:py-12">
           <p className="max-w-[290px] font-dmSans text-[31px] leading-[1.1] font-bold text-xenon-gray sm:max-w-none sm:text-[36px] xl:w-[560px] xl:text-[40px]">
             {isBusinessRoute ? (
