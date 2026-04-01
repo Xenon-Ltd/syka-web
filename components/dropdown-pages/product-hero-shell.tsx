@@ -26,16 +26,15 @@ export default function ProductHeroShell({
   return (
     <section
       ref={ref}
-      className="mt-8 flex min-h-[85vh] items-center px-5 sm:px-6 xl:mt-0 xl:px-0"
+      className="mt-8 px-5 sm:px-6 xl:mt-0 xl:px-0"
     >
-      <div className="mx-auto grid h-full w-full max-w-[1292px] items-center gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-14 xl:grid-cols-[1fr_1.12fr] xl:gap-20">
-
+      <div className="mx-auto grid min-h-[85vh] w-full max-w-[1292px] items-center gap-12 py-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 xl:gap-24">
         {/* Text — staggered fade up */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="w-full text-center lg:text-left"
+          className="mx-auto w-full max-w-[540px] text-center lg:mx-0 lg:max-w-[520px] lg:text-left xl:max-w-[560px]"
         >
           <motion.p
             variants={fadeUp}
@@ -45,18 +44,18 @@ export default function ProductHeroShell({
           </motion.p>
           <motion.h1
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[660px] text-[35px] leading-[1.05] font-semibold text-[#3E4A5E] sm:text-[56px] lg:mx-0"
+            className="mx-auto mt-4 max-w-[500px] text-[35px] leading-[1.05] font-semibold text-[#3E4A5E] sm:text-[48px] lg:mx-0 lg:max-w-[520px] xl:text-[56px]"
           >
             {title}
           </motion.h1>
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[560px] text-[18px] leading-[1.5] text-[#77859C] lg:mx-0"
+            className="mx-auto mt-4 max-w-[440px] text-[17px] leading-[1.55] text-[#77859C] sm:max-w-[520px] lg:mx-0 lg:max-w-[500px]"
           >
             {description}
           </motion.p>
           <motion.div variants={fadeUp}>
-            <button className="mt-8 h-12 rounded-lg bg-xenon px-6 text-lg font-medium text-white transition-colors duration-200 hover:bg-xenon-600">
+            <button className="mt-8 h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600">
               {ctaLabel}
             </button>
           </motion.div>
@@ -67,9 +66,9 @@ export default function ProductHeroShell({
           initial={{ opacity: 0, x: 28 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.15 }}
-          className="w-full"
+          className="flex w-full justify-center lg:justify-end"
         >
-          {children}
+          <div className="w-full max-w-[760px]">{children}</div>
         </motion.div>
       </div>
     </section>

@@ -72,16 +72,14 @@ function TestimonialCard({
             className="size-11 rounded-full border border-[#DEE5EF]"
           />
         </div>
-        <p className="text-[15px] leading-[1.7] text-[#4D576C]">
-          {testimonial.feedback}
-        </p>
+        <p className="mobile-body text-[#4D576C]">{testimonial.feedback}</p>
       </div>
       <div className="mt-8 flex items-center gap-2">
         <div>
-          <p className="text-[15px] font-bold text-[#121733]">
+          <p className="mobile-body font-bold text-[#121733]">
             {testimonial.name}
           </p>
-          <p className="text-[13px] text-[#758198]">{testimonial.title}</p>
+          <p className="mobile-meta text-[#758198]">{testimonial.title}</p>
         </div>
       </div>
     </div>
@@ -97,42 +95,39 @@ const slideVariants = {
 function SocialProof() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [desktopCardsPerPage, setDesktopCardsPerPage] = useState(3);
+  const [desktopIndex, setDesktopIndex] = useState(0);
+  const desktopCardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
+  const totalPagesMobile = testimonials.length;
+  const desktopVisibleCards = Math.min(3, testimonials.length);
+  const desktopMaxIndex = Math.max(testimonials.length - desktopVisibleCards, 0);
+  const desktopTrackBasis =
+    desktopVisibleCards === 1
+      ? "100%"
+      : desktopVisibleCards === 2
+        ? "calc((100% - 1.5rem) / 2)"
+        : "calc((100% - 3rem) / 3)";
 
   useEffect(() => {
-    const updateCardsPerPage = () => {
-      setDesktopCardsPerPage(window.innerWidth >= 1280 ? 3 : 2);
-    };
-    updateCardsPerPage();
-    window.addEventListener("resize", updateCardsPerPage);
-    return () => window.removeEventListener("resize", updateCardsPerPage);
-  }, []);
+    const targetCard = desktopCardRefs.current[desktopIndex];
+    targetCard?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+  }, [desktopIndex]);
 
-  const totalPages = Math.ceil(testimonials.length / desktopCardsPerPage);
-  const totalPagesMobile = testimonials.length;
-  const desktopActiveIndex = Math.min(activeIndex, Math.max(totalPages - 1, 0));
-
-  const goToDesktopPage = (index: number) => {
-    setDirection(index > desktopActiveIndex ? 1 : -1);
-    setActiveIndex(index);
+  const goToDesktopIndex = (index: number) => {
+    setDesktopIndex(Math.max(0, Math.min(index, desktopMaxIndex)));
   };
 
   const goToPreviousDesktop = () => {
-    setDirection(-1);
-    setActiveIndex((prev) => {
-      const current = Math.min(prev, Math.max(totalPages - 1, 0));
-      return (current - 1 + totalPages) % totalPages;
-    });
+    goToDesktopIndex(desktopIndex - 1);
   };
 
   const goToNextDesktop = () => {
-    setDirection(1);
-    setActiveIndex((prev) => {
-      const current = Math.min(prev, Math.max(totalPages - 1, 0));
-      return (current + 1) % totalPages;
-    });
+    goToDesktopIndex(desktopIndex + 1);
   };
 
   const goToPreviousMobile = () => {
@@ -145,15 +140,10 @@ function SocialProof() {
     setActiveIndex((prev) => (prev + 1) % totalPagesMobile);
   };
 
-  const desktopCards = testimonials.slice(
-    desktopActiveIndex * desktopCardsPerPage,
-    desktopActiveIndex * desktopCardsPerPage + desktopCardsPerPage,
-  );
-
   return (
     <section
       ref={ref}
-      className="bg-black py-14 lg:mt-24 lg:flex lg:min-h-[90vh] lg:items-center lg:bg-[#1E1A63] lg:py-20"
+      className="bg-black py-14 lg:flex lg:min-h-[90vh] lg:items-center lg:bg-[#1E1A63] lg:py-20"
     >
       <div className="mx-auto max-w-[1292px] px-5 sm:px-6 lg:px-0">
         {/* Heading */}
@@ -165,13 +155,13 @@ function SocialProof() {
         >
           <motion.p
             variants={fadeUp}
-            className="mb-2 text-[13px] font-semibold tracking-[0.18em] text-white/65 uppercase"
+            className="mobile-eyebrow mb-2 text-white/65"
           >
             SOCIAL PROOF
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="text-[33px] leading-[1.1] font-bold text-white sm:text-[39px]"
+            className="mobile-section-title mx-auto max-w-[320px] text-white sm:max-w-none lg:text-[39px] lg:leading-[1.1]"
           >
             What Our <span className="text-xenon">Customers</span> Have to Say
           </motion.h2>
@@ -182,56 +172,45 @@ function SocialProof() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
-          className="relative hidden lg:block"
+          className="relative hidden overflow-visible lg:mt-12 lg:block lg:translate-y-8"
         >
           <button
             onClick={goToPreviousDesktop}
             aria-label="Previous testimonials"
-            className="absolute top-1/2 left-0 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+            disabled={desktopIndex === 0}
+            className="absolute top-1/2 left-2 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={goToNextDesktop}
             aria-label="Next testimonials"
-            className="absolute top-1/2 right-0 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+            disabled={desktopIndex === desktopMaxIndex}
+            className="absolute top-1/2 right-2 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronRight size={18} />
           </button>
 
-          <div className="overflow-hidden px-14">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={desktopActiveIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: EASE_IN_OUT }}
-                className="grid grid-cols-2 gap-6 xl:grid-cols-3"
-              >
-                {desktopCards.map((testimonial, i) => (
-                  <TestimonialCard
-                    key={`${desktopActiveIndex}-${i}`}
-                    testimonial={testimonial}
-                  />
+          <div className="overflow-visible px-14">
+            <div className="[scrollbar-width:none] [-ms-overflow-style:none] overflow-x-auto overflow-y-visible scroll-smooth [&::-webkit-scrollbar]:hidden">
+              <div className="flex gap-6 py-3">
+                {testimonials.map((testimonial, index) => (
+                  <div
+                    key={`${testimonial.name}-${index}`}
+                    ref={(node) => {
+                      desktopCardRefs.current[index] = node;
+                    }}
+                    style={{ flex: `0 0 ${desktopTrackBasis}` }}
+                    className="min-w-0 shrink-0 snap-start"
+                  >
+                    <TestimonialCard
+                      testimonial={testimonial}
+                      className="h-full max-w-none shadow-[0_24px_60px_rgba(9,14,39,0.26)] ring-1 ring-[#E7EDF6]"
+                    />
+                  </div>
                 ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="mt-8 flex justify-center gap-2">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goToDesktopPage(i)}
-                aria-label={`Go to testimonial page ${i + 1}`}
-                className={`h-2.5 w-2.5 rounded-full transition-colors duration-200 ${
-                  i === desktopActiveIndex ? "bg-white" : "bg-white/30"
-                }`}
-              />
-            ))}
+              </div>
+            </div>
           </div>
         </motion.div>
 

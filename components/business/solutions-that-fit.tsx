@@ -59,10 +59,10 @@ export default function SolutionsThatFitBusiness() {
         animate={isInView ? "visible" : "hidden"}
         className="mb-8 text-center lg:mb-10 lg:text-left"
       >
-        <motion.h2 variants={fadeUp} className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
+        <motion.h2 variants={fadeUp} className="mobile-section-title text-[#121733] lg:text-[39px] lg:leading-[1.1]">
           Solutions That Fit
         </motion.h2>
-        <motion.p variants={fadeUp} className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]">
+        <motion.p variants={fadeUp} className="mobile-section-title mt-2 text-[#121733] lg:text-[39px] lg:leading-[1.1]">
           Your <span className="text-xenon">Industry</span>
         </motion.p>
       </motion.div>
@@ -152,8 +152,8 @@ export default function SolutionsThatFitBusiness() {
               className={`${card.bg} overflow-hidden rounded-2xl p-5 text-center`}
             >
               <div className={`flex flex-col items-center ${textColor}`}>
-                <h3 className="text-[22px] font-bold">{card.title}</h3>
-                <p className="mt-2 max-w-[32ch] text-[15px] leading-[1.7]">
+                <h3 className="mobile-card-title">{card.title}</h3>
+                <p className="mobile-body mt-2 max-w-[32ch]">
                   {card.description}
                 </p>
                 <div className="relative mt-4 h-[240px] w-full overflow-hidden rounded-xl sm:h-[260px]">

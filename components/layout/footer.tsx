@@ -38,14 +38,6 @@ const FooterLinks = [
       { label: "Cookie Policy", link: "" },
     ],
   },
-  {
-    title: "Transparency",
-    sublinks: [
-      { label: "Contact Us", link: "" },
-      { label: "FAQs", link: "" },
-      { label: "Get Help", link: "" },
-    ],
-  },
 ];
 
 const Footer = () => {
@@ -61,7 +53,7 @@ const Footer = () => {
         }`}
       >
         <div className="flex flex-col items-center gap-8 text-center lg:max-w-[420px] lg:items-start lg:py-10 lg:text-left xl:ml-[86px] xl:max-w-none xl:py-12">
-          <p className="max-w-[290px] font-dmSans text-[31px] leading-[1.1] font-bold text-xenon-gray sm:max-w-none sm:text-[36px] xl:w-[560px] xl:text-[40px]">
+          <p className="mobile-section-title max-w-[290px] font-dmSans text-xenon-gray sm:max-w-none lg:text-[36px] lg:leading-[1.1] xl:w-[560px] xl:text-[40px]">
             {isBusinessRoute ? (
               <>
                 Ready To Transform Your{" "}
@@ -74,7 +66,7 @@ const Footer = () => {
               </>
             )}
           </p>
-          <p className="max-w-[260px] text-[14px] leading-[1.6] text-[#7C859A] sm:max-w-[420px] sm:text-[15px]">
+          <p className="mobile-body max-w-[260px] text-[#7C859A] sm:max-w-[420px]">
             Join 3,000+ African businesses using Syka to compete globally.
           </p>
           <div className="flex flex-wrap justify-center gap-3 lg:justify-start xl:justify-start">
@@ -111,7 +103,7 @@ const Footer = () => {
               alt="Syka Logo"
             />
           </div>
-          <p className="text-center leading-[27.36px] text-white lg:text-start">
+          <p className="mobile-body max-w-[260px] text-center text-white lg:max-w-none lg:text-base lg:leading-[27.36px] lg:text-start">
             Syka. The Smarter Bridge Between Borders.
           </p>
         </div>
@@ -132,22 +124,26 @@ const Footer = () => {
         <div className="grid w-full grid-cols-2 gap-8 lg:hidden">
           {FooterLinks.slice(0, 2).map((section, i) => (
             <div key={`${section.title}-${i}`} className="flex flex-col gap-5">
-              <p className="text-[#8893A4] font-bold text-lg">
+              <p className="mobile-body font-bold text-[#8893A4]">
                 {section.title}
               </p>
               <div className="flex flex-col gap-3 text-white">
                 {section.sublinks.map((sublink) => (
-                  <p key={sublink.label}>{sublink.label}</p>
+                  <p key={sublink.label} className="mobile-meta">
+                    {sublink.label}
+                  </p>
                 ))}
               </div>
             </div>
           ))}
         </div>
       </div>
-      <p className="px-4 pb-2 text-center text-white">© {year} Syka Ltd.</p>
+      <p className="mobile-meta px-4 pb-2 text-center text-white lg:text-base lg:leading-normal">
+        © {year} Syka Ltd.
+      </p>
 
-      <div className="mx-auto flex w-full shrink-0 flex-1 items-center justify-center border-t border-white/20 px-5 py-4 text-center text-sm text-white sm:px-6 xl:h-[72px] xl:w-[1211px] xl:px-0">
-        <p className="max-w-[980px]">
+      <div className="mx-auto flex w-full shrink-0 flex-1 items-center justify-center border-t border-white/20 px-5 py-4 text-center text-white sm:px-6 xl:h-[72px] xl:w-[1211px] xl:px-0">
+        <p className="mobile-meta max-w-[980px] lg:text-sm lg:leading-normal">
           Syka is a product of Xenon Ltd, which is a financial technology
           company and not a bank. Our services are provided by our partner banks
           and other financial institutions that are duly licensed by BOG.

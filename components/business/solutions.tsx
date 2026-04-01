@@ -100,8 +100,8 @@ export default function Solutions() {
     <>
       <section className="mt-16 bg-[#E8F4FB] lg:hidden">
         <div ref={mobileTrackRef} className="relative h-[300vh]">
-          <div className="sticky top-0 flex h-screen items-center">
-            <div className="mx-auto flex w-full max-w-[1292px] flex-col gap-10 px-5 sm:px-6">
+          <div className="sticky top-0 flex h-screen items-start pt-14">
+            <div className="mx-auto flex w-full max-w-[1292px] flex-col gap-8 px-5 sm:px-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeStep.id}-mobile-copy`}
@@ -109,12 +109,12 @@ export default function Solutions() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -18 }}
                   transition={{ duration: 0.28, ease: EASE_OUT }}
-                  className="mx-auto text-center"
+                  className="mx-auto max-w-[330px] text-center sm:max-w-[540px]"
                 >
-                  <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
+                  <p className="mobile-eyebrow text-[#7A89A2]">
                     SOLUTIONS
                   </p>
-                  <h2 className="mt-3 max-w-[760px] text-[35px] leading-[1.1] font-bold text-[#121733] sm:text-[42px]">
+                  <h2 className="mobile-section-title mt-3 text-[#121733]">
                     {activeStep.highlight ? (
                       <>
                         {activeStep.heading.split(activeStep.highlight)[0]}
@@ -127,10 +127,10 @@ export default function Solutions() {
                       activeStep.heading
                     )}
                   </h2>
-                  <p className="mt-4 max-w-[540px] text-[15px] leading-[1.7] text-[#4D576C] sm:text-[16px]">
+                  <p className="mobile-body mt-4 text-[#4D576C]">
                     {activeStep.description}
                   </p>
-                  <button className="mx-auto mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
+                  <button className="mobile-button mx-auto mt-6 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-white transition-colors hover:bg-xenon-600">
                     <span>Get started for free</span>
                   </button>
                 </motion.div>

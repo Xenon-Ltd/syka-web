@@ -10,7 +10,12 @@ import {
 import Image, { StaticImageData } from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
+import {
+  fadeUp,
+  staggerContainer,
+  IN_VIEW_OPTS,
+  EASE_OUT,
+} from "@/lib/animation";
 
 type Feature = {
   title: string;
@@ -74,12 +79,10 @@ export default function BuiltForAfricanReality() {
           className="mx-auto h-[88px] w-[88px] object-contain object-center"
         />
       </div>
-      <h3 className="text-[26px] leading-[1.25] font-bold text-[#121733]">
+      <h3 className="mobile-card-title text-[#121733] lg:text-[26px] lg:leading-[1.25]">
         {feature.title}
       </h3>
-      <p className="mt-3 text-[15px] leading-[1.75] text-[#505A6E]">
-        {feature.description}
-      </p>
+      <p className="mobile-body mt-3 text-[#505A6E]">{feature.description}</p>
     </motion.article>
   );
 
@@ -97,7 +100,7 @@ export default function BuiltForAfricanReality() {
       >
         <motion.h2
           variants={fadeUp}
-          className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[44px] lg:text-start lg:text-[35px]"
+          className="mobile-section-title text-center text-[#121733] lg:text-start lg:text-[35px]"
         >
           Built for African <span className="text-xenon">Reality</span>
         </motion.h2>
@@ -122,7 +125,7 @@ export default function BuiltForAfricanReality() {
         transition={{ duration: 0.45, ease: EASE_OUT, delay: 0.5 }}
         className="mt-8 text-center"
       >
-        <button className="h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600">
+        <button className="mobile-button h-11 rounded-lg bg-xenon px-7 text-white transition-colors duration-200 hover:bg-xenon-600">
           Get started for free
         </button>
       </motion.div>

@@ -61,7 +61,7 @@ function CountryItem({ icon, name }: CountryItemProps) {
         height={24}
         className="rounded-full border border-[#D4DEE9]"
       />
-      <p className="text-base text-[#445066]">{name}</p>
+      <p className="mobile-body text-[#445066] lg:text-base lg:leading-normal">{name}</p>
     </div>
   );
 }
@@ -81,7 +81,7 @@ export default function CountriesSupported() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: EASE_OUT }}
-        className="text-center text-[30px] leading-[1.1] font-bold text-[#121733] sm:text-[35px]"
+        className="mobile-section-title mx-auto max-w-[320px] text-center text-[#121733] sm:max-w-none lg:text-[35px] lg:leading-[1.1]"
       >
         Countries We Currently Support
       </motion.p>
@@ -105,7 +105,7 @@ export default function CountriesSupported() {
           <button
             type="button"
             onClick={() => setShowAllCountries(true)}
-            className="h-11 rounded-lg border border-xenon px-6 text-[15px] font-semibold text-xenon transition-colors duration-200 hover:bg-[#F3F7FB]"
+            className="mobile-button h-11 rounded-lg border border-xenon px-6 text-xenon transition-colors duration-200 hover:bg-[#F3F7FB]"
           >
             Show all countries we support
           </button>

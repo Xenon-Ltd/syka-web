@@ -69,3 +69,11 @@ export { default as Maryhealth } from "./mary-health.png";
 export { default as JSSquared } from "./js-squared.png";
 
 export { default as APIDocs } from "./api-docs.jpg";
+
+// dropdown images
+export { default as VirtualAccounts } from "./virtual-accounts-dropdown.svg";
+export { default as VirtualCards } from "./virtual-card-dropdown.svg";
+export { default as Invoicing } from "./invoicing-dropdown.svg";
+export { default as Payments } from "./payments-dropdown.svg";
+export { default as TreasuryManagement } from "./treasury-dropdown.svg";
+export { default as APIDocsDropdown } from "./api-docs-dropdown.svg";

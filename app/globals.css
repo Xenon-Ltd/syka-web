@@ -177,6 +177,50 @@
   }
 }
 
+@layer utilities {
+  .mobile-eyebrow {
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .mobile-hero-title {
+    font-size: 32px;
+    line-height: 1.08;
+    font-weight: 700;
+  }
+
+  .mobile-section-title {
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+
+  .mobile-card-title {
+    font-size: 22px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .mobile-body {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .mobile-meta {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .mobile-button {
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+}
+
 /* ── Marquee animation ───────────────────────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }

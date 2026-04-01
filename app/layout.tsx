@@ -6,6 +6,7 @@ import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.sykabank.com"),
   title: "Syka",
   description: "SykaBank - Say hello to digital banking",
   openGraph: {

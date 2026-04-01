@@ -39,13 +39,13 @@ export default function Security() {
         >
           <motion.p
             variants={fadeUp}
-            className="text-center text-[13px] font-semibold tracking-[0.18em] text-[#B4B8F7] uppercase lg:text-left"
+            className="mobile-eyebrow text-center text-[#B4B8F7] lg:text-left"
           >
             SECURITY
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mt-3 text-center text-[35px] leading-[1.1] font-bold text-white sm:text-[44px] lg:text-left"
+            className="mobile-section-title mt-3 text-center text-white lg:text-left lg:text-[44px]"
           >
             Your Assets and Data Are Always{" "}
             <span className="text-[#8FE0FF]">Safe</span>
@@ -67,10 +67,10 @@ export default function Security() {
                     <LockKeyhole size={24} />
                   )}
                 </div>
-                <h3 className="text-[15px] font-bold text-white">
+                <h3 className="text-[15px] leading-[1.35] font-bold text-white">
                   {point.title}
                 </h3>
-                <p className="mt-2 text-[15px] leading-[1.7] text-[#D7DBFF]">
+                <p className="mobile-body mt-2 text-[#D7DBFF]">
                   {point.description}
                 </p>
               </motion.article>

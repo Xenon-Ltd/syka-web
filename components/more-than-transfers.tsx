@@ -40,7 +40,7 @@ export default function MoreThanTransfers() {
             initial={{ opacity: 0, y: 28 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.05 }}
-            className="group flex min-h-[255px] flex-col overflow-hidden rounded-2xl bg-[#2CA4E8] text-white lg:flex-row"
+            className="group flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-[#2CA4E8] text-white lg:min-h-[255px] lg:flex-row"
           >
             <div className="flex flex-1 flex-col items-start justify-center p-5 text-left sm:p-7">
               <h3 className="max-w-[320px] text-[26px] leading-[1.15] font-bold sm:text-[29px]">
@@ -102,7 +102,7 @@ export default function MoreThanTransfers() {
           initial={{ opacity: 0, y: 28 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
-          className="group flex min-h-[470px] flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#2A85D8] to-[#5E49C7] p-5 text-left text-white sm:min-h-[524px] sm:p-7"
+          className="group flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#2A85D8] to-[#5E49C7] p-5 text-left text-white lg:min-h-[470px] lg:p-7"
         >
           <h3 className="text-[26px] leading-[1.15] font-bold sm:text-[29px]">
             Spendable Balance
@@ -114,7 +114,7 @@ export default function MoreThanTransfers() {
             <span>Get Now</span>
             <ArrowRightCircleIcon size={18} />
           </button>
-          <div className="relative mt-auto h-[260px] w-full sm:h-[330px] mb-[-30px]">
+          <div className="relative mt-auto mb-[-30px] h-[260px] w-full lg:h-[330px]">
             <Image
               src={SpendableBalance}
               alt="Spendable Balance"
@@ -132,7 +132,7 @@ export default function MoreThanTransfers() {
         initial={{ opacity: 0, y: 28 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.28 }}
-        className="group mt-4 flex min-h-[364px] flex-col overflow-hidden rounded-2xl bg-[#CFF1F4] lg:flex-row"
+        className="group mt-4 flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-[#CFF1F4] lg:min-h-[364px] lg:flex-row"
       >
         <div className="flex flex-1 flex-col items-start justify-center p-5 text-left sm:p-7">
           <h3 className="max-w-[300px] text-[26px] leading-[1.15] font-bold text-[#121733] sm:text-[29px]">
