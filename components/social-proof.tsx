@@ -97,6 +97,7 @@ function SocialProof() {
   const [direction, setDirection] = useState(1);
   const [desktopIndex, setDesktopIndex] = useState(0);
   const desktopCardRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const desktopScrollerRef = useRef<HTMLDivElement | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
   const totalPagesMobile = testimonials.length;
@@ -110,11 +111,21 @@ function SocialProof() {
         : "calc((100% - 3rem) / 3)";
 
   useEffect(() => {
+    const desktopScroller = desktopScrollerRef.current;
     const targetCard = desktopCardRefs.current[desktopIndex];
-    targetCard?.scrollIntoView({
+
+    if (!desktopScroller || !targetCard) {
+      return;
+    }
+
+    const scrollerRect = desktopScroller.getBoundingClientRect();
+    const targetRect = targetCard.getBoundingClientRect();
+    const nextScrollLeft =
+      targetRect.left - scrollerRect.left + desktopScroller.scrollLeft;
+
+    desktopScroller.scrollTo({
+      left: nextScrollLeft,
       behavior: "smooth",
-      block: "nearest",
-      inline: "start",
     });
   }, [desktopIndex]);
 
@@ -192,7 +203,10 @@ function SocialProof() {
           </button>
 
           <div className="overflow-visible px-14">
-            <div className="[scrollbar-width:none] [-ms-overflow-style:none] overflow-x-auto overflow-y-visible scroll-smooth [&::-webkit-scrollbar]:hidden">
+            <div
+              ref={desktopScrollerRef}
+              className="[scrollbar-width:none] [-ms-overflow-style:none] overflow-x-auto overflow-y-visible scroll-smooth [&::-webkit-scrollbar]:hidden"
+            >
               <div className="flex gap-6 py-3">
                 {testimonials.map((testimonial, index) => (
                   <div
