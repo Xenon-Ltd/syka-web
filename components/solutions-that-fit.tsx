@@ -8,7 +8,12 @@ import {
 import Image, { StaticImageData } from "next/image";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_IN_OUT } from "@/lib/animation";
+import {
+  fadeUp,
+  staggerContainer,
+  IN_VIEW_OPTS,
+  EASE_IN_OUT,
+} from "@/lib/animation";
 
 type IndustryCard = {
   title: string;
@@ -51,7 +56,10 @@ function SolutionsThatFit() {
   const isInView = useInView(ref, IN_VIEW_OPTS);
 
   return (
-    <section ref={ref} className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0">
+    <section
+      ref={ref}
+      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0 mb-16"
+    >
       {/* Heading */}
       <motion.div
         variants={staggerContainer}
@@ -59,10 +67,16 @@ function SolutionsThatFit() {
         animate={isInView ? "visible" : "hidden"}
         className="mb-8 text-center lg:mb-10 lg:text-left"
       >
-        <motion.h2 variants={fadeUp} className="mobile-section-title text-[#121733] lg:text-[39px] lg:leading-[1.1]">
+        <motion.h2
+          variants={fadeUp}
+          className="mobile-section-title text-[#121733] lg:text-[39px] lg:leading-[1.1]"
+        >
           Solutions That Fit
         </motion.h2>
-        <motion.p variants={fadeUp} className="mobile-section-title mt-2 text-[#121733] lg:text-[39px] lg:leading-[1.1]">
+        <motion.p
+          variants={fadeUp}
+          className="mobile-section-title mt-2 text-[#121733] lg:text-[39px] lg:leading-[1.1]"
+        >
           Your <span className="text-xenon">Workflow</span>
         </motion.p>
       </motion.div>
@@ -148,10 +162,16 @@ function SolutionsThatFit() {
               key={card.title}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, ease: EASE_IN_OUT, delay: i * 0.08 }}
+              transition={{
+                duration: 0.45,
+                ease: EASE_IN_OUT,
+                delay: i * 0.08,
+              }}
               className={`${card.bg} min-h-[430px] overflow-hidden rounded-2xl p-5 sm:min-h-[450px] sm:p-6`}
             >
-              <div className={`flex h-full flex-col items-center text-center ${textColor}`}>
+              <div
+                className={`flex h-full flex-col items-center text-center ${textColor}`}
+              >
                 <h3 className="mobile-card-title">{card.title}</h3>
                 <p className="mobile-body mt-2">{card.description}</p>
                 <div className="relative mt-4 h-[260px] w-full overflow-hidden rounded-xl sm:h-[280px]">
