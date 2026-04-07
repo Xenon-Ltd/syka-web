@@ -22,19 +22,19 @@ function Hero() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-4 max-w-[1292px] px-5 sm:px-6 lg:mt-8 lg:px-0"
+      className="mx-auto mt-4 max-w-[1292px] px-5 sm:px-6 lg:mt-8 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0"
     >
-      <div className="mt-6 flex flex-col items-center justify-between gap-10 lg:mt-18 lg:flex-row lg:gap-16">
+      <div className="mt-6 flex flex-col items-center justify-between gap-10 lg:mt-20 lg:flex-row lg:items-center lg:gap-24">
         {/* Text side — staggered children */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="w-full text-center lg:w-[510px] lg:text-left"
+          className="w-full text-center lg:w-[620px] lg:text-left"
         >
           <motion.div
             variants={fadeIn}
-            className="flex items-center justify-center gap-3 text-[13px] text-[#6A7284] sm:text-[16px] lg:justify-start lg:gap-4 lg:text-[18px]"
+            className="flex items-center justify-center gap-3 text-[13px] text-[#6A7284] sm:text-[16px] lg:justify-start lg:gap-5 lg:text-[20px]"
           >
             <p>Available in</p>
             <div className="flex items-center gap-1.5">
@@ -45,7 +45,7 @@ function Hero() {
                   alt="country-flag"
                   width={24}
                   height={24}
-                  className="size-6"
+                  className="size-6 lg:size-8"
                 />
               ))}
             </div>
@@ -54,7 +54,7 @@ function Hero() {
           <div className="mt-5">
             <motion.h1
               variants={fadeUp}
-              className="mx-auto max-w-[470px] text-[37px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733] sm:text-[42px] lg:mx-0"
+              className="mx-auto max-w-[470px] text-[37px] leading-[1.08] font-bold tracking-[-0.01em] text-[#121733] sm:text-[42px] lg:mx-0 lg:max-w-[620px] lg:text-[72px] lg:leading-[0.98]"
             >
               Send Money <span className="text-xenon">Globally,</span> Without
               the heavy fees.
@@ -62,7 +62,7 @@ function Hero() {
 
             <motion.p
               variants={fadeUp}
-              className="mx-auto mt-4 max-w-[420px] text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px] lg:mx-0"
+              className="mx-auto mt-4 max-w-[420px] text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px] lg:mx-0 lg:mt-6 lg:max-w-[560px] lg:text-[22px] lg:leading-[1.6]"
             >
               Go beyond transfers spend, receive, and manage your global
               business with virtual accounts &amp; cards.
@@ -70,12 +70,12 @@ function Hero() {
 
             <motion.div
               variants={fadeUp}
-              className="mt-7 flex flex-col md:flex-row justify-center gap-3 lg:justify-start"
+              className="mt-7 flex flex-col justify-center gap-3 md:flex-row lg:mt-10 lg:gap-5 lg:justify-start"
             >
-              <button className="h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:w-fit">
+              <button className="h-11 w-full rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:w-fit lg:h-14 lg:px-10 lg:text-[17px]">
                 Get Started
               </button>
-              <button className="h-11 w-full rounded-lg border border-[#C6D5E3] px-7 text-[15px] font-semibold text-[#31435D] transition-colors duration-200 hover:bg-[#F5F8FC] sm:w-fit">
+              <button className="h-11 w-full rounded-lg border border-[#C6D5E3] px-7 text-[15px] font-semibold text-[#31435D] transition-colors duration-200 hover:bg-[#F5F8FC] sm:w-fit lg:h-14 lg:px-10 lg:text-[17px]">
                 See How It Works
               </button>
             </motion.div>
@@ -87,16 +87,16 @@ function Hero() {
           initial={{ opacity: 0, x: 40 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.15 }}
-          className="relative w-full lg:w-[520px]"
+          className="relative w-full lg:w-[620px]"
         >
           <Image
             src={PhoneWithFrame}
             alt="phone-image"
-            width={480}
-            sizes="(max-width: 1280px) 100vw, 480px"
+            width={600}
+            sizes="(max-width: 1280px) 100vw, 600px"
             placeholder="blur"
             priority
-            className="relative z-10 w-full max-w-[480px] lg:ml-auto"
+            className="relative z-10 w-full max-w-[480px] lg:ml-auto lg:max-w-[600px]"
           />
         </motion.div>
       </div>
@@ -106,15 +106,15 @@ function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.4 }}
-        className="mt-16 flex flex-col items-center text-center lg:mt-24"
+        className="mt-16 flex flex-col items-center text-center lg:mt-28"
       >
-        <p className="text-[26px] leading-[1.25] font-bold text-[#121733] sm:text-[34px]">
+        <p className="text-[26px] leading-[1.25] font-bold text-[#121733] sm:text-[34px] lg:max-w-[980px] lg:text-[58px] lg:leading-[1.02]">
           Moves Digital Dollars Across Borders In Minutes
         </p>
-        <p className="mt-2 px-2 text-[13px] text-[#677287] sm:text-[16px]">
+        <p className="mt-2 px-2 text-[13px] text-[#677287] sm:text-[16px] lg:mt-4 lg:text-[22px]">
           Simple, fast and transparent global payments
         </p>
-        <div className="mt-5 flex items-center gap-3">
+        <div className="mt-5 flex items-center gap-3 lg:mt-8 lg:gap-5">
           <button
             aria-label="Google Play"
             className="transition-transform duration-150"
@@ -122,7 +122,7 @@ function Hero() {
             <Image
               src={PlayStoreBadgeIcon}
               alt="google-play-badge"
-              className="h-10 w-[135px]"
+              className="h-10 w-[135px] lg:h-12 lg:w-[162px]"
             />
           </button>
           <button
@@ -132,7 +132,7 @@ function Hero() {
             <Image
               src={AppStoreBadgeIcon}
               alt="app-store-badge"
-              className="h-10 w-[135px]"
+              className="h-10 w-[135px] lg:h-12 lg:w-[162px]"
             />
           </button>
         </div>

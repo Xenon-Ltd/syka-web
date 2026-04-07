@@ -60,26 +60,30 @@ function TestimonialCard({
 }) {
   return (
     <div
-      className={`flex min-h-[230px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-6 ${className}`}
+      className={`flex min-h-[230px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-6 lg:min-h-[360px] lg:max-w-none lg:rounded-[28px] lg:p-10 ${className}`}
     >
       <div>
-        <div className="mb-4">
+        <div className="mb-4 lg:mb-6">
           <Image
             src={testimonial.countryFlag}
             alt="country flag"
             width={44}
             height={44}
-            className="size-11 rounded-full border border-[#DEE5EF]"
+            className="size-11 rounded-full border border-[#DEE5EF] lg:size-14"
           />
         </div>
-        <p className="mobile-body text-[#4D576C]">{testimonial.feedback}</p>
+        <p className="mobile-body text-[#4D576C] lg:text-[20px] lg:leading-[1.75]">
+          {testimonial.feedback}
+        </p>
       </div>
-      <div className="mt-8 flex items-center gap-2">
+      <div className="mt-8 flex items-center gap-2 lg:mt-10 lg:gap-3">
         <div>
-          <p className="mobile-body font-bold text-[#121733]">
+          <p className="mobile-body font-bold text-[#121733] lg:text-[22px] lg:leading-[1.3]">
             {testimonial.name}
           </p>
-          <p className="mobile-meta text-[#758198]">{testimonial.title}</p>
+          <p className="mobile-meta text-[#758198] lg:text-[16px]">
+            {testimonial.title}
+          </p>
         </div>
       </div>
     </div>
@@ -102,7 +106,10 @@ function SocialProof() {
   const isInView = useInView(ref, IN_VIEW_OPTS);
   const totalPagesMobile = testimonials.length;
   const desktopVisibleCards = Math.min(3, testimonials.length);
-  const desktopMaxIndex = Math.max(testimonials.length - desktopVisibleCards, 0);
+  const desktopMaxIndex = Math.max(
+    testimonials.length - desktopVisibleCards,
+    0,
+  );
   const desktopTrackBasis =
     desktopVisibleCards === 1
       ? "100%"
@@ -154,7 +161,7 @@ function SocialProof() {
   return (
     <section
       ref={ref}
-      className="bg-black py-14 lg:flex lg:min-h-[90vh] lg:items-center lg:bg-[#1E1A63] lg:py-20"
+      className="bg-black py-14 lg:flex lg:min-h-[65vh] lg:items-center lg:bg-[#1E1A63] lg:py-24"
     >
       <div className="mx-auto max-w-[1292px] px-5 sm:px-6 lg:px-0">
         {/* Heading */}
@@ -162,7 +169,7 @@ function SocialProof() {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mx-auto mb-8 max-w-[1092px] text-center lg:mb-10"
+          className="mx-auto mb-8 max-w-[1092px] text-center lg:mb-14"
         >
           <motion.p
             variants={fadeUp}
@@ -172,7 +179,7 @@ function SocialProof() {
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mobile-section-title mx-auto max-w-[320px] text-white sm:max-w-none lg:text-[39px] lg:leading-[1.1]"
+            className="mobile-section-title mx-auto max-w-[320px] text-white sm:max-w-none lg:max-w-[860px] lg:text-[58px] lg:leading-[1.02]"
           >
             What Our <span className="text-xenon">Customers</span> Have to Say
           </motion.h2>
@@ -183,31 +190,31 @@ function SocialProof() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
-          className="relative hidden overflow-visible lg:mt-12 lg:block lg:translate-y-8"
+          className="relative hidden overflow-visible lg:mt-16 lg:block"
         >
           <button
             onClick={goToPreviousDesktop}
             aria-label="Previous testimonials"
             disabled={desktopIndex === 0}
-            className="absolute top-1/2 left-2 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 left-0 z-30 inline-flex size-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={22} />
           </button>
           <button
             onClick={goToNextDesktop}
             aria-label="Next testimonials"
             disabled={desktopIndex === desktopMaxIndex}
-            className="absolute top-1/2 right-2 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 right-0 z-30 inline-flex size-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
-            <ChevronRight size={18} />
+            <ChevronRight size={22} />
           </button>
 
-          <div className="overflow-visible px-14">
+          <div className="overflow-visible px-18">
             <div
               ref={desktopScrollerRef}
               className="[scrollbar-width:none] [-ms-overflow-style:none] overflow-x-auto overflow-y-visible scroll-smooth [&::-webkit-scrollbar]:hidden"
             >
-              <div className="flex gap-6 py-3">
+              <div className="flex gap-8 py-4">
                 {testimonials.map((testimonial, index) => (
                   <div
                     key={`${testimonial.name}-${index}`}

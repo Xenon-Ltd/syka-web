@@ -8,7 +8,12 @@ import {
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
 import { useRef, useState } from "react";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_IN_OUT } from "@/lib/animation";
+import {
+  fadeUp,
+  staggerContainer,
+  IN_VIEW_OPTS,
+  EASE_IN_OUT,
+} from "@/lib/animation";
 
 type IndustryCard = {
   title: string;
@@ -51,18 +56,27 @@ export default function SolutionsThatFitBusiness() {
   const isInView = useInView(ref, IN_VIEW_OPTS);
 
   return (
-    <section ref={ref} className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-20 lg:px-0">
+    <section
+      ref={ref}
+      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-20 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0"
+    >
       {/* Heading — staggered */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-8 text-center lg:mb-10 lg:text-left"
+        className="mb-8 text-center lg:mb-16 lg:text-left"
       >
-        <motion.h2 variants={fadeUp} className="mobile-section-title text-[#121733] lg:text-[39px] lg:leading-[1.1]">
+        <motion.h2
+          variants={fadeUp}
+          className="mobile-section-title text-[#121733] lg:text-[58px] lg:leading-[1.02]"
+        >
           Solutions That Fit
         </motion.h2>
-        <motion.p variants={fadeUp} className="mobile-section-title mt-2 text-[#121733] lg:text-[39px] lg:leading-[1.1]">
+        <motion.p
+          variants={fadeUp}
+          className="mobile-section-title mt-2 text-[#121733] lg:text-[58px] lg:leading-[1.02]"
+        >
           Your <span className="text-xenon">Industry</span>
         </motion.p>
       </motion.div>
@@ -72,7 +86,7 @@ export default function SolutionsThatFitBusiness() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: EASE_IN_OUT, delay: 0.15 }}
-        className="hidden h-[338px] gap-3 lg:flex"
+        className="hidden h-[338px] gap-3 lg:flex lg:h-[620px] lg:gap-6"
         onMouseLeave={() => setActiveIndex(0)}
       >
         {industries.map((card, index) => {
@@ -84,11 +98,11 @@ export default function SolutionsThatFitBusiness() {
               key={card.title}
               layout
               onMouseEnter={() => setActiveIndex(index)}
-              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl`}
+              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl lg:rounded-[30px]`}
               animate={{ flex: isExpanded ? 2.2 : 1 }}
               transition={{ duration: 0.4, ease: EASE_IN_OUT }}
             >
-              <motion.div layout className="h-full p-6">
+              <motion.div layout className="h-full p-6 lg:p-10">
                 <AnimatePresence mode="wait" initial={false}>
                   {isExpanded ? (
                     <motion.div
@@ -97,17 +111,17 @@ export default function SolutionsThatFitBusiness() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2, ease: EASE_IN_OUT }}
-                      className={`flex h-full items-stretch gap-5 ${textColor}`}
+                      className={`flex h-full items-stretch gap-5 lg:gap-8 ${textColor}`}
                     >
                       <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left">
-                        <h3 className="text-[26px] leading-[1.2] font-bold">
+                        <h3 className="text-[26px] leading-[1.2] font-bold lg:text-[38px] lg:leading-[1.05]">
                           {card.title}
                         </h3>
-                        <p className="mt-2 max-w-[260px] text-[15px] leading-[1.7]">
+                        <p className="mt-2 max-w-[260px] text-[15px] leading-[1.7] lg:mt-4 lg:max-w-[360px] lg:text-[18px] lg:leading-[1.75]">
                           {card.description}
                         </p>
                       </div>
-                      <div className="relative w-[46%] overflow-hidden rounded-xl">
+                      <div className="relative w-[46%] overflow-hidden rounded-xl lg:rounded-[24px]">
                         <Image
                           src={card.image}
                           alt={card.title}
@@ -127,7 +141,7 @@ export default function SolutionsThatFitBusiness() {
                       transition={{ duration: 0.15 }}
                       className={`flex h-full items-center justify-center text-center ${textColor}`}
                     >
-                      <h3 className="text-[26px] leading-[1.2] font-bold">
+                      <h3 className="text-[26px] leading-[1.2] font-bold lg:px-6 lg:text-[36px] lg:leading-[1.1]">
                         {card.title}
                       </h3>
                     </motion.div>
@@ -148,7 +162,11 @@ export default function SolutionsThatFitBusiness() {
               key={card.title}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, ease: EASE_IN_OUT, delay: i * 0.08 }}
+              transition={{
+                duration: 0.45,
+                ease: EASE_IN_OUT,
+                delay: i * 0.08,
+              }}
               className={`${card.bg} overflow-hidden rounded-2xl p-5 text-center`}
             >
               <div className={`flex flex-col items-center ${textColor}`}>

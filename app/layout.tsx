@@ -8,10 +8,10 @@ import Footer from "@/components/layout/footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sykabank.com"),
   title: "Syka",
-  description: "SykaBank - Say hello to digital banking",
+  description: "SykaBank - payment infrastructure for African entrepreneurs",
   openGraph: {
     title: "Syka",
-    description: "SykaBank - Say hello to digital banking",
+    description: "SykaBank - payment infrastructure for African entrepreneurs",
     url: "https://www.sykabank.com",
     locale: "en_US",
     type: "website",

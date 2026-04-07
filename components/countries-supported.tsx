@@ -53,15 +53,17 @@ const countries = [
 
 function CountryItem({ icon, name }: CountryItemProps) {
   return (
-    <div className="flex w-fit items-center gap-2 rounded-full bg-[#F3F6FA] pt-[8px] pr-[25px] pb-[8px] pl-[18px]">
+    <div className="flex w-fit items-center gap-4 rounded-full bg-[#F3F6FA] pt-[8px] pr-[15px] pb-[8px] pl-[18px] lg:gap-3 lg:px-7 lg:py-1">
       <Image
         src={icon}
         alt={`${name} flag`}
         width={24}
         height={24}
-        className="rounded-full border border-[#D4DEE9]"
+        className="rounded-full border border-[#D4DEE9] lg:h-9 lg:w-9"
       />
-      <p className="mobile-body text-[#445066] lg:text-base lg:leading-normal">{name}</p>
+      <p className="mobile-body text-[#445066] lg:text-[18px] lg:leading-[1.3]">
+        {name}
+      </p>
     </div>
   );
 }
@@ -75,13 +77,13 @@ export default function CountriesSupported() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 mb-14 max-w-[1292px] px-5 sm:px-6 xl:mt-20 xl:mb-44 xl:px-0"
+      className="mx-auto mt-16 mb-14 max-w-[1292px] px-5 sm:px-6 lg:flex lg:min-h-[55vh] lg:flex-col lg:justify-center xl:mt-20 xl:mb-44 xl:px-0"
     >
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: EASE_OUT }}
-        className="mobile-section-title mx-auto max-w-[320px] text-center text-[#121733] sm:max-w-none lg:text-[35px] lg:leading-[1.1]"
+        className="mobile-section-title mx-auto max-w-[320px] text-center text-[#121733] sm:max-w-none lg:max-w-[900px] lg:text-[58px] lg:leading-[1.02]"
       >
         Countries We Currently Support
       </motion.p>
@@ -113,7 +115,7 @@ export default function CountriesSupported() {
       )}
 
       {/* Desktop — staggered pills */}
-      <div className="mt-8 hidden flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] lg:flex">
+      <div className="mt-9 hidden flex-wrap items-center justify-center gap-x-[28px] gap-y-[20px] lg:mt-14 lg:flex lg:gap-x-6 lg:gap-y-4">
         {countries.map((country, i) => (
           <motion.div
             key={country.name}

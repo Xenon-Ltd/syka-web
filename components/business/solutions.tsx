@@ -159,9 +159,9 @@ export default function Solutions() {
       </section>
 
       <section className="hidden bg-[#E8F4FB] lg:block">
-        <div ref={desktopTrackRef} className="relative h-[300vh]">
-          <div className="sticky top-0 flex h-screen items-center">
-            <div className="mx-auto grid h-full w-full max-w-[1292px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-12 px-6 xl:grid-cols-[1fr_1.15fr] xl:gap-24">
+        <div ref={desktopTrackRef} className="relative h-[315vh]">
+          <div className="sticky top-[2.5vh] flex h-[95vh] items-center">
+            <div className="mx-auto grid h-full w-full max-w-[1292px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-16 px-6 xl:grid-cols-[1fr_1.15fr] xl:gap-28">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStep.id}
@@ -169,12 +169,12 @@ export default function Solutions() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -18 }}
                   transition={{ duration: 0.28, ease: EASE_OUT }}
-                  className="mx-auto w-full max-w-[720px]  flex flex-col items-start justify-center h-full text-left"
+                  className="mx-auto flex h-full w-full max-w-[780px] flex-col items-start justify-center text-left"
                 >
-                  <p className="text-[13px] font-semibold tracking-[0.18em] text-[#7A89A2] uppercase">
+                  <p className="text-[15px] font-semibold tracking-[0.24em] text-[#7A89A2] uppercase">
                     SOLUTIONS
                   </p>
-                  <h2 className="mt-3 max-w-[720px] text-[48px] leading-[1.08] font-bold text-[#121733]">
+                  <h2 className="mt-5 max-w-[780px] text-[64px] leading-[0.98] font-bold text-[#121733]">
                     {activeStep.highlight ? (
                       <>
                         {activeStep.heading.split(activeStep.highlight)[0]}
@@ -187,10 +187,10 @@ export default function Solutions() {
                       activeStep.heading
                     )}
                   </h2>
-                  <p className="mt-4 max-w-[600px] text-[15px] leading-[1.7] text-[#4D576C]">
+                  <p className="mt-6 max-w-[640px] text-[21px] leading-[1.7] text-[#4D576C]">
                     {activeStep.description}
                   </p>
-                  <button className="mt-7 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors hover:bg-xenon-600">
+                  <button className="mt-10 flex h-14 items-center gap-2 rounded-lg bg-xenon px-10 text-[17px] font-semibold text-white transition-colors hover:bg-xenon-600">
                     <span>Get started for free</span>
                   </button>
                 </motion.div>
@@ -206,7 +206,7 @@ export default function Solutions() {
                   className="flex h-full w-full min-w-0 items-center justify-end overflow-hidden"
                 >
                   <div className="relative w-full min-w-0 overflow-hidden">
-                    <div className="ml-auto w-full max-w-[400px] overflow-hidden xl:max-w-[700px]">
+                    <div className="ml-auto w-full max-w-[520px] overflow-hidden xl:max-w-[820px]">
                       <Lottie
                         animationData={activeStep.animationData}
                         loop

@@ -68,50 +68,52 @@ export default function BuiltForAfricanReality() {
       initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.09 }}
-      className="mx-auto flex w-full max-w-[360px] flex-col items-center rounded-2xl text-center"
+      className="mx-auto flex w-full max-w-[360px] flex-col items-center rounded-2xl text-center lg:max-w-[380px]"
     >
-      <div className="mb-5 inline-flex size-[204px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white">
+      <div className="mb-5 inline-flex size-[204px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white lg:mb-7 lg:size-[236px]">
         <Image
           src={feature.icon}
           alt={feature.title}
           width={88}
           height={88}
-          className="mx-auto h-[88px] w-[88px] object-contain object-center"
+          className="mx-auto h-[88px] w-[88px] object-contain object-center lg:h-[104px] lg:w-[104px]"
         />
       </div>
-      <h3 className="mobile-card-title text-[#121733] lg:text-[26px] lg:leading-[1.25]">
+      <h3 className="mobile-card-title text-[#121733] lg:text-[34px] lg:leading-[1.12]">
         {feature.title}
       </h3>
-      <p className="mobile-body mt-3 text-[#505A6E]">{feature.description}</p>
+      <p className="mobile-body mt-3 text-[#505A6E] lg:mt-4 lg:text-[18px] lg:leading-[1.75]">
+        {feature.description}
+      </p>
     </motion.article>
   );
 
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-20 lg:flex lg:min-h-[90vh] lg:flex-col lg:justify-center lg:px-0"
+      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-20 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0"
     >
       {/* Heading */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-10"
+        className="mb-12 lg:mb-16"
       >
         <motion.h2
           variants={fadeUp}
-          className="mobile-section-title text-center text-[#121733] lg:text-start lg:text-[35px]"
+          className="mobile-section-title text-center text-[#121733] lg:text-start lg:text-[58px] lg:leading-[1.02]"
         >
           Built for African <span className="text-xenon">Reality</span>
         </motion.h2>
       </motion.div>
 
       {/* Feature cards — staggered */}
-      <div className="mb-16 space-y-12">
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
+      <div className="mb-16 space-y-12 lg:mb-20 lg:space-y-16">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
           {topRowFeatures.map((feature, i) => renderFeatureCard(feature, i))}
         </div>
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
           {bottomRowFeatures.map((feature, i) =>
             renderFeatureCard(feature, i + 3),
           )}
@@ -123,9 +125,9 @@ export default function BuiltForAfricanReality() {
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.45, ease: EASE_OUT, delay: 0.5 }}
-        className="mt-8 text-center"
+        className="mt-8 text-center lg:mt-10"
       >
-        <button className="mobile-button h-11 rounded-lg bg-xenon px-7 text-white transition-colors duration-200 hover:bg-xenon-600">
+        <button className="mobile-button h-11 rounded-lg bg-xenon px-7 text-white transition-colors duration-200 hover:bg-xenon-600 lg:h-14 lg:px-10 lg:text-[17px]">
           Get started for free
         </button>
       </motion.div>

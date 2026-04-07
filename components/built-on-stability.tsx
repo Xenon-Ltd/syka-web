@@ -43,44 +43,49 @@ function BuiltOnStability() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0"
+      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0"
     >
       {/* Heading */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-10 text-center lg:mb-12 lg:text-left"
+        className="mb-10 text-center lg:mb-16 lg:text-left"
       >
         <motion.h2
           variants={fadeUp}
-          className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]"
+          className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px] lg:text-[58px] lg:leading-[1.02]"
         >
           Built on <span className="text-xenon">Stability,</span>
         </motion.h2>
         <motion.p
           variants={fadeUp}
-          className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px]"
+          className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px] lg:text-[58px] lg:leading-[1.02]"
         >
           Guarded by <span className="text-xenon">Security</span>
         </motion.p>
       </motion.div>
 
       {/* Cards — staggered entrance */}
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-3 lg:gap-8">
         {cards.map((card, i) => (
           <motion.div
             key={card.title}
             initial={{ opacity: 0, y: 28 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.1 }}
-            className="flex min-h-[248px] flex-col items-center rounded-2xl bg-white p-7 text-center shadow-sm lg:items-start lg:text-left"
+            className="flex min-h-[248px] flex-col items-center rounded-2xl bg-white p-7 text-center shadow-sm lg:min-h-[420px] lg:items-start lg:rounded-[28px] lg:p-10 lg:text-left"
           >
-            <Image src={card.src} alt={card.alt} width={140} />
-            <p className="mt-4 text-[22px] leading-[1.2] font-bold text-[#121733]">
+            <Image
+              src={card.src}
+              alt={card.alt}
+              width={180}
+              className="h-auto w-[140px] lg:w-[180px]"
+            />
+            <p className="mt-4 text-[22px] leading-[1.2] font-bold text-[#121733] lg:mt-6 lg:text-[34px] lg:leading-[1.15]">
               {card.title}
             </p>
-            <p className="mt-3 text-[15px] leading-[1.7] text-[#546076]">
+            <p className="mt-3 text-[15px] leading-[1.7] text-[#546076] lg:mt-4 lg:text-[18px] lg:leading-[1.75]">
               {card.body}
             </p>
           </motion.div>

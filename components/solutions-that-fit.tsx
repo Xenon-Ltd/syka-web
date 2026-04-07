@@ -25,7 +25,7 @@ type IndustryCard = {
 
 const industries: IndustryCard[] = [
   {
-    title: "Freelancers & Remote Workers",
+    title: "For Freelancers & Remote Workers",
     description:
       "Invoice clients globally, get paid in USD or EUR, and convert to your local currency with minimal loss.",
     image: ForFreelancersAndRemoteWorkers,
@@ -33,19 +33,19 @@ const industries: IndustryCard[] = [
     textColor: "text-[#223047]",
   },
   {
-    title: "SMEs & Startups",
+    title: "For SMEs & Startups",
     description:
       "Pay global contractors and suppliers instantly, while managing multi-currency cash flow without high bank fees.",
     image: ForSMEsAndStartups,
-    bg: "bg-[#E8F5E8]",
+    bg: "bg-[#FDE8E8]",
     textColor: "text-[#223047]",
   },
   {
-    title: "Digital Nomads & Expats",
+    title: "For Digital Nomads & Expats",
     description:
       "Send money home affordably and spend anywhere online with your virtual card with no foreign transaction fees.",
     image: ForDigitalNomadsAndExpats,
-    bg: "bg-[#FDE8E8]",
+    bg: "bg-[#E8F5E8]",
     textColor: "text-[#223047]",
   },
 ];
