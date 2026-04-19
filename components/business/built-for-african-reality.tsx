@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  FullCompliance,
-  InstantSettlement,
-  MobileFirst,
-  PatchyInternet,
-  WhatsappSMSNative,
-} from "@/assets/images";
-import Image, { StaticImageData } from "next/image";
+import { Zap, MessageSquare, Globe2, ShieldCheck, Smartphone } from "lucide-react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
@@ -20,39 +13,68 @@ import {
 type Feature = {
   title: string;
   description: string;
-  icon: StaticImageData;
+  bg: string;
+  textColor: string;
+  bodyColor: string;
+  iconBg: string;
+  iconColor: string;
+  icon: React.ElementType;
 };
 
 const features: Feature[] = [
   {
-    title: "Instant Settlement in USDT",
+    title: "Instant Settlement in Local Currency",
     description:
       "Receive stable dollar payments instantly, without delays or intermediaries.",
-    icon: InstantSettlement,
+    bg: "bg-[#1B5EA7]",
+    textColor: "text-white",
+    bodyColor: "text-white/80",
+    iconBg: "bg-white/15",
+    iconColor: "text-white",
+    icon: Zap,
   },
   {
     title: "WhatsApp and SMS Native",
     description:
       "Adapted to send and receive payments directly through WhatsApp or SMS.",
-    icon: WhatsappSMSNative,
+    bg: "bg-[#F0F4F8]",
+    textColor: "text-[#121733]",
+    bodyColor: "text-[#4E576A]",
+    iconBg: "bg-[#DDE8F4]",
+    iconColor: "text-[#1B5EA7]",
+    icon: MessageSquare,
   },
   {
-    title: "Patchy Internet Friendly",
+    title: "Accept any currency",
     description:
       "Optimized for low bandwidth so payments go through, even on unstable networks.",
-    icon: PatchyInternet,
+    bg: "bg-[#1A1F3C]",
+    textColor: "text-white",
+    bodyColor: "text-white/75",
+    iconBg: "bg-white/12",
+    iconColor: "text-white",
+    icon: Globe2,
   },
   {
     title: "Full Compliance",
     description:
       "Fully compliant infrastructure with fair access for African businesses.",
-    icon: FullCompliance,
+    bg: "bg-[#C8EDD8]",
+    textColor: "text-[#121733]",
+    bodyColor: "text-[#3A5248]",
+    iconBg: "bg-[#A4DFC0]",
+    iconColor: "text-[#0F6E42]",
+    icon: ShieldCheck,
   },
   {
     title: "Mobile-first",
-    description:
-      "Designed for accessibility and effortless reach wherever you are",
-    icon: MobileFirst,
+    description: "Up to 5× cheaper than a traditional bank wire.",
+    bg: "bg-[#F0E6D2]",
+    textColor: "text-[#121733]",
+    bodyColor: "text-[#5A4A30]",
+    iconBg: "bg-[#E2D0B0]",
+    iconColor: "text-[#7A5820]",
+    icon: Smartphone,
   },
 ];
 
@@ -68,21 +90,19 @@ export default function BuiltForAfricanReality() {
       initial={{ opacity: 0, y: 28 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.09 }}
-      className="mx-auto flex w-full max-w-[360px] flex-col items-center rounded-2xl text-center lg:max-w-[380px]"
+      className={`${feature.bg} flex flex-col rounded-2xl p-8 md:p-10 lg:rounded-3xl lg:p-10`}
     >
-      <div className="mb-5 inline-flex size-[204px] items-center justify-center rounded-full border border-[#DCE9F7] bg-white lg:mb-7 lg:size-[236px]">
-        <Image
-          src={feature.icon}
-          alt={feature.title}
-          width={88}
-          height={88}
-          className="mx-auto h-[88px] w-[88px] object-contain object-center lg:h-[104px] lg:w-[104px]"
-        />
+      <div
+        className={`${feature.iconBg} mb-5 inline-flex size-10 items-center justify-center rounded-xl lg:mb-6`}
+      >
+        <feature.icon className={`${feature.iconColor} size-5`} />
       </div>
-      <h3 className="mobile-card-title text-[#121733] lg:text-[34px] lg:leading-[1.12]">
+      <h3
+        className={`text-xl font-semibold leading-snug md:text-2xl lg:text-[32px] lg:leading-[1.1] ${feature.textColor}`}
+      >
         {feature.title}
       </h3>
-      <p className="mobile-body mt-3 text-[#505A6E] lg:mt-4 lg:text-[18px] lg:leading-[1.75]">
+      <p className={`mt-4 text-base leading-relaxed md:text-lg ${feature.bodyColor}`}>
         {feature.description}
       </p>
     </motion.article>
@@ -91,7 +111,7 @@ export default function BuiltForAfricanReality() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-20 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0"
+      className="mx-auto max-w-[1440px] px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-12 lg:py-32 xl:px-0"
     >
       {/* Heading */}
       <motion.div
@@ -102,18 +122,20 @@ export default function BuiltForAfricanReality() {
       >
         <motion.h2
           variants={fadeUp}
-          className="mobile-section-title text-center text-[#121733] lg:text-start lg:text-[58px] lg:leading-[1.02]"
+          className="text-center text-3xl font-semibold leading-tight text-[#121733] md:text-[36px] lg:text-start lg:text-[40px] lg:leading-[1.08]"
         >
           Built for African <span className="text-xenon">Reality</span>
         </motion.h2>
       </motion.div>
 
-      {/* Feature cards — staggered */}
-      <div className="mb-16 space-y-12 lg:mb-20 lg:space-y-16">
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
+      {/* Feature cards */}
+      <div className="space-y-6 lg:space-y-8">
+        {/* Top row — 3 cards */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 md:gap-8 lg:gap-8">
           {topRowFeatures.map((feature, i) => renderFeatureCard(feature, i))}
         </div>
-        <div className="flex flex-wrap justify-center gap-x-8 gap-y-12 lg:gap-x-12 lg:gap-y-16">
+        {/* Bottom row — 2 cards, centered to match top card widths */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:mx-auto lg:w-2/3 lg:gap-8">
           {bottomRowFeatures.map((feature, i) =>
             renderFeatureCard(feature, i + 3),
           )}
@@ -125,9 +147,9 @@ export default function BuiltForAfricanReality() {
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.45, ease: EASE_OUT, delay: 0.5 }}
-        className="mt-8 text-center lg:mt-10"
+        className="mt-10 text-center lg:mt-12"
       >
-        <button className="mobile-button h-11 rounded-lg bg-xenon px-7 text-white transition-colors duration-200 hover:bg-xenon-600 lg:h-14 lg:px-10 lg:text-[17px]">
+        <button className="rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 lg:text-lg">
           Get started for free
         </button>
       </motion.div>

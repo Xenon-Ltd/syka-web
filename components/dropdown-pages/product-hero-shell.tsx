@@ -26,9 +26,9 @@ export default function ProductHeroShell({
   return (
     <section
       ref={ref}
-      className="mt-8 px-5 sm:px-6 lg:flex lg:min-h-[95vh] lg:items-center xl:mt-0 xl:px-0"
+      className="mt-4 px-5 pt-8 pb-8 sm:px-6 md:pt-0 md:pb-18 lg:flex lg:min-h-[95vh] lg:items-center lg:pt-2 lg:pb-16 xl:mt-0 xl:px-0"
     >
-      <div className="mx-auto grid w-full max-w-[1292px] items-center gap-12 py-6 lg:min-h-[95vh] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-24 lg:py-10 xl:gap-28">
+      <div className="mx-auto grid w-full max-w-[1440px] items-center gap-12 md:gap-14 lg:min-h-[95vh] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-24 xl:gap-28">
         {/* Text — staggered fade up */}
         <motion.div
           variants={staggerContainer}
@@ -38,24 +38,24 @@ export default function ProductHeroShell({
         >
           <motion.p
             variants={fadeUp}
-            className="text-xs font-semibold tracking-[0.08em] text-[#7A89A2] uppercase lg:text-[15px] lg:tracking-[0.22em]"
+            className="mobile-eyebrow text-[#7A89A2] lg:text-[15px] lg:tracking-[0.22em]"
           >
             {eyebrow}
           </motion.p>
           <motion.h1
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[500px] text-[35px] leading-[1.05] font-semibold text-[#3E4A5E] sm:text-[48px] lg:mx-0 lg:mt-5 lg:max-w-[620px] lg:text-[68px] lg:leading-[0.98]"
+            className="mx-auto mt-4 max-w-[520px] text-5xl leading-[1.1] font-semibold tracking-tight text-[#3E4A5E] md:text-[54px] lg:mx-0 lg:mt-5 lg:max-w-[680px] lg:text-[62px] lg:leading-[1.02]"
           >
             {title}
           </motion.h1>
           <motion.p
             variants={fadeUp}
-            className="mx-auto mt-4 max-w-[440px] text-[17px] leading-[1.55] text-[#77859C] sm:max-w-[520px] lg:mx-0 lg:mt-6 lg:max-w-[560px] lg:text-[22px] lg:leading-[1.65]"
+            className="mx-auto mt-4 max-w-[460px] text-lg leading-relaxed text-[#77859C] md:text-[20px] sm:max-w-[520px] lg:mx-0 lg:mt-6 lg:max-w-[580px] lg:text-[20px] lg:leading-[1.65]"
           >
             {description}
           </motion.p>
           <motion.div variants={fadeUp}>
-            <button className="mt-8 h-11 rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 lg:mt-10 lg:h-14 lg:px-10 lg:text-[17px]">
+            <button className="mt-8 rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 md:text-lg lg:mt-10">
               {ctaLabel}
             </button>
           </motion.div>

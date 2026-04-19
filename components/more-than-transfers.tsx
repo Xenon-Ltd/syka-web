@@ -19,31 +19,31 @@ export default function MoreThanTransfers() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0"
+      className="mx-auto max-w-[1440px] px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0 lg:py-32"
     >
       {/* Heading — staggered */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-10 text-center lg:mb-16 lg:text-left"
+        className="mb-10 text-center md:mb-12 lg:mb-16 lg:text-left"
       >
         <motion.h2
           variants={fadeUp}
-          className="text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px] lg:text-[58px] lg:leading-[1.02]"
+          className="text-3xl leading-tight font-semibold text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
         >
           More Than Transfers.
         </motion.h2>
         <motion.p
           variants={fadeUp}
-          className="mt-2 text-[33px] leading-[1.1] font-bold text-[#121733] sm:text-[39px] lg:text-[58px] lg:leading-[1.02]"
+          className="mt-2 text-3xl leading-tight font-semibold text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
         >
           Your Complete <span className="text-xenon">Treasury</span> Toolkit
         </motion.p>
       </motion.div>
 
-      <div className="grid gap-4 lg:grid-cols-[1.03fr_0.77fr] lg:gap-6">
-        <div className="grid gap-4 lg:gap-6">
+      <div className="grid gap-6 md:gap-8 lg:grid-cols-[1.03fr_0.77fr] lg:gap-8">
+        <div className="grid gap-6 md:gap-8 lg:gap-8">
           {/* Card 1 */}
           <motion.article
             initial={{ opacity: 0, y: 28 }}
@@ -51,14 +51,14 @@ export default function MoreThanTransfers() {
             transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.05 }}
             className="group flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-[#2CA4E8] text-white lg:min-h-[320px] lg:flex-row lg:rounded-[30px]"
           >
-            <div className="flex flex-1 flex-col items-start justify-center p-5 text-left sm:p-7 lg:p-10">
-              <h3 className="max-w-[320px] text-[26px] leading-[1.15] font-bold sm:text-[29px] lg:max-w-[360px] lg:text-[38px] lg:leading-[1.05]">
+            <div className="flex flex-1 flex-col items-start justify-center p-6 text-left sm:p-8 lg:p-10">
+              <h3 className="max-w-[320px] text-2xl leading-snug font-semibold md:text-3xl lg:max-w-[360px] lg:text-[38px] lg:leading-[1.05]">
                 Get Paid Faster, On Your Terms
               </h3>
-              <p className="mt-3 max-w-[340px] text-[15px] leading-[1.6] text-white/90 lg:mt-4 lg:max-w-[420px] lg:text-[18px] lg:leading-[1.75]">
+              <p className="mt-3 max-w-[340px] text-base leading-relaxed text-white/90 lg:mt-4 lg:max-w-[420px] lg:text-lg">
                 Generate and send sleek, professional invoices in multiple currencies.
               </p>
-              <button className="mt-4 flex items-center gap-2 text-[15px] text-white transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-6 lg:text-[17px]">
+              <button className="mt-4 flex items-center gap-2 text-base font-semibold text-white transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-6 lg:text-lg">
                 <span>Get Now</span>
                 <ArrowRightCircleIcon size={18} />
               </button>
@@ -82,14 +82,14 @@ export default function MoreThanTransfers() {
             transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.13 }}
             className="group flex min-h-[255px] flex-col overflow-hidden rounded-2xl bg-[#F5F8FC] lg:min-h-[320px] lg:flex-row lg:rounded-[30px]"
           >
-            <div className="flex flex-1 flex-col items-start justify-center p-5 text-left sm:p-7 lg:p-10">
-              <h3 className="max-w-[280px] text-[26px] leading-[1.15] font-bold text-[#121733] sm:text-[29px] lg:max-w-[360px] lg:text-[38px] lg:leading-[1.05]">
+            <div className="flex flex-1 flex-col items-start justify-center p-6 text-left sm:p-8 lg:p-10">
+              <h3 className="max-w-[280px] text-2xl leading-snug font-semibold text-[#121733] md:text-3xl lg:max-w-[360px] lg:text-[38px] lg:leading-[1.05]">
                 Lightning-Flow Transfers
               </h3>
-              <p className="mt-3 max-w-[320px] text-[15px] leading-[1.6] text-[#505A6E] lg:mt-4 lg:max-w-[420px] lg:text-[18px] lg:leading-[1.75]">
+              <p className="mt-3 max-w-[320px] text-base leading-relaxed text-[#505A6E] lg:mt-4 lg:max-w-[420px] lg:text-lg">
                 Send USDT globally, pay multiple recipients, and automate recurring payments with no banks or delays.
               </p>
-              <button className="mt-4 flex items-center gap-2 text-[15px] text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-6 lg:text-[17px]">
+              <button className="mt-4 flex items-center gap-2 text-base font-semibold text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-6 lg:text-lg">
                 <span>Get Now</span>
                 <ArrowRightCircleIcon size={18} />
               </button>
@@ -111,15 +111,15 @@ export default function MoreThanTransfers() {
           initial={{ opacity: 0, y: 28 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
-          className="group flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#2A85D8] to-[#5E49C7] p-5 text-left text-white lg:min-h-[650px] lg:rounded-[30px] lg:p-10"
+          className="group flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#2A85D8] to-[#5E49C7] p-6 text-left text-white lg:min-h-[650px] lg:rounded-[30px] lg:p-10"
         >
-          <h3 className="text-[26px] leading-[1.15] font-bold sm:text-[29px] lg:text-[38px] lg:leading-[1.05]">
+          <h3 className="text-2xl leading-snug font-semibold md:text-3xl lg:text-[38px] lg:leading-[1.05]">
             Spendable Balance
           </h3>
-          <p className="mt-3 max-w-[290px] text-[15px] leading-[1.6] text-white/90 lg:mt-4 lg:max-w-[360px] lg:text-[18px] lg:leading-[1.75]">
+          <p className="mt-3 max-w-[290px] text-base leading-relaxed text-white/90 lg:mt-4 lg:max-w-[360px] lg:text-lg">
             Create secure, disposable virtual debit cards directly from your Syka balance
           </p>
-          <button className="mt-6 flex items-center gap-2 text-[15px] text-white transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-8 lg:text-[17px]">
+          <button className="mt-6 flex items-center gap-2 text-base font-semibold text-white transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-8 lg:text-lg">
             <span>Get Now</span>
             <ArrowRightCircleIcon size={18} />
           </button>
@@ -141,28 +141,28 @@ export default function MoreThanTransfers() {
         initial={{ opacity: 0, y: 28 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.28 }}
-        className="group mt-4 flex min-h-[430px] flex-col overflow-hidden rounded-2xl bg-[#CFF1F4] lg:mt-6 lg:min-h-[440px] lg:flex-row lg:rounded-[30px]"
+        className="group mt-6 flex min-h-[480px] flex-col overflow-hidden rounded-2xl bg-[#CFF1F4] md:mt-8 lg:mt-8 lg:min-h-[580px] lg:flex-row lg:rounded-[30px]"
       >
-        <div className="flex flex-1 flex-col items-start justify-center p-5 text-left sm:p-7 lg:p-10">
-          <h3 className="max-w-[300px] text-[26px] leading-[1.15] font-bold text-[#121733] sm:text-[29px] lg:max-w-[420px] lg:text-[38px] lg:leading-[1.05]">
+        <div className="flex flex-1 flex-col items-center justify-center p-6 text-center sm:p-8 lg:items-start lg:p-10 lg:text-left">
+          <h3 className="max-w-[300px] text-2xl leading-snug font-semibold text-[#121733] md:text-3xl lg:max-w-[420px] lg:text-[38px] lg:leading-[1.05]">
             Your Local Presence, Anywhere
           </h3>
-          <p className="mt-3 max-w-[360px] text-[15px] leading-[1.6] text-[#505A6E] lg:mt-4 lg:max-w-[460px] lg:text-[18px] lg:leading-[1.75]">
+          <p className="mt-3 max-w-[360px] text-base leading-relaxed text-[#505A6E] lg:mt-4 lg:max-w-[460px] lg:text-lg">
             Get dedicated virtual account details in major currencies (USD, EUR, GBP)
           </p>
-          <button className="mt-4 flex items-center gap-2 text-[15px] text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-6 lg:text-[17px]">
+          <button className="mt-4 flex items-center gap-2 text-base font-semibold text-xenon transition-[gap] duration-300 ease-out group-hover:gap-3 lg:mt-6 lg:text-lg">
             <span>Get Now</span>
             <ArrowRightCircleIcon size={18} />
           </button>
         </div>
-        <div className="relative h-64 w-full shrink-0 lg:min-h-[340px] lg:h-[460px] lg:w-[430px]">
+        <div className="relative h-72 w-full shrink-0 lg:h-[490px] lg:w-[620px] lg:self-end">
           <Image
             src={LocalPresence}
             alt="Local Presence"
             fill
             sizes="(max-width: 768px) 100vw, 430px"
             placeholder="blur"
-            className="object-contain object-bottom transition-transform duration-500 ease-out group-hover:scale-105 lg:mt-6 lg:object-cover lg:object-right lg:pr-12"
+            className="object-contain object-bottom transition-transform duration-500 ease-out group-hover:scale-105 lg:object-contain lg:object-bottom lg:px-8"
           />
         </div>
       </motion.article>

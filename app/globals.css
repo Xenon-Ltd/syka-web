@@ -179,7 +179,7 @@
 
 @layer utilities {
   .mobile-eyebrow {
-    font-size: 12px;
+    font-size: 0.875rem;
     line-height: 1.5;
     font-weight: 600;
     letter-spacing: 0.18em;
@@ -187,35 +187,37 @@
   }
 
   .mobile-hero-title {
-    font-size: 32px;
-    line-height: 1.08;
-    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   .mobile-section-title {
-    font-size: 30px;
-    line-height: 1.1;
-    font-weight: 700;
+    font-size: 1.875rem;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   .mobile-card-title {
-    font-size: 22px;
+    font-size: 1.375rem;
     line-height: 1.25;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .mobile-body {
-    font-size: 15px;
+    font-size: 1rem;
     line-height: 1.7;
   }
 
   .mobile-meta {
-    font-size: 13px;
+    font-size: 0.875rem;
     line-height: 1.5;
   }
 
   .mobile-button {
-    font-size: 15px;
+    font-size: 1rem;
     line-height: 1.2;
     font-weight: 600;
   }

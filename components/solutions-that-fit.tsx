@@ -58,24 +58,24 @@ function SolutionsThatFit() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-16 max-w-[1292px] px-5 sm:px-6 lg:mt-24 lg:px-0 mb-16"
+      className="mx-auto max-w-[1440px] px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-12 lg:py-32 xl:px-0"
     >
       {/* Heading */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-8 text-center lg:mb-10 lg:text-left"
+        className="mb-4 text-center md:mb-4 lg:mb-6 lg:text-left"
       >
         <motion.h2
           variants={fadeUp}
-          className="mobile-section-title text-[#121733] lg:text-[39px] lg:leading-[1.1]"
+          className="text-3xl font-semibold leading-tight text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
         >
           Solutions That Fit
         </motion.h2>
         <motion.p
           variants={fadeUp}
-          className="mobile-section-title mt-2 text-[#121733] lg:text-[39px] lg:leading-[1.1]"
+          className="mt-2 text-3xl font-semibold leading-tight text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
         >
           Your <span className="text-xenon">Workflow</span>
         </motion.p>
@@ -86,7 +86,7 @@ function SolutionsThatFit() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: EASE_IN_OUT, delay: 0.15 }}
-        className="hidden h-[338px] gap-3 lg:flex"
+        className="hidden gap-6 lg:flex lg:h-[480px] lg:gap-8"
         onMouseLeave={() => setActiveIndex(0)}
       >
         {industries.map((card, index) => {
@@ -102,7 +102,7 @@ function SolutionsThatFit() {
               animate={{ flex: isExpanded ? 2.2 : 1 }}
               transition={{ duration: 0.4, ease: EASE_IN_OUT }}
             >
-              <motion.div layout className="h-full p-6">
+              <motion.div layout className="h-full p-4 lg:p-6">
                 <AnimatePresence mode="wait" initial={false}>
                   {isExpanded ? (
                     <motion.div
@@ -114,14 +114,14 @@ function SolutionsThatFit() {
                       className={`flex h-full items-stretch gap-5 ${textColor}`}
                     >
                       <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left">
-                        <h3 className="text-[26px] leading-[1.2] font-bold">
+                        <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:text-[34px] lg:leading-[1.1]">
                           {card.title}
                         </h3>
-                        <p className="mt-2 max-w-[260px] text-[15px] leading-[1.7]">
+                        <p className="mt-3 max-w-[280px] text-base leading-relaxed lg:mt-4 lg:max-w-[360px] lg:text-lg">
                           {card.description}
                         </p>
                       </div>
-                      <div className="relative w-[46%] overflow-hidden rounded-xl">
+                      <div className="relative w-[46%] overflow-hidden rounded-xl lg:rounded-[24px]">
                         <Image
                           src={card.image}
                           alt={card.title}
@@ -141,7 +141,7 @@ function SolutionsThatFit() {
                       transition={{ duration: 0.15 }}
                       className={`flex h-full items-center justify-center text-center ${textColor}`}
                     >
-                      <h3 className="text-[26px] leading-[1.2] font-bold">
+                      <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:px-4 lg:text-[34px] lg:leading-[1.1]">
                         {card.title}
                       </h3>
                     </motion.div>
@@ -154,7 +154,7 @@ function SolutionsThatFit() {
       </motion.div>
 
       {/* Mobile stack */}
-      <div className="flex flex-col gap-4 lg:hidden">
+      <div className="flex flex-col gap-6 lg:hidden">
         {industries.map((card, i) => {
           const textColor = card.textColor ?? "text-[#223047]";
           return (
@@ -167,13 +167,15 @@ function SolutionsThatFit() {
                 ease: EASE_IN_OUT,
                 delay: i * 0.08,
               }}
-              className={`${card.bg} min-h-[430px] overflow-hidden rounded-2xl p-5 sm:min-h-[450px] sm:p-6`}
+              className={`${card.bg} overflow-hidden rounded-2xl p-8 text-center`}
             >
               <div
                 className={`flex h-full flex-col items-center text-center ${textColor}`}
               >
                 <h3 className="mobile-card-title">{card.title}</h3>
-                <p className="mobile-body mt-2">{card.description}</p>
+                <p className="mobile-body mt-2 max-w-[32ch]">
+                  {card.description}
+                </p>
                 <div className="relative mt-4 h-[260px] w-full overflow-hidden rounded-xl sm:h-[280px]">
                   <Image
                     src={card.image}

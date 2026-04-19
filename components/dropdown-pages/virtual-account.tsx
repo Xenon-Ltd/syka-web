@@ -93,56 +93,56 @@ export default function VirtualAccountPage() {
         </div>
       </ProductHeroShell>
 
-      <section className="px-5 pt-6 pb-24 sm:px-6 lg:flex lg:min-h-[95vh] lg:items-center lg:pt-10 lg:pb-12 xl:px-0">
-        <div className="mx-auto max-w-[1292px]">
+      <section className="px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-32 xl:px-0">
+        <div className="mx-auto max-w-[1440px]">
           <div className="w-full text-center lg:text-left">
-            <h2 className="w-full whitespace-nowrap text-[26px] leading-[1.15] font-semibold text-[#42536A] sm:text-[34px] lg:text-[58px] lg:leading-[1.02]">
+            <h2 className="mobile-section-title w-full text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02] xl:whitespace-nowrap">
               A Real Account Number
             </h2>
-            <p className="mt-1 w-full text-[26px] leading-[1.15] font-semibold text-xenon sm:text-[34px] lg:text-[58px] lg:leading-[1.02]">
+            <p className="mobile-section-title mt-2 w-full text-xenon md:text-4xl lg:text-5xl lg:leading-[1.02]">
               Zero Paperwork
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-14 lg:gap-8">
+          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
             {featureCards.map((card) => (
               <article
                 key={card.title}
-                className={`flex min-h-[224px] flex-col items-center rounded-[22px] p-6 text-center md:items-start md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-9 ${card.bgClass}`}
+                className={`flex min-h-[240px] flex-col items-center rounded-[22px] p-8 text-center md:items-start md:p-10 md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-10 ${card.bgClass}`}
               >
-                <div className={`inline-flex size-9 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}>
+                <div className={`inline-flex size-10 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}>
                   <card.Icon className="size-4 lg:size-5" strokeWidth={2.2} />
                 </div>
-                <h3 className={`mt-10 w-full text-[24px] leading-[1.2] font-semibold lg:text-[34px] lg:leading-[1.08] ${card.titleColorClass}`}>
+                <h3 className={`mt-8 w-full text-xl leading-snug font-semibold md:text-2xl lg:text-[32px] lg:leading-[1.08] ${card.titleColorClass}`}>
                   {card.title}
                 </h3>
-                <p className={`mt-5 w-full text-[14px] leading-[1.55] lg:text-[18px] lg:leading-[1.75] ${card.bodyColorClass}`}>
+                <p className={`mt-4 w-full text-base leading-relaxed md:text-lg lg:leading-[1.75] ${card.bodyColorClass}`}>
                   {card.description}
                 </p>
               </article>
             ))}
           </div>
 
-          <div className="mt-18 grid items-center gap-10 lg:mt-28 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
+          <div className="mt-16 grid items-center gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
             <div className="mx-auto w-full text-center lg:mx-0 lg:max-w-[500px] lg:text-left">
-              <p className="text-xs font-semibold tracking-[0.14em] text-[#9AA8BA] uppercase lg:text-[14px] lg:tracking-[0.2em]">
+              <p className="mobile-eyebrow text-[#9AA8BA] lg:text-[14px] lg:tracking-[0.2em]">
                 Multi-Currency
               </p>
-              <h3 className="mt-4 text-[32px] leading-[1.15] font-semibold text-[#42536A] lg:text-[56px] lg:leading-[1.02]">
-                <span className="whitespace-nowrap">Hold multiple currencies</span>
+              <h3 className="mobile-section-title mt-4 text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
+                <span className="lg:whitespace-nowrap">Hold multiple currencies</span>
                 <br />
                 One <span className="text-xenon">dashboard</span>
               </h3>
-              <p className="mt-5 w-full text-[15px] leading-[1.65] text-[#96A5B6] lg:mt-6 lg:text-[19px] lg:leading-[1.75]">
+              <p className="mt-5 w-full text-base leading-relaxed text-[#96A5B6] md:text-lg lg:mt-6 lg:text-[19px] lg:leading-[1.75]">
                 Create separate virtual accounts for every currency you operate in. Each one has its own account number, so your currencies stay clean and separate.
               </p>
-              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-5 py-3 text-[14px] font-medium text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:px-8 lg:py-4 lg:text-[16px]">
+              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:text-lg">
                 Create a Virtual Account
               </button>
             </div>
 
-            <div className="w-full max-w-[560px] rounded-[18px] bg-[#1E8A69] p-6 text-white shadow-[0_20px_45px_rgba(18,71,53,0.18)] lg:max-w-none lg:rounded-[30px] lg:p-10">
-              <p className="text-[12px] font-semibold tracking-[0.12em] text-white/75 uppercase lg:text-[14px] lg:tracking-[0.18em]">
+            <div className="w-full max-w-[560px] rounded-[18px] bg-[#1E8A69] p-8 text-white shadow-[0_20px_45px_rgba(18,71,53,0.18)] md:p-10 lg:max-w-none lg:rounded-[30px] lg:p-10">
+              <p className="text-sm font-semibold tracking-[0.12em] text-white/75 uppercase lg:text-[14px] lg:tracking-[0.18em]">
                 Your Accounts
               </p>
               <div className="mt-5 space-y-3 lg:mt-8 lg:space-y-4">
@@ -160,15 +160,15 @@ export default function VirtualAccountPage() {
                         className="rounded-full border border-white/15 lg:h-7 lg:w-7"
                       />
                       <div>
-                        <p className="text-[14px] font-semibold text-white lg:text-[18px]">
+                        <p className="text-[15px] font-semibold text-white lg:text-[18px]">
                           {account.code}
                         </p>
-                        <p className="mt-0.5 text-[11px] text-white/65 lg:text-[13px]">
+                        <p className="mt-0.5 text-xs text-white/65 lg:text-[13px]">
                           {account.accountNumber}
                         </p>
                       </div>
                     </div>
-                    <p className="text-[22px] leading-none font-semibold text-white lg:text-[30px]">
+                    <p className="text-[24px] leading-none font-semibold text-white lg:text-[30px]">
                       {account.balance}
                     </p>
                   </div>

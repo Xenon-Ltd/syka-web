@@ -49,8 +49,8 @@ export default async function Home({ searchParams }: HomePageProps) {
       )}
       <BuiltOnStability />
       <SolutionsThatFit />
-      <SocialProof />
-      <CountriesSupported />
+      <SocialProof headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
+      <CountriesSupported headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
     </main>
   );
 }

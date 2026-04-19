@@ -47,8 +47,8 @@ export default async function BusinessPage({ searchParams }: BusinessPageProps) 
       <BuiltForAfricanReality />
       <SolutionsThatFit />
       <Security />
-      <SocialProof />
-      <CountriesSupported />
+      <SocialProof headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
+      <CountriesSupported headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
     </main>
   );
 }

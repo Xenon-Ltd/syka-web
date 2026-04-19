@@ -157,7 +157,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="relative z-40 my-3 mb-24 flex w-full flex-row items-center justify-between lg:mx-auto lg:my-5 lg:max-w-[1211px] lg:px-5 xl:px-0">
+    <header className="relative z-40 my-3 mb-24 flex w-full flex-row items-center justify-between lg:mx-auto lg:my-5 lg:max-w-[1440px] lg:px-5 xl:px-0">
       <div className="hidden lg:flex lg:items-center lg:gap-8 xl:gap-12">
         <Link href="/" aria-label="Go to Syka home">
           <Image
@@ -369,7 +369,7 @@ const Header = () => {
               </Link>
             ) : (
               <section key={item.label}>
-                <p className="mb-3 text-xs font-bold tracking-[0.14em] text-[#8B90A6] uppercase">
+                <p className="mb-3 text-xs font-semibold tracking-[0.14em] text-[#8B90A6] uppercase">
                   {item.label}
                 </p>
                 <ul className="space-y-3">

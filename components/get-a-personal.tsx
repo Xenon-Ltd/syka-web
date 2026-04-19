@@ -13,10 +13,9 @@ const GetAPersonalAccount = () => {
   return (
     <section
       ref={ref}
-      className="mt-16 bg-[#E4F4FB] py-14 lg:mt-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-20"
+      className="mt-16 bg-[#E4F4FB] py-16 md:py-24 lg:mt-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-32"
     >
-      <div className="mx-auto flex max-w-[1292px] flex-col-reverse items-center justify-between gap-10 px-5 sm:px-6 lg:flex-row lg:gap-20 lg:px-0">
-
+      <div className="mx-auto flex max-w-[1440px] flex-col-reverse items-center justify-between gap-12 px-5 sm:px-6 md:gap-14 lg:flex-row-reverse lg:gap-20 lg:px-0">
         {/* Image — slides in from left */}
         <motion.div
           initial={{ opacity: 0, x: -36 }}
@@ -42,27 +41,27 @@ const GetAPersonalAccount = () => {
         >
           <motion.p
             variants={fadeIn}
-            className="text-[13px] font-semibold tracking-[0.18em] text-[#7688A2] uppercase lg:text-[15px] lg:tracking-[0.24em]"
+            className="mobile-eyebrow text-[#7688A2] lg:text-[15px] lg:tracking-[0.24em]"
           >
             GET A SYKA PERSONAL ACCOUNT
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mt-3 text-[35px] leading-[1.1] font-bold tracking-[-0.01em] text-[#111831] sm:text-[44px] sm:leading-[1.08] lg:mt-5 lg:text-[64px] lg:leading-[0.98]"
+            className="mt-3 text-3xl leading-tight font-semibold tracking-tight text-[#111831] md:text-[36px] lg:mt-5 lg:text-[40px] lg:leading-[1.08]"
           >
             The Modern Financial Stack for a{" "}
             <span className="text-xenon">Borderless</span> World
           </motion.h2>
           <motion.p
             variants={fadeUp}
-            className="mt-4 max-w-full text-[15px] leading-[1.7] text-[#4E576A] sm:text-[16px] lg:mt-6 lg:max-w-[560px] lg:text-[21px] lg:leading-[1.7]"
+            className="mobile-body mt-4 max-w-full text-[#4E576A] md:text-[20px] lg:mt-6 lg:max-w-[560px] lg:text-[20px]"
           >
             A modern, borderless payments platform that helps businesses send,
             receive, and manage global payments faster, with transparent pricing
             and no unnecessary complexity.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <button className="mt-7 mx-auto h-11 w-fit rounded-lg bg-xenon px-7 text-[15px] font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:mx-auto sm:w-fit lg:mt-10 lg:mx-0 lg:h-14 lg:px-10 lg:text-[17px]">
+            <button className="mt-7 mx-auto w-fit rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:mx-auto lg:mt-10 lg:mx-0 lg:text-lg">
               Get Started for free
             </button>
           </motion.div>

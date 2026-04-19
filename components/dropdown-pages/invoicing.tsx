@@ -87,32 +87,32 @@ export default function InvoicingPage() {
         </div>
       </ProductHeroShell>
 
-      <section className="px-5 pt-6 pb-24 sm:px-6 lg:flex lg:min-h-[95vh] lg:items-center lg:pt-10 lg:pb-12 xl:px-0">
-        <div className="mx-auto max-w-[1292px]">
+      <section className="px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-32 xl:px-0">
+        <div className="mx-auto max-w-[1440px]">
           <div className="w-full text-center lg:text-left">
-            <h2 className="w-full text-[26px] leading-[1.15] font-semibold text-[#42536A] sm:text-[34px] lg:text-[58px] lg:leading-[1.02]">
+            <h2 className="mobile-section-title w-full text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
               Get Paid On Your <span className="text-xenon">Terms</span>
             </h2>
           </div>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3 lg:mt-14 lg:gap-8">
+          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
             {featureCards.map((card) => (
               <article
                 key={card.title}
-                className={`flex min-h-[224px] flex-col items-center rounded-[22px] p-6 text-center md:items-start md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-9 ${card.bgClass}`}
+                className={`flex min-h-[240px] flex-col items-center rounded-[22px] p-8 text-center md:items-start md:p-10 md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-10 ${card.bgClass}`}
               >
                 <div
-                  className={`inline-flex size-9 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}
+                  className={`inline-flex size-10 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}
                 >
                   <card.Icon className="size-4 lg:size-5" strokeWidth={2.2} />
                 </div>
                 <h3
-                  className={`mt-10 w-full text-[24px] leading-[1.2] font-semibold lg:text-[34px] lg:leading-[1.08] ${card.titleColorClass}`}
+                  className={`mt-8 w-full text-xl leading-snug font-semibold md:text-2xl lg:text-[32px] lg:leading-[1.08] ${card.titleColorClass}`}
                 >
                   {card.title}
                 </h3>
                 <p
-                  className={`mt-5 w-full text-[14px] leading-[1.55] lg:text-[18px] lg:leading-[1.75] ${card.bodyColorClass}`}
+                  className={`mt-4 w-full text-base leading-relaxed md:text-lg lg:leading-[1.75] ${card.bodyColorClass}`}
                 >
                   {card.description}
                 </p>
@@ -120,28 +120,28 @@ export default function InvoicingPage() {
             ))}
           </div>
 
-          <div className="mt-18 grid gap-10 lg:mt-28 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:gap-24 xl:gap-28">
+          <div className="mt-16 grid gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:gap-24 xl:gap-28">
             <div className="mx-auto w-full text-center lg:mx-0 lg:max-w-[560px] lg:text-left">
-              <p className="text-xs font-semibold tracking-[0.14em] text-[#9AA8BA] uppercase lg:text-[14px] lg:tracking-[0.2em]">
+              <p className="mobile-eyebrow text-[#9AA8BA] lg:text-[14px] lg:tracking-[0.2em]">
                 How It Works
               </p>
-              <h3 className="mt-4 text-[32px] leading-[1.15] font-semibold text-[#42536A] lg:text-[56px] lg:leading-[1.02]">
+              <h3 className="mobile-section-title mt-4 text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
                 Create, Send,
                 <br />
                 &amp; Get <span className="text-xenon">Paid.</span>
               </h3>
 
-              <div className="mx-auto mt-8 max-w-[520px] space-y-5 text-left lg:mx-0 lg:mt-10 lg:max-w-none lg:space-y-6">
+              <div className="mx-auto mt-8 max-w-[520px] space-y-6 text-left lg:mx-0 lg:mt-10 lg:max-w-none lg:space-y-6">
                 {steps.map((step, index) => (
                   <div key={step.title} className="flex items-start gap-4 lg:gap-5">
                     <div className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-xenon text-[11px] font-semibold text-white lg:size-7 lg:text-[13px]">
                       {index + 1}
                     </div>
                     <div>
-                      <p className="text-[17px] leading-[1.35] font-medium text-[#42536A] lg:text-[24px] lg:leading-[1.25]">
+                      <p className="text-lg leading-snug font-medium text-[#42536A] md:text-xl lg:text-[24px] lg:leading-[1.25]">
                         {step.title}
                       </p>
-                      <p className="mt-1.5 max-w-[490px] text-[14px] leading-[1.55] text-[#9AA7BC] lg:text-[18px] lg:leading-[1.7]">
+                      <p className="mt-2 max-w-[490px] text-base leading-relaxed text-[#9AA7BC] md:text-lg lg:leading-[1.7]">
                         {step.description}
                       </p>
                     </div>
@@ -149,7 +149,7 @@ export default function InvoicingPage() {
                 ))}
               </div>
 
-              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-5 py-3 text-[14px] font-medium text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:px-8 lg:py-4 lg:text-[16px]">
+              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:text-lg">
                 Create Invoice
               </button>
             </div>

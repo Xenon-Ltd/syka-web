@@ -20,6 +20,10 @@ interface Testimonial {
   title: string;
 }
 
+type SocialProofProps = {
+  headingClassName?: string;
+};
+
 const testimonials: Testimonial[] = [
   {
     countryFlag: GH,
@@ -60,7 +64,7 @@ function TestimonialCard({
 }) {
   return (
     <div
-      className={`flex min-h-[230px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-6 lg:min-h-[360px] lg:max-w-none lg:rounded-[28px] lg:p-10 ${className}`}
+      className={`flex min-h-[260px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-8 lg:min-h-[360px] lg:max-w-none lg:rounded-[28px] lg:p-10 ${className}`}
     >
       <div>
         <div className="mb-4 lg:mb-6">
@@ -72,16 +76,16 @@ function TestimonialCard({
             className="size-11 rounded-full border border-[#DEE5EF] lg:size-14"
           />
         </div>
-        <p className="mobile-body text-[#4D576C] lg:text-[20px] lg:leading-[1.75]">
+        <p className="text-base leading-relaxed text-[#4D576C] md:text-lg lg:text-[20px] lg:leading-[1.75]">
           {testimonial.feedback}
         </p>
       </div>
       <div className="mt-8 flex items-center gap-2 lg:mt-10 lg:gap-3">
         <div>
-          <p className="mobile-body font-bold text-[#121733] lg:text-[22px] lg:leading-[1.3]">
+          <p className="text-lg font-semibold text-[#121733] md:text-xl lg:text-[22px] lg:leading-[1.3]">
             {testimonial.name}
           </p>
-          <p className="mobile-meta text-[#758198] lg:text-[16px]">
+          <p className="text-sm text-[#758198] lg:text-[16px]">
             {testimonial.title}
           </p>
         </div>
@@ -96,7 +100,7 @@ const slideVariants = {
   exit: (dir: number) => ({ x: dir > 0 ? -220 : 220, opacity: 0 }),
 };
 
-function SocialProof() {
+function SocialProof({ headingClassName = "" }: SocialProofProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [desktopIndex, setDesktopIndex] = useState(0);
@@ -116,6 +120,8 @@ function SocialProof() {
       : desktopVisibleCards === 2
         ? "calc((100% - 1.5rem) / 2)"
         : "calc((100% - 3rem) / 3)";
+  const headingSizeClasses =
+    headingClassName || "md:text-5xl lg:text-[64px] lg:leading-[1.02]";
 
   useEffect(() => {
     const desktopScroller = desktopScrollerRef.current;
@@ -161,15 +167,15 @@ function SocialProof() {
   return (
     <section
       ref={ref}
-      className="bg-black py-14 lg:flex lg:min-h-[65vh] lg:items-center lg:bg-[#1E1A63] lg:py-24"
+      className="bg-black py-16 md:py-24 lg:flex lg:min-h-[65vh] lg:items-center lg:bg-[#1E1A63] lg:py-32"
     >
-      <div className="mx-auto max-w-[1292px] px-5 sm:px-6 lg:px-0">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-0">
         {/* Heading */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mx-auto mb-8 max-w-[1092px] text-center lg:mb-14"
+          className="mx-auto mb-10 max-w-[1092px] text-center md:mb-12 lg:mb-14"
         >
           <motion.p
             variants={fadeUp}
@@ -179,7 +185,7 @@ function SocialProof() {
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mobile-section-title mx-auto max-w-[320px] text-white sm:max-w-none lg:max-w-[860px] lg:text-[58px] lg:leading-[1.02]"
+            className={`mx-auto max-w-[320px] text-3xl font-semibold leading-tight text-white sm:max-w-none lg:max-w-[860px] ${headingSizeClasses}`}
           >
             What Our <span className="text-xenon">Customers</span> Have to Say
           </motion.h2>

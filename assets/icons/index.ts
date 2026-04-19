@@ -2,6 +2,7 @@ export { default as AppStoreBadgeIcon } from "./appStoreBadge.svg";
 export { default as PlayStoreBadgeIcon } from "./playStoreBadge.svg";
 
 export { default as SykaLogoWhite } from "./syka-logo-white.svg";
+export { default as XenonLogo } from "./xenon-logo.png"
 export { default as TickCircleIcon } from "./tick-circle.svg";
 
 export { default as HourGlass03 } from "./hourglass-03.svg";

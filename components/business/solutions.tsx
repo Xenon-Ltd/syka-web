@@ -101,7 +101,7 @@ export default function Solutions() {
       <section className="mt-16 bg-[#E8F4FB] lg:hidden">
         <div ref={mobileTrackRef} className="relative h-[300vh]">
           <div className="sticky top-0 flex h-screen items-start pt-14">
-            <div className="mx-auto flex w-full max-w-[1292px] flex-col gap-8 px-5 sm:px-6">
+            <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-5 sm:px-6">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeStep.id}-mobile-copy`}
@@ -114,7 +114,7 @@ export default function Solutions() {
                   <p className="mobile-eyebrow text-[#7A89A2]">
                     SOLUTIONS
                   </p>
-                  <h2 className="mobile-section-title mt-3 text-[#121733]">
+                  <h2 className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-[#121733] md:text-[36px]">
                     {activeStep.highlight ? (
                       <>
                         {activeStep.heading.split(activeStep.highlight)[0]}
@@ -127,10 +127,10 @@ export default function Solutions() {
                       activeStep.heading
                     )}
                   </h2>
-                  <p className="mobile-body mt-4 text-[#4D576C]">
+                  <p className="mt-4 text-base leading-relaxed text-[#4D576C] md:text-[20px]">
                     {activeStep.description}
                   </p>
-                  <button className="mobile-button mx-auto mt-6 flex h-11 items-center gap-2 rounded-lg bg-xenon px-7 text-white transition-colors hover:bg-xenon-600">
+                  <button className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-xenon-600">
                     <span>Get started for free</span>
                   </button>
                 </motion.div>
@@ -161,7 +161,7 @@ export default function Solutions() {
       <section className="hidden bg-[#E8F4FB] lg:block">
         <div ref={desktopTrackRef} className="relative h-[315vh]">
           <div className="sticky top-[2.5vh] flex h-[95vh] items-center">
-            <div className="mx-auto grid h-full w-full max-w-[1292px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-16 px-6 xl:grid-cols-[1fr_1.15fr] xl:gap-28">
+            <div className="mx-auto grid h-full w-full max-w-[1440px] grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-center gap-16 px-6 xl:grid-cols-[1fr_1.15fr] xl:gap-28">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStep.id}
@@ -174,7 +174,7 @@ export default function Solutions() {
                   <p className="text-[15px] font-semibold tracking-[0.24em] text-[#7A89A2] uppercase">
                     SOLUTIONS
                   </p>
-                  <h2 className="mt-5 max-w-[780px] text-[64px] leading-[0.98] font-bold text-[#121733]">
+                  <h2 className="mt-5 max-w-[780px] text-3xl font-semibold leading-tight text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]">
                     {activeStep.highlight ? (
                       <>
                         {activeStep.heading.split(activeStep.highlight)[0]}
@@ -187,10 +187,10 @@ export default function Solutions() {
                       activeStep.heading
                     )}
                   </h2>
-                  <p className="mt-6 max-w-[640px] text-[21px] leading-[1.7] text-[#4D576C]">
+                  <p className="mt-6 max-w-[640px] text-lg leading-relaxed text-[#4D576C] lg:text-[20px]">
                     {activeStep.description}
                   </p>
-                  <button className="mt-10 flex h-14 items-center gap-2 rounded-lg bg-xenon px-10 text-[17px] font-semibold text-white transition-colors hover:bg-xenon-600">
+                  <button className="mt-10 flex items-center gap-2 rounded-lg bg-xenon px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-xenon-600">
                     <span>Get started for free</span>
                   </button>
                 </motion.div>

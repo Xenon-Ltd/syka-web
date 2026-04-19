@@ -28,7 +28,7 @@ export default function PowerYourBusiness() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-8 max-w-[1292px] px-5 sm:px-6 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center xl:mt-14 xl:px-0"
+      className="mx-auto mt-2 max-w-[1440px] px-5 py-4 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:py-22 xl:mt-0 xl:px-0"
     >
       {/* Hero text — staggered children */}
       <motion.div
@@ -58,7 +58,7 @@ export default function PowerYourBusiness() {
 
         <motion.h1
           variants={fadeUp}
-          className="mobile-hero-title mt-4 mx-auto max-w-[350px] text-[#121733] md:max-w-full lg:mt-6 lg:max-w-[920px] lg:text-[72px] lg:leading-[0.98]"
+          className="mobile-hero-title mt-4 mx-auto max-w-[350px] tracking-tight text-[#121733] md:max-w-[640px] md:text-[54px] lg:mt-6 lg:max-w-[920px] lg:text-[62px] lg:leading-[1.02]"
         >
           Power Your Business With{" "}
           <span className="text-xenon">Borderless</span> Payments.
@@ -66,7 +66,7 @@ export default function PowerYourBusiness() {
 
         <motion.p
           variants={fadeUp}
-          className="mobile-body mx-auto mt-4 max-w-[310px] text-[#505A6E] sm:max-w-[470px] lg:mt-6 lg:max-w-[620px] lg:text-[22px] lg:leading-[1.7]"
+          className="mx-auto mt-4 max-w-[340px] text-lg leading-relaxed text-[#505A6E] md:max-w-[520px] md:text-[20px] lg:mt-6 lg:max-w-[620px] lg:text-[20px] lg:leading-[1.7]"
         >
           Level the playing ground for African businesses.
         </motion.p>
@@ -75,10 +75,10 @@ export default function PowerYourBusiness() {
           variants={fadeUp}
           className="mt-7 flex flex-col justify-center gap-3 md:flex-row sm:flex-row lg:mt-10 lg:gap-5"
         >
-          <button className="mobile-button h-11 rounded-lg bg-xenon px-7 text-white transition-colors duration-200 hover:bg-xenon-600 lg:h-14 lg:px-10 lg:text-[17px]">
+          <button className="rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 lg:text-lg">
             Get started for free
           </button>
-          <button className="mobile-button h-11 rounded-lg border border-xenon px-7 text-xenon transition-colors duration-200 hover:bg-[#F3F7FB] lg:h-14 lg:px-10 lg:text-[17px]">
+          <button className="rounded-lg border border-xenon px-8 py-4 text-base font-semibold text-xenon transition-colors duration-200 hover:bg-[#F3F7FB] lg:text-lg">
             See How It Works
           </button>
         </motion.div>
@@ -104,12 +104,12 @@ export default function PowerYourBusiness() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.4 }}
-        className="mt-14 flex flex-col items-center text-center md:mb-16 xl:mt-18"
+        className="mt-16 flex flex-col items-center text-center md:mb-16 xl:mt-18"
       >
-        <p className="mobile-section-title max-w-[260px] text-[#121733] sm:max-w-none lg:max-w-[980px] lg:text-[58px] lg:leading-[1.02]">
+        <p className="max-w-[300px] text-3xl font-semibold leading-tight text-[#121733] sm:max-w-none md:max-w-[620px] md:text-[36px] lg:max-w-[980px] lg:text-[40px] lg:leading-[1.08]">
           Instant Payments, <span className="text-xenon">Zero</span> Limits
         </p>
-        <p className="mobile-meta mt-2 text-[#657089] lg:mt-4 lg:text-[22px] lg:leading-[1.5]">
+        <p className="mt-3 text-base leading-relaxed text-[#657089] md:text-[20px] lg:mt-4 lg:text-[20px] lg:leading-relaxed">
           Simple, fast and transparent global payments
         </p>
         <div className="mt-5 flex items-center gap-3 lg:mt-8 lg:gap-5">
