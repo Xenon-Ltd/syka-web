@@ -23,8 +23,8 @@ import {
   AvailableCountries,
   CONTENT,
   ContourImageBox,
-  CTA_BUTTON_CLASS,
   PointList,
+  ProductCTA,
   Reveal,
   type Point,
 } from "./shared";
@@ -228,9 +228,9 @@ export default function PaymentsPage() {
             <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
               Syka Payments works both ways — businesses use it to pay suppliers, contractors, and international clients, while banks and fintechs run it as the settlement layer beneath their own products.
             </p>
-            <button className={CTA_BUTTON_CLASS}>
+            <ProductCTA>
               {CTA_LABEL}
-            </button>
+            </ProductCTA>
           </Reveal>
         </div>
       </section>

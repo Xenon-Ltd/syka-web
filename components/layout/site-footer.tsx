@@ -2,18 +2,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { SykaLogoWhite } from "@/assets/icons";
 import { PRODUCT_ITEMS } from "@/components/dropdown-pages/product-config";
-import { businessLinks } from "@/lib/business-links";
+import { businessLinks, companyLinks, transparencyLinks } from "@/lib/business-links";
 
-type FooterGroup = { title: string; links: { label: string; href?: string }[] };
+type FooterLink = { label: string; href: string };
+type FooterGroup = { title: string; links: FooterLink[] };
+
+const definedLinks = (links: { label: string; href?: string }[]): FooterLink[] =>
+  links.filter((link): link is FooterLink => Boolean(link.href));
+
 export default function SiteFooter({ variant }: { variant: "personal" | "business" }) {
   const isBusiness = variant === "business";
   const basePath = isBusiness ? "/business" : "/";
+  const company = definedLinks([
+    { label: "About Us", href: companyLinks.about },
+    { label: "Blog", href: companyLinks.blog },
+    { label: "Press", href: companyLinks.press },
+    { label: "Careers", href: companyLinks.careers },
+    { label: "Community", href: companyLinks.community },
+  ]);
+  const transparency = definedLinks([
+    { label: "Terms & Conditions", href: transparencyLinks.terms },
+    { label: "Privacy Policy", href: transparencyLinks.privacy },
+    { label: "Cookie Policy", href: transparencyLinks.cookies },
+  ]);
   const groups: FooterGroup[] = [
-  { title: "Products", links: PRODUCT_ITEMS.map(({ label, slug }) => ({ label, href: `${basePath}?product=${slug}` })) },
-  { title: "Company", links: [{ label: "About Us" }, { label: "Blog" }, { label: "Press" }, { label: "Careers" }, { label: "Community" }] },
-  { title: "Transparency", links: [{ label: "Terms & Conditions" }, { label: "Privacy Policy" }, { label: "Cookie Policy" }] },
-  { title: "Support", links: [{ label: "Contact Us", href: businessLinks.sales }, { label: "FAQs", href: `${basePath}#faq` }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
-];
+    { title: "Products", links: PRODUCT_ITEMS.map(({ label, slug }) => ({ label, href: `${basePath}?product=${slug}` })) },
+    ...(company.length ? [{ title: "Company", links: company }] : []),
+    ...(transparency.length ? [{ title: "Transparency", links: transparency }] : []),
+    { title: "Support", links: [{ label: "Contact Us", href: businessLinks.sales }, { label: "FAQs", href: `${basePath}#faq` }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
+  ];
 
   return (
     <footer className="bg-[#151132] px-5 pt-16 pb-8 text-white sm:px-6 lg:pt-[120px] lg:pb-[100px]">
@@ -31,7 +48,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
                 <h2 className="text-sm font-semibold text-white/55 lg:text-base">{title}</h2>
                 <ul className="mt-5 space-y-[14px] text-lg leading-[22px] text-white/75">
                   {links.map(({ label, href }) => (
-                    <li key={label}>{href ? <Link href={href} className="rounded transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{label}</Link> : <span>{label}</span>}</li>
+                    <li key={label}><Link href={href} className="rounded transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{label}</Link></li>
                   ))}
                 </ul>
               </nav>

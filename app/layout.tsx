@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
+import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { dmSans, lato, poppins } from "@/assets/font";
 import { SykaOpenGraph } from "@/assets/images";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
+import { SiteFooter, SiteHeader } from "@/components/layout/site-chrome";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sykabank.com"),
-  title: "Syka",
+  title: {
+    default: "Syka",
+    template: "%s | Syka",
+  },
   description: "Syka - Payment Infrastructure For African Entrepreneurs",
   openGraph: {
     title: "Syka",
@@ -33,12 +36,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lato.variable} ${dmSans.variable} ${poppins.variable} overflow-x-clip`}>
       <body
-        suppressHydrationWarning
         className="font-sans antialiased"
       >
-        <Header />
-        {children}
-        <Footer />
+        <MotionConfig reducedMotion="user">
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </MotionConfig>
       </body>
     </html>
   );

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
-import { CONTENT, CTA_BUTTON_CLASS } from "./shared";
+import { CONTENT, ProductCTA } from "./shared";
 
 type ProductHeroShellProps = {
   eyebrow: string;
@@ -58,7 +58,7 @@ export default function ProductHeroShell({
             {description}
           </motion.p>
           <motion.div variants={fadeUp}>
-            <button className={CTA_BUTTON_CLASS}>{ctaLabel}</button>
+            <ProductCTA>{ctaLabel}</ProductCTA>
           </motion.div>
         </motion.div>
 

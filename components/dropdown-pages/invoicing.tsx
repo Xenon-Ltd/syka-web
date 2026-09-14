@@ -14,7 +14,7 @@ import CustomerTestimonials from "../customer-testimonials";
 import FrequentlyAskedQuestions from "../frequently-asked-questions";
 import MarketingCTA from "../marketing-cta";
 import CompaniesMarquee from "../business/companies-marquee";
-import { CONTENT, ContourImageBox, CTA_BUTTON_CLASS, PointList, Reveal, type Point } from "./shared";
+import { CONTENT, ContourImageBox, PointList, ProductCTA, Reveal, type Point } from "./shared";
 
 const CTA_LABEL = "Create Invoice";
 
@@ -89,7 +89,7 @@ export default function InvoicingPage() {
             <p className="product-hero-description">
               Send professional invoices with your international account details built in, and let incoming payments match themselves against what&apos;s outstanding.
             </p>
-            <button className={CTA_BUTTON_CLASS}>{CTA_LABEL}</button>
+            <ProductCTA>{CTA_LABEL}</ProductCTA>
           </Reveal>
         </div>
       </section>
@@ -150,9 +150,9 @@ export default function InvoicingPage() {
                 Get paid without the back and forth.
               </h2>
               <PointList points={backAndForthPoints} />
-              <button className={CTA_BUTTON_CLASS}>
+              <ProductCTA>
                 {CTA_LABEL}
-              </button>
+              </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
               <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
@@ -182,9 +182,9 @@ export default function InvoicingPage() {
             <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
               Agencies bill international clients without a second system. Exporters keep payment terms and shipments connected. Freelancers send an invoice abroad and get paid, and reconciled as simply as one sent across town.
             </p>
-            <button className={CTA_BUTTON_CLASS}>
+            <ProductCTA>
               {CTA_LABEL}
-            </button>
+            </ProductCTA>
           </Reveal>
         </div>
       </section>

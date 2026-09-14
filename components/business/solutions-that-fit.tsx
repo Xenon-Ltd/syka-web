@@ -94,15 +94,19 @@ export default function SolutionsThatFitBusiness() {
           const textColor = card.textColor ?? "text-[#223047]";
 
           return (
-            <motion.div
+            <motion.button
+              type="button"
               key={card.title}
               layout
               onMouseEnter={() => setActiveIndex(index)}
-              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl lg:rounded-[30px]`}
+              onFocus={() => setActiveIndex(index)}
+              aria-expanded={isExpanded}
+              aria-controls={`business-industry-${index}`}
+              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl border-0 p-0 text-left lg:rounded-[30px]`}
               animate={{ flex: isExpanded ? 2.2 : 1 }}
               transition={{ duration: 0.4, ease: EASE_IN_OUT }}
             >
-              <motion.div layout className="h-full p-4 lg:p-6">
+              <motion.div id={`business-industry-${index}`} layout className="h-full p-4 lg:p-6">
                 <AnimatePresence mode="wait" initial={false}>
                   {isExpanded ? (
                     <motion.div
@@ -148,7 +152,7 @@ export default function SolutionsThatFitBusiness() {
                   )}
                 </AnimatePresence>
               </motion.div>
-            </motion.div>
+            </motion.button>
           );
         })}
       </motion.div>

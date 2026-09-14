@@ -23,10 +23,13 @@ import {
   VN,
 } from "@/assets/icons/countries";
 import { ContourPattern } from "@/assets/images";
+import BusinessAction from "@/components/business/business-action";
+import { businessLinks, personalLinks } from "@/lib/business-links";
 import { EASE_OUT } from "@/lib/animation";
 import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 // Shared layout/typography building blocks for the product dropdown pages
@@ -38,6 +41,13 @@ export const CONTENT = "mx-auto w-full max-w-[1220px] px-5 sm:px-6 xl:px-0";
 
 export const CTA_BUTTON_CLASS =
   "mt-8 min-h-12 rounded-lg bg-xenon-brand px-6 py-3 text-sm leading-5 font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] transition-colors duration-200 hover:bg-xenon-700";
+
+export function ProductCTA({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const href = pathname.startsWith("/business") ? businessLinks.signup : personalLinks.signup;
+
+  return <BusinessAction href={href} className={CTA_BUTTON_CLASS}>{children}</BusinessAction>;
+}
 
 export function Reveal({ children, className }: { children: ReactNode; className?: string }) {
   return (

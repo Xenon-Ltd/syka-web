@@ -1,0 +1,18 @@
+{
+  "@lottiefiles/dotlottie-react": {
+    "version": "^0.18.3",
+    "reason": "No source file imports this package after the unused business animation component was archived."
+  },
+  "class-variance-authority": {
+    "version": "^0.7.1",
+    "reason": "Only used by the archived UI button component."
+  },
+  "lottie-react": {
+    "version": "^2.4.1",
+    "reason": "Only used by archived business animation components."
+  },
+  "radix-ui": {
+    "version": "^1.4.3",
+    "reason": "Only used by the archived UI button component."
+  }
+}

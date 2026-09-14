@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { GH, NG, GB, US, MORE } from "@/assets/icons/countries";
 import StoreBadges from "@/components/business/store-badges";
 import BusinessAction from "@/components/business/business-action";
-import { businessLinks } from "@/lib/business-links";
+import { personalLinks } from "@/lib/business-links";
 import { PhoneWithFrame } from "@/assets/images";
 import { motion, useInView } from "framer-motion";
 import {
@@ -73,7 +73,7 @@ function Hero() {
               variants={fadeUp}
               className="mt-8 flex flex-col justify-center gap-4 sm:flex-row xl:justify-start xl:h-[54px] xl:items-start"
             >
-              <BusinessAction href={businessLinks.signup} className="min-h-12 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] sm:w-fit">
+              <BusinessAction href={personalLinks.signup} className="min-h-12 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] sm:w-fit">
                 Get Started for free
               </BusinessAction>
               <BusinessAction href="/#how-it-works" className="min-h-12 w-full rounded-lg border border-[#D0ECFF] px-6 py-3 text-sm font-semibold text-xenon-sky hover:bg-[#F5F8FC] sm:w-fit">

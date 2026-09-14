@@ -20,8 +20,8 @@ import {
   AvailableCountries,
   CONTENT,
   ContourImageBox,
-  CTA_BUTTON_CLASS,
   PointList,
+  ProductCTA,
   Reveal,
   type Point,
 } from "./shared";
@@ -175,9 +175,9 @@ export default function TreasuryManagementPage() {
                 How Treasury Management works
               </h2>
               <PointList points={yieldPoints} />
-              <button className={CTA_BUTTON_CLASS}>
+              <ProductCTA>
                 {CTA_LABEL}
-              </button>
+              </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
               <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
@@ -207,9 +207,9 @@ export default function TreasuryManagementPage() {
             <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
               Importers hold reserves ahead of a payment, exporters spread large conversions to avoid volatility. Any business earning in one currency and spending in another needs to manage that gap deliberately.
             </p>
-            <button className={CTA_BUTTON_CLASS}>
+            <ProductCTA>
               {CTA_LABEL}
-            </button>
+            </ProductCTA>
           </Reveal>
         </div>
       </section>

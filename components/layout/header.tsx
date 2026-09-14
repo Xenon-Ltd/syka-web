@@ -11,7 +11,7 @@ import {
 } from "@/components/dropdown-pages/product-config";
 import { cn } from "@/lib/utils";
 import BusinessAction from "@/components/business/business-action";
-import { businessLinks } from "@/lib/business-links";
+import { businessLinks, personalLinks } from "@/lib/business-links";
 import {
   BookText,
   BriefcaseBusiness,
@@ -88,8 +88,13 @@ const Header = () => {
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuPanelRef = useRef<HTMLDivElement>(null);
+  const wasMenuOpenRef = useRef(false);
   const isBusinessRoute = pathname.startsWith("/business");
   const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
+  const primarySignup = isBusinessRoute ? businessLinks.signup : personalLinks.signup;
   const productBasePath = isBusinessRoute ? "/business" : "/";
   const developerBasePath = isBusinessRoute ? "/business" : "/";
   const productIcons: Record<ProductSlug, LucideIcon> = {
@@ -146,6 +151,24 @@ const Header = () => {
         setOpenDropdown(null);
         setHoveredDropdown(null);
         setIsSheetOpen(false);
+        return;
+      }
+
+      if (event.key === "Tab" && isSheetOpen && menuPanelRef.current) {
+        const focusableElements = menuPanelRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled])',
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (!firstElement || !lastElement) return;
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (!event.shiftKey && document.activeElement === lastElement) {
+          event.preventDefault();
+          firstElement.focus();
+        }
       }
     };
 
@@ -156,7 +179,22 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeydown);
     };
-  }, []);
+    }, [isSheetOpen]);
+
+  useEffect(() => {
+    if (isSheetOpen) {
+      document.body.style.overflow = "hidden";
+      closeMenuButtonRef.current?.focus();
+    } else {
+      document.body.style.overflow = "";
+      if (wasMenuOpenRef.current) menuButtonRef.current?.focus();
+    }
+
+    wasMenuOpenRef.current = isSheetOpen;
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isSheetOpen]);
 
   return (
     <header className={cn("relative z-40 flex w-full flex-row items-center justify-between lg:mx-auto xl:mt-[62px] xl:mb-[62px]", isBusinessRoute ? "my-5 max-w-[1268px] px-5 sm:px-6" : "my-5 max-w-[1268px] px-5 sm:px-6")}>
@@ -235,7 +273,7 @@ const Header = () => {
                 <button
                   type="button"
                   aria-expanded={activeDropdown === item.label}
-                  className="flex items-center gap-1 text-base font-medium text-[#4A4E66] transition-colors hover:text-[#1F2238] focus:outline-none"
+                  className="flex items-center gap-1 text-base font-medium text-[#4A4E66] transition-colors hover:text-[#1F2238] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1F2238]"
                   onClick={() =>
                     setOpenDropdown((prev) => (prev === item.label ? null : item.label))
                   }
@@ -279,7 +317,7 @@ const Header = () => {
         </ul>
       </nav>
 
-      <BusinessAction href={businessLinks.signup} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
+      <BusinessAction href={primarySignup} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
         Get started
       </BusinessAction>
 
@@ -294,15 +332,23 @@ const Header = () => {
           />
         </Link>
         <button
+          ref={menuButtonRef}
           onClick={() => setIsSheetOpen((prev) => !prev)}
           className="text-[#2094DF]"
           aria-label="Toggle menu"
+          aria-expanded={isSheetOpen}
+          aria-controls="mobile-navigation"
         >
           <MenuIcon />
         </button>
       </div>
 
       <div
+        id="mobile-navigation"
+        ref={menuPanelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
         className={cn(
           "fixed top-0 left-0 z-50 h-full w-full transform bg-white transition-transform duration-300",
           isSheetOpen ? "translate-x-0" : "-translate-x-full",
@@ -313,6 +359,7 @@ const Header = () => {
             <Image src={SykaLogo} className="h-10 w-auto" alt="Syka Logo" />
           </Link>
           <button
+            ref={closeMenuButtonRef}
             onClick={() => setIsSheetOpen(false)}
             className="text-[#2094DF]"
             aria-label="Close menu"

@@ -1,8 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { Blocks, Clock3, Code, type LucideIcon } from "lucide-react";
+import BusinessAction from "@/components/business/business-action";
+import { businessLinks } from "@/lib/business-links";
+import { useState } from "react";
 
 type FeatureCard = {
   title: string;
@@ -186,7 +188,35 @@ const codeLines: CodeLine[] = [
   },
 ];
 
+const codeSample = `// 1. Install npm install syka-sdk
+import syka from "syka-sdk";
+
+// 2. Authenticate with Syka()
+const client = new Syka({
+  apiKey: "sk_live••••••••••••"
+});
+
+// 3. Create a cross-border payment
+const payment = await client.payments.create({
+  amount: 12000,
+  currency: "USD",
+  recipient: "cus_guangzhou_01",
+  description: "supplier invoice #4812"
+});`;
+
 export default function ApiDocumentationPage() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(codeSample);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section className="mt-4 px-5 pt-8 pb-16 sm:px-6 md:pt-12 md:pb-24 lg:flex lg:min-h-[95vh] lg:items-center lg:pt-16 lg:pb-32 xl:mt-0 xl:px-0">
       <div className="mx-auto w-full max-w-[1440px]">
@@ -252,12 +282,12 @@ export default function ApiDocumentationPage() {
               ))}
             </div>
 
-            <Link
-              href="#"
-              className="mt-8 inline-flex rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mt-10 lg:text-lg"
+            <BusinessAction
+              href={businessLinks.docs}
+              className="mt-8 rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mt-10 lg:text-lg"
             >
               View full docs
-            </Link>
+            </BusinessAction>
           </div>
 
           <div className="overflow-hidden rounded-[18px] bg-[#141A33] text-white shadow-[0_20px_45px_rgba(18,24,48,0.24)] lg:rounded-[30px]">
@@ -274,8 +304,13 @@ export default function ApiDocumentationPage() {
                 <span>Curl</span>
               </div>
 
-              <button className="ml-auto rounded-lg bg-white/8 px-3 py-1 text-[11px] font-medium text-white/80 transition-colors duration-200 hover:bg-white/12 lg:px-4 lg:py-1.5 lg:text-[13px]">
-                Copy
+              <button
+                type="button"
+                onClick={handleCopy}
+                aria-label="Copy code sample"
+                className="ml-auto rounded-lg bg-white/8 px-3 py-1 text-[11px] font-medium text-white/80 transition-colors duration-200 hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:px-4 lg:py-1.5 lg:text-[13px]"
+              >
+                {copied ? "Copied" : "Copy"}
               </button>
             </div>
 

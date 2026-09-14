@@ -69,7 +69,7 @@ export default function PricingComparison() {
       aria-labelledby="pricing-heading"
       className={cn(businessStyles.sectionSpacing, "pricing-section bg-xenon-primary px-5 text-white sm:px-6")}
     >
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-[1180px] py-28">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

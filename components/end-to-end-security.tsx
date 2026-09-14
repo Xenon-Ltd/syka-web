@@ -3,7 +3,7 @@
 import { EndToEndSecurityImage } from "@/assets/images";
 import Image from "next/image";
 import BusinessAction from "@/components/business/business-action";
-import { businessLinks } from "@/lib/business-links";
+import { personalLinks } from "@/lib/business-links";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
@@ -67,7 +67,7 @@ function EndToEndSecurity() {
             single platform.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <BusinessAction href={businessLinks.signup} className="mt-7 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:mx-auto sm:w-fit lg:mt-10 lg:mx-0 lg:text-sm">
+            <BusinessAction href={personalLinks.signup} className="mt-7 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:mx-auto sm:w-fit lg:mt-10 lg:mx-0 lg:text-sm">
               Get Started for free
             </BusinessAction>
           </motion.div>

@@ -17,7 +17,7 @@ import FrequentlyAskedQuestions from "../frequently-asked-questions";
 import MarketingCTA from "../marketing-cta";
 import CompaniesMarquee from "../business/companies-marquee";
 import ProductHeroShell from "./product-hero-shell";
-import { CONTENT, ContourImageBox, CTA_BUTTON_CLASS, PointList, Reveal, type Point } from "./shared";
+import { CONTENT, ContourImageBox, PointList, ProductCTA, Reveal, type Point } from "./shared";
 
 const CTA_LABEL = "Create Syka Card";
 
@@ -150,9 +150,9 @@ export default function VirtualCardPage() {
                 Free cards for all international transactions
               </h2>
               <PointList points={internationalPoints} />
-              <button className={CTA_BUTTON_CLASS}>
+              <ProductCTA>
                 {CTA_LABEL}
-              </button>
+              </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
               <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
@@ -182,9 +182,9 @@ export default function VirtualCardPage() {
             <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
               For software and cloud subscriptions, lock cards to specific merchants to ensure clarity and control.
             </p>
-            <button className={CTA_BUTTON_CLASS}>
+            <ProductCTA>
               {CTA_LABEL}
-            </button>
+            </ProductCTA>
           </Reveal>
         </div>
       </section>

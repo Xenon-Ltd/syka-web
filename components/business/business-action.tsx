@@ -16,7 +16,17 @@ export default function BusinessAction({ href, children, className, ...props }: 
   );
 
   if (!href) {
-    return <button type="button" disabled className={cn(styles, "cursor-not-allowed")} {...props}>{children}</button>;
+    return (
+      <button
+        type="button"
+        disabled
+        aria-disabled="true"
+        className={cn(styles, "cursor-not-allowed opacity-60")}
+        {...props}
+      >
+        {children}
+      </button>
+    );
   }
 
   return <Link href={href} className={styles} {...props}>{children}</Link>;
