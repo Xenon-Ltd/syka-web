@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SykaLogoWhite } from "@/assets/icons";
 import { PRODUCT_ITEMS } from "@/components/dropdown-pages/product-config";
 import { businessLinks, companyLinks, transparencyLinks } from "@/lib/business-links";
+import FooterLocations from "./footer-locations";
 
 type FooterLink = { label: string; href: string };
 type FooterGroup = { title: string; links: FooterLink[] };
@@ -55,11 +56,13 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
             ))}
           </div>
         </div>
-        <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">© {new Date().getFullYear()} Syka Ltd.</p>
-        <p className="mt-6 border-t border-white/25 pt-6 text-xs leading-relaxed text-white/60 lg:text-lg">
-          Syka is a product of Xenon Ltd, which is a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed by BOG.
+        <p className="mt-12 border-t  border-white/25 pt-12 text-xs leading-relaxed text-white/60 lg:text-lg">
+          Syka is a product of Xenon Technologies Inc., which is a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed by BOG.
         </p>
       </div>
+      <FooterLocations />
+
+      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">© {new Date().getFullYear()} Xenon Ltd.</p>
     </footer>
   );
 }
