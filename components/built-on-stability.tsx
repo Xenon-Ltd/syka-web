@@ -1,98 +1,73 @@
 "use client";
 
-import {
-  BankGradeSecurity,
-  StablecoinPowered,
-  TransparentWallet,
-} from "@/assets/images";
-import Image from "next/image";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  fadeUp,
-  staggerContainer,
-  IN_VIEW_OPTS,
-  EASE_OUT,
-} from "@/lib/animation";
+import { ContourPattern } from "@/assets/images";
+import { Check } from "lucide-react";
+import { motion } from "framer-motion";
+import { businessStyles } from "@/lib/business-styles";
+import { cn } from "@/lib/utils";
+import { EASE_OUT } from "@/lib/animation";
 
-const cards = [
+const features = [
   {
-    src: StablecoinPowered,
-    alt: "Stablecoin Powered",
-    title: "Stablecoin-Powered",
+    title: "Stable-Coin Powered",
     body: "We use fully-backed, regulated stablecoins for predictable value.",
+    points: ["Fully-backed, regulated stablecoins", "Predictable value for global payments"],
   },
   {
-    src: BankGradeSecurity,
-    alt: "Bank Grade Security",
     title: "Bank-Grade Security",
     body: "SOC 2 compliant, encryption, and multi-sig custody protocols, operating within global compliance frameworks.",
+    points: ["Encryption and multi-sig custody protocols", "Operating within global compliance frameworks"],
   },
   {
-    src: TransparentWallet,
-    alt: "Transparent Wallet",
     title: "Transparent Wallet",
-    body: "You control your funds, with clear balances, real-time visibility, and no hidden restrictions",
+    body: "You control your funds, with clear balances, real-time visibility, and no hidden restrictions.",
+    points: ["Clear balances and real-time visibility", "No hidden restrictions"],
   },
 ];
 
-function BuiltOnStability() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, IN_VIEW_OPTS);
-
+export default function BuiltOnStability() {
   return (
-    <section
-      ref={ref}
-      className="mx-auto max-w-[1440px] px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0 lg:py-32"
-    >
-      {/* Heading */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="mb-10 text-center lg:mb-16 lg:text-left"
-      >
-        <motion.h2
-          variants={fadeUp}
-          className="text-3xl leading-tight font-semibold text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
-        >
-          Built on <span className="text-xenon">Stability,</span>
-        </motion.h2>
-        <motion.p
-          variants={fadeUp}
-          className="mt-2 text-3xl leading-tight font-semibold text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
-        >
-          Guarded by <span className="text-xenon">Security</span>
-        </motion.p>
-      </motion.div>
-
-      {/* Cards — staggered entrance */}
-      <div className="grid gap-6 md:gap-8 lg:grid-cols-3 lg:gap-8">
-        {cards.map((card, i) => (
-          <motion.div
-            key={card.title}
-            initial={{ opacity: 0, y: 28 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: EASE_OUT, delay: i * 0.1 }}
-            className="flex min-h-[248px] flex-col items-center rounded-2xl bg-white p-8 text-center shadow-sm md:p-10 lg:min-h-[420px] lg:items-start lg:rounded-[28px] lg:p-10 lg:text-left"
+    <section aria-labelledby="stability-heading" className={cn(businessStyles.sectionSpacing, "mx-auto max-w-[1268px] px-5 sm:px-6")}>
+      <h2 id="stability-heading" className={cn(businessStyles.sectionHeading, "mb-10 max-w-[457px] text-xenon-gray")}>
+        Built on <span className="text-xenon-brand">Stability,</span><br />
+        Guarded by <span className="text-xenon-brand">Security</span>
+      </h2>
+      <div className="space-y-8 lg:space-y-10">
+        {features.map((feature, index) => (
+          <motion.article
+            key={feature.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.5, ease: EASE_OUT }}
+            className={cn("stability-row", index % 2 === 1 && "stability-row-reverse")}
           >
-            <Image
-              src={card.src}
-              alt={card.alt}
-              width={180}
-              className="h-auto w-[140px] lg:w-[180px]"
-            />
-            <p className="mobile-card-title mt-4 text-[#121733] md:text-2xl lg:mt-6 lg:text-[34px] lg:leading-[1.15]">
-              {card.title}
-            </p>
-            <p className="mobile-body mt-3 text-[#546076] lg:mt-4 lg:text-lg">
-              {card.body}
-            </p>
-          </motion.div>
+            <div aria-hidden="true" className={cn("relative aspect-[608/515] overflow-hidden rounded-2xl bg-[#e4f3ff]", index % 2 === 1 && "xl:order-2")}>
+              <div
+                className="absolute inset-0 bg-[#6ca9e6]"
+                style={{
+                  maskImage: `url(${ContourPattern.src})`,
+                  maskSize: "cover",
+                  maskPosition: index % 2 === 1 ? "right center" : "left center",
+                  transform: index % 2 === 1 ? "rotate(180deg)" : undefined,
+                }}
+              />
+            </div>
+            <div className={cn("py-2 md:py-6", index % 2 === 1 && "xl:order-1")}>
+              <h3 className={"product-feature-title"}>{feature.title}</h3>
+              <p className={"mt-6 text-xl leading-[26px] text-[#8893A4] xl:text-[24px]"}>{feature.body}</p>
+              <ul className="mt-6 space-y-6 text-lg leading-6 text-[#8893A4]">
+                {feature.points.map((point) => (
+                  <li key={point} className="flex items-center gap-6">
+                    <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#4484cd] text-white"><Check aria-hidden="true" className="size-6" strokeWidth={2} /></span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.article>
         ))}
       </div>
     </section>
   );
 }
-
-export default BuiltOnStability;

@@ -1,223 +1,203 @@
 "use client";
 
-import { GB, GH, US } from "@/assets/icons/countries";
-import VirtualCardsAnimation from "@/assets/lottie-files/Virtual-cards.json";
-import { CreditCard, Gauge, Lock, type LucideIcon } from "lucide-react";
-import Image, { type StaticImageData } from "next/image";
-import Lottie from "lottie-react";
+import { VirtualCardHeroIllustration, VirtualCardUseCase } from "@/assets/images";
+import {
+  BadgeCheck,
+  CreditCard,
+  ShieldCheck,
+  SlidersHorizontal,
+  SquarePen,
+  Wallet,
+  WalletCards,
+  type LucideIcon,
+} from "lucide-react";
+import Image from "next/image";
+import CustomerTestimonials from "../customer-testimonials";
+import FrequentlyAskedQuestions from "../frequently-asked-questions";
+import MarketingCTA from "../marketing-cta";
+import CompaniesMarquee from "../business/companies-marquee";
 import ProductHeroShell from "./product-hero-shell";
+import { CONTENT, ContourImageBox, CTA_BUTTON_CLASS, PointList, Reveal, type Point } from "./shared";
+
+const CTA_LABEL = "Create Syka Card";
 
 type FeatureCard = {
+  Icon: LucideIcon;
   title: string;
   description: string;
-  Icon: LucideIcon;
-  bgClass: string;
-  iconColorClass: string;
-  titleColorClass: string;
-  bodyColorClass: string;
-};
-
-type CardRow = {
-  flag: StaticImageData;
-  title: string;
-  lastDigits: string;
-  limit: string;
-  status: string;
-  statusClass: string;
 };
 
 const featureCards: FeatureCard[] = [
   {
-    title: "One card per use case",
-    description:
-      "Subscriptions, vendors, team expenses with a dedicated card for each.",
-    Icon: CreditCard,
-    bgClass: "bg-[#2C7FC0]",
-    iconColorClass: "text-white/75",
-    titleColorClass: "text-white",
-    bodyColorClass: "text-white/75",
+    Icon: WalletCards,
+    title: "Unlimited cards for all employee",
+    description: "Instantly create cards and start using it immediately for each subscription, supplier, campaign, or team member.",
   },
   {
-    title: "Per-card spending limits",
-    description: "Set a cap. When it's hit, the card declines automatically.",
-    Icon: Gauge,
-    bgClass: "bg-[#EEF3FF]",
-    iconColorClass: "text-[#909CB7]",
-    titleColorClass: "text-[#1C2433]",
-    bodyColorClass: "text-[#9AA7BC]",
+    Icon: SlidersHorizontal,
+    title: "Flexible Configuration",
+    description: "Set a monthly cap, a per-transaction cap. Restrict a card so it only works with one specific merchant or subscriptions you want to control precisely",
   },
   {
-    title: "Instant freeze anytime",
-    description: "Pause or cancel any card in one tap. No calls to a bank.",
-    Icon: Lock,
-    bgClass: "bg-[#23284F]",
-    iconColorClass: "text-white/75",
-    titleColorClass: "text-white",
-    bodyColorClass: "text-white/70",
+    Icon: BadgeCheck,
+    title: "Every charge, as it happens",
+    description: "Real-time notifications and a running record for every card. Know exactly what has been spent, and where.",
   },
 ];
 
-const cardRows: CardRow[] = [
+const internationalPoints: Point[] = [
   {
-    flag: GH,
-    title: "GHC Card",
-    lastDigits: "4421",
-    limit: "£2,000",
-    status: "Active",
-    statusClass: "bg-[#D7FFF0] text-[#1D9766]",
+    Icon: ShieldCheck,
+    text: "Every Syka Card is issued through our licensed card issuing partnership backed by regulatory and security standards.",
   },
   {
-    flag: US,
-    title: "USD Card",
-    lastDigits: "2710",
-    limit: "$500",
-    status: "Active",
-    statusClass: "bg-[#D7FFF0] text-[#1D9766]",
+    Icon: SquarePen,
+    text: "Name the card, set a spending limit, and choose which balance it draws from. Takes about thirty seconds.",
   },
   {
-    flag: GB,
-    title: "GBP Card",
-    lastDigits: "7783",
-    limit: "£300",
-    status: "Frozen",
-    statusClass: "bg-[#FFE6E6] text-[#D44C4C]",
+    Icon: CreditCard,
+    text: "Paste card details into any checkout, subscription form, or ad account right away.",
+  },
+  {
+    Icon: Wallet,
+    text: "Every charge appears, tagged to that specific card. Change limit, freeze, or cancel it entirely whenever you need to.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "What currency are cards issued in?",
+    answer: "Cards are issued in US dollars, drawing from your Syka balance.",
+  },
+  {
+    question: "Is there a limit to how many cards I can create?",
+    answer: "No. Create as many as your business needs — one per subscription, per team member, or per campaign.",
+  },
+  {
+    question: "What happens if a card is compromised?",
+    answer: "Freeze it instantly from your dashboard, then cancel and reissue if needed. No charges can be made on a frozen card.",
+  },
+  {
+    question: "Can I give cards to my employees?",
+    answer: "Yes. Assign a card to any team member on your account, with its own limit and its own visibility.",
+  },
+  {
+    question: "Where are the cards accepted?",
+    answer: "Anywhere that accepts standard international card payments online, including cloud providers, advertising platforms, software subscriptions, and international suppliers.",
   },
 ];
 
 export default function VirtualCardPage() {
   return (
     <>
-      <ProductHeroShell
-        eyebrow="VIRTUAL CARDS"
-        title="Issue Cards. Control Every Spend."
+      <ProductHeroShell variant="cream"
+        eyebrow="Virtual Cards"
+        title="Cards that work the way your business actually spends"
         description="Generate secure virtual cards for teams, subscriptions, and vendors, with real-time tracking and built-in spending limits."
-        ctaLabel="Create a Card"
+        ctaLabel={CTA_LABEL}
       >
-        <div className="mx-auto h-[430px] w-full max-w-[700px] sm:h-[560px] lg:h-[680px] lg:max-w-[840px]">
-          <Lottie
-            animationData={VirtualCardsAnimation}
-            loop
-            className="h-full w-full"
+        <div className="relative mx-auto aspect-[613/588] w-full max-w-[613px]">
+          <Image
+            src={VirtualCardHeroIllustration}
+            alt="Syka virtual card illustration"
+            fill
+            sizes="(max-width: 1023px) 100vw, 613px"
+            className="object-contain"
+            priority
           />
         </div>
       </ProductHeroShell>
 
-      <section className="px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-32 xl:px-0">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="w-full text-center lg:text-left">
-            <h2 className="mobile-section-title w-full text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
-              Issue Cards
-            </h2>
-            <p className="mobile-section-title mt-2 w-full text-xenon md:text-4xl lg:text-5xl lg:leading-[1.02]">
-              Control Every Spend
-            </p>
-          </div>
+      <div className={`${CONTENT} flex justify-center`}>
+        <CompaniesMarquee />
+      </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
-            {featureCards.map((card) => (
-              <article
-                key={card.title}
-                className={`flex min-h-[240px] flex-col items-center rounded-[22px] p-8 text-center md:items-start md:p-10 md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-10 ${card.bgClass}`}
-              >
-                <div
-                  className={`inline-flex size-10 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}
-                >
-                  <card.Icon className="size-4 lg:size-5" strokeWidth={2.2} />
+      {/* The card that works internationally */}
+      <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
+        <Reveal className="max-w-[770px]">
+          <h2 className="product-section-title">
+            The card that works <span className="text-xenon">internationally</span>
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-6 lg:text-xl lg:leading-[1.55]">
+            Syka Virtual Cards fixes the gaps of running an international business. Issued specifically for every subscription, every campaign, every team member. Created in seconds, controlled precisely, and visible in real time.
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-6 lg:mt-10">
+          {featureCards.map((card) => (
+            <Reveal key={card.title}>
+              <article className="flex h-full flex-col items-start gap-3 rounded-[24px] border-[0.5px] border-[#E6F2FB] bg-[#E4F4FB] p-8 lg:rounded-[32px] lg:p-[35px]">
+                <div className="flex size-10 items-center justify-center rounded-lg text-xenon-brand">
+                  <card.Icon className="size-8" strokeWidth={1.75} />
                 </div>
-                <h3
-                  className={`mt-8 w-full text-xl leading-snug font-semibold md:text-2xl lg:text-[32px] lg:leading-[1.08] ${card.titleColorClass}`}
-                >
+                <h3 className="text-2xl leading-snug font-bold text-[#1F1A0B] lg:text-[32px] lg:leading-[36px]">
                   {card.title}
                 </h3>
-                <p
-                  className={`mt-4 w-full text-base leading-relaxed md:text-lg lg:leading-[1.75] ${card.bodyColorClass}`}
-                >
-                  {card.description}
-                </p>
+                <p className="text-base leading-relaxed text-xenon-gray lg:text-lg lg:leading-[26px]">{card.description}</p>
               </article>
-            ))}
-          </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
-          <div className="mt-16 grid items-center gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.84fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
-            <div className="mx-auto w-full text-center lg:mx-0 lg:max-w-[500px] lg:text-left">
-              <p className="mobile-eyebrow text-[#9AA8BA] lg:text-[14px] lg:tracking-[0.2em]">
-                Full Visibility
-              </p>
-              <h3 className="mobile-section-title mt-4 text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
-                Every team spend
-                <br />
-                One <span className="text-xenon">view</span>
-              </h3>
-              <p className="mt-5 w-full text-base leading-relaxed text-[#96A5B6] md:text-lg lg:mt-6 lg:text-[19px] lg:leading-[1.75]">
-                Issue cards to team members, vendors, or agencies. See every
-                charge in real time. No reimbursements. No surprises at month
-                end.
-              </p>
-              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:text-lg">
-                Create a Card
+      {/* Free cards for all international transactions */}
+      <section className="product-panel">
+        <div aria-hidden className="absolute top-0 right-1/2 bottom-0 left-1/2 -z-10 -mr-[50vw] -ml-[50vw] w-screen bg-[#FCFBF1]" />
+        <div className={CONTENT}>
+          <div className="product-feature-row">
+            <Reveal>
+              <h2 className="product-section-title">
+                Free cards for all international transactions
+              </h2>
+              <PointList points={internationalPoints} />
+              <button className={CTA_BUTTON_CLASS}>
+                {CTA_LABEL}
               </button>
-            </div>
-
-            <div className="w-full max-w-[560px] rounded-[18px] bg-[#23284F] p-8 text-white shadow-[0_20px_45px_rgba(24,28,61,0.22)] md:p-10 lg:max-w-none lg:rounded-[30px] lg:p-10">
-              <p className="text-sm font-semibold tracking-[0.12em] text-white/75 uppercase lg:text-[14px] lg:tracking-[0.18em]">
-                Active Cards
-              </p>
-              <div className="mt-5 space-y-3 lg:mt-8 lg:space-y-4">
-                {cardRows.map((card) => (
-                  <div
-                    key={card.title}
-                    className="flex items-center justify-between rounded-xl bg-white/12 px-4 py-3 lg:rounded-[18px] lg:px-6 lg:py-4"
-                  >
-                    <div className="flex items-center gap-3 lg:gap-4">
-                      <Image
-                        src={card.flag}
-                        alt={`${card.title} flag`}
-                        width={18}
-                        height={18}
-                        className="rounded-full border border-white/15 lg:h-7 lg:w-7"
-                      />
-                      <div>
-                        <p className="text-[15px] font-semibold text-white lg:text-[18px]">
-                          {card.title}
-                        </p>
-                        <p className="mt-0.5 text-xs text-white/65 lg:text-[13px]">
-                          •••• {card.lastDigits} · Limit {card.limit}
-                        </p>
-                      </div>
-                    </div>
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-semibold lg:px-3 lg:py-1.5 lg:text-[12px] ${card.statusClass}`}
-                    >
-                      {card.status}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 grid grid-cols-3 gap-3 rounded-xl bg-white/12 px-4 py-4 lg:mt-6 lg:rounded-[18px] lg:px-6 lg:py-5">
-                <div>
-                  <p className="text-xs text-white/55 lg:text-[12px]">Cards Issued</p>
-                  <p className="mt-2 text-[20px] leading-none font-semibold text-white lg:text-[28px]">
-                    3
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-white/55 lg:text-[12px]">Spent This Month</p>
-                  <p className="mt-2 text-[20px] leading-none font-semibold text-white lg:text-[28px]">
-                    $4,230
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-white/55 lg:text-[12px]">Alerts</p>
-                  <p className="mt-2 text-[20px] leading-none font-semibold text-white lg:text-[28px]">
-                    0
-                  </p>
-                </div>
-              </div>
-            </div>
+            </Reveal>
+            <Reveal className="order-first xl:order-last">
+              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+            </Reveal>
           </div>
         </div>
       </section>
+
+      {/* Built for how businesses spend abroad */}
+      <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
+        <div className="product-use-case">
+          <Reveal>
+            <div className="relative aspect-[608/512] w-full overflow-hidden rounded-2xl">
+              <Image
+                src={VirtualCardUseCase}
+                alt="Business owner paying with a Syka virtual card"
+                fill
+                sizes="(max-width: 1023px) 100vw, 608px"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+          <Reveal className="lg:pl-10">
+            <h2 className="mobile-section-title max-w-[420px] text-xenon-gray lg:text-[32px] lg:leading-[1.25]">
+              Built for how businesses spend abroad
+            </h2>
+            <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
+              For software and cloud subscriptions, lock cards to specific merchants to ensure clarity and control.
+            </p>
+            <button className={CTA_BUTTON_CLASS}>
+              {CTA_LABEL}
+            </button>
+          </Reveal>
+        </div>
+      </section>
+
+      <CustomerTestimonials />
+
+      <MarketingCTA
+        variant="business"
+        heading="Stop losing time to declined cards"
+        description="Create your first card in under a minute, and see exactly what a card built for your business feels like."
+      />
+
+      <FrequentlyAskedQuestions variant="business" items={faqItems} />
     </>
   );
 }

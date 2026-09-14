@@ -10,6 +10,8 @@ import {
   type ProductSlug,
 } from "@/components/dropdown-pages/product-config";
 import { cn } from "@/lib/utils";
+import BusinessAction from "@/components/business/business-action";
+import { businessLinks } from "@/lib/business-links";
 import {
   BookText,
   BriefcaseBusiness,
@@ -121,8 +123,8 @@ const Header = () => {
   };
 
   const navItems: TopLevelItem[] = isBusinessRoute
-    ? [productsItem, companyItem, developersItem, supportItem]
-    : [productsItem, companyItem, supportItem];
+    ? [productsItem, companyItem, { ...supportItem, href: "/business#faq" }, developersItem]
+    : [productsItem, companyItem, { ...supportItem, href: "/#faq" }];
   const activeDropdown = openDropdown ?? hoveredDropdown;
 
   const segmentPillTranslateClass =
@@ -157,22 +159,22 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="relative z-40 my-3 mb-24 flex w-full flex-row items-center justify-between lg:mx-auto lg:my-5 lg:max-w-[1440px] lg:px-5 xl:px-0">
-      <div className="hidden lg:flex lg:items-center lg:gap-8 xl:gap-12">
+    <header className={cn("relative z-40 flex w-full flex-row items-center justify-between lg:mx-auto xl:mt-[62px] xl:mb-[62px]", isBusinessRoute ? "my-5 max-w-[1268px] px-5 sm:px-6" : "my-5 max-w-[1268px] px-5 sm:px-6")}>
+      <div className="hidden lg:flex lg:items-center lg:gap-6 xl:gap-10">
         <Link href="/" aria-label="Go to Syka home">
           <Image
             src={SykaLogo}
             height={192}
             width={486}
-            className="h-11 w-auto"
+            className="h-11 w-auto xl:h-[50px]"
             alt="Syka Logo"
           />
         </Link>
-        <div className="relative inline-flex items-center rounded-full bg-[#EDF0F5] p-1">
+        <div className="relative inline-flex items-center rounded-full bg-[#F0F0F0] p-1">
           <span
             aria-hidden
             className={cn(
-              "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F2AE00] transition-transform duration-300 ease-out",
+              "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F9B004] transition-transform duration-300 ease-out",
               segmentPillTranslateClass,
             )}
           />
@@ -187,7 +189,7 @@ const Header = () => {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative z-10 w-24 rounded-full px-4 py-1.5 text-center text-sm font-medium transition-colors",
+                  "relative z-10 w-20 rounded-full px-2 py-2 text-center text-base leading-4 font-medium transition-colors",
                   isActive
                     ? "text-white"
                     : "text-[#2C2F54] hover:text-[#1E213F]",
@@ -201,7 +203,7 @@ const Header = () => {
       </div>
 
       <nav ref={dropdownContainerRef} className="hidden lg:block">
-        <ul className="flex items-center gap-10 text-[21px] text-[#4A4E66]">
+        <ul className={cn("flex items-center text-[#4A4E66]", isBusinessRoute ? "gap-6 xl:gap-8" : "gap-8 text-base")}>
           {navItems.map((item) =>
             item.type === "link" ? (
               <li key={item.label}>
@@ -277,12 +279,9 @@ const Header = () => {
         </ul>
       </nav>
 
-      <Link
-        href="#"
-        className="hidden h-12 items-center rounded-lg bg-[#2094DF] px-8 text-lg font-semibold text-white transition-colors hover:bg-[#1886CE] lg:inline-flex xl:px-10"
-      >
+      <BusinessAction href={businessLinks.signup} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
         Get started
-      </Link>
+      </BusinessAction>
 
       <div className="flex w-full items-center justify-between lg:hidden">
         <Link href="/" aria-label="Go to Syka home">
@@ -323,11 +322,11 @@ const Header = () => {
         </div>
 
         <div className="px-4 pt-5">
-          <div className="relative inline-flex items-center rounded-full bg-[#EDF0F5] p-1">
+          <div className="relative inline-flex items-center rounded-full bg-[#F0F0F0] p-1">
             <span
               aria-hidden
               className={cn(
-                "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F2AE00] transition-transform duration-300 ease-out",
+                "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F9B004] transition-transform duration-300 ease-out",
                 segmentPillTranslateClass,
               )}
             />
@@ -343,7 +342,7 @@ const Header = () => {
                   href={link.href}
                   onClick={() => setIsSheetOpen(false)}
                   className={cn(
-                    "relative z-10 w-24 rounded-full px-4 py-1.5 text-center text-sm font-medium transition-colors",
+                    "relative z-10 w-20 rounded-full px-2 py-2 text-center text-base leading-4 font-medium transition-colors",
                     isActive
                       ? "text-white"
                       : "text-[#2C2F54] hover:text-[#1E213F]",

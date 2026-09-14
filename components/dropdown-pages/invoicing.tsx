@@ -1,172 +1,203 @@
 "use client";
 
-import InvoicingAnimation from "@/assets/lottie-files/Invoicing.json";
-import { Banknote, Clock3, FileText, type LucideIcon } from "lucide-react";
-import Lottie from "lottie-react";
-import ProductHeroShell from "./product-hero-shell";
+import { InvoicingUseCase } from "@/assets/images";
+import {
+  CircleUserRound,
+  FileCheck2,
+  RotateCw,
+  Send,
+  Share2,
+  ShieldCheck,
+} from "lucide-react";
 import Image from "next/image";
-import { Invoicing } from "@/assets/images";
+import CustomerTestimonials from "../customer-testimonials";
+import FrequentlyAskedQuestions from "../frequently-asked-questions";
+import MarketingCTA from "../marketing-cta";
+import CompaniesMarquee from "../business/companies-marquee";
+import { CONTENT, ContourImageBox, CTA_BUTTON_CLASS, PointList, Reveal, type Point } from "./shared";
 
-type FeatureCard = {
-  title: string;
-  description: string;
-  Icon: LucideIcon;
-  bgClass: string;
-  iconColorClass: string;
-  titleColorClass: string;
-  bodyColorClass: string;
-};
+const CTA_LABEL = "Create Invoice";
 
-type Step = {
-  title: string;
-  description: string;
-};
-
-const featureCards: FeatureCard[] = [
+const detailsPoints: Point[] = [
   {
-    title: "Professional invoices in seconds",
-    description: "Branded, itemised, and ready to send. No spreadsheets.",
-    Icon: FileText,
-    bgClass: "bg-[#2C7FC0]",
-    iconColorClass: "text-white/75",
-    titleColorClass: "text-white",
-    bodyColorClass: "text-white/75",
+    Icon: ShieldCheck,
+    text: "Invoicing is included with every Syka business account, at no additional cost. Standard fees apply only when a payment is received.",
   },
   {
-    title: "Real-time payment tracking",
-    description: "See when invoices are viewed, paid, or overdue at a glance.",
-    Icon: Clock3,
-    bgClass: "bg-[#EEF3FF]",
-    iconColorClass: "text-[#909CB7]",
-    titleColorClass: "text-[#1C2433]",
-    bodyColorClass: "text-[#9AA7BC]",
-  },
-  {
-    title: "Accept any currency",
-    description:
-      "GBP, USD, EUR, GHC. Your clients pay in theirs, you receive in yours.",
-    Icon: Banknote,
-    bgClass: "bg-[#23284F]",
-    iconColorClass: "text-white/75",
-    titleColorClass: "text-white",
-    bodyColorClass: "text-white/70",
+    Icon: FileCheck2,
+    text: "When a payment lands, Syka checks it against your open invoices and marks the right one paid. If nothing matches, you're prompted to link it yourself.",
   },
 ];
 
-const steps: Step[] = [
+const remindersPoints: Point[] = [
   {
-    title: "Create your invoice",
-    description:
-      "Add client, line items, and due date. Done in under a minute.",
+    Icon: RotateCw,
+    text: "Set an invoice to repeat on a schedule for clients you bill regularly, and let it run without recreating it each time.",
   },
   {
-    title: "Share a payment link",
-    description: "Email it or share a link. No sign-up needed on their end.",
+    Icon: Share2,
+    text: "Every invoice, every payment, every reference, exportable in full for your own books or for whoever manages them.",
+  },
+];
+
+const backAndForthPoints: Point[] = [
+  {
+    Icon: CircleUserRound,
+    text: "Add your client, your line items, and the currency. Syka fills in your account details automatically.",
   },
   {
-    title: "Funds hit your wallet",
-    description: "Auto-reconciled. No manual matching, no admin.",
+    Icon: Send,
+    text: "Email it directly from Syka, or download a PDF to send however you prefer.",
+  },
+  {
+    Icon: FileCheck2,
+    text: "Syka matches the incoming payment to the invoice and lets you know the moment it lands.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "Can I invoice in a currency I don't yet hold an account in?",
+    answer: "",
+  },
+  {
+    question: "What happens if a client only pays part of an invoice?",
+    answer: "The invoice is marked partly paid, showing exactly how much has arrived and how much remains outstanding.",
+  },
+  {
+    question: "Can I set up an invoice to repeat automatically?",
+    answer: "",
+  },
+  {
+    question: "Will my client see any Syka branding?",
+    answer: "",
+  },
+  {
+    question: "Can I still download a PDF if I want to send it myself?",
+    answer: "",
   },
 ];
 
 export default function InvoicingPage() {
   return (
     <>
-      <ProductHeroShell
-        eyebrow="INVOICING"
-        title="Get Paid Faster. Globally"
-        description="Create professional invoices, track payments in real time, and accept global payments without friction."
-        ctaLabel="Create Invoice"
-      >
-        <div className="mx-auto h-[430px] w-full max-w-[700px] sm:h-[560px] lg:h-[680px] lg:max-w-[840px]">
-          <Lottie
-            animationData={InvoicingAnimation}
-            loop
-            className="h-full w-full"
-          />
+      <section className="product-hero product-hero-cream">
+        <div className={`${CONTENT} product-hero-inner`}>
+          <Reveal className="product-hero-copy">
+            <p>Invoicing</p>
+            <h1>Invoice the world, and get paid without follow-up</h1>
+            <p className="product-hero-description">
+              Send professional invoices with your international account details built in, and let incoming payments match themselves against what&apos;s outstanding.
+            </p>
+            <button className={CTA_BUTTON_CLASS}>{CTA_LABEL}</button>
+          </Reveal>
         </div>
-      </ProductHeroShell>
+      </section>
 
-      <section className="px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-32 xl:px-0">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="w-full text-center lg:text-left">
-            <h2 className="mobile-section-title w-full text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
-              Get Paid On Your <span className="text-xenon">Terms</span>
-            </h2>
-          </div>
+      <div className={`${CONTENT} flex justify-center`}>
+        <CompaniesMarquee />
+      </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
-            {featureCards.map((card) => (
-              <article
-                key={card.title}
-                className={`flex min-h-[240px] flex-col items-center rounded-[22px] p-8 text-center md:items-start md:p-10 md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-10 ${card.bgClass}`}
-              >
-                <div
-                  className={`inline-flex size-10 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}
-                >
-                  <card.Icon className="size-4 lg:size-5" strokeWidth={2.2} />
-                </div>
-                <h3
-                  className={`mt-8 w-full text-xl leading-snug font-semibold md:text-2xl lg:text-[32px] lg:leading-[1.08] ${card.titleColorClass}`}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  className={`mt-4 w-full text-base leading-relaxed md:text-lg lg:leading-[1.75] ${card.bodyColorClass}`}
-                >
-                  {card.description}
-                </p>
-              </article>
-            ))}
-          </div>
+      {/* Invoicing and payment collection in one step */}
+      <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
+        <Reveal className="max-w-[845px]">
+          <h2 className="product-section-title">
+            Invoicing and payment collection in one step
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-6 lg:text-xl lg:leading-[1.55]">
+            Syka Invoices carries the correct account details for the currency you&apos;re billing. When payment arrives, Syka matches it to the invoice automatically. No manual reconciliation, no chasing.
+          </p>
+        </Reveal>
 
-          <div className="mt-16 grid gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:gap-24 xl:gap-28">
-            <div className="mx-auto w-full text-center lg:mx-0 lg:max-w-[560px] lg:text-left">
-              <p className="mobile-eyebrow text-[#9AA8BA] lg:text-[14px] lg:tracking-[0.2em]">
-                How It Works
-              </p>
-              <h3 className="mobile-section-title mt-4 text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
-                Create, Send,
-                <br />
-                &amp; Get <span className="text-xenon">Paid.</span>
-              </h3>
+        <div className="product-feature-row">
+          <Reveal>
+            <h3 className="product-feature-title">
+              Your details, already attached
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-[#8893A4] md:text-xl lg:mt-5 lg:leading-[1.4]">
+              Every invoice is generated with the correct virtual account details for its currency, drawn directly from your Syka account. There is nothing extra to send.
+            </p>
+            <PointList points={detailsPoints} />
+          </Reveal>
+          <Reveal className="order-first xl:order-last">
+            <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+          </Reveal>
+        </div>
 
-              <div className="mx-auto mt-8 max-w-[520px] space-y-6 text-left lg:mx-0 lg:mt-10 lg:max-w-none lg:space-y-6">
-                {steps.map((step, index) => (
-                  <div key={step.title} className="flex items-start gap-4 lg:gap-5">
-                    <div className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-xenon text-[11px] font-semibold text-white lg:size-7 lg:text-[13px]">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <p className="text-lg leading-snug font-medium text-[#42536A] md:text-xl lg:text-[24px] lg:leading-[1.25]">
-                        {step.title}
-                      </p>
-                      <p className="mt-2 max-w-[490px] text-base leading-relaxed text-[#9AA7BC] md:text-lg lg:leading-[1.7]">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+        <div className="product-feature-row product-feature-row-reverse">
+          <Reveal>
+            <ContourImageBox flip className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+          </Reveal>
+          <Reveal>
+            <h3 className="product-feature-title">
+              Automated Reminders
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-[#8893A4] md:text-xl lg:mt-5 lg:leading-[1.4]">
+              Automatic notices before and after the due date, so an overdue invoice does not depend on you remembering to chase it.
+            </p>
+            <PointList points={remindersPoints} />
+          </Reveal>
+        </div>
+      </section>
 
-              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:text-lg">
-                Create Invoice
+      {/* Get paid without the back and forth */}
+      <section className="product-panel">
+        <div aria-hidden className="absolute top-0 right-1/2 bottom-0 left-1/2 -z-10 -mr-[50vw] -ml-[50vw] w-screen bg-[#FCFBF1]" />
+        <div className={CONTENT}>
+          <div className="product-feature-row">
+            <Reveal>
+              <h2 className="product-section-title">
+                Get paid without the back and forth.
+              </h2>
+              <PointList points={backAndForthPoints} />
+              <button className={CTA_BUTTON_CLASS}>
+                {CTA_LABEL}
               </button>
-            </div>
-
-            <div className="flex w-full justify-center lg:justify-end">
-              <Image
-                src={Invoicing}
-                alt="invoicing-screenshot"
-                width={720}
-                height={560}
-                sizes="(max-width: 1023px) 100vw, 720px"
-                className="w-full max-w-[620px] rounded-[22px] shadow-[0_20px_45px_rgba(61,71,86,0.12)] lg:max-w-[720px] lg:rounded-[30px]"
-              />
-            </div>
+            </Reveal>
+            <Reveal className="order-first xl:order-last">
+              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+            </Reveal>
           </div>
         </div>
       </section>
+
+      {/* Built for the way service businesses bill */}
+      <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
+        <div className="product-use-case">
+          <Reveal>
+            <div className="relative aspect-[608/512] w-full overflow-hidden rounded-2xl">
+              <Image
+                src={InvoicingUseCase}
+                alt="Colleagues celebrating a payment received"
+                fill
+                sizes="(max-width: 1023px) 100vw, 608px"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+          <Reveal className="lg:pl-10">
+            <h2 className="mobile-section-title max-w-[380px] text-xenon-gray lg:text-[32px] lg:leading-[1.25]">
+              Built for the way service businesses bill
+            </h2>
+            <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
+              Agencies bill international clients without a second system. Exporters keep payment terms and shipments connected. Freelancers send an invoice abroad and get paid, and reconciled as simply as one sent across town.
+            </p>
+            <button className={CTA_BUTTON_CLASS}>
+              {CTA_LABEL}
+            </button>
+          </Reveal>
+        </div>
+      </section>
+
+      <CustomerTestimonials />
+
+      <MarketingCTA
+        variant="business"
+        heading="Send your next invoice properly"
+        description="Create an invoice that already carries your account details, and let the payment find its way home on its own."
+      />
+
+      <FrequentlyAskedQuestions variant="business" items={faqItems} />
     </>
   );
 }

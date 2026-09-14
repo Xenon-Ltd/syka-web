@@ -3,7 +3,9 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { GH, NG, GB, US, MORE } from "@/assets/icons/countries";
-import { AppStoreBadgeIcon, PlayStoreBadgeIcon } from "@/assets/icons";
+import StoreBadges from "@/components/business/store-badges";
+import BusinessAction from "@/components/business/business-action";
+import { businessLinks } from "@/lib/business-links";
 import { PhoneWithFrame } from "@/assets/images";
 import { motion, useInView } from "framer-motion";
 import {
@@ -22,22 +24,22 @@ function Hero() {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-4 max-w-[1440px] px-5 py-4 sm:px-6 md:py-24 lg:mt-0 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-0 lg:py-28"
+      className="mx-auto w-full max-w-[1168px] px-5 pt-10 pb-16 sm:px-6"
     >
-      <div className="mt-0 flex flex-col items-center justify-between gap-10 lg:mt-0 lg:flex-row lg:items-center lg:gap-24">
+      <div className="personal-hero-row">
         {/* Text side — staggered children */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="w-full text-center lg:w-[620px] lg:text-left"
+          className="w-full text-center xl:text-left"
         >
           <motion.div
             variants={fadeIn}
-            className="mobile-meta flex items-center justify-center gap-3 text-[#6A7284] sm:text-base lg:justify-start lg:gap-5 lg:text-[20px]"
+            className="flex items-center justify-center gap-4 text-[#8893A4] text-lg leading-[22px] xl:justify-start"
           >
             <p>Available in</p>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1">
               {countryFlags.map((src, index) => (
                 <Image
                   key={index}
@@ -45,39 +47,38 @@ function Hero() {
                   alt="country-flag"
                   width={24}
                   height={24}
-                  className="size-6 lg:size-8"
+                  className="size-6 lg:size-9"
                 />
               ))}
             </div>
           </motion.div>
 
-          <div className="mt-5">
+          <div className="mt-8">
             <motion.h1
               variants={fadeUp}
-              className="mx-auto max-w-[470px] text-5xl leading-[1.1] font-semibold tracking-tight text-[#121733] md:text-[54px] lg:mx-0 lg:max-w-[620px] lg:text-[62px]"
+              className="personal-hero-title mx-auto text-xenon-gray"
             >
-              Send Money <span className="text-xenon">Globally,</span> Without
+              Send Money <span className="text-xenon-brand">Globally</span>,<br className="hidden xl:block" /> Without
               the heavy fees.
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
-              className="mx-auto mt-4 max-w-[420px] text-lg leading-relaxed text-[#4E576A] md:text-[20px] lg:mx-0 lg:mt-6 lg:max-w-[560px] lg:text-[20px]"
+              className="mx-auto mt-6 max-w-[547px] text-xl leading-[31px] text-[#8893A4] xl:mx-0"
             >
-              Go beyond transfers spend, receive, and manage your global
-              business with virtual accounts &amp; cards.
+              Syka is payment infrastructure built for African entrepreneurs to send, receive, and store value globally using stablecoins instantly, cheaply, and without discrimination.
             </motion.p>
 
             <motion.div
               variants={fadeUp}
-              className="mt-7 flex flex-col justify-center gap-3 md:flex-row lg:mt-10 lg:gap-5 lg:justify-start"
+              className="mt-8 flex flex-col justify-center gap-4 sm:flex-row xl:justify-start xl:h-[54px] xl:items-start"
             >
-              <button className="w-full rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:w-fit lg:text-lg">
-                Get Started
-              </button>
-              <button className="w-full rounded-lg border border-[#C6D5E3] px-8 py-4 text-base font-semibold text-[#31435D] transition-colors duration-200 hover:bg-[#F5F8FC] sm:w-fit lg:text-lg">
+              <BusinessAction href={businessLinks.signup} className="min-h-12 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] sm:w-fit">
+                Get Started for free
+              </BusinessAction>
+              <BusinessAction href="/#how-it-works" className="min-h-12 w-full rounded-lg border border-[#D0ECFF] px-6 py-3 text-sm font-semibold text-xenon-sky hover:bg-[#F5F8FC] sm:w-fit">
                 See How It Works
-              </button>
+              </BusinessAction>
             </motion.div>
           </div>
         </motion.div>
@@ -87,7 +88,7 @@ function Hero() {
           initial={{ opacity: 0, x: 40 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.15 }}
-          className="relative w-full lg:w-[620px]"
+          className="relative mx-auto w-full max-w-[425px]"
         >
           <Image
             src={PhoneWithFrame}
@@ -96,7 +97,7 @@ function Hero() {
             sizes="(max-width: 1280px) 100vw, 600px"
             placeholder="blur"
             priority
-            className="relative z-10 w-full max-w-[480px] lg:ml-auto lg:max-w-[600px]"
+            className="relative z-10 w-full xl:h-[545px] object-contain"
           />
         </motion.div>
       </div>
@@ -106,36 +107,15 @@ function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.4 }}
-        className="mt-16 flex flex-col items-center text-center lg:mt-28"
+        className="personal-hero-tagline flex flex-col items-center text-center"
       >
-        <p className="text-3xl leading-tight font-semibold text-[#121733] md:text-[36px] lg:max-w-[980px] lg:text-[40px] lg:leading-[1.08]">
-          Move Digital Dollars Across Borders In Minutes
+        <p className="text-3xl font-bold text-xenon-gray md:text-[36px] lg:text-[40px] lg:leading-[52px]">
+          Moves digital dollars across borders in minutes
         </p>
-        <p className="mt-2 px-2 text-base leading-relaxed text-[#677287] md:text-[20px] lg:mt-4 lg:text-[20px]">
-          Simple, fast and transparent global payments
+        <p className="mt-6 text-lg leading-[26px] text-[#8893A4]">
+          Simple, fast, and transparent global payments
         </p>
-        <div className="mt-5 flex items-center gap-3 lg:mt-8 lg:gap-5">
-          <button
-            aria-label="Google Play"
-            className="transition-transform duration-150"
-          >
-            <Image
-              src={PlayStoreBadgeIcon}
-              alt="google-play-badge"
-              className="h-10 w-[135px] lg:h-12 lg:w-[162px]"
-            />
-          </button>
-          <button
-            aria-label="App Store"
-            className="transition-transform duration-150"
-          >
-            <Image
-              src={AppStoreBadgeIcon}
-              alt="app-store-badge"
-              className="h-10 w-[135px] lg:h-12 lg:w-[162px]"
-            />
-          </button>
-        </div>
+        <StoreBadges className="mt-6" />
       </motion.div>
     </section>
   );

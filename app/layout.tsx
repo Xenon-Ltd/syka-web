@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { dmSans, lato } from "@/assets/font";
+import { dmSans, lato, poppins } from "@/assets/font";
 import { SykaOpenGraph } from "@/assets/images";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -31,10 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="w-screen overflow-x-clip">
+    <html lang="en" className={`${lato.variable} ${dmSans.variable} ${poppins.variable} overflow-x-clip`}>
       <body
         suppressHydrationWarning
-        className={`${lato.variable} ${dmSans.variable} antialiased`}
+        className="font-sans antialiased"
       >
         <Header />
         {children}

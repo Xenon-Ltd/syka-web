@@ -14,6 +14,8 @@ import Hero from "@/components/hero";
 import MoreThanTransfers from "@/components/more-than-transfers";
 import SocialProof from "@/components/social-proof";
 import SolutionsThatFit from "@/components/solutions-that-fit";
+import MarketingCTA from "@/components/marketing-cta";
+import FrequentlyAskedQuestions from "@/components/frequently-asked-questions";
 
 type HomePageProps = {
   searchParams?: Promise<{
@@ -35,8 +37,12 @@ export default async function Home({ searchParams }: HomePageProps) {
   const SelectedTopComponent =
     SelectedProductComponent ?? SelectedDeveloperComponent;
 
+  if (SelectedProductComponent) {
+    return <main className={`marketing-page product-page product-${selectedProduct}`}><SelectedProductComponent /></main>;
+  }
+
   return (
-    <main className="overflow-x-clip">
+    <main className={SelectedDeveloperComponent ? "overflow-x-clip" : "marketing-page personal-page"}>
       {SelectedTopComponent ? (
         <SelectedTopComponent />
       ) : (
@@ -49,8 +55,14 @@ export default async function Home({ searchParams }: HomePageProps) {
       )}
       <BuiltOnStability />
       <SolutionsThatFit />
-      <SocialProof headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
-      <CountriesSupported headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
+      <SocialProof headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[48px]" />
+      <CountriesSupported variant="personal" headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[50px]" />
+      {!SelectedTopComponent && (
+        <>
+          <MarketingCTA />
+          <FrequentlyAskedQuestions />
+        </>
+      )}
     </main>
   );
 }

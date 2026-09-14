@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./reconciliation.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,8 +9,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-lato);
-  --font-lato: var(--font-lato);
-  --font-dmSans: var(--font-dmSans);
+  --font-poppins: var(--font-poppins);
   --font-mono: var(--font-geist-mono);
   --text-4\.5xl: 2.5rem;
   --text-5\.5xl: 3.5rem;
@@ -189,15 +189,15 @@
   .mobile-hero-title {
     font-size: 3rem;
     line-height: 1.1;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: 0;
   }
 
   .mobile-section-title {
     font-size: 1.875rem;
     line-height: 1.15;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: 0;
   }
 
   .mobile-card-title {

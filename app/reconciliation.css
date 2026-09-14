@@ -1,0 +1,73 @@
+/* 1512px desktop reference. The page owns gaps between its sections. */
+.marketing-page { display: flex; flex-direction: column; gap: 64px; padding-bottom: 64px; overflow-x: clip; color: #3d4756; }
+.marketing-page > section { width: 100%; padding-block: 0; }
+.marketing-page > section > :first-child { min-width: 0; }
+.product-section-title, .product-feature-title { font-size: 30px; line-height: 1.2; font-weight: 700; color: #3d4756; }
+.product-feature-row { display: grid; align-items: center; gap: 40px; margin-top: 64px; }
+.product-panel { position: relative; isolation: isolate; background: #fcfbf1; }
+.marketing-page > .product-panel { padding-block: 60px; }
+.product-use-case { display: grid; align-items: center; gap: 40px; }
+.product-hero { position: relative; isolation: isolate; padding-block: 40px; }
+.product-hero-inner { display: grid; align-items: center; gap: 48px; }
+.product-hero-copy { width: 100%; max-width: 547px; margin-inline: auto; text-align: center; }
+.product-hero-copy h1 { margin-top: 24px; font-size: 48px; line-height: 1.14; font-weight: 700; }
+.product-hero-copy > p:first-child { font-size: 18px; line-height: 22px; text-transform: uppercase; color: #8893a4; }
+.product-hero-description { margin-top: 24px; font-size: 20px; line-height: 31.2px; color: #8893a4; }
+.product-hero-copy button { margin-top: 24px; }
+.product-hero-cream::before { content: ""; position: absolute; inset: -40px 0 0; z-index: -1; background: #fcfbf1; }
+.product-hero-visual { width: 100%; min-width: 0; max-width: 608px; margin-inline: auto; }
+.marketing-cta-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 64px 24px; min-height: 420px; }
+.marketing-cta-title { font-size: 36px; font-weight: 700; line-height: 1.15; }
+.marketing-cta-description { max-width: 551px; font-size: 20px; line-height: 28px; color: #f7f7f7; }
+.marketing-cta-panel > :last-child { margin-top: 23px; }
+.faq-title { max-width: 516px; font-size: 36px; line-height: 1.2; font-weight: 700; }
+.faq-question { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 28px; font-size: 20px; line-height: 1.3; font-weight: 500; }
+.faq-answer { padding-bottom: 32px; max-width: 989px; font-size: 18px; line-height: 1.4; color: #3d4756; }
+.personal-hero-row { display: grid; align-items: center; gap: 40px; }
+.personal-hero-title { max-width: 673px; font-size: 48px; font-weight: 700; line-height: 1.15; }
+.personal-hero-tagline { margin-top: 64px; }
+.stability-row { display: grid; align-items: center; gap: 40px; }
+
+@media (min-width: 768px) {
+  .marketing-page { gap: 96px; padding-bottom: 96px; }
+  .product-section-title, .product-feature-title { font-size: 44px; }
+}
+
+@media (min-width: 1280px) {
+  .marketing-page { gap: 150px; padding-bottom: 150px; }
+  .personal-page { padding-top: 22px; }
+  .business-page { padding-top: 48px; }
+  .product-virtual-card { margin-top: -97px; }
+  .product-invoicing { margin-top: -90px; }
+  .product-hero-inner { min-height: 775px; grid-template-columns: 547px 608px; justify-content: space-between; gap: 32px; }
+  .product-hero-cream .product-hero-inner { min-height: 721px; }
+  .product-hero-cream::before { top: -89px; bottom: -41px; }
+  .product-hero-copy { margin: 0; text-align: left; }
+  .product-hero-copy h1 { font-size: 62px; line-height: 70.6px; }
+  .product-hero-description { max-width: 507px; }
+  .product-hero-cream .product-hero-description { max-width: 547px; }
+  .product-hero-cream .product-hero-copy h1, .product-hero-cream .product-hero-copy button { margin-top: 32px; }
+  .product-feature-row { grid-template-columns: 532px 608px; gap: 80px; margin-top: 100px; }
+  .product-feature-row-reverse { grid-template-columns: 608px 532px; }
+  .product-panel .product-feature-row { margin-top: 0; min-height: 711px; }
+  .product-use-case { grid-template-columns: 608px 1fr; gap: 40px; min-height: 512px; }
+  .product-use-case > :last-child { padding-left: 80px; }
+  .product-section-title, .product-feature-title { font-size: 62px; line-height: 72px; }
+  .product-page .product-feature-row > div > p { font-size: 24px; line-height: 26px; margin-top: 24px; }
+  .marketing-cta-panel { min-height: 555px; padding: 80px; }
+  .product-page .marketing-cta-panel { min-height: 516px; }
+  .marketing-cta-title { font-size: 62px; line-height: 70px; }
+  .faq-title { font-size: 62px; line-height: 72px; }
+  .faq-question { min-height: 112px; padding-block: 36px; font-size: 30px; line-height: 40px; }
+  .faq-answer { font-size: 20px; line-height: 28px; }
+  .personal-hero-row { min-height: 721px; grid-template-columns: 673px 425px; gap: 22px; }
+  .personal-hero-title { font-size: 62px; line-height: 80.6px; }
+  .personal-hero-tagline { margin-top: 150px; }
+  .marketing-page > .personal-value { padding-block: 66px; }
+  .personal-how { min-height: 580px; }
+  .stability-row { grid-template-columns: 608px 532px; gap: 80px; min-height: 515px; }
+  .stability-row-reverse { grid-template-columns: 532px 608px; }
+  .business-page #solutions > div { padding-top: 228px; padding-bottom: 255px; }
+  .business-page #solutions .institution-section { margin-top: 120px; }
+  .business-page #platform .platform-row { min-height: 470px; }
+}

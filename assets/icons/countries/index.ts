@@ -23,3 +23,6 @@ export { default as VN } from "./VN.svg";
 export { default as US } from "./US.svg";
 export { default as CN } from "./CN.svg";
 export { default as MORE } from "./MORE.svg";
+export { default as KE } from "./KE.svg";
+export { default as AU } from "./AU.svg";
+export { default as CA } from "./CA.svg";

@@ -1,83 +1,98 @@
 "use client";
 
-import TreasuryAnimation from "@/assets/lottie-files/Treasury.json";
+import { TreasuryHero, TreasuryUseCase } from "@/assets/images";
 import {
-  ArrowUpRight,
+  ArrowLeftRight,
+  BellRing,
   Coins,
-  Rows3,
-  ShieldCheck,
-  type LucideIcon,
+  Lock,
+  PiggyBank,
+  RefreshCw,
+  TrendingUp,
 } from "lucide-react";
-import Lottie from "lottie-react";
+import Image from "next/image";
+import CustomerTestimonials from "../customer-testimonials";
+import FrequentlyAskedQuestions from "../frequently-asked-questions";
+import MarketingCTA from "../marketing-cta";
+import CompaniesMarquee from "../business/companies-marquee";
 import ProductHeroShell from "./product-hero-shell";
+import {
+  AvailableCountries,
+  CONTENT,
+  ContourImageBox,
+  CTA_BUTTON_CLASS,
+  PointList,
+  Reveal,
+  type Point,
+} from "./shared";
 
-type FeatureCard = {
-  title: string;
-  description: string;
-  Icon: LucideIcon;
-  bgClass: string;
-  iconColorClass: string;
-  titleColorClass: string;
-  bodyColorClass: string;
-};
+const CTA_LABEL = "Get started with SYKA";
 
-type SavingsPoint = {
-  text: string;
-};
-
-type MetricCard = {
-  label: string;
-  value: string;
-  badge: string;
-};
-
-const featureCards: FeatureCard[] = [
+const schedulePoints: Point[] = [
   {
-    title: "4-6% yield on idle balances",
-    description: "USDC and USDT earn automatically while waiting to pay suppliers.",
-    Icon: ArrowUpRight,
-    bgClass: "bg-[#2C7FC0]",
-    iconColorClass: "text-white/75",
-    titleColorClass: "text-white",
-    bodyColorClass: "text-white/75",
+    Icon: ArrowLeftRight,
+    text: "Keep balances in dollar-denominated stablecoin, while still being able to convert and spend whenever you need to.",
   },
   {
-    title: "FX rate locking",
-    description: "Lock today's rate for next month's payment. Stop bleeding to daily swings.",
+    Icon: ArrowLeftRight,
+    text: "Enable yield on funds sitting idle between transactions, every balance remains available for withdrawal at any time.",
+  },
+];
+
+const forecastPoints: Point[] = [
+  {
+    Icon: BellRing,
+    text: "Set a target rate and be notified the moment it's reached.",
+  },
+  {
+    Icon: Lock,
+    text: "Funds remain yours throughout, and a withdrawal request is typically available within twenty-four to forty-eight hours.",
+  },
+  {
+    Icon: RefreshCw,
+    text: "Every payment is logged automatically, with a full statement available to download whenever you need it.",
+  },
+];
+
+const yieldPoints: Point[] = [
+  {
+    Icon: PiggyBank,
+    text: "Eligible balances enrolled are deployed to established, audited lending protocols.",
+  },
+  {
+    Icon: TrendingUp,
+    text: "Generated return is credited back to your balance after a performance fee.",
+  },
+  {
     Icon: Coins,
-    bgClass: "bg-[#D8F3EF]",
-    iconColorClass: "text-[#61B3AC]",
-    titleColorClass: "text-[#41526B]",
-    bodyColorClass: "text-[#6B8298]",
+    text: "While the underlying protocols are selected for their track record and security, no return is ever guaranteed.",
   },
   {
-    title: "Bulk payments in minutes",
-    description: "Upload a CSV. Pay 50 suppliers across 3 currencies before lunch.",
-    Icon: Rows3,
-    bgClass: "bg-[#23284F]",
-    iconColorClass: "text-white/75",
-    titleColorClass: "text-white",
-    bodyColorClass: "text-white/70",
+    Icon: Lock,
+    text: "Funds remain yours throughout, and a withdrawal request is typically available within twenty-four to forty-eight hours.",
   },
 ];
 
-const savingsPoints: SavingsPoint[] = [
-  { text: "Save percentages on FX by converting smart" },
-  { text: "Earn yield on average $15k idle" },
-  { text: "Save 55 hours/yr on payment admin" },
-  { text: "Zero missed supplier payments" },
-];
-
-const metricCards: MetricCard[] = [
+const faqItems = [
   {
-    label: "Yield Earned MTD",
-    value: "$412",
-    badge: "5.1% APY",
+    question: "Is my money safe if I enable yield?",
+    answer: "Funds are deployed to established, independently audited protocols, but as with any yield-generating product, there is no guarantee against loss. We recommend enabling yield only for balances you are comfortable holding in this way.",
   },
   {
-    label: "FX Savings MTD",
-    value: "$3,190",
-    badge: "4.2% saved",
+    question: "Can I withdraw at any time?",
+    answer: "Yes. There is no lock-up period. Withdrawal requests are typically available within twenty-four to forty-eight hours.",
+  },
+  {
+    question: "Is this the same as trading cryptocurrency?",
+    answer: "No. You are not buying, selling, or speculating on any asset. Your balance is held in dollar-denominated stablecoin and, if you choose, deployed to generate a return — you interact with it entirely in ordinary currency terms.",
+  },
+  {
+    question: "What if the exchange rate moves against me while I'm waiting for a target rate?",
+    answer: "Nothing happens until your target is reached. If it never is, your order simply expires and no conversion takes place.",
+  },
+  {
+    question: "Do I need a minimum balance to use treasury tools?",
+    answer: "No minimum balance is required to use conversion tools. Yield eligibility depends on your account's verification tier.",
   },
 ];
 
@@ -85,131 +100,131 @@ export default function TreasuryManagementPage() {
   return (
     <>
       <ProductHeroShell
-        eyebrow="TREASURY MANAGEMENT"
-        title="Manage Your Fund Like a CFO"
-        description="Monitor balances, optimize liquidity, and protect your funds with powerful treasury tools built for modern businesses."
-        ctaLabel="Get started with SYKA"
+        eyebrow="Treasury Management"
+        title="Put your business's money to work, on your own terms"
+        description="Decide when to convert, protect what you hold against currency depreciation, and earn on balances that would otherwise sit idle between transactions."
+        ctaLabel={CTA_LABEL}
       >
-        <div className="mx-auto h-[430px] w-full max-w-[700px] sm:h-[560px] lg:h-[680px] lg:max-w-[840px]">
-          <Lottie
-            animationData={TreasuryAnimation}
-            loop
-            className="h-full w-full"
-          />
+        <div className="relative aspect-square w-full max-w-[608px] overflow-hidden rounded-2xl">
+          <div className="absolute top-[-12.73%] left-[-33.5%] h-[125.46%] w-[167%]">
+            <Image
+              src={TreasuryHero}
+              alt="Business owner reviewing treasury balances on a laptop"
+              fill
+              sizes="(max-width: 1023px) 100vw, 608px"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </ProductHeroShell>
 
-      <section className="px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:items-center lg:py-32 xl:px-0">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="w-full text-center lg:text-left">
-            <h2 className="mobile-section-title w-full text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
-              Pay Anyone <span className="text-xenon">Anywhere</span>
-            </h2>
-          </div>
+      <div className={`${CONTENT} flex justify-center`}>
+        <CompaniesMarquee />
+      </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
-            {featureCards.map((card) => (
-              <article
-                key={card.title}
-                className={`flex min-h-[240px] flex-col items-center rounded-[22px] p-8 text-center md:items-start md:p-10 md:text-left lg:min-h-[320px] lg:rounded-[28px] lg:p-10 ${card.bgClass}`}
-              >
-                <div
-                  className={`inline-flex size-10 items-center justify-center rounded-xl border border-white/40 bg-white/20 lg:size-12 ${card.iconColorClass}`}
-                >
-                  <card.Icon className="size-4 lg:size-5" strokeWidth={2.2} />
-                </div>
-                <h3
-                  className={`mt-8 w-full text-xl leading-snug font-semibold md:text-2xl lg:text-[32px] lg:leading-[1.08] ${card.titleColorClass}`}
-                >
-                  {card.title}
-                </h3>
-                <p
-                  className={`mt-4 w-full text-base leading-relaxed md:text-lg lg:leading-[1.75] ${card.bodyColorClass}`}
-                >
-                  {card.description}
-                </p>
-              </article>
-            ))}
-          </div>
+      {/* Idle money is not neutral */}
+      <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
+        <Reveal className="max-w-[845px]">
+          <h2 className="product-section-title">
+            Idle money is not neutral
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-6 lg:text-xl lg:leading-[1.55]">
+            Syka bridges the gap between losing to depreciation and losing to a bad rate. Your idle balances earn yield while you wait, and you convert when the rate works for you, not when a payment forces your hand.
+          </p>
+        </Reveal>
 
-          <div className="mt-16 grid items-center gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
-            <div className="mx-auto w-full text-center lg:mx-0 lg:max-w-[500px] lg:text-left">
-              <p className="mobile-eyebrow text-[#9AA8BA] lg:text-[14px] lg:tracking-[0.2em]">
-                The Numbers
-              </p>
-              <h3 className="mobile-section-title mt-4 text-[#42536A] md:text-4xl lg:text-5xl lg:leading-[1.02]">
-                $44,750 Saved
-                <br />
-                <span className="text-xenon">Per Year</span>
-              </h3>
+        <div className="product-feature-row">
+          <Reveal>
+            <h3 className="product-feature-title">
+              Convert on your own schedule
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-[#8893A4] md:text-xl lg:mt-5 lg:leading-[1.4]">
+              Set a target exchange rate, or spread a conversion gradually across days or weeks, and Syka converts automatically the moment it&apos;s reached.
+            </p>
+            <PointList points={schedulePoints} />
+          </Reveal>
+          <Reveal className="order-first xl:order-last">
+            <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+          </Reveal>
+        </div>
 
-              <ul className="mx-auto mt-7 max-w-[340px] space-y-3.5 text-left lg:mx-0 lg:mt-9 lg:max-w-none lg:space-y-4">
-                {savingsPoints.map((point) => (
-                  <li key={point.text} className="flex items-start gap-3 lg:gap-4">
-                    <span className="mt-[7px] inline-flex size-2 shrink-0 rounded-full bg-xenon lg:mt-[10px] lg:size-2.5" />
-                    <span className="text-base leading-relaxed text-[#96A5B6] md:text-lg lg:leading-[1.7]">
-                      {point.text}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+        <div className="product-feature-row product-feature-row-reverse">
+          <Reveal className="order-first">
+            <ContourImageBox flip className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+          </Reveal>
+          <Reveal>
+            <h3 className="product-feature-title">
+              See what&apos;s coming before it arrives
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-[#8893A4] md:text-xl lg:mt-5 lg:leading-[1.4]">
+              Cash flow projections built from your own transaction history, so decisions about when to convert are based on where your balance is heading.
+            </p>
+            <PointList points={forecastPoints} />
+          </Reveal>
+        </div>
+      </section>
 
-              <button className="mt-8 mx-auto block w-fit rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mx-0 lg:mt-10 lg:text-lg">
-                Get started with SYKA
+      {/* How Treasury Management works */}
+      <section className="product-panel">
+        <div aria-hidden className="absolute top-0 right-1/2 bottom-0 left-1/2 -z-10 -mr-[50vw] -ml-[50vw] w-screen bg-[#FCFBF1]" />
+        <div className={CONTENT}>
+          <div className="product-feature-row">
+            <Reveal>
+              <h2 className="product-section-title">
+                How Treasury Management works
+              </h2>
+              <PointList points={yieldPoints} />
+              <button className={CTA_BUTTON_CLASS}>
+                {CTA_LABEL}
               </button>
-            </div>
-
-            <div className="w-full max-w-[560px] rounded-[18px] bg-[#2C7FC0] p-8 text-white shadow-[0_20px_45px_rgba(27,98,160,0.22)] md:p-10 lg:max-w-none lg:rounded-[30px] lg:p-10">
-              <p className="text-sm font-semibold tracking-[0.12em] text-white/75 uppercase lg:text-[14px] lg:tracking-[0.18em]">
-                Treasury Overview
-              </p>
-
-              <div className="mt-5 rounded-[14px] bg-white/10 px-5 py-4 lg:mt-8 lg:rounded-[18px] lg:px-6 lg:py-5">
-                <p className="text-xs text-white/70 lg:text-[13px]">Total Balance (USD Eq.)</p>
-                <p className="mt-2 text-[36px] leading-none font-semibold text-white lg:text-[46px]">
-                  $148,320
-                </p>
-                <p className="mt-2 text-xs text-white/65 lg:text-[13px]">
-                  +$3,210 this month
-                </p>
-              </div>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:mt-5 lg:gap-4">
-                {metricCards.map((metric) => (
-                  <div
-                    key={metric.label}
-                    className="rounded-[14px] bg-white/10 px-5 py-4 lg:rounded-[18px] lg:px-6 lg:py-5"
-                  >
-                    <p className="text-xs text-white/70 lg:text-[13px]">{metric.label}</p>
-                    <p className="mt-2 text-[32px] leading-none font-semibold text-white lg:text-[40px]">
-                      {metric.value}
-                    </p>
-                    <div className="mt-3">
-                      <span className="inline-flex rounded-full bg-[#D7FFF0] px-2.5 py-1 text-xs font-semibold text-[#1D9766] lg:px-3 lg:py-1.5 lg:text-[12px]">
-                        {metric.badge}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 lg:mt-6 lg:rounded-[18px] lg:px-5 lg:py-4">
-                <div className="inline-flex size-9 items-center justify-center rounded-xl bg-white/14 lg:size-11">
-                  <ShieldCheck className="size-4 text-white/75 lg:size-5" strokeWidth={2.2} />
-                </div>
-                <div>
-                  <p className="text-[13px] font-medium text-white lg:text-[18px]">
-                    Risk-managed treasury
-                  </p>
-                  <p className="mt-1 text-xs text-white/65 lg:text-[13px] lg:leading-[1.6]">
-                    Monitor, convert, and deploy balances from one controlled dashboard.
-                  </p>
-                </div>
-              </div>
-            </div>
+            </Reveal>
+            <Reveal className="order-first xl:order-last">
+              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+            </Reveal>
           </div>
         </div>
       </section>
+
+      {/* Manage your business across borders */}
+      <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
+        <div className="product-use-case">
+          <Reveal>
+            <div className="relative aspect-[608/512] w-full overflow-hidden rounded-2xl">
+              <Image
+                src={TreasuryUseCase}
+                alt="Business owners reviewing finances over coffee"
+                fill
+                sizes="(max-width: 1023px) 100vw, 608px"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+          <Reveal className="lg:pl-10">
+            <h2 className="mobile-section-title max-w-[420px] text-xenon-gray lg:text-[32px] lg:leading-[1.25]">
+              Manage your business across borders
+            </h2>
+            <p className="mt-4 max-w-[380px] text-base leading-relaxed text-[#8893A4] md:text-lg lg:mt-5 lg:text-xl lg:leading-[1.4]">
+              Importers hold reserves ahead of a payment, exporters spread large conversions to avoid volatility. Any business earning in one currency and spending in another needs to manage that gap deliberately.
+            </p>
+            <button className={CTA_BUTTON_CLASS}>
+              {CTA_LABEL}
+            </button>
+          </Reveal>
+        </div>
+      </section>
+
+      <CustomerTestimonials />
+
+      <AvailableCountries />
+
+      <MarketingCTA
+        variant="business"
+        heading="Manage your money the way a treasury desk would"
+        description="Start by seeing exactly where your balances stand, and decide from there what deserves to be converted, protected, or put to work."
+      />
+
+      <FrequentlyAskedQuestions variant="business" items={faqItems} />
     </>
   );
 }

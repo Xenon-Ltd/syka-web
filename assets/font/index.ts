@@ -1,4 +1,4 @@
-import { DM_Sans, Lato } from "next/font/google";
+import { DM_Sans, Lato, Poppins } from "next/font/google";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -12,4 +12,6 @@ const dmSans = DM_Sans({
   variable: "--font-dmSans",
 });
 
-export { dmSans, lato };
+const poppins = Poppins({ subsets: ["latin"], weight: ["600"], variable: "--font-poppins" });
+
+export { dmSans, lato, poppins };

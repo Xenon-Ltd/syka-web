@@ -1,5 +1,6 @@
 "use client";
 
+import { WavyBackgroundDesign } from "@/assets/images";
 import { GH, NG, GB } from "@/assets/icons/countries";
 import Image, { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -64,7 +65,7 @@ function TestimonialCard({
 }) {
   return (
     <div
-      className={`flex min-h-[260px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-8 lg:min-h-[360px] lg:max-w-none lg:rounded-[28px] lg:p-10 ${className}`}
+      className={`flex min-h-[260px] w-full max-w-[350px] flex-col justify-between rounded-2xl bg-white p-8 lg:min-h-[320px] lg:max-w-none lg:rounded-2xl lg:p-8 ${className}`}
     >
       <div>
         <div className="mb-4 lg:mb-6">
@@ -73,16 +74,16 @@ function TestimonialCard({
             alt="country flag"
             width={44}
             height={44}
-            className="size-11 rounded-full border border-[#DEE5EF] lg:size-14"
+            className="size-11 rounded-full border border-[#DEE5EF] lg:size-11"
           />
         </div>
-        <p className="text-base leading-relaxed text-[#4D576C] md:text-lg lg:text-[20px] lg:leading-[1.75]">
+        <p className="text-base leading-relaxed text-[#4D576C] lg:text-lg lg:leading-relaxed">
           {testimonial.feedback}
         </p>
       </div>
-      <div className="mt-8 flex items-center gap-2 lg:mt-10 lg:gap-3">
+      <div className="mt-8 flex items-center gap-2 lg:mt-8 lg:gap-3">
         <div>
-          <p className="text-lg font-semibold text-[#121733] md:text-xl lg:text-[22px] lg:leading-[1.3]">
+          <p className="text-lg font-semibold text-[#121733] lg:text-lg lg:leading-[1.3]">
             {testimonial.name}
           </p>
           <p className="text-sm text-[#758198] lg:text-[16px]">
@@ -167,9 +168,10 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
   return (
     <section
       ref={ref}
-      className="bg-black py-16 md:py-24 lg:flex lg:min-h-[65vh] lg:items-center lg:bg-[#1E1A63] lg:py-32"
+      className="relative isolate overflow-hidden bg-xenon-primary py-16 md:py-20 lg:py-24"
     >
-      <div className="mx-auto max-w-[1440px] px-5 sm:px-6 lg:px-0">
+      <Image src={WavyBackgroundDesign} alt="" aria-hidden fill sizes="100vw" className="pointer-events-none -z-10 object-cover" />
+      <div className="mx-auto max-w-[1268px] px-5 sm:px-6">
         {/* Heading */}
         <motion.div
           variants={staggerContainer}
@@ -196,13 +198,13 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
-          className="relative hidden overflow-visible lg:mt-16 lg:block"
+          className="relative hidden overflow-visible lg:block"
         >
           <button
             onClick={goToPreviousDesktop}
             aria-label="Previous testimonials"
             disabled={desktopIndex === 0}
-            className="absolute top-1/2 left-0 z-30 inline-flex size-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 left-3 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronLeft size={22} />
           </button>
@@ -210,17 +212,17 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             onClick={goToNextDesktop}
             aria-label="Next testimonials"
             disabled={desktopIndex === desktopMaxIndex}
-            className="absolute top-1/2 right-0 z-30 inline-flex size-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 right-3 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronRight size={22} />
           </button>
 
-          <div className="overflow-visible px-18">
+          <div className="overflow-hidden">
             <div
               ref={desktopScrollerRef}
               className="[scrollbar-width:none] [-ms-overflow-style:none] overflow-x-auto overflow-y-visible scroll-smooth [&::-webkit-scrollbar]:hidden"
             >
-              <div className="flex gap-8 py-4">
+              <div className="flex gap-6 py-4">
                 {testimonials.map((testimonial, index) => (
                   <div
                     key={`${testimonial.name}-${index}`}
@@ -232,7 +234,7 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
                   >
                     <TestimonialCard
                       testimonial={testimonial}
-                      className="h-full max-w-none shadow-[0_24px_60px_rgba(9,14,39,0.26)] ring-1 ring-[#E7EDF6]"
+                      className="h-full max-w-none ring-1 ring-[#E7EDF6]"
                     />
                   </div>
                 ))}
@@ -287,14 +289,14 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             <button
               onClick={goToPreviousMobile}
               aria-label="Previous testimonial"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               onClick={goToNextMobile}
               aria-label="Next testimonial"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
             >
               <ChevronRight size={16} />
             </button>

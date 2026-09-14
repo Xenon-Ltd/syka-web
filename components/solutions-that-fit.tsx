@@ -45,7 +45,7 @@ const industries: IndustryCard[] = [
     description:
       "Send money home affordably and spend anywhere online with your virtual card with no foreign transaction fees.",
     image: ForDigitalNomadsAndExpats,
-    bg: "bg-[#E8F5E8]",
+    bg: "bg-[#c9f5f6]",
     textColor: "text-[#223047]",
   },
 ];
@@ -58,26 +58,26 @@ function SolutionsThatFit() {
   return (
     <section
       ref={ref}
-      className="mx-auto max-w-[1440px] px-5 py-16 sm:px-6 md:py-24 lg:flex lg:min-h-[95vh] lg:flex-col lg:justify-center lg:px-12 lg:py-32 xl:px-0"
+      className="mx-auto max-w-[1268px] px-5 py-16 sm:px-6 md:py-24 lg:py-32"
     >
       {/* Heading */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-4 text-center md:mb-4 lg:mb-6 lg:text-left"
+        className="mb-4 text-center md:mb-4 lg:mb-10 lg:text-left"
       >
         <motion.h2
           variants={fadeUp}
-          className="text-3xl font-semibold leading-tight text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
+          className="text-3xl font-bold leading-tight text-xenon-gray md:text-[36px] lg:text-[40px] lg:leading-[52px]"
         >
           Solutions That Fit
         </motion.h2>
         <motion.p
           variants={fadeUp}
-          className="mt-2 text-3xl font-semibold leading-tight text-[#121733] md:text-[36px] lg:text-[40px] lg:leading-[1.08]"
+          className="text-3xl font-bold leading-tight text-xenon-gray md:text-[36px] lg:text-[40px] lg:leading-[52px]"
         >
-          Your <span className="text-xenon">Workflow</span>
+          Your <span className="text-xenon-brand">Workflow</span>
         </motion.p>
       </motion.div>
 
@@ -86,7 +86,7 @@ function SolutionsThatFit() {
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, ease: EASE_IN_OUT, delay: 0.15 }}
-        className="hidden gap-6 lg:flex lg:h-[480px] lg:gap-8"
+        className="hidden gap-6 lg:flex lg:h-[375px] lg:gap-6"
         onMouseLeave={() => setActiveIndex(0)}
       >
         {industries.map((card, index) => {
@@ -98,7 +98,9 @@ function SolutionsThatFit() {
               key={card.title}
               layout
               onMouseEnter={() => setActiveIndex(index)}
-              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl`}
+              onFocus={() => setActiveIndex(index)}
+              tabIndex={0}
+              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon`}
               animate={{ flex: isExpanded ? 2.2 : 1 }}
               transition={{ duration: 0.4, ease: EASE_IN_OUT }}
             >
@@ -114,7 +116,7 @@ function SolutionsThatFit() {
                       className={`flex h-full items-stretch gap-5 ${textColor}`}
                     >
                       <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left">
-                        <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:text-[34px] lg:leading-[1.1]">
+                        <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:text-2xl lg:leading-snug">
                           {card.title}
                         </h3>
                         <p className="mt-3 max-w-[280px] text-base leading-relaxed lg:mt-4 lg:max-w-[360px] lg:text-lg">
@@ -141,7 +143,7 @@ function SolutionsThatFit() {
                       transition={{ duration: 0.15 }}
                       className={`flex h-full items-center justify-center text-center ${textColor}`}
                     >
-                      <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:px-4 lg:text-[34px] lg:leading-[1.1]">
+                      <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:px-4 lg:text-2xl lg:leading-snug">
                         {card.title}
                       </h3>
                     </motion.div>

@@ -1,8 +1,7 @@
-import BuiltForAfricanReality from "@/components/business/built-for-african-reality";
-import PowerYourBusiness from "@/components/business/power-your-business";
-import Security from "@/components/business/security";
-import Solutions from "@/components/business/solutions";
-import SolutionsThatFit from "@/components/business/solutions-that-fit";
+import BusinessHero from "@/components/business/business-hero";
+import SolutionsAndPlatform from "@/components/business/solutions-and-platform";
+import PlatformShowcase from "@/components/business/platform-showcase";
+import PricingComparison from "@/components/business/pricing-comparison";
 import CountriesSupported from "@/components/countries-supported";
 import {
   DEVELOPER_COMPONENTS,
@@ -12,7 +11,9 @@ import {
   parseProductSlug,
   PRODUCT_COMPONENTS,
 } from "@/components/dropdown-pages/product-config";
-import SocialProof from "@/components/social-proof";
+import BusinessCTA from "@/components/business/business-cta";
+import BusinessFAQ from "@/components/business/business-faq";
+import { businessStyles } from "@/lib/business-styles";
 
 type BusinessPageProps = {
   searchParams?: Promise<{
@@ -34,21 +35,29 @@ export default async function BusinessPage({ searchParams }: BusinessPageProps) 
   const SelectedTopComponent =
     SelectedProductComponent ?? SelectedDeveloperComponent;
 
+  if (SelectedProductComponent) {
+    return <main className={`marketing-page product-page product-${selectedProduct}`}><SelectedProductComponent /></main>;
+  }
+
   return (
-    <main>
+    <main className={SelectedDeveloperComponent ? undefined : "marketing-page business-page"}>
       {SelectedTopComponent ? (
         <SelectedTopComponent />
       ) : (
         <>
-          <PowerYourBusiness />
-          <Solutions />
+          <BusinessHero />
+          <SolutionsAndPlatform />
+          <PlatformShowcase />
+          <PricingComparison />
         </>
       )}
-      <BuiltForAfricanReality />
-      <SolutionsThatFit />
-      <Security />
-      <SocialProof headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
-      <CountriesSupported headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[1.08]" />
+      <CountriesSupported variant="business" headingClassName={businessStyles.sectionHeading} />
+      {!SelectedTopComponent && (
+        <>
+          <BusinessCTA />
+          <BusinessFAQ />
+        </>
+      )}
     </main>
   );
 }
