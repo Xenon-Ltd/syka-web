@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { GH, NG, GB, US, MORE } from "@/assets/icons/countries";
+import { CA, GH, NG, GB, US, MORE } from "@/assets/icons/countries";
 import StoreBadges from "@/components/business/store-badges";
 import BusinessAction from "@/components/business/business-action";
 import { personalLinks } from "@/lib/business-links";
@@ -17,7 +17,7 @@ import {
 } from "@/lib/animation";
 
 function Hero() {
-  const countryFlags = [GH, NG, GB, US, MORE];
+  const countryFlags = [CA, GH, NG, GB, US, MORE];
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
 

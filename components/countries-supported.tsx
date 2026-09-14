@@ -1,9 +1,11 @@
 "use client";
 
 import {
-  GH,
-  AU,
   CA,
+  GH,
+  BJ,
+  BF,
+  AU,
   AE,
   AR,
   BR,
@@ -12,15 +14,31 @@ import {
   GB,
   ID,
   IN,
+  KE,
   MX,
   NG,
   PE,
   PH,
   TH,
+  TG,
   TR,
   VN,
   US,
   CN,
+  CM,
+  CF,
+  CI,
+  TD,
+  CG,
+  GQ,
+  GA,
+  GW,
+  ML,
+  NE,
+  SN,
+  TZ,
+  UG,
+  ZA,
 } from "@/assets/icons/countries";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -32,6 +50,7 @@ import { IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
 interface CountryItemProps {
   icon: string;
   name: string;
+  currency: string;
   compact?: boolean;
 }
 
@@ -41,31 +60,56 @@ type CountriesSupportedProps = {
 };
 
 const countries = [
-  { name: "Ghana", icon: GH },
-  { name: "United Arab Emirates (AED)", icon: AE },
-  { name: "Argentina (ARS)", icon: AR },
-  { name: "Brazil (BRL)", icon: BR },
-  { name: "Chile (CLP)", icon: CL },
-  { name: "Eurozone countries (EUR)", icon: EURO },
-  { name: "United Kingdom (GBP)", icon: GB },
-  { name: "Indonesia (IDR)", icon: ID },
-  { name: "India (INR)", icon: IN },
-  { name: "Mexico (MXN)", icon: MX },
-  { name: "Nigeria (NGN)", icon: NG },
-  { name: "Peru (PEN)", icon: PE },
-  { name: "China (CNY)", icon: CN },
-  { name: "United States (USD)", icon: US },
-  { name: "Thailand (THB)", icon: TH },
-  { name: "Turkey (TRY)", icon: TR },
-  { name: "Vietnam (VND)", icon: VN },
-  { name: "Australia (AUD)", icon: AU },
-  { name: "Canada (CAD)", icon: CA },
-  { name: "Philippines (PHP)", icon: PH },
+  { name: "Canada", currency: "CAD", icon: CA },
+  { name: "Ghana", currency: "GHS", icon: GH },
+  { name: "United Arab Emirates", currency: "AED", icon: AE },
+  { name: "Argentina", currency: "ARS", icon: AR },
+  { name: "Brazil", currency: "BRL", icon: BR },
+  { name: "Chile", currency: "CLP", icon: CL },
+  { name: "Eurozone countries", currency: "EUR", icon: EURO },
+  { name: "United Kingdom", currency: "GBP", icon: GB },
+  { name: "Indonesia", currency: "IDR", icon: ID },
+  { name: "India", currency: "INR", icon: IN },
+  { name: "Mexico", currency: "MXN", icon: MX },
+  { name: "Nigeria", currency: "NGN", icon: NG },
+  { name: "Peru", currency: "PEN", icon: PE },
+  { name: "China", currency: "CNY", icon: CN },
+  { name: "United States", currency: "USD", icon: US },
+  { name: "Thailand", currency: "THB", icon: TH },
+  { name: "Turkey", currency: "TRY", icon: TR },
+  { name: "Vietnam", currency: "VND", icon: VN },
+  { name: "Australia", currency: "AUD", icon: AU },
+  { name: "Philippines", currency: "PHP", icon: PH },
+  { name: "South Africa", currency: "ZAR", icon: ZA },
+  { name: "Tanzania", currency: "TZS", icon: TZ },
+  { name: "Uganda", currency: "UGX", icon: UG },
+  { name: "Kenya", currency: "KES", icon: KE },
+  { name: "Cameroon", currency: "XAF", icon: CM },
+  { name: "Central African Republic", currency: "XAF", icon: CF },
+  { name: "Chad", currency: "XAF", icon: TD },
+  { name: "Republic of the Congo", currency: "XAF", icon: CG },
+  { name: "Equatorial Guinea", currency: "XAF", icon: GQ },
+  { name: "Gabon", currency: "XAF", icon: GA },
+  { name: "Benin", currency: "XOF", icon: BJ },
+  { name: "Burkina Faso", currency: "XOF", icon: BF },
+  { name: "Côte d'Ivoire", currency: "XOF", icon: CI },
+  { name: "Guinea-Bissau", currency: "XOF", icon: GW },
+  { name: "Mali", currency: "XOF", icon: ML },
+  { name: "Niger", currency: "XOF", icon: NE },
+  { name: "Senegal", currency: "XOF", icon: SN },
+  { name: "Togo", currency: "XOF", icon: TG },
 ];
 
-function CountryItem({ icon, name, compact = false }: CountryItemProps) {
+function CountryItem({ icon, name, currency, compact = false }: CountryItemProps) {
   return (
-    <div className={cn("flex w-fit items-center rounded-full bg-[#F2F4F7]", compact ? "gap-2 px-3 py-2 lg:px-4" : "gap-3 px-5 py-3 md:px-6 md:py-3.5 lg:gap-4 lg:px-7 lg:py-3")}>
+    <div
+      tabIndex={0}
+      aria-label={`${name}, supported currency ${currency}`}
+      className={cn(
+        "group relative flex w-fit items-center rounded-full bg-[#F2F4F7] outline-none focus-visible:ring-2 focus-visible:ring-xenon",
+        compact ? "gap-2 px-3 py-2 lg:px-4" : "gap-3 px-5 py-3 md:px-6 md:py-3.5 lg:gap-4 lg:px-7 lg:py-3",
+      )}
+    >
       <Image
         src={icon}
         alt={`${name} flag`}
@@ -76,6 +120,9 @@ function CountryItem({ icon, name, compact = false }: CountryItemProps) {
       <p className={cn("leading-relaxed text-[#344054]", compact ? "text-sm lg:text-base" : "text-sm md:text-base lg:text-[18px] lg:leading-[1.3]")}>
         {name}
       </p>
+      <span role="tooltip" className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-md bg-xenon-primary px-2.5 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+        {currency}
+      </span>
     </div>
   );
 }
@@ -116,7 +163,7 @@ export default function CountriesSupported({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.35, ease: EASE_OUT, delay: i * 0.04 }}
           >
-            <CountryItem icon={country.icon} name={country.name} compact={isCompact} />
+            <CountryItem icon={country.icon} name={country.name} currency={country.currency} compact={isCompact} />
           </motion.div>
         ))}
       </div>
@@ -142,7 +189,7 @@ export default function CountriesSupported({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.35, ease: EASE_OUT, delay: i * 0.03 }}
           >
-            <CountryItem icon={country.icon} name={country.name} compact={isCompact} />
+            <CountryItem icon={country.icon} name={country.name} currency={country.currency} compact={isCompact} />
           </motion.div>
         ))}
       </div>

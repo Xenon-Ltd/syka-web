@@ -168,10 +168,10 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
   return (
     <section
       ref={ref}
-      className="relative isolate overflow-hidden bg-xenon-primary py-16 md:py-20 lg:py-24"
+      className="relative isolate overflow-hidden bg-xenon-primary py-16 md:py-20 lg:py-28"
     >
       <Image src={WavyBackgroundDesign} alt="" aria-hidden fill sizes="100vw" className="pointer-events-none -z-10 object-cover" />
-      <div className="mx-auto max-w-[1268px] px-5 sm:px-6">
+      <div className="mx-auto max-w-[1268px] px-5 sm:px-6 py-16">
         {/* Heading */}
         <motion.div
           variants={staggerContainer}

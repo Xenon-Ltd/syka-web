@@ -57,12 +57,12 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
           </div>
         </div>
         <p className="mt-12 border-t  border-white/25 pt-12 text-xs leading-relaxed text-white/60 lg:text-lg">
-          Syka is a product of Xenon Technologies Inc., which is a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed by BOG.
-        </p>
+          Syka is a product of Xenon Technology Inc. which operates as a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed and regulated across multiple jurisdictions.        </p>
       </div>
+
       <FooterLocations />
 
-      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">© {new Date().getFullYear()} Xenon Ltd.</p>
+      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">© {new Date().getFullYear()} Xenon Technologies Inc.</p>
     </footer>
   );
 }

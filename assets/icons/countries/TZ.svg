@@ -1,0 +1,9 @@
+<svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip_tz)">
+    <rect width="41" height="41" fill="#1EB53A"/>
+    <path d="M0 41L41 0V16L0 41Z" fill="#00A3DD"/>
+    <path d="M0 41L41 0" stroke="#FCD116" stroke-width="9"/>
+    <path d="M0 41L41 0" stroke="#171717" stroke-width="5"/>
+  </g>
+  <defs><clipPath id="clip_tz"><circle cx="20.5" cy="20.5" r="20"/></clipPath></defs>
+</svg>
