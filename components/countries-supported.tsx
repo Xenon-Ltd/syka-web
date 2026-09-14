@@ -62,8 +62,8 @@ type CountriesSupportedProps = {
 const countries = [
   { name: "Canada", currency: "CAD", icon: CA },
   { name: "Ghana", currency: "GHS", icon: GH },
-  { name: "United Arab Emirates", currency: "AED", icon: AE },
   { name: "Argentina", currency: "ARS", icon: AR },
+  { name: "United Arab Emirates", currency: "AED", icon: AE },
   { name: "Brazil", currency: "BRL", icon: BR },
   { name: "Chile", currency: "CLP", icon: CL },
   { name: "Eurozone countries", currency: "EUR", icon: EURO },
