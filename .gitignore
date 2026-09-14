@@ -20,6 +20,9 @@
 # production
 /build
 
+# archived unused components and assets
+/unused_/
+
 # misc
 .DS_Store
 *.pem
