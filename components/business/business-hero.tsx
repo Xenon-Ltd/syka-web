@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import StoreBadges from "./store-badges";
 import BusinessAction from "./business-action";
 import { businessLinks } from "@/lib/business-links";
-import { GH, GB, NG, US, MORE } from "@/assets/icons/countries";
+import { CA, GH, GB, NG, US, MORE } from "@/assets/icons/countries";
 import { WorldMap, HeroMapAvatars } from "@/assets/images";
 import Image from "next/image";
 import { useRef } from "react";
@@ -20,7 +20,7 @@ import {
   EASE_OUT,
 } from "@/lib/animation";
 
-const countryFlags = [GH, NG, GB, US, MORE];
+const countryFlags = [CA, GH, NG, GB, US, MORE];
 
 export default function BusinessHero() {
   const ref = useRef(null);
@@ -53,7 +53,7 @@ export default function BusinessHero() {
             />
           ))}
           <p className="ml-3 max-w-[368px] text-left text-[#8893A4] text-lg leading-[22px]">
-            Over 3000 businesses in 7 countries use SYKA
+            Over 3000 businesses use SYKA
           </p>
         </motion.div>
 

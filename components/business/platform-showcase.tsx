@@ -3,7 +3,7 @@
 import { businessStyles } from "@/lib/business-styles";
 import { cn } from "@/lib/utils";
 
-import { GH, NG, GB, US, EURO, MORE } from "@/assets/icons/countries";
+import { CA, GH, NG, GB, US, EURO, MORE } from "@/assets/icons/countries";
 import {
   MerchantPlatformMockup,
   CrossBorderPaymentMockup,
@@ -22,7 +22,7 @@ import {
   EASE_OUT,
 } from "@/lib/animation";
 
-const corridorFlags = [GH, NG, GB, US, EURO, MORE];
+const corridorFlags = [CA, GH, NG, GB, US, EURO, MORE];
 
 export default function PlatformShowcase() {
   const ref = useRef(null);
