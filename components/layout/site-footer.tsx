@@ -11,8 +11,8 @@ type FooterGroup = { title: string; links: FooterLink[] };
 const definedLinks = (links: { label: string; href?: string }[]): FooterLink[] =>
   links.filter((link): link is FooterLink => Boolean(link.href));
 
-export default function SiteFooter({ variant }: { variant: "personal" | "business" }) {
-  const isBusiness = variant === "business";
+export default function SiteFooter({ variant }: { variant: "personal" | "business" | "legal" }) {
+  const isBusiness = variant !== "personal";
   const basePath = isBusiness ? "/business" : "/";
   const company = definedLinks([
     { label: "About Us", href: companyLinks.about },
@@ -22,9 +22,9 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
     { label: "Community", href: companyLinks.community },
   ]);
   const transparency = definedLinks([
-    { label: "Terms & Conditions", href: transparencyLinks.terms },
-    { label: "Privacy Policy", href: transparencyLinks.privacy },
-    { label: "Cookie Policy", href: transparencyLinks.cookies },
+    { label: "Terms & Conditions", href: transparencyLinks.terms ?? "/terms-and-conditions" },
+    { label: "Privacy Policy", href: transparencyLinks.privacy ?? "/privacy-policy" },
+    { label: "Cookie Policy", href: transparencyLinks.cookies ?? "/cookies" },
   ]);
   const groups: FooterGroup[] = [
     { title: "Products", links: PRODUCT_ITEMS.map(({ label, slug }) => ({ label, href: `${basePath}?product=${slug}` })) },
@@ -57,12 +57,13 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
           </div>
         </div>
         <p className="mt-12 border-t  border-white/25 pt-12 text-xs leading-relaxed text-white/60 lg:text-lg">
-          Syka is a product of Xenon Technology Inc. which operates as a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed and regulated across multiple jurisdictions.        </p>
+          {variant === "legal" ? "Syka is a product of Xenon Ltd., which is a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed by BOG." : "Syka is a product of Xenon Technology Inc. which operates as a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed and regulated across multiple jurisdictions."}
+        </p>
       </div>
 
       <FooterLocations />
 
-      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">© {new Date().getFullYear()} Xenon Technologies Inc.</p>
+      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">{variant === "legal" ? "© 2026 Syka Ltd." : `© ${new Date().getFullYear()} Xenon Technologies Inc.`}</p>
     </footer>
   );
 }

@@ -92,7 +92,7 @@ const Header = () => {
   const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
   const wasMenuOpenRef = useRef(false);
-  const isBusinessRoute = pathname.startsWith("/business");
+  const isBusinessRoute = pathname.startsWith("/business") || pathname.startsWith("/privacy-policy") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/cookies") || pathname.startsWith("/data-security");
   const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
   const primarySignup = isBusinessRoute ? businessLinks.signup : personalLinks.signup;
   const productBasePath = isBusinessRoute ? "/business" : "/";

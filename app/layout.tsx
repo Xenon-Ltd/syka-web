@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
+import "./legal-pages.css";
 import { dmSans, lato, poppins } from "@/assets/font";
 import { SykaOpenGraph } from "@/assets/images";
 import { SiteFooter, SiteHeader } from "@/components/layout/site-chrome";
