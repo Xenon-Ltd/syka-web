@@ -12,6 +12,6 @@ const dmSans = DM_Sans({
   variable: "--font-dmSans",
 });
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["600"], variable: "--font-poppins" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-poppins" });
 
 export { dmSans, lato, poppins };

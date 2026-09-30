@@ -3,6 +3,7 @@ import type { LegalSection } from "./legal-page";
 export const privacySections: LegalSection[] = [
   {
     title: "Applicable Laws & Regulations",
+    level: "sub",
     paragraphs: [
       "This policy reflects the data protection laws and requirements that apply to our services, including:",
     ],
@@ -27,7 +28,12 @@ export const privacySections: LegalSection[] = [
       "Xenon Technology Solutions (Canada) Inc. — incorporated federally under the Canada Business Corporations Act",
       "Xenon Ltd. — incorporated under the laws of Ghana",
     ],
-    note: "Data controllers: Xenon Technologies Inc., Xenon Technology Solutions (Canada) Inc., and Xenon Ltd. (joint data controllers). Data Protection Officer / MLRO: Edem Quintin Dzorkpata. Contact: legal@xenonlimited.co · sykabank.com",
+    details: [
+      { label: "Data controllers", value: "Xenon Technologies Inc., Xenon Technology Solutions (Canada) Inc., and Xenon Ltd. (joint data controllers)" },
+      { label: "Data Protection Officer / MLRO", value: "Senanu Kofi Anku" },
+      { label: "Contact", value: "legal@xenonlimited.co" },
+      { label: "Website", value: "sykabank.com" },
+    ],
   },
   {
     title: "2. Information We Collect",
@@ -140,6 +146,7 @@ export const termsSections: LegalSection[] = [
   {
     title: "1. Definitions",
     table: {
+      layout: "definitions",
       headings: ["Term", "Definition"],
       rows: [
         ["Account", "The account you create to access and use the Services."],
@@ -216,6 +223,7 @@ export const termsSections: LegalSection[] = [
       },
     ],
     table: {
+      highlightColumn: 2,
       headings: [
         "Account tier",
         "Requirements",
@@ -415,12 +423,14 @@ export const termsSections: LegalSection[] = [
     subsections: [
       {
         title: "9.1 No Warranties",
+        warning: true,
         paragraphs: [
           "THE SERVICES ARE PROVIDED ‘AS IS’ AND ‘AS AVAILABLE’ WITHOUT EXPRESS OR IMPLIED WARRANTIES, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, uninterrupted or error-free service, content accuracy, or guaranteed exchange rates, transaction times, or yield rates.",
         ],
       },
       {
         title: "9.2 Limitation of Liability",
+        warning: true,
         paragraphs: [
           "To the maximum extent permitted by law, Syka's total aggregate liability will not exceed the greater of fees paid in the three months before the claim or USD 500. Syka is not liable for indirect, incidental, special, consequential, punitive, profit, revenue, data, goodwill, or business opportunity losses, or losses caused by third parties, regulatory action, or force majeure.",
         ],
@@ -475,6 +485,7 @@ export const termsSections: LegalSection[] = [
       {
         title: "12.2 Formal Dispute Resolution",
         table: {
+          layout: "rows",
           headings: ["Jurisdiction", "Applicable law and arbitration"],
           rows: [
             ["Ghana", "Ghana Arbitration Centre, Accra; Ghana law"],
@@ -509,6 +520,7 @@ export const termsSections: LegalSection[] = [
       },
       {
         title: "12.3 Class Action Waiver and 12.4 Exclusions",
+        warning: true,
         paragraphs: [
           "To the extent permitted by law, disputes must be brought individually, not as a class, collective, or representative action. Either party may seek urgent injunctive relief from a competent court to prevent irreparable harm.",
         ],
@@ -547,16 +559,25 @@ export const termsSections: LegalSection[] = [
   {
     title: "16. Contact Information",
     table: {
+      layout: "cards",
       headings: ["General / Legal", "Customer Support", "Security"],
       rows: [
         [
-          "Edem Quintin Dzorkpata · legal@xenonlimited.co",
+          "Senanu Kofi Anku · legal@xenonlimited.co",
           "support@sykabank.com · response within 1 business day",
           "security@sykabank.com · vulnerability reports",
         ],
       ],
     },
-    note: "Registered offices: Xenon Technologies Inc., 1415 Bali Court, San Jose, CA 95122, USA; Xenon Technology Solutions (Canada) Inc., Ontario, Canada; Xenon Ltd., 377 George Walker Bush Highway, Accra, Ghana. Effective Date: July 27, 2026 · Version 1.0 · Next Review: January 2027.",
+    infoCard: {
+      label: "Registered offices",
+      items: [
+        { title: "Xenon Technologies Inc.", text: "1415 Bali Court, San Jose, CA 95122, USA" },
+        { title: "Xenon Technology Solutions (Canada) Inc.", text: "9 Clegg Rd, Markham, ON L6G 0H3, Canada" },
+        { title: "Xenon Ltd.", text: "377 George Walker Bush Highway, Accra, Ghana" },
+      ],
+    },
+    footnote: "Effective Date: July 27, 2026 · Version 1.0 · Next Review: January 2027.",
   },
 ];
 
