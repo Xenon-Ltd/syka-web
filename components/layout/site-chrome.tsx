@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 
-const appOnlyRoutes = ["/business/merchant/registration"];
+const appOnlyRoutes = ["/business/merchant"];
 
 function useIsAppOnlyRoute() {
   const pathname = usePathname();

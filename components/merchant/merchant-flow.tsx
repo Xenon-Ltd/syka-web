@@ -2,7 +2,8 @@
 
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { useState, type ChangeEvent, type FormEvent, type InputHTMLAttributes, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, type ChangeEvent, type DragEvent, type FormEvent, type InputHTMLAttributes, type ReactNode } from "react";
 
 import SykaLogo from "@/assets/images/syka-logo.svg";
 import MerchantWatermark from "@/assets/images/merchant-watermark.png";
@@ -10,10 +11,34 @@ import MerchantSuccess from "@/assets/images/merchant-success.svg";
 import applicantActive from "@/assets/icons/merchant/applicant-active.svg";
 import applicantMuted from "@/assets/icons/merchant/applicant-muted.svg";
 import docsMuted from "@/assets/icons/merchant/docs-muted.svg";
-import chevronDown from "@/assets/icons/merchant/chevron-down.svg";
 import uploadIcon from "@/assets/icons/merchant/upload.svg";
 import editIcon from "@/assets/icons/merchant/edit.svg";
 import chevronIcon from "@/assets/icons/merchant/chevron.svg";
+import { CountryCombobox } from "@/components/merchant/country-combobox";
+import { DropdownSelect } from "@/components/merchant/dropdown";
+import {
+  ApiError,
+  RECOVERY_PATH,
+  countryName,
+  createApplication,
+  describeAccepts,
+  dialCode,
+  formatBytes,
+  getApplication,
+  getRequirements,
+  loadStoredToken,
+  registrationPath,
+  statusPagePath,
+  storeToken,
+  submitApplication,
+  updateApplication,
+  uploadDocument,
+  type ApplicationRequest,
+  type ApplicationStatus,
+  type DocumentRequirement,
+  type RequirementOption,
+  type Requirements,
+} from "@/lib/merchant-applications";
 
 type RegistrationData = {
   firstName: string;
@@ -27,18 +52,70 @@ type RegistrationData = {
 };
 
 type RegistrationErrors = Partial<Record<keyof RegistrationData, string>>;
-type DocumentFiles = Record<string, File>;
+type FormError = { message: string; recover?: boolean };
+
+const emptyRegistration: RegistrationData = { firstName: "", lastName: "", businessName: "", businessType: "", email: "", phone: "", country: "", audience: "" };
+
+// Also the on-screen order, used to focus the first invalid field.
+const fieldOrder: Array<keyof RegistrationData> = ["firstName", "lastName", "businessName", "businessType", "email", "country", "phone", "audience"];
 
 const registrationSteps = ["Applicant Information", "Background Documents", "Review & Submit"];
 
 const registrationIcons = [applicantActive, docsMuted, applicantMuted];
 
-const documentItems = [
-  "Business Registration Certificate",
-  "Tax ID Certificate",
-  "Owner / Director Government-Issued ID",
-  "Proof of Address (utility bill <3 months)",
-];
+const apiFieldToFormField: Record<string, keyof RegistrationData> = {
+  first_name: "firstName",
+  last_name: "lastName",
+  business_name: "businessName",
+  business_type: "businessType",
+  email: "email",
+  phone: "phone",
+  country: "country",
+  target_audience: "audience",
+};
+
+const validatorTagMessages: Record<string, string> = {
+  required: "This field is required.",
+  email: "Enter a valid email address.",
+  len: "Select an option from the list.",
+  oneof: "Select an option from the list.",
+  e164: "Enter a valid phone number, including the country code.",
+  max: "This is too long.",
+  min: "This is too short.",
+};
+
+const PHONE_PATTERN = /^\+?[\d\s()-]{7,20}$/;
+
+function toRequest(data: RegistrationData): ApplicationRequest {
+  return {
+    first_name: data.firstName.trim(),
+    last_name: data.lastName.trim(),
+    business_name: data.businessName.trim(),
+    business_type: data.businessType,
+    email: data.email.trim(),
+    phone: data.phone.replace(/[\s()-]/g, "") || undefined,
+    country: data.country,
+    target_audience: data.audience || undefined,
+  };
+}
+
+function fromStatus(status: ApplicationStatus): RegistrationData {
+  const [firstName = "", ...rest] = status.contact_name.trim().split(/\s+/);
+  return {
+    firstName,
+    lastName: rest.join(" "),
+    businessName: status.business_name,
+    businessType: status.business_type,
+    email: status.contact_email,
+    phone: status.contact_phone ?? "",
+    country: status.country,
+    audience: status.target_audience ?? "",
+  };
+}
+
+const sameRegistration = (a: RegistrationData, b: RegistrationData) => JSON.stringify(toRequest(a)) === JSON.stringify(toRequest(b));
+
+const errorMessage = (error: unknown) => (error instanceof Error ? error.message : "Something went wrong. Please try again.");
 
 function IconImage({ src, alt = "", className = "size-4" }: { src: StaticImageData | string; alt?: string; className?: string }) {
   return <Image src={src} alt={alt} width={20} height={20} className={className} />;
@@ -62,7 +139,7 @@ function MerchantBackground({ children }: { children: ReactNode }) {
   );
 }
 
-function Sidebar({ step }: { step: number }) {
+function Sidebar({ step, canVisit, onSelect }: { step: number; canVisit: (index: number) => boolean; onSelect: (index: number) => void }) {
   return (
     <aside className="relative z-10 flex w-full shrink-0 flex-col bg-[#edf5fb] px-6 py-7 sm:px-8 sm:py-10 lg:min-h-screen lg:w-[401px]">
       <Link href="/" aria-label="Go to Syka home" className="w-fit rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0c3283]">
@@ -80,16 +157,29 @@ function Sidebar({ step }: { step: number }) {
         <ol className="relative space-y-2">
           {registrationSteps.map((label, index) => {
             const isActive = index <= step;
+            const isCurrent = index === step;
+            const clickable = !isCurrent && step < 3 && canVisit(index);
             const icon = registrationIcons[index];
-            return (
-              <li key={label} className="relative flex min-h-[48px] items-center gap-3 px-3 py-2">
-                {index < registrationSteps.length - 1 && (
-                  <span className={`absolute left-[24px] top-[42px] h-8 border-l-2 border-dashed ${index < step ? "border-[#0c3283]" : "border-[#d1d5dc]"}`} aria-hidden="true" />
-                )}
+            const content = (
+              <>
                 <span className={`relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full ${isActive ? "bg-[#0c3283]" : "border border-[#ececf0] bg-[#d1d5dc]"}`}>
                   <IconImage src={icon} className="size-3" />
                 </span>
                 <span className={`text-[13px] leading-5 ${isActive ? "font-semibold text-[#0c3283]" : "text-[#3d4756]"}`}>{label}</span>
+              </>
+            );
+            return (
+              <li key={label} className="relative">
+                {index < registrationSteps.length - 1 && (
+                  <span className={`absolute left-[24px] top-[42px] h-8 border-l-2 border-dashed ${index < step ? "border-[#0c3283]" : "border-[#d1d5dc]"}`} aria-hidden="true" />
+                )}
+                {clickable ? (
+                  <button type="button" onClick={() => onSelect(index)} className="flex min-h-[48px] w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition hover:bg-white/60 focus-visible:outline-2 focus-visible:outline-[#0c3283]">
+                    {content}
+                  </button>
+                ) : (
+                  <div aria-current={isCurrent ? "step" : undefined} className="flex min-h-[48px] items-center gap-3 px-3 py-2">{content}</div>
+                )}
               </li>
             );
           })}
@@ -132,92 +222,220 @@ function FlowActions({ onBack, onNext, nextLabel = "Continue", backDisabled = fa
   );
 }
 
-function Field({ id, label, value, onChange, placeholder, type = "text", required = false, error }: { id: string; label: string; value: string; onChange: (value: string) => void; placeholder?: string; type?: InputHTMLAttributes<HTMLInputElement>["type"]; required?: boolean; error?: string }) {
+function Field({ id, label, value, onChange, placeholder, type = "text", required = false, error, hint, autoComplete, inputMode }: { id: string; label: string; value: string; onChange: (value: string) => void; placeholder?: string; type?: InputHTMLAttributes<HTMLInputElement>["type"]; required?: boolean; error?: string; hint?: string; autoComplete?: string; inputMode?: InputHTMLAttributes<HTMLInputElement>["inputMode"] }) {
+  const describedBy = [error && `${id}-error`, hint && `${id}-hint`].filter(Boolean).join(" ") || undefined;
   return (
     <label className="flex flex-col gap-2 text-sm font-medium text-[#364153]">
       <span>{label}{required ? "*" : ""}</span>
-      <input id={id} name={id} type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} required={required} aria-invalid={Boolean(error)} aria-describedby={error ? `${id}-error` : undefined} className="h-12 rounded-[10px] border-0 bg-white px-3 text-sm font-normal text-[#1f1a0b] outline-none ring-0 placeholder:text-[#717182] focus:ring-2 focus:ring-[#0c3283]/20" />
-      {error && <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-700">{error}</span>}
+      <input id={id} name={id} type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} required={required} autoComplete={autoComplete} inputMode={inputMode} aria-invalid={Boolean(error)} aria-describedby={describedBy} className="h-12 rounded-[10px] border-0 bg-white px-3 text-sm font-normal text-[#1f1a0b] outline-none ring-0 placeholder:text-[#717182] focus:ring-2 focus:ring-[#0c3283]/20" />
+      {error ? <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-700">{error}</span> : hint && <span id={`${id}-hint`} className="text-xs font-normal text-[#717182]">{hint}</span>}
     </label>
   );
 }
 
-function SelectField({ id, label, value, onChange, options, placeholder, required = false, error }: { id: string; label: string; value: string; onChange: (value: string) => void; options: string[]; placeholder: string; required?: boolean; error?: string }) {
+function FormAlert({ error }: { error?: FormError }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const message = error?.message;
+
+  useEffect(() => {
+    if (message) ref.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [message]);
+
+  if (!error) return null;
   return (
-    <label className="flex flex-col gap-2 text-sm font-medium text-[#364153]">
-      <span>{label}{required ? "*" : ""}</span>
-      <span className="relative">
-        <select id={id} name={id} value={value} onChange={(event) => onChange(event.target.value)} required={required} aria-invalid={Boolean(error)} aria-describedby={error ? `${id}-error` : undefined} className="h-12 w-full appearance-none rounded-[10px] border-0 bg-white px-3 pr-10 text-sm font-normal text-[#717182] outline-none focus:ring-2 focus:ring-[#0c3283]/20">
-          <option value="" disabled>{placeholder}</option>
-          {options.map((option) => <option key={option} value={option}>{option}</option>)}
-        </select>
-        <IconImage src={chevronDown} className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2" />
-      </span>
-      {error && <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-700">{error}</span>}
-    </label>
+    <p ref={ref} role="alert" className="mt-4 text-sm text-red-700">
+      {error.message}
+      {error.recover && <> <Link href={RECOVERY_PATH} className="font-semibold text-[#0c3283] hover:underline">Recover your application</Link></>}
+    </p>
   );
 }
 
-function ApplicantForm({ data, setData, errors, onBack, onNext }: { data: RegistrationData; setData: (data: RegistrationData) => void; errors: RegistrationErrors; onBack: () => void; onNext: () => void }) {
-  const update = (key: keyof RegistrationData) => (value: string) => setData({ ...data, [key]: value });
+function ResumeBanner({ reference, email, onStartOver }: { reference: string; email: string; onStartOver: () => void }) {
+  return (
+    <div className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-[10px] bg-[#edf5fb] px-4 py-3 text-xs text-[#364153]">
+      <p>Continuing application <span className="font-semibold">{reference}</span> for {email}.</p>
+      <button type="button" onClick={onStartOver} className="font-semibold text-[#0c3283] hover:underline">Not you? Start over</button>
+    </div>
+  );
+}
+
+function ApplicantForm({ data, onChange, errors, requirements, formError, busy, confirmingEmail, onConfirmEmail, onChangeEmail, onNext }: { data: RegistrationData; onChange: (data: RegistrationData) => void; errors: RegistrationErrors; requirements: Requirements; formError?: FormError; busy: boolean; confirmingEmail: boolean; onConfirmEmail: () => void; onChangeEmail: () => void; onNext: () => void }) {
+  const update = (key: keyof RegistrationData) => (value: string) => onChange({ ...data, [key]: value });
+
+  const updateCountry = (country: string) => {
+    // Prefill the dialling code, but never overwrite a number the applicant has typed.
+    const previousCode = dialCode(data.country);
+    const untouched = !data.phone.trim() || data.phone.trim() === previousCode;
+    onChange({ ...data, country, phone: untouched && dialCode(country) ? `${dialCode(country)} ` : data.phone });
+  };
+
   return (
     <form noValidate onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); onNext(); }} className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 sm:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="firstName" label="First Name" required value={data.firstName} error={errors.firstName} onChange={update("firstName")} placeholder="e.g., John" />
-        <Field id="lastName" label="Last Name" required value={data.lastName} error={errors.lastName} onChange={update("lastName")} placeholder="e.g., Doe" />
-        <Field id="businessName" label="Business Name" required value={data.businessName} error={errors.businessName} onChange={update("businessName")} />
-        <SelectField id="businessType" label="Business Type" required value={data.businessType} error={errors.businessType} onChange={update("businessType")} options={["LLC", "Sole proprietorship", "Partnership", "Corporation"]} placeholder="Select category" />
-        <Field id="email" label="Email Address" required value={data.email} error={errors.email} onChange={update("email")} type="email" />
-        <Field id="phone" label="Phone Number" required value={data.phone} error={errors.phone} onChange={update("phone")} />
-        <Field id="country" label="Country" required value={data.country} error={errors.country} onChange={update("country")} />
-        <SelectField id="audience" label="Target Audience Type" required value={data.audience} error={errors.audience} onChange={update("audience")} options={["Businesses", "Individuals", "Businesses and individuals"]} placeholder="Select type" />
+        <Field id="firstName" label="First Name" required value={data.firstName} error={errors.firstName} onChange={update("firstName")} placeholder="e.g., John" autoComplete="given-name" />
+        <Field id="lastName" label="Last Name" required value={data.lastName} error={errors.lastName} onChange={update("lastName")} placeholder="e.g., Doe" autoComplete="family-name" />
+        <Field id="businessName" label="Business Name" required value={data.businessName} error={errors.businessName} onChange={update("businessName")} autoComplete="organization" />
+        <DropdownSelect id="businessType" label="Business Type" required value={data.businessType} error={errors.businessType} onChange={update("businessType")} options={requirements.business_types} placeholder="Select category" />
+        <Field id="email" label="Email Address" required value={data.email} error={errors.email} onChange={update("email")} type="email" autoComplete="email" inputMode="email" hint="We'll send your application link here." />
+        <CountryCombobox id="country" label="Country" required value={data.country} error={errors.country} onChange={updateCountry} />
+        <Field id="phone" label="Phone Number" required value={data.phone} error={errors.phone} onChange={update("phone")} type="tel" autoComplete="tel" inputMode="tel" placeholder={`${dialCode(data.country) || "+233"} 54 570 7532`} hint="Include your country code, starting with +." />
+        <DropdownSelect id="audience" label="Target Audience Type" required value={data.audience} error={errors.audience} onChange={update("audience")} options={requirements.target_audiences} placeholder="Select type" />
       </div>
-      <FlowActions onBack={onBack} onNext={onNext} backDisabled />
+      <FormAlert error={formError} />
+      {confirmingEmail ? (
+        <div role="alertdialog" aria-labelledby="confirm-email-title" className="mt-5 rounded-[10px] bg-white p-4 sm:p-5">
+          <p id="confirm-email-title" className="text-sm text-[#364153]">We&apos;ll send your application link and any recovery codes to <span className="font-semibold text-[#101828]">{data.email.trim()}</span>. Is that right?</p>
+          <div className="mt-4 flex flex-wrap justify-end gap-3">
+            <button type="button" onClick={onChangeEmail} disabled={busy} className="rounded-lg bg-[#f3f4f6] px-5 py-3 text-sm text-[#0a0a0a] transition hover:bg-[#e5e7eb] disabled:opacity-40">Change email</button>
+            <button type="button" onClick={onConfirmEmail} disabled={busy} autoFocus className="rounded-[14px] bg-[#0c3283] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#082762] disabled:opacity-40">{busy ? "Saving…" : "Yes, continue"}</button>
+          </div>
+        </div>
+      ) : (
+        <FlowActions onBack={() => undefined} backDisabled nextLabel={busy ? "Saving…" : "Continue"} nextDisabled={busy} />
+      )}
     </form>
   );
 }
 
-const MAX_DOCUMENT_SIZE = 10 * 1024 * 1024;
-const ACCEPTED_DOCUMENT_TYPES = new Set(["application/pdf", "image/jpeg", "image/png"]);
+function TrackingLink({ token, email }: { token: string; email: string }) {
+  const [copied, setCopied] = useState(false);
+  const link = `${window.location.origin}${statusPagePath(token)}`;
+  const inputRef = useRef<HTMLInputElement>(null);
 
-function DocumentsStep({ files, setFiles, error, setError, onBack, onNext }: { files: DocumentFiles; setFiles: (files: DocumentFiles) => void; error?: string; setError: (error?: string) => void; onBack: () => void; onNext: () => void }) {
-  const uploaded = Object.keys(files).length;
-  const handleUpload = (label: string) => (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    if (!ACCEPTED_DOCUMENT_TYPES.has(file.type) || file.size > MAX_DOCUMENT_SIZE) {
-      setError("Upload a PDF, JPG, or PNG file smaller than 10MB.");
-      event.target.value = "";
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(link);
+    } catch {
+      inputRef.current?.select();
       return;
     }
-
-    setFiles({ ...files, [label]: file });
-    setError(undefined);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
+
   return (
-    <form noValidate onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); if (uploaded < documentItems.length) { setError("Upload all four required documents before continuing."); return; } onNext(); }} className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 sm:p-8">
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-base text-[#101828]">{uploaded} of 4 required documents uploaded</p>
-        <p className="text-xs text-[#8893a4]">{uploaded * 25}% complete</p>
+    <div className="mb-5 rounded-[10px] bg-white p-4">
+      <p className="text-sm font-semibold text-[#101828]">Save your application link</p>
+      <p className="mt-1 text-xs text-[#717182]">Use it to come back at any time. We&apos;ve also emailed it to {email}.</p>
+      <div className="mt-3 flex gap-2">
+        <input ref={inputRef} readOnly value={link} aria-label="Application link" onFocus={(event) => event.target.select()} className="h-10 min-w-0 flex-1 rounded-lg bg-[#f3f7fa] px-3 text-xs text-[#364153] outline-none focus:ring-2 focus:ring-[#0c3283]/20" />
+        <button type="button" onClick={copy} className="shrink-0 rounded-lg border border-black/10 bg-white px-4 text-xs text-[#0a0a0a] transition hover:bg-[#f7f7f7]" aria-live="polite">{copied ? "Copied" : "Copy"}</button>
       </div>
-      <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e5e7eb]" role="progressbar" aria-label="Document upload progress" aria-valuemin={0} aria-valuemax={documentItems.length} aria-valuenow={uploaded}>
-        <div className="h-full rounded-full bg-[#3b82f6] transition-[width]" style={{ width: `${uploaded * 25}%` }} />
+    </div>
+  );
+}
+
+function DocumentPreview({ file, fallbackName }: { file?: File; fallbackName?: string }) {
+  const [preview, setPreview] = useState<{ file: File; url: string }>();
+  const isImage = file?.type.startsWith("image/");
+  const url = preview && preview.file === file ? preview.url : undefined;
+
+  useEffect(() => {
+    if (!file || !isImage) return;
+    const reader = new FileReader();
+    reader.onload = () => setPreview({ file, url: String(reader.result) });
+    reader.readAsDataURL(file);
+    return () => reader.abort();
+  }, [file, isImage]);
+
+  const name = file?.name ?? fallbackName;
+  if (!name) return null;
+  if (url) {
+    // eslint-disable-next-line @next/next/no-img-element -- local blob preview, not optimisable
+    return <img src={url} alt="" className="size-12 shrink-0 rounded-md object-cover" />;
+  }
+  const extension = name.split(".").pop()?.toUpperCase().slice(0, 4) ?? "FILE";
+  return <span aria-hidden="true" className="flex size-12 shrink-0 items-center justify-center rounded-md bg-[#edf5fb] text-[10px] font-semibold text-[#0c3283]">{extension}</span>;
+}
+
+function DocumentRow({ document, uploaded, localFile, progress, error, onFile }: { document: DocumentRequirement; uploaded?: ApplicationStatus["uploaded_documents"][number]; localFile?: File; progress?: number; error?: string; onFile: (file: File) => void }) {
+  const [dragging, setDragging] = useState(false);
+  const busy = progress !== undefined;
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (file) onFile(file);
+  };
+
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragging(false);
+    const file = event.dataTransfer.files?.[0];
+    if (file && !busy) onFile(file);
+  };
+
+  const detail = busy
+    ? `Uploading… ${Math.round(progress * 100)}%`
+    : uploaded
+      ? `${uploaded.filename} · ${formatBytes(uploaded.size_bytes)}`
+      : `${describeAccepts(document.accepts)} · Max ${formatBytes(document.max_bytes)} · or drag a file here`;
+
+  return (
+    <div
+      onDragOver={(event) => { event.preventDefault(); if (!busy) setDragging(true); }}
+      onDragLeave={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setDragging(false); }}
+      onDrop={handleDrop}
+      className={`rounded-[10px] bg-white p-4 outline-2 outline-offset-[-2px] transition ${dragging ? "outline-dashed outline-[#3b82f6]" : "outline-transparent"}`}
+    >
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <DocumentPreview file={localFile} fallbackName={uploaded?.filename} />
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-[#101828]">{document.label}{document.required ? "" : " (optional)"}</p>
+            {document.hint && <p className="mt-1 text-xs text-[#717182]">{document.hint}</p>}
+            <p className="mt-1 truncate text-xs text-[#717182]">{dragging ? "Drop to upload" : detail}</p>
+          </div>
+        </div>
+        <label className={`inline-flex shrink-0 items-center gap-1 rounded-lg border border-black/10 bg-white px-4 py-2 text-xs text-[#0a0a0a] transition ${busy ? "cursor-wait opacity-50" : "cursor-pointer hover:bg-[#f7f7f7]"}`}>
+          <IconImage src={uploadIcon} className="size-3" />
+          {uploaded ? "Replace" : "Upload"}
+          <input type="file" name={document.code} accept={document.accepts.join(",")} disabled={busy} className="sr-only" onChange={handleChange} aria-label={`Upload ${document.label}`} />
+        </label>
+      </div>
+      {busy && (
+        <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#e5e7eb]" role="progressbar" aria-label={`Uploading ${document.label}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
+          <div className="h-full rounded-full bg-[#3b82f6] transition-[width]" style={{ width: `${Math.round(progress * 100)}%` }} />
+        </div>
+      )}
+      {error && <p role="alert" className="mt-2 text-xs text-red-700">{error}</p>}
+    </div>
+  );
+}
+
+function DocumentsStep({ token, documents, application, localFiles, progress, rowErrors, onFile, onBack, onNext }: { token: string; documents: DocumentRequirement[]; application: ApplicationStatus; localFiles: Record<string, File>; progress: Record<string, number>; rowErrors: Record<string, string | undefined>; onFile: (document: DocumentRequirement, file: File) => void; onBack: () => void; onNext: () => void }) {
+  const [error, setError] = useState<string>();
+  const required = documents.filter((document) => document.required);
+  const uploadedCodes = new Set(application.uploaded_documents.map((document) => document.code));
+  const uploaded = required.filter((document) => uploadedCodes.has(document.code)).length;
+  const percent = required.length ? Math.round((uploaded / required.length) * 100) : 100;
+  const isUploading = Object.keys(progress).length > 0;
+
+  return (
+    <form noValidate onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); if (application.missing_documents.length) { setError(`Upload all ${required.length} required documents before continuing.`); return; } onNext(); }} className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 sm:p-8">
+      <TrackingLink token={token} email={application.contact_email} />
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-base text-[#101828]">{uploaded} of {required.length} required documents uploaded</p>
+        <p className="text-xs text-[#8893a4]">{percent}% complete</p>
+      </div>
+      <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e5e7eb]" role="progressbar" aria-label="Document upload progress" aria-valuemin={0} aria-valuemax={required.length} aria-valuenow={uploaded}>
+        <div className="h-full rounded-full bg-[#3b82f6] transition-[width]" style={{ width: `${percent}%` }} />
       </div>
       <div className="mt-5 space-y-3">
-        {documentItems.map((label, index) => (
-          <div key={label} className="flex items-center justify-between gap-4 rounded-[10px] bg-white p-4">
-            <div><p className="text-sm font-semibold text-[#101828]">{label}</p><p className="mt-1 text-xs text-[#717182]">{files[label]?.name ?? "PDF, JPG, PNG · Max 10MB"}</p></div>
-            <label className="inline-flex shrink-0 cursor-pointer items-center gap-1 rounded-lg border border-black/10 bg-white px-4 py-2 text-xs text-[#0a0a0a] transition hover:bg-[#f7f7f7]">
-              <IconImage src={uploadIcon} className="size-3" />
-              {files[label] ? "Replace" : "Upload"}
-              <input type="file" name={`document-${index}`} accept="application/pdf,image/jpeg,image/png" className="sr-only" onChange={handleUpload(label)} aria-label={`Upload ${label}`} />
-            </label>
-          </div>
+        {documents.map((document) => (
+          <DocumentRow
+            key={document.code}
+            document={document}
+            uploaded={application.uploaded_documents.find((item) => item.code === document.code)}
+            localFile={localFiles[document.code]}
+            progress={progress[document.code]}
+            error={rowErrors[document.code]}
+            onFile={(file) => { setError(undefined); onFile(document, file); }}
+          />
         ))}
       </div>
-      {error && <p role="alert" className="mt-4 text-sm text-red-700">{error}</p>}
-      <FlowActions onBack={onBack} onNext={onNext} nextLabel="Review" />
+      <FormAlert error={error ? { message: error } : undefined} />
+      <FlowActions onBack={onBack} nextLabel="Review" nextDisabled={isUploading} />
     </form>
   );
 }
@@ -234,74 +452,347 @@ function ReviewSection({ title, children, onEdit }: { title: string; children?: 
   );
 }
 
-function ReviewStep({ data, files, onBack, onEditApplicant, onEditDocuments, onSubmit }: { data: RegistrationData; files: DocumentFiles; onBack: () => void; onEditApplicant: () => void; onEditDocuments: () => void; onSubmit: () => void }) {
-  const values = [["Full Name", `${data.firstName} ${data.lastName}`.trim()], ["Business Name", data.businessName], ["Business Type", data.businessType], ["Phone", data.phone], ["Email", data.email], ["Country", data.country], ["Target Audience", data.audience]];
+function ReviewRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+      <dt className="shrink-0 text-[#717182]">{label}</dt>
+      <dd className="min-w-0 break-words font-medium text-[#0a0a0a] sm:text-right">{value}</dd>
+    </div>
+  );
+}
+
+function ReviewStep({ data, requirements, documents, application, busy, formError, onBack, onEditApplicant, onEditDocuments, onSubmit }: { data: RegistrationData; requirements: Requirements; documents: DocumentRequirement[]; application: ApplicationStatus; busy: boolean; formError?: FormError; onBack: () => void; onEditApplicant: () => void; onEditDocuments: () => void; onSubmit: () => void }) {
+  const labelFor = (options: RequirementOption[], code: string) => options.find((option) => option.code === code)?.label ?? code;
+  const values = [
+    ["Full Name", `${data.firstName} ${data.lastName}`.trim()],
+    ["Business Name", data.businessName],
+    ["Business Type", labelFor(requirements.business_types, data.businessType)],
+    ["Phone", data.phone.trim()],
+    ["Email", data.email],
+    ["Country", data.country ? countryName(data.country) : ""],
+    ["Target Audience", labelFor(requirements.target_audiences, data.audience)],
+  ];
   return (
     <form onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); onSubmit(); }} className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 sm:p-8">
       <div className="space-y-4">
         <ReviewSection title="Applicant Information" onEdit={onEditApplicant}>
-          <dl className="space-y-4 text-sm">{values.map(([label, value]) => <div key={label} className="flex items-center justify-between gap-6"><dt className="text-[#717182]">{label}</dt><dd className="text-right font-medium text-[#0a0a0a]">{value || "Not provided"}</dd></div>)}</dl>
+          <dl className="space-y-4 text-sm">{values.map(([label, value]) => <ReviewRow key={label} label={label} value={value || "Not provided"} />)}</dl>
         </ReviewSection>
         <ReviewSection title="Required Documents" onEdit={onEditDocuments}>
-          <dl className="space-y-4 text-sm">{documentItems.map((label) => <div key={label} className="flex items-center justify-between gap-6"><dt className="text-[#717182]">{label.replace("Business Registration Certificate", "Business Reg").replace("Tax ID Certificate", "Tax Cert").replace("Owner / Director Government-Issued ID", "Director ID")}</dt><dd className="text-right font-medium text-[#0a0a0a]">{files[label]?.name || "Not uploaded"}</dd></div>)}</dl>
+          <dl className="space-y-4 text-sm">{documents.map((document) => <ReviewRow key={document.code} label={document.label} value={application.uploaded_documents.find((item) => item.code === document.code)?.filename || "Not uploaded"} />)}</dl>
         </ReviewSection>
       </div>
-      <FlowActions onBack={onBack} nextLabel="Submit" nextDisabled />
-      <p className="mt-3 text-right text-xs text-[#717182]">Submission will be enabled when the registration service is connected.</p>
+      <FormAlert error={formError} />
+      <FlowActions onBack={onBack} nextLabel={busy ? "Submitting…" : "Submit"} nextDisabled={busy || !application.can_submit} />
+      {!application.can_submit && <p className="mt-3 text-right text-xs text-[#717182]">Upload every required document to enable submission.</p>}
     </form>
   );
 }
 
-function RegistrationSuccess() {
+function RegistrationSuccess({ token, reference }: { token: string; reference: string }) {
   return (
     <div className="flex min-h-[calc(100vh-75px)] items-center justify-center px-6 py-10 sm:px-10">
       <section className="flex w-full max-w-[559px] flex-col items-center rounded-2xl border border-[#e5e7eb] bg-[#fafafa] px-6 py-8 text-center sm:px-10">
         <h2 className="text-lg font-semibold text-[#364153]">Congratulations 🎉</h2>
         <p className="mt-4 max-w-[338px] text-sm leading-[1.35] text-[#717b8e]">Your application has been successfully submitted. Our team will get in touch with you soon to guide you through the next steps.</p>
+        <p className="mt-3 text-sm text-[#364153]">Reference: <span className="font-semibold">{reference}</span></p>
         <Image src={MerchantSuccess} alt="Celebration" width={300} height={300} className="my-8 size-[240px] rounded-[28px] object-contain sm:size-[300px]" />
-        <Link href="/business" className="rounded-[14px] bg-[#0c3283] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#082762]">Back to website</Link>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link href={statusPagePath(token)} className="rounded-[14px] border border-[#0c3283] px-6 py-3 text-sm font-semibold text-[#0c3283] transition hover:bg-[#edf5fb]">Track application</Link>
+          <Link href="/business" className="rounded-[14px] bg-[#0c3283] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#082762]">Back to website</Link>
+        </div>
       </section>
     </div>
   );
 }
 
+function LoadState({ message, onRetry }: { message: string; onRetry?: () => void }) {
+  return (
+    <div className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 text-center sm:p-8">
+      <p role={onRetry ? "alert" : "status"} className={`text-sm ${onRetry ? "text-red-700" : "text-[#717182]"}`}>{message}</p>
+      {onRetry && <button type="button" onClick={onRetry} className="mt-4 rounded-[14px] bg-[#0c3283] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#082762]">Try again</button>}
+    </div>
+  );
+}
+
 function RegistrationFlow() {
+  const router = useRouter();
   const [step, setStep] = useState(0);
-  const [data, setData] = useState<RegistrationData>({ firstName: "", lastName: "", businessName: "", businessType: "", email: "", phone: "", country: "", audience: "" });
+  const [data, setData] = useState<RegistrationData>(emptyRegistration);
+  const [savedData, setSavedData] = useState<RegistrationData>();
   const [errors, setErrors] = useState<RegistrationErrors>({});
-  const [documentError, setDocumentError] = useState<string>();
-  const [files, setFiles] = useState<DocumentFiles>({});
+  const [focusRequest, setFocusRequest] = useState(0);
+  const [formError, setFormError] = useState<FormError>();
+  const [requirements, setRequirements] = useState<Requirements>();
+  const [loadError, setLoadError] = useState<string>();
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const [token, setToken] = useState<string>();
+  const [application, setApplication] = useState<ApplicationStatus>();
+  const [resumed, setResumed] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [confirmingEmail, setConfirmingEmail] = useState(false);
+  const [pendingStep, setPendingStep] = useState(1);
+  const [localFiles, setLocalFiles] = useState<Record<string, File>>({});
+  const [progress, setProgress] = useState<Record<string, number>>({});
+  const [rowErrors, setRowErrors] = useState<Record<string, string | undefined>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+    const urlToken = new URLSearchParams(window.location.search).get("token");
+    const savedToken = urlToken || loadStoredToken();
+
+    (async () => {
+      try {
+        const nextRequirements = await getRequirements();
+        if (cancelled) return;
+        if (savedToken) {
+          try {
+            const existing = await getApplication(savedToken);
+            if (cancelled) return;
+            if (!existing.editable) {
+              router.replace(statusPagePath(savedToken));
+              return;
+            }
+            const existingData = fromStatus(existing);
+            storeToken(savedToken);
+            setToken(savedToken);
+            setApplication(existing);
+            setData(existingData);
+            setSavedData(existingData);
+            setResumed(true);
+            setStep(existing.missing_documents.length ? 1 : 2);
+          } catch (error) {
+            // A stale saved token just means starting fresh; a bad link should say so.
+            if (!(error instanceof ApiError && error.status === 404)) throw error;
+            storeToken(null);
+            if (urlToken) setFormError({ message: error.message, recover: true });
+          }
+        }
+        setRequirements(nextRequirements);
+      } catch (error) {
+        if (!cancelled) setLoadError(errorMessage(error));
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [router, loadAttempt]);
+
+  useEffect(() => {
+    if (!focusRequest) return;
+    const firstInvalid = fieldOrder.find((field) => errors[field]);
+    const element = firstInvalid && document.getElementById(firstInvalid);
+    if (!element) return;
+    element.focus({ preventScroll: true });
+    element.scrollIntoView({ block: "center", behavior: "smooth" });
+    // Only re-run when a new focus is requested, not on every edit.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusRequest]);
+
+  const dirty = step === 0 && (savedData ? !sameRegistration(data, savedData) : Object.values(data).some((value) => value.trim()));
+  const uploading = Object.keys(progress).length > 0;
+
+  useEffect(() => {
+    if (!dirty && !uploading) return;
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty, uploading]);
+
+  const updateData = (next: RegistrationData) => {
+    if (next.email !== data.email) setConfirmingEmail(false);
+    setData(next);
+  };
 
   const validateApplicant = () => {
     const nextErrors: RegistrationErrors = {};
-    const requiredFields: Array<keyof RegistrationData> = ["firstName", "lastName", "businessName", "businessType", "email", "phone", "country", "audience"];
 
-    for (const field of requiredFields) {
+    for (const field of fieldOrder) {
       if (!data[field].trim()) nextErrors[field] = "This field is required.";
     }
 
-    if (data.email && !/^\S+@\S+\.\S+$/.test(data.email)) {
+    if (data.email && !/^\S+@\S+\.\S+$/.test(data.email.trim())) {
       nextErrors.email = "Enter a valid email address.";
     }
 
+    const phone = data.phone.trim();
+    if (phone && (!phone.startsWith("+") || !PHONE_PATTERN.test(phone) || phone === dialCode(data.country))) {
+      nextErrors.phone = "Enter your full number, starting with the country code (e.g. +233).";
+    }
+
     setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    if (Object.keys(nextErrors).length) {
+      setFocusRequest((request) => request + 1);
+      return false;
+    }
+    return true;
   };
 
-  const handleApplicantNext = () => {
-    if (validateApplicant()) setStep(1);
+  /** Saves step 1 if anything changed. Resolves true when it is safe to leave the step. */
+  const saveApplicant = async (target: number, emailConfirmed = false) => {
+    if (!validateApplicant() || busy) return false;
+    if (token && savedData && sameRegistration(data, savedData)) return true;
+
+    const emailChanged = !savedData || savedData.email.trim().toLowerCase() !== data.email.trim().toLowerCase();
+    if (emailChanged && !emailConfirmed) {
+      setPendingStep(target);
+      setConfirmingEmail(true);
+      return false;
+    }
+
+    setBusy(true);
+    setFormError(undefined);
+    try {
+      if (token) {
+        setApplication(await updateApplication(token, toRequest(data)));
+      } else {
+        const created = await createApplication(toRequest(data));
+        storeToken(created.tracking_token);
+        window.history.replaceState(null, "", registrationPath(created.tracking_token));
+        setToken(created.tracking_token);
+        setApplication(await getApplication(created.tracking_token));
+      }
+      setSavedData(data);
+      setConfirmingEmail(false);
+      return true;
+    } catch (error) {
+      setConfirmingEmail(false);
+      const tags = error instanceof ApiError ? error.fieldTags : {};
+      if (Object.keys(tags).length) {
+        const fieldErrors: RegistrationErrors = {};
+        for (const [field, tag] of Object.entries(tags)) {
+          const formField = apiFieldToFormField[field];
+          if (formField) fieldErrors[formField] = validatorTagMessages[tag] ?? "Check this field.";
+        }
+        setErrors(fieldErrors);
+        setFocusRequest((request) => request + 1);
+        setFormError({ message: "Some details need correcting before you continue." });
+      } else if (error instanceof ApiError && error.code === "APPLICATION_EXISTS") {
+        setFormError({ message: error.message || "An application for this email is already in progress.", recover: true });
+      } else if (error instanceof ApiError && error.status === 404) {
+        storeToken(null);
+        setToken(undefined);
+        setSavedData(undefined);
+        setFormError({ message: error.message, recover: true });
+      } else {
+        setFormError({ message: errorMessage(error) });
+      }
+      return false;
+    } finally {
+      setBusy(false);
+    }
   };
 
-  const handleDocumentsNext = () => {
-    if (Object.keys(files).length === documentItems.length) setStep(2);
+  const goTo = (nextStep: number) => {
+    setFormError(undefined);
+    setStep(nextStep);
   };
+
+  const navigate = async (target: number) => {
+    if (target === step || busy) return;
+    if (step === 0 && !(await saveApplicant(target))) return;
+    goTo(target);
+  };
+
+  const confirmEmail = async () => {
+    if (await saveApplicant(pendingStep, true)) goTo(pendingStep);
+  };
+
+  const changeEmail = () => {
+    setConfirmingEmail(false);
+    const input = document.getElementById("email") as HTMLInputElement | null;
+    input?.focus();
+    input?.select();
+  };
+
+  const canVisit = (index: number) => index === 0 || Boolean(token && application && (index === 1 || application.missing_documents.length === 0));
+
+  const handleFile = async (document: DocumentRequirement, file: File) => {
+    if (!token) return;
+    if ((document.accepts.length && !document.accepts.includes(file.type)) || file.size > document.max_bytes) {
+      setRowErrors((current) => ({ ...current, [document.code]: `Upload a ${describeAccepts(document.accepts)} file smaller than ${formatBytes(document.max_bytes)}.` }));
+      return;
+    }
+
+    setRowErrors((current) => ({ ...current, [document.code]: undefined }));
+    setProgress((current) => ({ ...current, [document.code]: 0 }));
+    try {
+      const status = await uploadDocument(token, document.code, file, (fraction) => setProgress((current) => ({ ...current, [document.code]: fraction })));
+      setApplication(status);
+      setLocalFiles((current) => ({ ...current, [document.code]: file }));
+    } catch (error) {
+      setRowErrors((current) => ({ ...current, [document.code]: errorMessage(error) }));
+    } finally {
+      setProgress((current) => Object.fromEntries(Object.entries(current).filter(([code]) => code !== document.code)));
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!token || busy) return;
+    setBusy(true);
+    setFormError(undefined);
+    try {
+      setApplication(await submitApplication(token));
+      setStep(3);
+    } catch (error) {
+      if (error instanceof ApiError && error.code === "MISSING_DOCUMENTS") {
+        setApplication(await getApplication(token).catch(() => application));
+        const missing = (error.details.missing_documents as string[] | undefined) ?? [];
+        const labels = missing.map((code) => requirements?.documents.find((document) => document.code === code)?.label ?? code);
+        setFormError({ message: `Still missing: ${labels.join(", ")}.` });
+      } else {
+        setFormError({ message: errorMessage(error) });
+      }
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const startOver = () => {
+    storeToken(null);
+    window.history.replaceState(null, "", registrationPath());
+    setToken(undefined);
+    setApplication(undefined);
+    setData(emptyRegistration);
+    setSavedData(undefined);
+    setResumed(false);
+    setErrors({});
+    setFormError(undefined);
+    setConfirmingEmail(false);
+    setLocalFiles({});
+    setRowErrors({});
+    setStep(0);
+  };
+
+  const documents = application?.required_documents.length ? application.required_documents : requirements?.documents ?? [];
+
+  let content: ReactNode;
+  if (loadError) content = <LoadState message={loadError} onRetry={() => { setLoadError(undefined); setLoadAttempt((attempt) => attempt + 1); }} />;
+  else if (!requirements) content = <LoadState message="Loading application form…" />;
+  else if (step === 0 || !token || !application) content = <ApplicantForm data={data} onChange={updateData} errors={errors} requirements={requirements} formError={formError} busy={busy} confirmingEmail={confirmingEmail} onConfirmEmail={confirmEmail} onChangeEmail={changeEmail} onNext={() => navigate(1)} />;
+  else if (step === 1) content = <DocumentsStep token={token} documents={documents} application={application} localFiles={localFiles} progress={progress} rowErrors={rowErrors} onFile={handleFile} onBack={() => goTo(0)} onNext={() => goTo(2)} />;
+  else content = <ReviewStep data={data} requirements={requirements} documents={documents} application={application} busy={busy} formError={formError} onBack={() => goTo(1)} onEditApplicant={() => goTo(0)} onEditDocuments={() => goTo(1)} onSubmit={handleSubmit} />;
 
   return (
     <MerchantBackground>
-      <Sidebar step={step} />
+      <Sidebar step={step} canVisit={canVisit} onSelect={navigate} />
       <div className="relative z-10 min-w-0 flex-1">
         <TopBar step={Math.min(step, 2)} total={3} title={step < 3 ? ["Applicant Information", "Required Documents", "Review & Submit"][step] : undefined} />
-        {step === 3 ? <RegistrationSuccess /> : <div className="px-6 pb-8 pt-12 sm:px-10 lg:px-12 lg:pt-14"><div className="mx-auto max-w-[783px]">{step === 0 && <ApplicantForm data={data} setData={setData} errors={errors} onBack={() => undefined} onNext={handleApplicantNext} />}{step === 1 && <DocumentsStep files={files} setFiles={setFiles} error={documentError} setError={setDocumentError} onBack={() => { setDocumentError(undefined); setStep(0); }} onNext={handleDocumentsNext} />}{step === 2 && <ReviewStep data={data} files={files} onBack={() => setStep(1)} onEditApplicant={() => setStep(0)} onEditDocuments={() => setStep(1)} onSubmit={() => setStep(3)} />}</div></div>}
+        {step === 3 && token && application ? (
+          <RegistrationSuccess token={token} reference={application.reference} />
+        ) : (
+          <div className="px-6 pb-8 pt-12 sm:px-10 lg:px-12 lg:pt-14">
+            <div className="mx-auto max-w-[783px]">
+              {resumed && application && <ResumeBanner reference={application.reference} email={application.contact_email} onStartOver={startOver} />}
+              {content}
+              {step === 0 && !token && requirements && <p className="mt-4 text-center text-xs text-[#717182]">Already started an application? <Link href={RECOVERY_PATH} className="font-semibold text-[#0c3283] hover:underline">Continue where you left off</Link></p>}
+            </div>
+          </div>
+        )}
       </div>
     </MerchantBackground>
   );
@@ -310,3 +801,5 @@ function RegistrationFlow() {
 export default function MerchantFlow() {
   return <RegistrationFlow />;
 }
+
+export { MerchantBackground, LoadState };
