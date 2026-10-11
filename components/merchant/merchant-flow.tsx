@@ -141,19 +141,20 @@ function MerchantBackground({ children }: { children: ReactNode }) {
 
 function Sidebar({ step, canVisit, onSelect }: { step: number; canVisit: (index: number) => boolean; onSelect: (index: number) => void }) {
   return (
-    <aside className="relative z-10 flex w-full shrink-0 flex-col bg-[#edf5fb] px-6 py-7 sm:px-8 sm:py-10 lg:min-h-screen lg:w-[401px]">
+    <aside className="relative z-10 flex w-full shrink-0 flex-col bg-[#edf5fb] px-6 py-5 sm:px-8 lg:min-h-screen lg:w-[401px] lg:py-10">
       <Link href="/" aria-label="Go to Syka home" className="w-fit rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0c3283]">
         <Image src={SykaLogo} alt="Syka" width={94} height={38} className="h-[38px] w-[94px] object-contain object-left" priority />
       </Link>
 
-      <div className="mt-10 max-w-[337px] lg:mt-[100px]">
+      {/* Below lg the top bar's progress and "Step x of 3" carry this, so the form starts on the first screen. */}
+      <div className="mt-[100px] hidden max-w-[337px] lg:block">
         <h1 className="max-w-[337px] text-[30px] leading-[1.17] tracking-[1px] text-[#1f1a0b] sm:text-[32px]">
           Just a little more information needed to complete your company registration.
         </h1>
         <p className="mt-3 text-base tracking-[0.5px] text-[#1f1a0b]">Start your company in minutes.</p>
       </div>
 
-      <nav aria-label="Registration progress" className="mt-9 lg:mt-7">
+      <nav aria-label="Registration progress" className="mt-7 hidden lg:block">
         <ol className="relative space-y-2">
           {registrationSteps.map((label, index) => {
             const isActive = index <= step;
@@ -192,8 +193,8 @@ function Sidebar({ step, canVisit, onSelect }: { step: number; canVisit: (index:
 function TopBar({ step, total, title }: { step: number; total: number; title?: string }) {
   return (
     <div className="relative z-10 border-b border-transparent">
-      <div className="flex h-[75px] items-start justify-end px-6 pt-7 sm:px-8 lg:px-8">
-        <p className="text-right text-[13px] tracking-[0.5px] text-[#3d4756]">Having troubles? <a href="mailto:support@sykabank.com" className="font-semibold text-[#0c3283] hover:underline">Get Help</a></p>
+      <div className="flex items-start justify-end px-6 pt-5 sm:px-8 lg:h-[75px] lg:pt-7">
+        <p className="text-right text-[13px] tracking-[0.5px] text-[#3d4756]">Having troubles? <a href="mailto:support@sykabank.com" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Get Help</a></p>
       </div>
       <div
         className="absolute left-0 right-0 top-0 h-1 bg-[#e5e7eb]"
@@ -245,7 +246,7 @@ function FormAlert({ error }: { error?: FormError }) {
   return (
     <p ref={ref} role="alert" className="mt-4 text-sm text-red-700">
       {error.message}
-      {error.recover && <> <Link href={RECOVERY_PATH} className="font-semibold text-[#0c3283] hover:underline">Recover your application</Link></>}
+      {error.recover && <> <Link href={RECOVERY_PATH} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Recover your application</Link></>}
     </p>
   );
 }
@@ -254,7 +255,7 @@ function ResumeBanner({ reference, email, onStartOver }: { reference: string; em
   return (
     <div className="mb-4 flex flex-wrap items-center justify-between gap-2 rounded-[10px] bg-[#edf5fb] px-4 py-3 text-xs text-[#364153]">
       <p>Continuing application <span className="font-semibold">{reference}</span> for {email}.</p>
-      <button type="button" onClick={onStartOver} className="font-semibold text-[#0c3283] hover:underline">Not you? Start over</button>
+      <button type="button" onClick={onStartOver} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Not you? Start over</button>
     </div>
   );
 }
@@ -785,11 +786,11 @@ function RegistrationFlow() {
         {step === 3 && token && application ? (
           <RegistrationSuccess token={token} reference={application.reference} />
         ) : (
-          <div className="px-6 pb-8 pt-12 sm:px-10 lg:px-12 lg:pt-14">
+          <div className="px-6 pb-8 pt-6 sm:px-10 lg:px-12 lg:pt-14">
             <div className="mx-auto max-w-[783px]">
               {resumed && application && <ResumeBanner reference={application.reference} email={application.contact_email} onStartOver={startOver} />}
               {content}
-              {step === 0 && !token && requirements && <p className="mt-4 text-center text-xs text-[#717182]">Already started an application? <Link href={RECOVERY_PATH} className="font-semibold text-[#0c3283] hover:underline">Continue where you left off</Link></p>}
+              {step === 0 && !token && requirements && <p className="mt-4 text-center text-xs text-[#717182]">Already started an application? <Link href={RECOVERY_PATH} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Continue where you left off</Link></p>}
             </div>
           </div>
         )}

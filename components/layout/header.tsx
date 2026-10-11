@@ -247,7 +247,7 @@ const Header = () => {
               <li key={item.label}>
                 <Link
                   href={item.href}
-                  className="text-base font-medium transition-colors hover:text-[#1F2238]"
+                  className="-my-2 inline-block py-2 text-base font-medium transition-colors hover:text-[#1F2238]"
                 >
                   {item.label}
                 </Link>
@@ -349,9 +349,13 @@ const Header = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
+        // Closed, the panel is only slid off-screen; inert + invisible keep it
+        // out of the tab order and the accessibility tree. Visibility flips
+        // after the slide, so the closing animation still plays.
+        inert={!isSheetOpen}
         className={cn(
-          "fixed top-0 left-0 z-50 h-full w-full transform bg-white transition-transform duration-300",
-          isSheetOpen ? "translate-x-0" : "-translate-x-full",
+          "fixed top-0 left-0 z-50 h-full w-full transform overflow-y-auto bg-white transition-[transform,visibility] duration-300",
+          isSheetOpen ? "visible translate-x-0" : "invisible -translate-x-full",
         )}
       >
         <div className="flex items-center justify-between border-b border-[#ECEEF5] px-4 py-4">

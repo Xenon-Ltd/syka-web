@@ -31,7 +31,7 @@ function PageShell({ title, children }: { title: string; children: ReactNode }) 
           <Link href="/" aria-label="Go to Syka home" className="w-fit rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0c3283]">
             <Image src={SykaLogo} alt="Syka" width={94} height={38} className="h-[38px] w-[94px] object-contain object-left" priority />
           </Link>
-          <p className="text-right text-[13px] tracking-[0.5px] text-[#3d4756]">Having troubles? <a href="mailto:support@sykabank.com" className="font-semibold text-[#0c3283] hover:underline">Get Help</a></p>
+          <p className="text-right text-[13px] tracking-[0.5px] text-[#3d4756]">Having troubles? <a href="mailto:support@sykabank.com" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Get Help</a></p>
         </header>
         <div className="flex flex-1 items-start justify-center px-6 py-12 sm:px-10 lg:py-20">
           <div className="w-full max-w-[559px]">
@@ -233,7 +233,7 @@ export function RecoverApplicationPage() {
           </form>
         )}
       </section>
-      <p className="mt-4 text-center text-xs text-[#717182]">New to Syka? <Link href="/business/merchant/registration" className="font-semibold text-[#0c3283] hover:underline">Start an application</Link></p>
+      <p className="mt-4 text-center text-xs text-[#717182]">New to Syka? <Link href="/business/merchant/registration" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Start an application</Link></p>
     </PageShell>
   );
 }

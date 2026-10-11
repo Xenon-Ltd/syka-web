@@ -179,6 +179,7 @@
 .legal-link {
   color: var(--legal-brand);
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .legal-link:hover,
@@ -515,6 +516,9 @@
   .legal-page {
     display: flex;
     flex-direction: column;
+    /* Stretch, not start: a start-aligned column item sizes to its content,
+       letting the 480px legal table push the article past the screen. */
+    align-items: stretch;
     gap: 32px;
     width: calc(100% - 32px);
     padding-bottom: 64px;
@@ -613,8 +617,10 @@
     gap: 2px;
   }
 
+  /* In the stacked (column) layout flex-basis sets height, not width. */
   .legal-definitions dt {
     min-width: 0;
+    flex-basis: auto;
   }
 
   .legal-rows > div {

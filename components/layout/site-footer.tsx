@@ -29,7 +29,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
   const groups: FooterGroup[] = [
     { title: "Products", links: PRODUCT_ITEMS.map(({ label, slug }) => ({ label, href: `${basePath}?product=${slug}` })) },
     ...(company.length ? [{ title: "Company", links: company }] : []),
-    ...(transparency.length ? [{ title: "Transparency", links: transparency }] : []),
+    ...(transparency.length ? [{ title: "Legal", links: transparency }] : []),
     { title: "Support", links: [{ label: "Contact Us", href: businessLinks.sales }, { label: "FAQs", href: `${basePath}#faq` }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
   ];
 
@@ -49,7 +49,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
                 <h2 className="text-sm font-semibold text-white/55 lg:text-base">{title}</h2>
                 <ul className="mt-5 space-y-[14px] text-lg leading-[22px] text-white/75">
                   {links.map(({ label, href }) => (
-                    <li key={label}><Link href={href} className="rounded transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{label}</Link></li>
+                    <li key={label}><Link href={href} className="-my-[7px] inline-block rounded py-[7px] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{label}</Link></li>
                   ))}
                 </ul>
               </nav>

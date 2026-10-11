@@ -59,6 +59,54 @@ const rows: PricingRow[] = [
   },
 ];
 
+const plans = [
+  { name: "Powered by Syka", value: (row: PricingRow) => row.poweredBySyka, featured: false },
+  { name: "White-Label", value: (row: PricingRow) => row.whiteLabel, featured: true },
+];
+
+// Below md the comparison table would need sideways scrolling (and hide the
+// featured plan), so each plan is shown as its own stacked card instead.
+function PlanCards() {
+  return (
+    <div className="space-y-6 md:hidden">
+      {plans.map((plan) => (
+        <article
+          key={plan.name}
+          aria-label={plan.name}
+          className={cn(
+            "overflow-hidden rounded-3xl",
+            plan.featured ? "border-4 border-[#1377bc] bg-[#f7f7f7] text-[#3d4756]" : "border border-white/35",
+          )}
+        >
+          <h3 className={cn(businessStyles.compactHeading, "px-6 py-5 text-center", plan.featured && "bg-[#1377bc] text-white")}>
+            {plan.name}
+          </h3>
+          <dl className="px-6">
+            {rows.map((row) => (
+              <div
+                key={row.label}
+                className={cn("flex items-start justify-between gap-4 border-t py-4 text-sm leading-5", plan.featured ? "border-[#e3e5e8]" : "border-white/35")}
+              >
+                <dt className={plan.featured ? "text-[#3d4756]/75" : "text-white/75"}>{row.label}</dt>
+                <dd className="text-right font-semibold">{plan.value(row)}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="px-6 pt-2 pb-6">
+            <BusinessAction
+              href={businessLinks.sales}
+              aria-label={`Contact Sales about ${plan.name}`}
+              className={cn(businessStyles.button, "w-full bg-xenon-brand text-white transition-colors hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4", plan.featured ? "focus-visible:outline-xenon-brand" : "focus-visible:outline-white")}
+            >
+              Contact Sales
+            </BusinessAction>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 export default function PricingComparison() {
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
@@ -69,7 +117,7 @@ export default function PricingComparison() {
       aria-labelledby="pricing-heading"
       className={cn(businessStyles.sectionSpacing, "pricing-section bg-xenon-primary px-5 text-white sm:px-6")}
     >
-      <div className="mx-auto max-w-[1180px] py-28">
+      <div className="mx-auto max-w-[1180px] md:py-28">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -103,13 +151,14 @@ export default function PricingComparison() {
           initial={{ opacity: 0, y: 28 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.15 }}
-          className="mx-auto mt-16 max-w-[999px] xl:mt-[87px]"
+          className="mx-auto mt-10 max-w-[999px] md:mt-16 xl:mt-[87px]"
         >
+          <PlanCards />
           <div
             role="region"
             aria-label="Pricing comparison"
             tabIndex={0}
-            className={cn(styles.scrollRegion, "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white")}
+            className={cn(styles.scrollRegion, "hidden focus-visible:outline-2 md:block focus-visible:outline-offset-4 focus-visible:outline-white")}
           >
             <table className={cn(styles.table, "text-base leading-[20.8px] tracking-[-0.32px]")}>
               <caption className="sr-only">

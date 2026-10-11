@@ -267,7 +267,7 @@ export default function ApiDocumentationPage() {
             <div className="mx-auto mt-8 max-w-[540px] space-y-6 text-left lg:mx-0 lg:mt-10 lg:max-w-none lg:space-y-6">
               {steps.map((step) => (
                 <div key={step.title} className="flex items-start gap-4 lg:gap-5">
-                  <div className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-xenon text-[11px] font-semibold text-white lg:size-7 lg:text-[13px]">
+                  <div className="mt-1 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-xenon text-xs font-semibold text-white lg:size-7 lg:text-[13px]">
                     {step.number}
                   </div>
                   <div className="w-full">
@@ -298,7 +298,7 @@ export default function ApiDocumentationPage() {
                 <span className="size-2.5 rounded-full bg-[#35D07F]" />
               </div>
 
-              <div className="flex items-center gap-4 text-[11px] text-white/55 sm:ml-4 lg:text-[13px]">
+              <div className="flex items-center gap-4 text-xs text-white/55 sm:ml-4 lg:text-[13px]">
                 <span className="font-medium text-white lg:text-[14px]">JavaScript</span>
                 <span>Python</span>
                 <span>Curl</span>
@@ -308,7 +308,7 @@ export default function ApiDocumentationPage() {
                 type="button"
                 onClick={handleCopy}
                 aria-label="Copy code sample"
-                className="ml-auto rounded-lg bg-white/8 px-3 py-1 text-[11px] font-medium text-white/80 transition-colors duration-200 hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:px-4 lg:py-1.5 lg:text-[13px]"
+                className="ml-auto min-h-8 rounded-lg bg-white/8 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors duration-200 hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:px-4 lg:py-1.5 lg:text-[13px]"
               >
                 {copied ? "Copied" : "Copy"}
               </button>

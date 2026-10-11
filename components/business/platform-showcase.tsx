@@ -79,13 +79,13 @@ export default function PlatformShowcase() {
               Book a Demo
             </BusinessAction>
           </div>
-          <div className="relative h-[260px] w-full lg:h-[340px]">
+          <div className="relative mx-auto aspect-[732/396] w-full max-w-[732px] lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px]">
             <Image
               src={MerchantPlatformMockup}
               alt="Syka Merchant Platform transaction approvals dashboard"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) 100vw, 50vw"
+              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
               className="object-contain"
             />
           </div>
@@ -124,13 +124,13 @@ export default function PlatformShowcase() {
               See Supported Corridors
             </BusinessAction>
           </div>
-          <div className="relative h-[220px] w-full lg:order-1 lg:h-[300px]">
+          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:order-1 lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[300px]">
             <Image
               src={CrossBorderPaymentMockup}
               alt="Cross-border payment transaction list"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) 100vw, 50vw"
+              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
               className="object-contain object-left"
             />
           </div>
@@ -157,13 +157,13 @@ export default function PlatformShowcase() {
               Learn About Treasury
             </BusinessAction>
           </div>
-          <div className="relative h-[260px] w-full lg:h-[340px]">
+          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px]">
             <Image
               src={TreasuryDashboardMockup}
               alt="Treasury management dashboard with multi-currency wallets and FX rates"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) 100vw, 50vw"
+              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
               className="object-contain object-right"
             />
           </div>
@@ -191,13 +191,13 @@ export default function PlatformShowcase() {
               Talk to Our Compliance Team
             </BusinessAction>
           </div>
-          <div className="relative h-[260px] w-full lg:order-1 lg:h-[340px]">
+          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:order-1 lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px]">
             <Image
               src={KYCComplianceMockup}
               alt="KYC and compliance infrastructure connecting exchanges, banks, and platforms"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) 100vw, 50vw"
+              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
               className="object-contain object-left"
             />
           </div>

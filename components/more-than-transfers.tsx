@@ -36,7 +36,7 @@ const reveal = {
   viewport: { once: true, amount: 0.15 },
   transition: { duration: 0.5, ease: EASE_OUT },
 };
-const linkStyle = "relative z-10 mt-4 inline-flex w-fit items-center gap-2 rounded text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current";
+const linkStyle = "relative z-10 mt-2 -mb-2 inline-flex w-fit py-2 items-center gap-2 rounded text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current";
 
 export default function MoreThanTransfers() {
   return (
@@ -47,7 +47,7 @@ export default function MoreThanTransfers() {
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="grid gap-6">
           {smallCards.map((card) => (
-            <motion.article key={card.title} {...reveal} className={cn("relative isolate min-h-[398px] overflow-hidden rounded-2xl p-10 pb-28 lg:rounded-[32px]", card.background)}>
+            <motion.article key={card.title} {...reveal} className={cn("relative isolate overflow-hidden rounded-2xl p-6 pb-40 sm:p-8 sm:pb-40 lg:min-h-[398px] lg:rounded-[32px] lg:p-10 lg:pb-28", card.background)}>
               <h3 className={cn(businessStyles.cardHeading, "relative z-10 max-w-[330px]")}>{card.title}</h3>
               <p className={cn(businessStyles.body, "relative z-10 mt-3 max-w-[408px]", card.text)}>{card.body}</p>
               <Link href={card.href} className={cn(linkStyle, card.link)}>Get Now <ArrowRightCircle aria-hidden="true" className="size-4" /></Link>
@@ -57,11 +57,11 @@ export default function MoreThanTransfers() {
             </motion.article>
           ))}
         </div>
-        <motion.article {...reveal} className="flex min-h-[820px] flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-[#1377bc] to-[#7953ba] p-8 text-white lg:rounded-[32px]">
+        <motion.article {...reveal} className="flex flex-col overflow-hidden rounded-2xl bg-gradient-to-br from-[#1377bc] to-[#7953ba] p-6 text-white sm:p-8 lg:min-h-[820px] lg:rounded-[32px]">
           <h3 className={businessStyles.cardHeading}>Spendable Balance</h3>
           <p className={cn(businessStyles.body, "mt-3 max-w-[330px] text-white/90")}>Create secure, disposable virtual debit cards directly from your Syka balance.</p>
           <Link href="/?product=virtual-card" className={cn(linkStyle, "text-[#55dbe6]")}>Get Now <ArrowRightCircle aria-hidden="true" className="size-4" /></Link>
-          <div className="relative -mx-4 -mb-8 mt-auto h-[340px] lg:h-[400px]">
+          <div className="relative -mx-4 -mb-6 mt-8 h-[300px] sm:-mb-8 sm:h-[340px] lg:mt-auto lg:h-[400px]">
             <Image src={SpendableBalance} alt="Syka virtual debit card and wallet" fill sizes="(max-width: 1023px) 90vw, 550px" placeholder="blur" className="object-contain object-bottom" />
           </div>
         </motion.article>
