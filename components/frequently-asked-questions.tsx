@@ -1,6 +1,8 @@
+import { FaqArrowIcon } from "@/assets/icons";
 import { businessStyles } from "@/lib/business-styles";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
+import Image from "next/image";
 
 type FAQItem = { question: string; answer: string };
 
@@ -31,9 +33,12 @@ const accountQuestions: FAQItem[] = [
 type FrequentlyAskedQuestionsProps = {
   variant?: "personal" | "business";
   items?: FAQItem[];
+  /** "product": the product-page design — circled arrow toggle, roomier cards. */
+  appearance?: "default" | "product";
 };
 
-export default function FrequentlyAskedQuestions({ variant = "personal", items }: FrequentlyAskedQuestionsProps) {
+export default function FrequentlyAskedQuestions({ variant = "personal", items, appearance = "default" }: FrequentlyAskedQuestionsProps) {
+  const isProduct = appearance === "product";
   const headingId = `${variant}-faq-heading`;
   const questions = items ?? accountQuestions;
   return (
@@ -41,14 +46,20 @@ export default function FrequentlyAskedQuestions({ variant = "personal", items }
       <h2 id={headingId} className={"faq-title text-xenon-gray"}>
         Frequently Asked<br />Questions
       </h2>
-      <div className="mt-10 space-y-6">
+      <div className={cn("mt-10", isProduct ? "space-y-4" : "space-y-6")}>
         {questions.map(({ question, answer }, index) => (
-          <details key={question} name={`${variant}-faq`} open={index === 1} className="group rounded-lg bg-[#fcfbf1] px-5 text-xenon-primary sm:px-8 lg:px-10">
+          <details key={question} name={`${variant}-faq`} open={index === 1} className={cn("group bg-[#fcfbf1] px-5 text-xenon-primary sm:px-8", isProduct ? "rounded-2xl lg:px-[60px]" : "rounded-lg lg:px-10")}>
             <summary className={"faq-question cursor-pointer list-none marker:content-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-primary [&::-webkit-details-marker]:hidden"}>
               {question}
-              <span aria-hidden="true" className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current">
-                <Plus className="size-4 transition-transform group-open:rotate-45 motion-reduce:transition-none" strokeWidth={1.4} />
-              </span>
+              {isProduct ? (
+                <span aria-hidden="true" className="flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-current lg:size-10">
+                  <Image src={FaqArrowIcon} alt="" className="rotate-90 transition-transform group-open:-rotate-90 motion-reduce:transition-none" />
+                </span>
+              ) : (
+                <span aria-hidden="true" className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current">
+                  <Plus className="size-4 transition-transform group-open:rotate-45 motion-reduce:transition-none" strokeWidth={1.4} />
+                </span>
+              )}
             </summary>
             {answer && <p className={"faq-answer"}>{answer}</p>}
           </details>

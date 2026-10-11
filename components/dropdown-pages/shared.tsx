@@ -22,7 +22,6 @@ import {
   US,
   VN,
 } from "@/assets/icons/countries";
-import { ContourPattern } from "@/assets/images";
 import BusinessAction from "@/components/business/business-action";
 import { businessLinks, personalLinks } from "@/lib/business-links";
 import { EASE_OUT } from "@/lib/animation";
@@ -85,35 +84,6 @@ export function PointList({ points }: { points: Point[] }) {
           <p className="text-base leading-6 text-[#8893A4] lg:text-lg lg:leading-6">{point.text}</p>
         </div>
       ))}
-    </div>
-  );
-}
-
-export function ContourImageBox({
-  className,
-  flip = false,
-  children,
-}: {
-  className?: string;
-  flip?: boolean;
-  children?: ReactNode;
-}) {
-  return (
-    <div className={`relative overflow-hidden rounded-2xl bg-[#E6F2FB] ${className ?? ""}`}>
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[#6CA9E6]"
-        style={{
-          maskImage: `url(${ContourPattern.src})`,
-          maskSize: "cover",
-          maskPosition: flip ? "right center" : "left center",
-          WebkitMaskImage: `url(${ContourPattern.src})`,
-          WebkitMaskSize: "cover",
-          WebkitMaskPosition: flip ? "right center" : "left center",
-          transform: flip ? "rotate(180deg)" : undefined,
-        }}
-      />
-      {children}
     </div>
   );
 }

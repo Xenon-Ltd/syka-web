@@ -22,12 +22,12 @@ import ProductHeroShell from "./product-hero-shell";
 import {
   AvailableCountries,
   CONTENT,
-  ContourImageBox,
   PointList,
   ProductCTA,
   Reveal,
   type Point,
 } from "./shared";
+import { ProductMedia } from "./product-media";
 
 const CTA_LABEL = "Get started with SYKA";
 
@@ -185,13 +185,13 @@ export default function PaymentsPage() {
             <PointList points={enterDetailsPoints} />
           </Reveal>
           <Reveal className="order-first xl:order-last">
-            <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src="/animations/payments-enter-details.json" />
           </Reveal>
         </div>
 
         <div className="product-feature-row product-feature-row-reverse">
           <Reveal>
-            <ContourImageBox flip className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src="/animations/payments-settle-recipients.json" />
           </Reveal>
           <Reveal>
             <h3 className="product-feature-title">
@@ -243,7 +243,7 @@ export default function PaymentsPage() {
         description="Whether you're paying a single supplier or building the payments layer for your own product, Syka gives you the rails to do it properly."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} />
+      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
     </>
   );
 }

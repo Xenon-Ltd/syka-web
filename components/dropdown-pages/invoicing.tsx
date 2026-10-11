@@ -1,6 +1,6 @@
 "use client";
 
-import { InvoicingUseCase } from "@/assets/images";
+import { InvoicingDetailsAttached, InvoicingHero, InvoicingUseCase } from "@/assets/images";
 import {
   CircleUserRound,
   FileCheck2,
@@ -14,7 +14,9 @@ import CustomerTestimonials from "../customer-testimonials";
 import FrequentlyAskedQuestions from "../frequently-asked-questions";
 import MarketingCTA from "../marketing-cta";
 import CompaniesMarquee from "../business/companies-marquee";
-import { CONTENT, ContourImageBox, PointList, ProductCTA, Reveal, type Point } from "./shared";
+import ProductHeroShell from "./product-hero-shell";
+import { CONTENT, PointList, ProductCTA, Reveal, type Point } from "./shared";
+import { ProductMedia } from "./product-media";
 
 const CTA_LABEL = "Create Invoice";
 
@@ -81,18 +83,23 @@ const faqItems = [
 export default function InvoicingPage() {
   return (
     <>
-      <section className="product-hero product-hero-cream">
-        <div className={`${CONTENT} product-hero-inner`}>
-          <Reveal className="product-hero-copy">
-            <p>Invoicing</p>
-            <h1>Invoice the world, and get paid without follow-up</h1>
-            <p className="product-hero-description">
-              Send professional invoices with your international account details built in, and let incoming payments match themselves against what&apos;s outstanding.
-            </p>
-            <ProductCTA>{CTA_LABEL}</ProductCTA>
-          </Reveal>
+      <ProductHeroShell variant="cream"
+        eyebrow="Invoicing"
+        title="Invoice the world, and get paid without follow-up"
+        description="Send professional invoices with your international account details built in, and let incoming payments match themselves against what's outstanding."
+        ctaLabel={CTA_LABEL}
+      >
+        <div className="relative aspect-square w-full max-w-[608px] overflow-hidden rounded-2xl">
+          <Image
+            src={InvoicingHero}
+            alt="Syka invoice history open on a laptop"
+            fill
+            sizes="(max-width: 1023px) 100vw, 608px"
+            className="object-cover"
+            priority
+          />
         </div>
-      </section>
+      </ProductHeroShell>
 
       <div className={`${CONTENT} flex justify-center`}>
         <CompaniesMarquee />
@@ -120,13 +127,13 @@ export default function InvoicingPage() {
             <PointList points={detailsPoints} />
           </Reveal>
           <Reveal className="order-first xl:order-last">
-            <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src={InvoicingDetailsAttached} />
           </Reveal>
         </div>
 
         <div className="product-feature-row product-feature-row-reverse">
           <Reveal>
-            <ContourImageBox flip className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src="/animations/invoicing-automated-reminders.json" />
           </Reveal>
           <Reveal>
             <h3 className="product-feature-title">
@@ -155,7 +162,7 @@ export default function InvoicingPage() {
               </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
-              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+              <ProductMedia src="/animations/invoicing-get-paid.mp4" height={606} />
             </Reveal>
           </div>
         </div>
@@ -197,7 +204,7 @@ export default function InvoicingPage() {
         description="Create an invoice that already carries your account details, and let the payment find its way home on its own."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} />
+      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
     </>
   );
 }

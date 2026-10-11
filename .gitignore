@@ -42,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# original, uncompressed animation exports (optimized copies live in public/animations)
+/assets/animations-source/

@@ -1,13 +1,12 @@
 "use client";
 
-import { TreasuryHero, TreasuryUseCase } from "@/assets/images";
+import { TreasuryHero, TreasuryHowItWorks, TreasuryUseCase } from "@/assets/images";
 import {
   ArrowLeftRight,
   BellRing,
   Coins,
   Lock,
   PiggyBank,
-  RefreshCw,
   TrendingUp,
 } from "lucide-react";
 import Image from "next/image";
@@ -19,12 +18,12 @@ import ProductHeroShell from "./product-hero-shell";
 import {
   AvailableCountries,
   CONTENT,
-  ContourImageBox,
   PointList,
   ProductCTA,
   Reveal,
   type Point,
 } from "./shared";
+import { ProductMedia } from "./product-media";
 
 const CTA_LABEL = "Get started with SYKA";
 
@@ -47,10 +46,6 @@ const forecastPoints: Point[] = [
   {
     Icon: Lock,
     text: "Funds remain yours throughout, and a withdrawal request is typically available within twenty-four to forty-eight hours.",
-  },
-  {
-    Icon: RefreshCw,
-    text: "Every payment is logged automatically, with a full statement available to download whenever you need it.",
   },
 ];
 
@@ -145,13 +140,13 @@ export default function TreasuryManagementPage() {
             <PointList points={schedulePoints} />
           </Reveal>
           <Reveal className="order-first xl:order-last">
-            <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src="/animations/treasury-convert-schedule.mp4" />
           </Reveal>
         </div>
 
         <div className="product-feature-row product-feature-row-reverse">
           <Reveal className="order-first">
-            <ContourImageBox flip className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src="/animations/treasury-earnings-forecast.json" />
           </Reveal>
           <Reveal>
             <h3 className="product-feature-title">
@@ -180,7 +175,7 @@ export default function TreasuryManagementPage() {
               </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
-              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+              <ProductMedia src={TreasuryHowItWorks} height={606} />
             </Reveal>
           </div>
         </div>
@@ -224,7 +219,7 @@ export default function TreasuryManagementPage() {
         description="Start by seeing exactly where your balances stand, and decide from there what deserves to be converted, protected, or put to work."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} />
+      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
     </>
   );
 }

@@ -20,11 +20,14 @@ export { default as ForGlobalTeamsAndContractors } from "./global-teams-contract
 export { default as ForCrossBorderBusinesses } from "./cross-border-businesses.png";
 export { default as ForSMEsAndStartupsBiz } from "./sme-startup.png";
 
-// used by
-export { default as SonaQode } from "./sonaqode.png";
-export { default as Maryhealth } from "./mary-health.png";
-export { default as JSSquared } from "./js-squared.png";
-export { default as OwlTing } from "./owlting-logo.png";
+// company logo marquee (components/business/companies-marquee.tsx)
+export { default as PartnerPartna } from "./partners/partna.png";
+export { default as PartnerOwlTing } from "./partners/owlting.png";
+export { default as PartnerSwipelux } from "./partners/swipelux.png";
+export { default as PartnerSwyChr } from "./partners/swychr.png";
+export { default as PartnerJSSquared } from "./partners/js-squared.png";
+export { default as PartnerSonaQode } from "./partners/sonaqode.png";
+export { default as PartnerMaryHealthIcon } from "./partners/mary-health-icon.jpg";
 
 // business — platform showcase mockups
 export { default as MerchantPlatformMockup } from "./merchant-platform-mockup.png";
@@ -45,7 +48,6 @@ export { default as ContourPattern } from "./contour-pattern.png";
 
 // virtual account product page
 export { default as VirtualAccountHero } from "./virtual-account-hero.jpg";
-export { default as VirtualAccountDashboardCard } from "./virtual-account-dashboard-card.png";
 export { default as VirtualAccountCity } from "./virtual-account-city.jpg";
 
 // virtual card product page
@@ -58,6 +60,9 @@ export { default as PaymentsUseCase } from "./payments-usecase.jpg";
 // treasury management product page
 export { default as TreasuryHero } from "./treasury-hero.jpg";
 export { default as TreasuryUseCase } from "./treasury-usecase.jpg";
+export { default as TreasuryHowItWorks } from "./treasury-how-it-works.png";
 
 // invoicing product page
 export { default as InvoicingUseCase } from "./invoicing-usecase.jpg";
+export { default as InvoicingHero } from "./invoicing-hero.jpg";
+export { default as InvoicingDetailsAttached } from "./invoicing-details-attached.png";

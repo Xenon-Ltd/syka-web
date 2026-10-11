@@ -1,9 +1,9 @@
 "use client";
 
+import { ArrowRight01Icon } from "@/assets/icons";
 import { GH, KE, NG } from "@/assets/icons/countries";
 import { EASE_OUT } from "@/lib/animation";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
 import { useRef } from "react";
 
@@ -99,9 +99,9 @@ export default function CustomerTestimonials() {
           type="button"
           onClick={scrollNext}
           aria-label="Show next testimonial"
-          className="absolute top-1/2 right-6 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-xenon-gray text-white transition-colors hover:bg-xenon-gray/90 lg:right-10 lg:flex"
+          className="absolute top-1/2 right-6 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-xenon-gray transition-colors hover:bg-xenon-gray/90 lg:right-[max(2.5rem,calc((100%-1220px)/2-69px))] lg:flex"
         >
-          <ArrowRight className="size-6" strokeWidth={1.75} />
+          <Image src={ArrowRight01Icon} alt="" aria-hidden />
         </button>
       </div>
     </section>

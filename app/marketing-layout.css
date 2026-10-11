@@ -27,6 +27,8 @@
 .personal-hero-title { max-width: 673px; font-size: 48px; font-weight: 700; line-height: 1.15; }
 .personal-hero-tagline { margin-top: 64px; }
 .stability-row { display: grid; align-items: center; gap: 40px; }
+/* Product pages set section, feature, use-case and CTA headings in Title Case (Figma text style). */
+.product-page :is(.product-section-title, .product-feature-title, .product-use-case h2, .marketing-cta-title) { text-transform: capitalize; }
 
 @media (min-width: 768px) {
   .marketing-page { gap: 96px; padding-bottom: 96px; }

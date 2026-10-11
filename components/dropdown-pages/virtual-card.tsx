@@ -17,7 +17,8 @@ import FrequentlyAskedQuestions from "../frequently-asked-questions";
 import MarketingCTA from "../marketing-cta";
 import CompaniesMarquee from "../business/companies-marquee";
 import ProductHeroShell from "./product-hero-shell";
-import { CONTENT, ContourImageBox, PointList, ProductCTA, Reveal, type Point } from "./shared";
+import { CONTENT, PointList, ProductCTA, Reveal, type Point } from "./shared";
+import { ProductMedia } from "./product-media";
 
 const CTA_LABEL = "Create Syka Card";
 
@@ -96,12 +97,12 @@ export default function VirtualCardPage() {
         description="Generate secure virtual cards for teams, subscriptions, and vendors, with real-time tracking and built-in spending limits."
         ctaLabel={CTA_LABEL}
       >
-        <div className="relative mx-auto aspect-[613/588] w-full max-w-[613px]">
+        <div className="relative mx-auto aspect-square w-full max-w-[600px]">
           <Image
             src={VirtualCardHeroIllustration}
             alt="Syka virtual card illustration"
             fill
-            sizes="(max-width: 1023px) 100vw, 613px"
+            sizes="(max-width: 1023px) 100vw, 600px"
             className="object-contain"
             priority
           />
@@ -155,7 +156,7 @@ export default function VirtualCardPage() {
               </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
-              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+              <ProductMedia src="/animations/virtual-card-free-cards.mp4" height={606} />
             </Reveal>
           </div>
         </div>
@@ -197,7 +198,7 @@ export default function VirtualCardPage() {
         description="Create your first card in under a minute, and see exactly what a card built for your business feels like."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} />
+      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
     </>
   );
 }

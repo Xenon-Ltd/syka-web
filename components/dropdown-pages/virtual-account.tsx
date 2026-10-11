@@ -2,7 +2,6 @@
 
 import {
   VirtualAccountCity,
-  VirtualAccountDashboardCard,
   VirtualAccountHero,
 } from "@/assets/images";
 import {
@@ -21,7 +20,8 @@ import FrequentlyAskedQuestions from "../frequently-asked-questions";
 import MarketingCTA from "../marketing-cta";
 import CompaniesMarquee from "../business/companies-marquee";
 import ProductHeroShell from "./product-hero-shell";
-import { CONTENT, ContourImageBox, PointList, ProductCTA, Reveal, type Point } from "./shared";
+import { CONTENT, PointList, ProductCTA, Reveal, type Point } from "./shared";
+import { ProductMedia } from "./product-media";
 
 const CTA_LABEL = "Create a Virtual Account";
 
@@ -138,23 +138,13 @@ export default function VirtualAccountPage() {
             <PointList points={dedicatedPoints} />
           </Reveal>
           <Reveal className="order-first xl:order-last">
-            <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[515px]">
-              <div className="absolute top-[13%] left-1/2 h-[85%] w-[68%] -translate-x-1/2 overflow-hidden rounded-2xl border-2 border-[#BCCED9]">
-                <Image
-                  src={VirtualAccountDashboardCard}
-                  alt="Syka virtual account balances and transactions"
-                  fill
-                  sizes="(max-width: 1023px) 60vw, 414px"
-                  className="object-cover"
-                />
-              </div>
-            </ContourImageBox>
+            <ProductMedia src="/animations/virtual-account-dedicated-details.json" />
           </Reveal>
         </div>
 
         <div className="product-feature-row product-feature-row-reverse">
           <Reveal>
-            <ContourImageBox flip className="aspect-square w-full lg:aspect-auto lg:h-[515px]" />
+            <ProductMedia src="/animations/virtual-account-multi-currency.json" />
           </Reveal>
           <Reveal>
             <h3 className="product-feature-title">
@@ -183,7 +173,7 @@ export default function VirtualAccountPage() {
               </ProductCTA>
             </Reveal>
             <Reveal className="order-first xl:order-last">
-              <ContourImageBox className="aspect-square w-full lg:aspect-auto lg:h-[606px]" />
+              <ProductMedia src="/animations/virtual-account-local-accounts.json" height={606} />
             </Reveal>
           </div>
         </div>
@@ -225,7 +215,7 @@ export default function VirtualAccountPage() {
         description="Open your first virtual account and start receiving international payments without ever opening a foreign bank account."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} />
+      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
     </>
   );
 }
