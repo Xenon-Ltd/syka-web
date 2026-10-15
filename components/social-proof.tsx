@@ -14,6 +14,12 @@ import {
   EASE_IN_OUT,
 } from "@/lib/animation";
 
+const flagCountry = new Map<StaticImageData | string, string>([
+  [GH, "Ghana"],
+  [NG, "Nigeria"],
+  [GB, "United Kingdom"],
+]);
+
 interface Testimonial {
   countryFlag: StaticImageData | string;
   feedback: string;
@@ -71,7 +77,7 @@ function TestimonialCard({
         <div className="mb-4 lg:mb-6">
           <Image
             src={testimonial.countryFlag}
-            alt="country flag"
+            alt={flagCountry.get(testimonial.countryFlag) ?? ""}
             width={44}
             height={44}
             className="size-11 rounded-full border border-[#DEE5EF] lg:size-11"

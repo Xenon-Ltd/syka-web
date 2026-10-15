@@ -22,7 +22,15 @@ import {
   EASE_OUT,
 } from "@/lib/animation";
 
-const corridorFlags = [CA, GH, NG, GB, US, EURO, MORE];
+const corridorFlags = [
+  { src: CA, name: "Canada" },
+  { src: GH, name: "Ghana" },
+  { src: NG, name: "Nigeria" },
+  { src: GB, name: "United Kingdom" },
+  { src: US, name: "United States" },
+  { src: EURO, name: "Eurozone" },
+  { src: MORE, name: "and more countries" },
+];
 
 export default function PlatformShowcase() {
   const ref = useRef(null);
@@ -109,11 +117,11 @@ export default function PlatformShowcase() {
               local currency.
             </p>
             <div className="mt-6 flex items-center gap-2 lg:mt-8 lg:gap-3">
-              {corridorFlags.map((flag, index) => (
+              {corridorFlags.map(({ src, name }) => (
                 <Image
-                  key={index}
-                  src={flag}
-                  alt="corridor country flag"
+                  key={name}
+                  src={src}
+                  alt={name}
                   width={36}
                   height={36}
                   className="size-8 rounded-full lg:size-9"

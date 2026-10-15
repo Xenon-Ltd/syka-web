@@ -13,14 +13,20 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CompaniesMarquee from "@/components/business/companies-marquee";
 import {
-  fadeUp,
-  fadeIn,
   staggerContainer,
   IN_VIEW_OPTS,
   EASE_OUT,
+  riseIn,
 } from "@/lib/animation";
 
-const countryFlags = [CA, GH, NG, GB, US, MORE];
+const countryFlags = [
+  { src: CA, name: "Canada" },
+  { src: GH, name: "Ghana" },
+  { src: NG, name: "Nigeria" },
+  { src: GB, name: "United Kingdom" },
+  { src: US, name: "United States" },
+  { src: MORE, name: "and more countries" },
+];
 
 export default function BusinessHero() {
   const ref = useRef(null);
@@ -39,14 +45,14 @@ export default function BusinessHero() {
         className="mx-auto max-w-[837px] text-center"
       >
         <motion.div
-          variants={fadeIn}
+          variants={riseIn}
           className="flex flex-wrap items-center justify-center gap-1"
         >
-          {countryFlags.map((flag, index) => (
+          {countryFlags.map(({ src, name }) => (
             <Image
-              key={index}
-              src={flag}
-              alt="country flag"
+              key={name}
+              src={src}
+              alt={name}
               width={24}
               height={24}
               className="size-6 lg:size-9"
@@ -58,7 +64,7 @@ export default function BusinessHero() {
         </motion.div>
 
         <motion.h1
-          variants={fadeUp}
+          variants={riseIn}
           className="mobile-hero-title mt-8 mx-auto md:text-[54px] xl:text-[62px] xl:leading-[80.6px] text-xenon-gray"
         >
           The Payment Infrastructure Built For Emerging{" "}
@@ -66,7 +72,7 @@ export default function BusinessHero() {
         </motion.h1>
 
         <motion.p
-          variants={fadeUp}
+          variants={riseIn}
           className="mx-auto mt-6 max-w-[547px] text-lg leading-[29px] text-[#8893A4]"
         >
           Trusted by financial institutions across Africa and the Caribbean.
@@ -74,7 +80,7 @@ export default function BusinessHero() {
         </motion.p>
 
         <motion.div
-          variants={fadeUp}
+          variants={riseIn}
           className="mt-8 flex flex-col justify-center gap-4 sm:flex-row xl:h-[54px] xl:items-start"
         >
           <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "bg-xenon-brand text-white transition-colors duration-200 hover:bg-xenon-600")}>
@@ -88,8 +94,8 @@ export default function BusinessHero() {
 
       {/* Static dotted world map — replaces the previous Lottie animation */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        initial={{ y: 24 }}
+        animate={isInView ? { y: 0 } : {}}
         transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.25 }}
         className="relative mx-auto mt-10 flex w-full max-w-[1017px] justify-center overflow-hidden xl:mt-0 xl:h-[410.33px]"
       >
@@ -112,8 +118,8 @@ export default function BusinessHero() {
 
       {/* Tagline + store badges + marquee */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        initial={{ y: 20 }}
+        animate={isInView ? { y: 0 } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.4 }}
         className="mt-16 flex flex-col items-center text-center xl:mt-[150px]"
       >

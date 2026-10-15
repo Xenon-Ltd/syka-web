@@ -6,6 +6,8 @@ import type { NextConfig } from "next";
 const sykaApiUrl = process.env.SYKA_API_URL?.replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
+  // No on-screen Next.js badge; build and runtime errors are still reported.
+  devIndicators: false,
   async rewrites() {
     if (!sykaApiUrl) return [];
     return [{ source: "/api/syka/:path*", destination: `${sykaApiUrl}/api/v1/:path*` }];

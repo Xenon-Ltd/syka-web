@@ -11,8 +11,12 @@ function useIsAppOnlyRoute() {
   return appOnlyRoutes.some((route) => pathname === route || pathname.startsWith(`${route}/`));
 }
 
+// Pages whose hero renders its own header so the hero background runs behind it.
+const ownHeaderRoutes = ["/support"];
+
 export function SiteHeader() {
-  if (useIsAppOnlyRoute()) return null;
+  const pathname = usePathname();
+  if (useIsAppOnlyRoute() || ownHeaderRoutes.includes(pathname)) return null;
   return <Header />;
 }
 

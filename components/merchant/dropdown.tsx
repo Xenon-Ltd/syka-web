@@ -25,7 +25,7 @@ export function SelectedMark({ selected }: { selected: boolean }) {
 }
 
 /** Select-only combobox: the same trigger and popup as the country search, without typing. */
-export function DropdownSelect({ id, label, value, onChange, options, placeholder, required = false, error }: { id: string; label: string; value: string; onChange: (value: string) => void; options: RequirementOption[]; placeholder: string; required?: boolean; error?: string }) {
+export function DropdownSelect({ id, label, value, onChange, options, placeholder, required = false, error, hint }: { id: string; label: string; value: string; onChange: (value: string) => void; options: RequirementOption[]; placeholder: string; required?: boolean; error?: string; hint?: string }) {
   const listboxId = useId();
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -94,7 +94,7 @@ export function DropdownSelect({ id, label, value, onChange, options, placeholde
           aria-activedescendant={open && options[activeIndex] ? `${listboxId}-${options[activeIndex].code}` : undefined}
           aria-invalid={Boolean(error)}
           aria-required={required}
-          aria-describedby={error ? `${id}-error` : undefined}
+          aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
           onClick={() => (open ? setOpen(false) : openList())}
           onBlur={() => setOpen(false)}
           onKeyDown={handleKeyDown}
@@ -124,7 +124,7 @@ export function DropdownSelect({ id, label, value, onChange, options, placeholde
           </ul>
         )}
       </div>
-      {error && <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-700">{error}</span>}
+      {error ? <span id={`${id}-error`} role="alert" className="text-xs font-normal text-red-700">{error}</span> : hint && <span id={`${id}-hint`} className="text-xs font-normal text-[#717182]">{hint}</span>}
     </div>
   );
 }

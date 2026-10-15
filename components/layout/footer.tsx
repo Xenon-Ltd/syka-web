@@ -5,7 +5,7 @@ import SiteFooter from "./site-footer";
 
 export default function Footer() {
   const pathname = usePathname();
-  const legalRoute = pathname.startsWith("/privacy-policy") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/cookies") || pathname.startsWith("/data-security");
+  const legalRoute = pathname.startsWith("/privacy-policy") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/cookies") || pathname.startsWith("/data-security") || pathname.startsWith("/support");
   const businessStyle = pathname.startsWith("/business");
   return <SiteFooter variant={legalRoute ? "legal" : businessStyle ? "business" : "personal"} />;
 }

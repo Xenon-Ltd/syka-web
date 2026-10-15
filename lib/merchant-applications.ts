@@ -74,6 +74,10 @@ export type ApplicationStatus = {
   editable: boolean;
 };
 
+/**
+ * `message` holds the backend's own text. It is kept for parsing (see fieldTags)
+ * and never shown on screen: screens show userMessage(error) instead.
+ */
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -99,27 +103,80 @@ export class ApiError extends Error {
   }
 }
 
-const NETWORK_ERROR_MESSAGE = "We couldn't reach Syka. Check your connection and try again.";
+/** Every message an applicant can see for a failed request. */
+export const ERROR_MESSAGES = {
+  network: "We couldn't reach Syka. Check your connection and try again.",
+  timeout: "This is taking longer than expected. Check your connection and try again.",
+  rateLimited: "Too many attempts. Please wait a moment and try again.",
+  unexpected: "We couldn't complete this action. Try again or contact support.",
+  requirements: "We couldn't load the application form. Try again.",
+  linkUnavailable: "This application link is no longer available. Recover your application to continue.",
+  applicationExists: "An application for this email is already in progress. Recover it to continue.",
+  creationUnconfirmed: "We couldn't confirm your application was created. Check your email for your application link, or recover your application, before starting again.",
+  submissionUnconfirmed: "We couldn't confirm your submission. Check your application status before submitting again.",
+  uploadTimeout: "This upload took too long. Check your connection and try again.",
+  invalidCode: "This code is invalid or has expired. Check it or request a new code.",
+  validation: "Some details need correcting before you continue.",
+} as const;
+
+/** Failures where the request may have reached Syka even though no answer came back. */
+export const isConnectionError = (error: unknown) => error instanceof ApiError && (error.code === "NETWORK_ERROR" || error.code === "TIMEOUT");
+
+export const isAbort = (error: unknown) => error instanceof ApiError && error.code === "ABORTED";
+
+/** Controlled copy for a failed request; never the backend's raw text. */
+export function userMessage(error: unknown, fallback: string = ERROR_MESSAGES.unexpected): string {
+  if (!(error instanceof ApiError)) return fallback;
+  if (error.code === "NETWORK_ERROR") return ERROR_MESSAGES.network;
+  if (error.code === "TIMEOUT") return ERROR_MESSAGES.timeout;
+  if (error.status === 429) return ERROR_MESSAGES.rateLimited;
+  if (error.code === "APPLICATION_EXISTS") return ERROR_MESSAGES.applicationExists;
+  if (error.code === "VALIDATION_ERROR") return ERROR_MESSAGES.validation;
+  if (error.status === 404) return ERROR_MESSAGES.linkUnavailable;
+  return fallback;
+}
+
+const REQUEST_TIMEOUT_MS = 20_000;
+// Uploads are bounded by stalls, not total time, so a large file on a slow but
+// moving connection still finishes.
+const UPLOAD_STALL_TIMEOUT_MS = 60_000;
 
 type Envelope = { success?: boolean; data?: unknown; error?: { code?: string; message?: string; details?: Record<string, unknown> } } | null;
 
 function unwrap<T>(status: number, ok: boolean, body: Envelope): T {
   if (!ok || !body?.success) {
     const error = body?.error ?? {};
-    const message = status === 429 ? "Too many attempts. Please wait a moment and try again." : error.message || "Something went wrong. Please try again.";
-    throw new ApiError(message, status, error.code ?? `HTTP_${status}`, error.details ?? {});
+    throw new ApiError(error.message ?? "", status, error.code ?? `HTTP_${status}`, error.details ?? {});
   }
   return body.data as T;
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
-  let response: Response;
+  const controller = new AbortController();
+  let timedOut = false;
+  const timer = setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, REQUEST_TIMEOUT_MS);
+  const callerSignal = init.signal;
+  const forwardAbort = () => controller.abort();
+  callerSignal?.addEventListener("abort", forwardAbort);
+  if (callerSignal?.aborted) controller.abort();
+
   try {
-    response = await fetch(`${API_BASE}${path}`, { ...init, headers: { Accept: "application/json", ...init.headers } });
-  } catch {
-    throw new ApiError(NETWORK_ERROR_MESSAGE, 0, "NETWORK_ERROR");
+    let response: Response;
+    try {
+      response = await fetch(`${API_BASE}${path}`, { ...init, signal: controller.signal, headers: { Accept: "application/json", ...init.headers } });
+    } catch {
+      if (timedOut) throw new ApiError("", 0, "TIMEOUT");
+      if (controller.signal.aborted) throw new ApiError("", 0, "ABORTED");
+      throw new ApiError("", 0, "NETWORK_ERROR");
+    }
+    return unwrap<T>(response.status, response.ok, await response.json().catch(() => null));
+  } finally {
+    clearTimeout(timer);
+    callerSignal?.removeEventListener("abort", forwardAbort);
   }
-  return unwrap<T>(response.status, response.ok, await response.json().catch(() => null));
 }
 
 const json = (method: string, data: unknown): RequestInit => ({
@@ -134,24 +191,53 @@ export const getRequirements = () => request<Requirements>("/merchant-applicatio
 
 export const createApplication = (data: ApplicationRequest) => request<ApplicationCreated>("/merchant-applications", json("POST", data));
 
-export const getApplication = (token: string) => request<ApplicationStatus>(tokenPath(token), { cache: "no-store" });
+export const getApplication = (token: string, signal?: AbortSignal) => request<ApplicationStatus>(tokenPath(token), { cache: "no-store", signal });
 
 export const updateApplication = (token: string, data: ApplicationRequest) => request<ApplicationStatus>(tokenPath(token), json("PUT", data));
 
-/** Uses XHR rather than fetch so large files on slow connections can report progress (0-1). */
-export function uploadDocument(token: string, documentType: string, file: File, onProgress?: (fraction: number) => void) {
+type UploadOptions = { onProgress?: (fraction: number) => void; signal?: AbortSignal };
+
+/**
+ * Uses XHR rather than fetch so large files on slow connections can report progress (0-1).
+ * Rejects with TIMEOUT when no progress arrives for a minute, and ABORTED when `signal` fires.
+ */
+export function uploadDocument(token: string, documentType: string, file: File, { onProgress, signal }: UploadOptions = {}) {
   const form = new FormData();
   form.append("document_type", documentType);
   form.append("file", file);
 
   return new Promise<ApplicationStatus>((resolve, reject) => {
     const xhr = new XMLHttpRequest();
+    let failure: "TIMEOUT" | "ABORTED" | undefined;
+    let stallTimer: ReturnType<typeof setTimeout> | undefined;
+    const stop = (reason: "TIMEOUT" | "ABORTED") => {
+      failure = reason;
+      xhr.abort();
+    };
+    const armStallTimer = () => {
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => stop("TIMEOUT"), UPLOAD_STALL_TIMEOUT_MS);
+    };
+    const onCallerAbort = () => stop("ABORTED");
+    const settle = () => {
+      clearTimeout(stallTimer);
+      signal?.removeEventListener("abort", onCallerAbort);
+    };
+
+    if (signal?.aborted) {
+      reject(new ApiError("", 0, "ABORTED"));
+      return;
+    }
+    signal?.addEventListener("abort", onCallerAbort);
+
     xhr.open("POST", `${API_BASE}${tokenPath(token)}/documents`);
     xhr.setRequestHeader("Accept", "application/json");
     xhr.upload.onprogress = (event) => {
+      armStallTimer();
       if (event.lengthComputable) onProgress?.(event.loaded / event.total);
     };
     xhr.onload = () => {
+      settle();
       let body: Envelope = null;
       try {
         body = JSON.parse(xhr.responseText);
@@ -164,7 +250,15 @@ export function uploadDocument(token: string, documentType: string, file: File, 
         reject(error);
       }
     };
-    xhr.onerror = () => reject(new ApiError(NETWORK_ERROR_MESSAGE, 0, "NETWORK_ERROR"));
+    xhr.onerror = () => {
+      settle();
+      reject(new ApiError("", 0, "NETWORK_ERROR"));
+    };
+    xhr.onabort = () => {
+      settle();
+      reject(new ApiError("", 0, failure ?? "ABORTED"));
+    };
+    armStallTimer();
     xhr.send(form);
   });
 }
@@ -195,6 +289,7 @@ export function storeToken(token: string | null) {
 }
 
 export const statusPagePath = (token: string) => `/business/merchant/application/${encodeURIComponent(token)}`;
+// The registration page reads ?token= once and then removes it from the address bar.
 export const registrationPath = (token?: string) => (token ? `/business/merchant/registration?token=${encodeURIComponent(token)}` : "/business/merchant/registration");
 export const RECOVERY_PATH = "/business/merchant/recover";
 

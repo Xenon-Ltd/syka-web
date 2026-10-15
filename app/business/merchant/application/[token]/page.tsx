@@ -8,9 +8,12 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
+  // Application links carry a private token; never pass it on to other sites.
+  referrer: "no-referrer",
 };
 
 export default async function MerchantApplicationStatusPage({ params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
-  return <ApplicationStatusPage token={token} />;
+  // Keyed by token so one application's details never show while another loads.
+  return <ApplicationStatusPage key={token} token={token} />;
 }

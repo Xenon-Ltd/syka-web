@@ -25,6 +25,18 @@ export const fadeIn: Variants = {
   },
 };
 
+/**
+ * Rise: a 16px lift with no fade. For first-screen content, which must be
+ * readable in the server HTML before any JavaScript runs.
+ */
+export const riseIn: Variants = {
+  hidden: { y: 16 },
+  visible: {
+    y: 0,
+    transition: { duration: 0.55, ease: EASE_OUT },
+  },
+};
+
 /** Slide in from left */
 export const slideInLeft: Variants = {
   hidden: { opacity: 0, x: -32 },

@@ -14,6 +14,14 @@ export const businessLinks = {
   docs: optionalUrl(process.env.NEXT_PUBLIC_SYKA_DOCS_URL),
 };
 
+// Builds of the Syka Merchant app for approved merchants, hosted outside this site.
+// Unset until the builds are published; the download page shows them as unavailable.
+export const merchantAppDownloads = {
+  windows: optionalUrl(process.env.NEXT_PUBLIC_SYKA_MERCHANT_APP_WINDOWS_URL),
+  macos: optionalUrl(process.env.NEXT_PUBLIC_SYKA_MERCHANT_APP_MACOS_URL),
+  linux: optionalUrl(process.env.NEXT_PUBLIC_SYKA_MERCHANT_APP_LINUX_URL),
+};
+
 export const companyLinks = {
   about: optionalUrl(process.env.NEXT_PUBLIC_SYKA_ABOUT_URL),
   blog: optionalUrl(process.env.NEXT_PUBLIC_SYKA_BLOG_URL),

@@ -18,6 +18,7 @@ import { CountryCombobox } from "@/components/merchant/country-combobox";
 import { DropdownSelect } from "@/components/merchant/dropdown";
 import {
   ApiError,
+  ERROR_MESSAGES,
   RECOVERY_PATH,
   countryName,
   createApplication,
@@ -26,6 +27,8 @@ import {
   formatBytes,
   getApplication,
   getRequirements,
+  isAbort,
+  isConnectionError,
   loadStoredToken,
   registrationPath,
   statusPagePath,
@@ -33,89 +36,48 @@ import {
   submitApplication,
   updateApplication,
   uploadDocument,
-  type ApplicationRequest,
+  userMessage,
   type ApplicationStatus,
   type DocumentRequirement,
   type RequirementOption,
   type Requirements,
 } from "@/lib/merchant-applications";
+import {
+  emptyRegistration,
+  fieldErrorsFromApi,
+  fieldLabels,
+  fieldOrder,
+  fromStatus,
+  sameRegistration,
+  toRequest,
+  validateRegistration,
+  type RegistrationData,
+  type RegistrationErrors,
+} from "@/lib/merchant-registration";
 
-type RegistrationData = {
-  firstName: string;
-  lastName: string;
-  businessName: string;
-  businessType: string;
-  email: string;
-  phone: string;
-  country: string;
-  audience: string;
+type FormError = {
+  message: string;
+  link?: { href: string; label: string };
+  /** Invalid fields, listed so keyboard and screen-reader users can jump to each one. */
+  fields?: Array<{ id: string; label: string }>;
 };
 
-type RegistrationErrors = Partial<Record<keyof RegistrationData, string>>;
-type FormError = { message: string; recover?: boolean };
-
-const emptyRegistration: RegistrationData = { firstName: "", lastName: "", businessName: "", businessType: "", email: "", phone: "", country: "", audience: "" };
-
-// Also the on-screen order, used to focus the first invalid field.
-const fieldOrder: Array<keyof RegistrationData> = ["firstName", "lastName", "businessName", "businessType", "email", "country", "phone", "audience"];
+const recoverLink = { href: RECOVERY_PATH, label: "Recover your application" };
 
 const registrationSteps = ["Applicant Information", "Background Documents", "Review & Submit"];
 
 const registrationIcons = [applicantActive, docsMuted, applicantMuted];
 
-const apiFieldToFormField: Record<string, keyof RegistrationData> = {
-  first_name: "firstName",
-  last_name: "lastName",
-  business_name: "businessName",
-  business_type: "businessType",
-  email: "email",
-  phone: "phone",
-  country: "country",
-  target_audience: "audience",
-};
+const withoutKey = <T,>(record: Record<string, T>, key: string) => Object.fromEntries(Object.entries(record).filter(([code]) => code !== key));
 
-const validatorTagMessages: Record<string, string> = {
-  required: "This field is required.",
-  email: "Enter a valid email address.",
-  len: "Select an option from the list.",
-  oneof: "Select an option from the list.",
-  e164: "Enter a valid phone number, including the country code.",
-  max: "This is too long.",
-  min: "This is too short.",
-};
-
-const PHONE_PATTERN = /^\+?[\d\s()-]{7,20}$/;
-
-function toRequest(data: RegistrationData): ApplicationRequest {
-  return {
-    first_name: data.firstName.trim(),
-    last_name: data.lastName.trim(),
-    business_name: data.businessName.trim(),
-    business_type: data.businessType,
-    email: data.email.trim(),
-    phone: data.phone.replace(/[\s()-]/g, "") || undefined,
-    country: data.country,
-    target_audience: data.audience || undefined,
-  };
+function uploadErrorMessage(error: unknown, document: DocumentRequirement) {
+  if (error instanceof ApiError && error.code === "TIMEOUT") return ERROR_MESSAGES.uploadTimeout;
+  // The backend rejected the file itself (type, size or content).
+  if (error instanceof ApiError && [400, 413, 415, 422].includes(error.status)) {
+    return `We couldn't accept this file. Upload a ${describeAccepts(document.accepts)} file smaller than ${formatBytes(document.max_bytes)}.`;
+  }
+  return userMessage(error);
 }
-
-function fromStatus(status: ApplicationStatus): RegistrationData {
-  const [firstName = "", ...rest] = status.contact_name.trim().split(/\s+/);
-  return {
-    firstName,
-    lastName: rest.join(" "),
-    businessName: status.business_name,
-    businessType: status.business_type,
-    email: status.contact_email,
-    phone: status.contact_phone ?? "",
-    country: status.country,
-    audience: status.target_audience ?? "",
-  };
-}
-
-const sameRegistration = (a: RegistrationData, b: RegistrationData) => JSON.stringify(toRequest(a)) === JSON.stringify(toRequest(b));
-
-const errorMessage = (error: unknown) => (error instanceof Error ? error.message : "Something went wrong. Please try again.");
 
 function IconImage({ src, alt = "", className = "size-4" }: { src: StaticImageData | string; alt?: string; className?: string }) {
   return <Image src={src} alt={alt} width={20} height={20} className={className} />;
@@ -149,9 +111,9 @@ function Sidebar({ step, canVisit, onSelect }: { step: number; canVisit: (index:
       {/* Below lg the top bar's progress and "Step x of 3" carry this, so the form starts on the first screen. */}
       <div className="mt-[100px] hidden max-w-[337px] lg:block">
         <h1 className="max-w-[337px] text-[30px] leading-[1.17] tracking-[1px] text-[#1f1a0b] sm:text-[32px]">
-          Just a little more information needed to complete your company registration.
+          Apply for a Syka merchant account.
         </h1>
-        <p className="mt-3 text-base tracking-[0.5px] text-[#1f1a0b]">Start your company in minutes.</p>
+        <p className="mt-3 text-base tracking-[0.5px] text-[#1f1a0b]">Tell us about your business, upload your documents, then review and submit for our team to assess.</p>
       </div>
 
       <nav aria-label="Registration progress" className="mt-7 hidden lg:block">
@@ -194,7 +156,11 @@ function TopBar({ step, total, title }: { step: number; total: number; title?: s
   return (
     <div className="relative z-10 border-b border-transparent">
       <div className="flex items-start justify-end px-6 pt-5 sm:px-8 lg:h-[75px] lg:pt-7">
-        <p className="text-right text-[13px] tracking-[0.5px] text-[#3d4756]">Having troubles? <a href="mailto:support@sykabank.com" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Get Help</a></p>
+        <p className="text-right text-[13px] tracking-[0.5px] text-[#3d4756]">
+          Having troubles? <a href="mailto:support@sykabank.com" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Get Help</a>
+          <span aria-hidden="true" className="mx-2 text-[#99a1af]">·</span>
+          <Link href={RECOVERY_PATH} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Recover application</Link>
+        </p>
       </div>
       <div
         className="absolute left-0 right-0 top-0 h-1 bg-[#e5e7eb]"
@@ -239,15 +205,26 @@ function FormAlert({ error }: { error?: FormError }) {
   const message = error?.message;
 
   useEffect(() => {
-    if (message) ref.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+    if (message) ref.current?.scrollIntoView({ block: "nearest" });
   }, [message]);
 
   if (!error) return null;
   return (
-    <p ref={ref} role="alert" className="mt-4 text-sm text-red-700">
-      {error.message}
-      {error.recover && <> <Link href={RECOVERY_PATH} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Recover your application</Link></>}
-    </p>
+    <div ref={ref} role="alert" className="mt-4 text-sm text-red-700">
+      <p>
+        {error.message}
+        {error.link && <> <Link href={error.link.href} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">{error.link.label}</Link></>}
+      </p>
+      {error.fields && error.fields.length > 0 && (
+        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+          {error.fields.map((field) => (
+            <li key={field.id}>
+              <button type="button" onClick={() => document.getElementById(field.id)?.focus()} className="font-semibold text-[#0c3283] underline-offset-2 hover:underline">{field.label}</button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -280,7 +257,7 @@ function ApplicantForm({ data, onChange, errors, requirements, formError, busy, 
         <Field id="email" label="Email Address" required value={data.email} error={errors.email} onChange={update("email")} type="email" autoComplete="email" inputMode="email" hint="We'll send your application link here." />
         <CountryCombobox id="country" label="Country" required value={data.country} error={errors.country} onChange={updateCountry} />
         <Field id="phone" label="Phone Number" required value={data.phone} error={errors.phone} onChange={update("phone")} type="tel" autoComplete="tel" inputMode="tel" placeholder={`${dialCode(data.country) || "+233"} 54 570 7532`} hint="Include your country code, starting with +." />
-        <DropdownSelect id="audience" label="Target Audience Type" required value={data.audience} error={errors.audience} onChange={update("audience")} options={requirements.target_audiences} placeholder="Select type" />
+        <DropdownSelect id="audience" label="Target Audience Type" required value={data.audience} error={errors.audience} onChange={update("audience")} options={requirements.target_audiences} placeholder="Select type" hint="Who your business mainly sells to, for example individual customers or other businesses." />
       </div>
       <FormAlert error={formError} />
       {confirmingEmail ? (
@@ -295,6 +272,30 @@ function ApplicantForm({ data, onChange, errors, requirements, formError, busy, 
         <FlowActions onBack={() => undefined} backDisabled nextLabel={busy ? "Saving…" : "Continue"} nextDisabled={busy} />
       )}
     </form>
+  );
+}
+
+function RegistrationIntro({ documents }: { documents: DocumentRequirement[] }) {
+  return (
+    <section aria-labelledby="registration-intro-heading" className="mb-4 rounded-2xl border border-[#e5e7eb] bg-white p-6 sm:p-8">
+      <h2 id="registration-intro-heading" className="text-base font-semibold text-[#101828]">Before you start</h2>
+      <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-[#364153]">
+        <li>Tell us about you and your business. We save your details as soon as you continue.</li>
+        <li>Upload your business documents.</li>
+        <li>Review everything and submit. Our team assesses every application and contacts you by email.</li>
+      </ol>
+      {documents.length > 0 && (
+        <>
+          <p className="mt-4 text-sm font-semibold text-[#101828]">Documents you&apos;ll need</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[#364153]">
+            {documents.map((document) => (
+              <li key={document.code}>{document.label}{document.required ? "" : " (optional)"}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      <p className="mt-4 text-xs text-[#717182]">You can leave and come back at any time with the application link we email you.</p>
+    </section>
   );
 }
 
@@ -349,7 +350,7 @@ function DocumentPreview({ file, fallbackName }: { file?: File; fallbackName?: s
   return <span aria-hidden="true" className="flex size-12 shrink-0 items-center justify-center rounded-md bg-[#edf5fb] text-[10px] font-semibold text-[#0c3283]">{extension}</span>;
 }
 
-function DocumentRow({ document, uploaded, localFile, progress, error, onFile }: { document: DocumentRequirement; uploaded?: ApplicationStatus["uploaded_documents"][number]; localFile?: File; progress?: number; error?: string; onFile: (file: File) => void }) {
+function DocumentRow({ document, uploaded, localFile, progress, error, onFile, onCancel, onRetry }: { document: DocumentRequirement; uploaded?: ApplicationStatus["uploaded_documents"][number]; localFile?: File; progress?: number; error?: string; onFile: (file: File) => void; onCancel: () => void; onRetry?: () => void }) {
   const [dragging, setDragging] = useState(false);
   const busy = progress !== undefined;
 
@@ -385,26 +386,35 @@ function DocumentRow({ document, uploaded, localFile, progress, error, onFile }:
           <div className="min-w-0">
             <p className="text-sm font-semibold text-[#101828]">{document.label}{document.required ? "" : " (optional)"}</p>
             {document.hint && <p className="mt-1 text-xs text-[#717182]">{document.hint}</p>}
-            <p className="mt-1 truncate text-xs text-[#717182]">{dragging ? "Drop to upload" : detail}</p>
+            <p className="mt-1 break-all text-xs text-[#717182]">{dragging ? "Drop to upload" : detail}</p>
           </div>
         </div>
+        {busy ? (
+          <button type="button" onClick={onCancel} className="shrink-0 rounded-lg border border-black/10 bg-white px-4 py-2 text-xs text-[#0a0a0a] transition hover:bg-[#f7f7f7]">Cancel</button>
+        ) : (
         <label className={`inline-flex shrink-0 items-center gap-1 rounded-lg border border-black/10 bg-white px-4 py-2 text-xs text-[#0a0a0a] transition ${busy ? "cursor-wait opacity-50" : "cursor-pointer hover:bg-[#f7f7f7]"}`}>
           <IconImage src={uploadIcon} className="size-3" />
           {uploaded ? "Replace" : "Upload"}
           <input type="file" name={document.code} accept={document.accepts.join(",")} disabled={busy} className="sr-only" onChange={handleChange} aria-label={`Upload ${document.label}`} />
         </label>
+        )}
       </div>
       {busy && (
         <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#e5e7eb]" role="progressbar" aria-label={`Uploading ${document.label}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
           <div className="h-full rounded-full bg-[#3b82f6] transition-[width]" style={{ width: `${Math.round(progress * 100)}%` }} />
         </div>
       )}
-      {error && <p role="alert" className="mt-2 text-xs text-red-700">{error}</p>}
+      {error && (
+        <p role="alert" className="mt-2 text-xs text-red-700">
+          {error}
+          {onRetry && <> <button type="button" onClick={onRetry} className="font-semibold text-[#0c3283] hover:underline">Try again</button></>}
+        </p>
+      )}
     </div>
   );
 }
 
-function DocumentsStep({ token, documents, application, localFiles, progress, rowErrors, onFile, onBack, onNext }: { token: string; documents: DocumentRequirement[]; application: ApplicationStatus; localFiles: Record<string, File>; progress: Record<string, number>; rowErrors: Record<string, string | undefined>; onFile: (document: DocumentRequirement, file: File) => void; onBack: () => void; onNext: () => void }) {
+function DocumentsStep({ token, documents, application, localFiles, failedFiles, progress, rowErrors, onFile, onCancel, onBack, onNext }: { token: string; documents: DocumentRequirement[]; application: ApplicationStatus; localFiles: Record<string, File>; failedFiles: Record<string, File>; progress: Record<string, number>; rowErrors: Record<string, string | undefined>; onFile: (document: DocumentRequirement, file: File) => void; onCancel: (document: DocumentRequirement) => void; onBack: () => void; onNext: () => void }) {
   const [error, setError] = useState<string>();
   const required = documents.filter((document) => document.required);
   const uploadedCodes = new Set(application.uploaded_documents.map((document) => document.code));
@@ -432,6 +442,8 @@ function DocumentsStep({ token, documents, application, localFiles, progress, ro
             progress={progress[document.code]}
             error={rowErrors[document.code]}
             onFile={(file) => { setError(undefined); onFile(document, file); }}
+            onCancel={() => onCancel(document)}
+            onRetry={failedFiles[document.code] ? () => onFile(document, failedFiles[document.code]) : undefined}
           />
         ))}
       </div>
@@ -490,14 +502,15 @@ function ReviewStep({ data, requirements, documents, application, busy, formErro
   );
 }
 
-function RegistrationSuccess({ token, reference }: { token: string; reference: string }) {
+function RegistrationSuccess({ token, application }: { token: string; application: ApplicationStatus }) {
   return (
     <div className="flex min-h-[calc(100vh-75px)] items-center justify-center px-6 py-10 sm:px-10">
       <section className="flex w-full max-w-[559px] flex-col items-center rounded-2xl border border-[#e5e7eb] bg-[#fafafa] px-6 py-8 text-center sm:px-10">
-        <h2 className="text-lg font-semibold text-[#364153]">Congratulations 🎉</h2>
-        <p className="mt-4 max-w-[338px] text-sm leading-[1.35] text-[#717b8e]">Your application has been successfully submitted. Our team will get in touch with you soon to guide you through the next steps.</p>
-        <p className="mt-3 text-sm text-[#364153]">Reference: <span className="font-semibold">{reference}</span></p>
-        <Image src={MerchantSuccess} alt="Celebration" width={300} height={300} className="my-8 size-[240px] rounded-[28px] object-contain sm:size-[300px]" />
+        <h2 className="text-lg font-semibold text-[#364153]">Application submitted</h2>
+        <p className="mt-4 max-w-[380px] text-sm leading-[1.35] text-[#717b8e]">We&apos;ve received your application. Our team will review it and email {application.contact_email} about next steps. Submitting doesn&apos;t mean your account is approved yet.</p>
+        <p className="mt-3 text-sm text-[#364153]">Status: <span className="font-semibold">{application.status_label}</span></p>
+        <p className="mt-1 text-sm text-[#364153]">Reference: <span className="font-semibold">{application.reference}</span></p>
+        <Image src={MerchantSuccess} alt="" width={300} height={300} className="my-8 size-[240px] rounded-[28px] object-contain sm:size-[300px]" />
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link href={statusPagePath(token)} className="rounded-[14px] border border-[#0c3283] px-6 py-3 text-sm font-semibold text-[#0c3283] transition hover:bg-[#edf5fb]">Track application</Link>
           <Link href="/business" className="rounded-[14px] bg-[#0c3283] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#082762]">Back to website</Link>
@@ -534,6 +547,9 @@ function RegistrationFlow() {
   const [confirmingEmail, setConfirmingEmail] = useState(false);
   const [pendingStep, setPendingStep] = useState(1);
   const [localFiles, setLocalFiles] = useState<Record<string, File>>({});
+  // Files whose upload failed, kept so "Try again" doesn't need the file picked again.
+  const [failedFiles, setFailedFiles] = useState<Record<string, File>>({});
+  const uploadControllers = useRef<Record<string, AbortController>>({});
   const [progress, setProgress] = useState<Record<string, number>>({});
   const [rowErrors, setRowErrors] = useState<Record<string, string | undefined>>({});
 
@@ -541,6 +557,8 @@ function RegistrationFlow() {
     let cancelled = false;
     const urlToken = new URLSearchParams(window.location.search).get("token");
     const savedToken = urlToken || loadStoredToken();
+    // The token is a credential: keep it in storage, not in the address bar, history or referrers.
+    if (urlToken) window.history.replaceState(null, "", registrationPath());
 
     (async () => {
       try {
@@ -566,12 +584,12 @@ function RegistrationFlow() {
             // A stale saved token just means starting fresh; a bad link should say so.
             if (!(error instanceof ApiError && error.status === 404)) throw error;
             storeToken(null);
-            if (urlToken) setFormError({ message: error.message, recover: true });
+            if (urlToken) setFormError({ message: ERROR_MESSAGES.linkUnavailable, link: recoverLink });
           }
         }
         setRequirements(nextRequirements);
       } catch (error) {
-        if (!cancelled) setLoadError(errorMessage(error));
+        if (!cancelled) setLoadError(userMessage(error, ERROR_MESSAGES.requirements));
       }
     })();
 
@@ -585,8 +603,7 @@ function RegistrationFlow() {
     const firstInvalid = fieldOrder.find((field) => errors[field]);
     const element = firstInvalid && document.getElementById(firstInvalid);
     if (!element) return;
-    element.focus({ preventScroll: true });
-    element.scrollIntoView({ block: "center", behavior: "smooth" });
+    element.focus();
     // Only re-run when a new focus is requested, not on every edit.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusRequest]);
@@ -604,32 +621,47 @@ function RegistrationFlow() {
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty, uploading]);
 
+  // In-app links skip beforeunload, so ask before they discard unsaved work.
+  useEffect(() => {
+    if (!dirty && !uploading) return;
+    const guard = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = (event.target as Element | null)?.closest?.("a[href]");
+      if (!(anchor instanceof HTMLAnchorElement) || anchor.target === "_blank" || anchor.origin !== window.location.origin) return;
+      if (anchor.pathname === window.location.pathname) return;
+      const message = uploading ? "An upload is still in progress. Leave this page and cancel it?" : "You have unsaved changes. Leave this page without saving?";
+      if (!window.confirm(message)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+    document.addEventListener("click", guard, true);
+    return () => document.removeEventListener("click", guard, true);
+  }, [dirty, uploading]);
+
+  // Leaving the page cancels any upload still running.
+  useEffect(() => {
+    const controllers = uploadControllers.current;
+    return () => Object.values(controllers).forEach((controller) => controller.abort());
+  }, []);
+
   const updateData = (next: RegistrationData) => {
     if (next.email !== data.email) setConfirmingEmail(false);
     setData(next);
   };
 
-  const validateApplicant = () => {
-    const nextErrors: RegistrationErrors = {};
-
-    for (const field of fieldOrder) {
-      if (!data[field].trim()) nextErrors[field] = "This field is required.";
-    }
-
-    if (data.email && !/^\S+@\S+\.\S+$/.test(data.email.trim())) {
-      nextErrors.email = "Enter a valid email address.";
-    }
-
-    const phone = data.phone.trim();
-    if (phone && (!phone.startsWith("+") || !PHONE_PATTERN.test(phone) || phone === dialCode(data.country))) {
-      nextErrors.phone = "Enter your full number, starting with the country code (e.g. +233).";
-    }
-
+  const showFieldErrors = (nextErrors: RegistrationErrors) => {
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) {
-      setFocusRequest((request) => request + 1);
-      return false;
-    }
+    const invalid = fieldOrder.filter((field) => nextErrors[field]);
+    if (!invalid.length) return false;
+    setFormError({ message: ERROR_MESSAGES.validation, fields: invalid.map((field) => ({ id: field, label: fieldLabels[field] })) });
+    setFocusRequest((request) => request + 1);
+    return true;
+  };
+
+  const validateApplicant = () => {
+    if (showFieldErrors(validateRegistration(data))) return false;
+    setFormError(undefined);
     return true;
   };
 
@@ -653,7 +685,6 @@ function RegistrationFlow() {
       } else {
         const created = await createApplication(toRequest(data));
         storeToken(created.tracking_token);
-        window.history.replaceState(null, "", registrationPath(created.tracking_token));
         setToken(created.tracking_token);
         setApplication(await getApplication(created.tracking_token));
       }
@@ -662,25 +693,20 @@ function RegistrationFlow() {
       return true;
     } catch (error) {
       setConfirmingEmail(false);
-      const tags = error instanceof ApiError ? error.fieldTags : {};
-      if (Object.keys(tags).length) {
-        const fieldErrors: RegistrationErrors = {};
-        for (const [field, tag] of Object.entries(tags)) {
-          const formField = apiFieldToFormField[field];
-          if (formField) fieldErrors[formField] = validatorTagMessages[tag] ?? "Check this field.";
-        }
-        setErrors(fieldErrors);
-        setFocusRequest((request) => request + 1);
-        setFormError({ message: "Some details need correcting before you continue." });
-      } else if (error instanceof ApiError && error.code === "APPLICATION_EXISTS") {
-        setFormError({ message: error.message || "An application for this email is already in progress.", recover: true });
+      if (showFieldErrors(fieldErrorsFromApi(error))) return false;
+      if (error instanceof ApiError && error.code === "APPLICATION_EXISTS") {
+        setFormError({ message: ERROR_MESSAGES.applicationExists, link: recoverLink });
       } else if (error instanceof ApiError && error.status === 404) {
         storeToken(null);
         setToken(undefined);
         setSavedData(undefined);
-        setFormError({ message: error.message, recover: true });
+        setFormError({ message: ERROR_MESSAGES.linkUnavailable, link: recoverLink });
+      } else if (!token && isConnectionError(error)) {
+        // The application may exist even though no answer came back. Creating
+        // again would start a second one, so point to recovery instead.
+        setFormError({ message: ERROR_MESSAGES.creationUnconfirmed, link: recoverLink });
       } else {
-        setFormError({ message: errorMessage(error) });
+        setFormError({ message: userMessage(error) });
       }
       return false;
     } finally {
@@ -720,17 +746,29 @@ function RegistrationFlow() {
     }
 
     setRowErrors((current) => ({ ...current, [document.code]: undefined }));
+    setFailedFiles((current) => withoutKey(current, document.code));
     setProgress((current) => ({ ...current, [document.code]: 0 }));
+    const controller = new AbortController();
+    uploadControllers.current[document.code] = controller;
     try {
-      const status = await uploadDocument(token, document.code, file, (fraction) => setProgress((current) => ({ ...current, [document.code]: fraction })));
+      const status = await uploadDocument(token, document.code, file, {
+        signal: controller.signal,
+        onProgress: (fraction) => setProgress((current) => ({ ...current, [document.code]: fraction })),
+      });
       setApplication(status);
       setLocalFiles((current) => ({ ...current, [document.code]: file }));
     } catch (error) {
-      setRowErrors((current) => ({ ...current, [document.code]: errorMessage(error) }));
+      if (!isAbort(error)) {
+        setFailedFiles((current) => ({ ...current, [document.code]: file }));
+        setRowErrors((current) => ({ ...current, [document.code]: uploadErrorMessage(error, document) }));
+      }
     } finally {
-      setProgress((current) => Object.fromEntries(Object.entries(current).filter(([code]) => code !== document.code)));
+      delete uploadControllers.current[document.code];
+      setProgress((current) => withoutKey(current, document.code));
     }
   };
+
+  const cancelUpload = (document: DocumentRequirement) => uploadControllers.current[document.code]?.abort();
 
   const handleSubmit = async () => {
     if (!token || busy) return;
@@ -745,8 +783,18 @@ function RegistrationFlow() {
         const missing = (error.details.missing_documents as string[] | undefined) ?? [];
         const labels = missing.map((code) => requirements?.documents.find((document) => document.code === code)?.label ?? code);
         setFormError({ message: `Still missing: ${labels.join(", ")}.` });
+      } else if (isConnectionError(error)) {
+        // No answer came back, so the submission may have gone through. Check before offering a retry.
+        try {
+          const current = await getApplication(token);
+          setApplication(current);
+          if (current.submitted_at || !current.editable) setStep(3);
+          else setFormError({ message: userMessage(error) });
+        } catch {
+          setFormError({ message: ERROR_MESSAGES.submissionUnconfirmed, link: { href: statusPagePath(token), label: "Check application status" } });
+        }
       } else {
-        setFormError({ message: errorMessage(error) });
+        setFormError({ message: userMessage(error) });
       }
     } finally {
       setBusy(false);
@@ -765,6 +813,7 @@ function RegistrationFlow() {
     setFormError(undefined);
     setConfirmingEmail(false);
     setLocalFiles({});
+    setFailedFiles({});
     setRowErrors({});
     setStep(0);
   };
@@ -775,7 +824,7 @@ function RegistrationFlow() {
   if (loadError) content = <LoadState message={loadError} onRetry={() => { setLoadError(undefined); setLoadAttempt((attempt) => attempt + 1); }} />;
   else if (!requirements) content = <LoadState message="Loading application form…" />;
   else if (step === 0 || !token || !application) content = <ApplicantForm data={data} onChange={updateData} errors={errors} requirements={requirements} formError={formError} busy={busy} confirmingEmail={confirmingEmail} onConfirmEmail={confirmEmail} onChangeEmail={changeEmail} onNext={() => navigate(1)} />;
-  else if (step === 1) content = <DocumentsStep token={token} documents={documents} application={application} localFiles={localFiles} progress={progress} rowErrors={rowErrors} onFile={handleFile} onBack={() => goTo(0)} onNext={() => goTo(2)} />;
+  else if (step === 1) content = <DocumentsStep token={token} documents={documents} application={application} localFiles={localFiles} failedFiles={failedFiles} progress={progress} rowErrors={rowErrors} onFile={handleFile} onCancel={cancelUpload} onBack={() => goTo(0)} onNext={() => goTo(2)} />;
   else content = <ReviewStep data={data} requirements={requirements} documents={documents} application={application} busy={busy} formError={formError} onBack={() => goTo(1)} onEditApplicant={() => goTo(0)} onEditDocuments={() => goTo(1)} onSubmit={handleSubmit} />;
 
   return (
@@ -784,11 +833,12 @@ function RegistrationFlow() {
       <div className="relative z-10 min-w-0 flex-1">
         <TopBar step={Math.min(step, 2)} total={3} title={step < 3 ? ["Applicant Information", "Required Documents", "Review & Submit"][step] : undefined} />
         {step === 3 && token && application ? (
-          <RegistrationSuccess token={token} reference={application.reference} />
+          <RegistrationSuccess token={token} application={application} />
         ) : (
           <div className="px-6 pb-8 pt-6 sm:px-10 lg:px-12 lg:pt-14">
             <div className="mx-auto max-w-[783px]">
               {resumed && application && <ResumeBanner reference={application.reference} email={application.contact_email} onStartOver={startOver} />}
+              {step === 0 && !token && requirements && !loadError && <RegistrationIntro documents={requirements.documents} />}
               {content}
               {step === 0 && !token && requirements && <p className="mt-4 text-center text-xs text-[#717182]">Already started an application? <Link href={RECOVERY_PATH} className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Continue where you left off</Link></p>}
             </div>

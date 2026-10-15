@@ -15,7 +15,7 @@ import {
 import BusinessCTA from "@/components/business/business-cta";
 import BusinessFAQ from "@/components/business/business-faq";
 import { businessStyles } from "@/lib/business-styles";
-import { developerPageMetadata, metadataForPage, productPageMetadata } from "@/lib/page-metadata";
+import { developerCanonical, developerPageMetadata, metadataForPage, productCanonical, productPageMetadata } from "@/lib/page-metadata";
 
 type BusinessPageProps = {
   searchParams?: Promise<{
@@ -59,16 +59,12 @@ export async function generateMetadata({ searchParams }: BusinessPageProps): Pro
   const resolvedSearchParams = await searchParams;
   const selectedProduct = parseProductSlug(resolvedSearchParams?.product);
   const selectedDeveloper = parseDeveloperSlug(resolvedSearchParams?.developer);
-  const selectedMetadata = selectedProduct
-    ? productPageMetadata[selectedProduct]
-    : selectedDeveloper
-      ? developerPageMetadata[selectedDeveloper]
-      : null;
-
-  if (selectedMetadata) return metadataForPage(selectedMetadata);
+  if (selectedProduct) return metadataForPage(productPageMetadata[selectedProduct], productCanonical(selectedProduct));
+  if (selectedDeveloper) return metadataForPage(developerPageMetadata[selectedDeveloper], developerCanonical(selectedDeveloper));
 
   return {
     title: "Business payment infrastructure",
     description: "Give your institution the infrastructure to move money, manage treasury, and serve customers globally.",
+    alternates: { canonical: "/business" },
   };
 }

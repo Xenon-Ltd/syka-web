@@ -62,9 +62,10 @@
   .faq-title { font-size: 62px; line-height: 72px; }
   .faq-question { min-height: 112px; padding-block: 36px; font-size: 30px; line-height: 40px; }
   .faq-answer { font-size: 20px; line-height: 28px; }
-  .personal-hero-row { min-height: 721px; grid-template-columns: 673px 425px; gap: 22px; }
+  /* Sized by its content (the phone image) so the main action stays on the first screen of a laptop. */
+  .personal-hero-row { grid-template-columns: 673px 425px; gap: 22px; }
   .personal-hero-title { font-size: 62px; line-height: 80.6px; }
-  .personal-hero-tagline { margin-top: 150px; }
+  .personal-hero-tagline { margin-top: 96px; }
   .marketing-page > .personal-value { padding-block: 66px; }
   .personal-how { min-height: 580px; }
   .stability-row { grid-template-columns: 608px 532px; gap: 80px; min-height: 515px; }

@@ -17,7 +17,7 @@ import SocialProof from "@/components/social-proof";
 import SolutionsThatFit from "@/components/solutions-that-fit";
 import MarketingCTA from "@/components/marketing-cta";
 import FrequentlyAskedQuestions from "@/components/frequently-asked-questions";
-import { developerPageMetadata, metadataForPage, productPageMetadata } from "@/lib/page-metadata";
+import { developerCanonical, developerPageMetadata, metadataForPage, productCanonical, productPageMetadata } from "@/lib/page-metadata";
 
 type HomePageProps = {
   searchParams?: Promise<{
@@ -64,16 +64,12 @@ export async function generateMetadata({ searchParams }: HomePageProps): Promise
   const resolvedSearchParams = await searchParams;
   const selectedProduct = parseProductSlug(resolvedSearchParams?.product);
   const selectedDeveloper = parseDeveloperSlug(resolvedSearchParams?.developer);
-  const selectedMetadata = selectedProduct
-    ? productPageMetadata[selectedProduct]
-    : selectedDeveloper
-      ? developerPageMetadata[selectedDeveloper]
-      : null;
-
-  if (selectedMetadata) return metadataForPage(selectedMetadata);
+  if (selectedProduct) return metadataForPage(productPageMetadata[selectedProduct], productCanonical(selectedProduct));
+  if (selectedDeveloper) return metadataForPage(developerPageMetadata[selectedDeveloper], developerCanonical(selectedDeveloper));
 
   return {
     title: "Payment infrastructure for African entrepreneurs",
     description: "Send, receive, and store value globally with Syka's modern payment infrastructure.",
+    alternates: { canonical: "/" },
   };
 }

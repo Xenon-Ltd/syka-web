@@ -28,6 +28,7 @@ export { default as PartnerSwyChr } from "./partners/swychr.png";
 export { default as PartnerJSSquared } from "./partners/js-squared.png";
 export { default as PartnerSonaQode } from "./partners/sonaqode.png";
 export { default as PartnerMaryHealthIcon } from "./partners/mary-health-icon.jpg";
+export { default as PartnerWorkesAppzIcon } from "./partners/workesappz-icon.png";
 
 // business — platform showcase mockups
 export { default as MerchantPlatformMockup } from "./merchant-platform-mockup.png";

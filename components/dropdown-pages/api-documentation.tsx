@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Blocks, Clock3, Code, type LucideIcon } from "lucide-react";
 import BusinessAction from "@/components/business/business-action";
 import { businessLinks } from "@/lib/business-links";
-import { useState } from "react";
 
 type FeatureCard = {
   title: string;
@@ -30,7 +29,7 @@ type CodeLine = {
 const featureCards: FeatureCard[] = [
   {
     title: "SDKs in the languages you already use",
-    description: "JavaScript, Python, Curl. Drop in, configure once, go live.",
+    description: "Coming soon for JavaScript and Python. Drop in, configure once, go live.",
     Icon: Code,
     bgClass: "bg-[#23284F]",
     iconColorClass: "text-white/75",
@@ -62,7 +61,7 @@ const featureCards: FeatureCard[] = [
 const steps: Step[] = [
   {
     number: "1",
-    title: "Install the SDK",
+    title: "Install the SDK (coming soon)",
     description:
       "A single command. Works with Node, Python, or any REST client. No complex setup.",
   },
@@ -188,35 +187,7 @@ const codeLines: CodeLine[] = [
   },
 ];
 
-const codeSample = `// 1. Install npm install syka-sdk
-import syka from "syka-sdk";
-
-// 2. Authenticate with Syka()
-const client = new Syka({
-  apiKey: "sk_live••••••••••••"
-});
-
-// 3. Create a cross-border payment
-const payment = await client.payments.create({
-  amount: 12000,
-  currency: "USD",
-  recipient: "cus_guangzhou_01",
-  description: "supplier invoice #4812"
-});`;
-
 export default function ApiDocumentationPage() {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(codeSample);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-    }
-  };
-
   return (
     <section className="mt-4 px-5 pt-8 pb-16 sm:px-6 md:pt-12 md:pb-24 lg:flex lg:min-h-[95vh] lg:items-center lg:pt-16 lg:pb-32 xl:mt-0 xl:px-0">
       <div className="mx-auto w-full max-w-[1440px]">
@@ -298,20 +269,11 @@ export default function ApiDocumentationPage() {
                 <span className="size-2.5 rounded-full bg-[#35D07F]" />
               </div>
 
-              <div className="flex items-center gap-4 text-xs text-white/55 sm:ml-4 lg:text-[13px]">
-                <span className="font-medium text-white lg:text-[14px]">JavaScript</span>
-                <span>Python</span>
-                <span>Curl</span>
-              </div>
+              <p className="text-xs font-medium text-white sm:ml-4 lg:text-[14px]">JavaScript</p>
 
-              <button
-                type="button"
-                onClick={handleCopy}
-                aria-label="Copy code sample"
-                className="ml-auto min-h-8 rounded-lg bg-white/8 px-3 py-1.5 text-xs font-medium text-white/80 transition-colors duration-200 hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:px-4 lg:py-1.5 lg:text-[13px]"
-              >
-                {copied ? "Copied" : "Copy"}
-              </button>
+              <p className="ml-auto rounded-lg bg-white/8 px-3 py-1.5 text-xs font-medium text-white/80 lg:px-4 lg:text-[13px]">
+                Preview · SDK coming soon
+              </p>
             </div>
 
             <div className="px-4 py-5 sm:px-5 sm:py-6 lg:px-6 lg:py-8">

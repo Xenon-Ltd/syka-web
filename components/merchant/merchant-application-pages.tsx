@@ -3,12 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type FormEvent, type ReactNode } from "react";
+import { Download } from "lucide-react";
 
 import SykaLogo from "@/assets/images/syka-logo.svg";
 import { LoadState, MerchantBackground } from "@/components/merchant/merchant-flow";
+import { merchantAppDownloads } from "@/lib/business-links";
 import {
   ApiError,
+  ERROR_MESSAGES,
   RECOVERY_PATH,
   countryName,
   getApplication,
@@ -16,6 +19,7 @@ import {
   requestRecoveryCode,
   statusPagePath,
   storeToken,
+  userMessage,
   verifyRecoveryCode,
   type ApplicationStatus,
 } from "@/lib/merchant-applications";
@@ -48,10 +52,49 @@ const RESEND_COOLDOWN_MS = 60_000;
 
 const formatDate = (value?: string) => (value ? new Date(value).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "");
 
+const formatTime = (value: Date) => value.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+
+/**
+ * Who acts next, worked out from what the API returns rather than from status
+ * names, so a new backend status still gets an accurate explanation.
+ */
+function nextStep(application: ApplicationStatus): { owner: string; text: string } {
+  if (application.editable && application.missing_documents.length) {
+    const count = application.missing_documents.length;
+    return { owner: "Action needed from you", text: `Upload ${count} more required document${count === 1 ? "" : "s"}, then review and submit your application.` };
+  }
+  if (application.editable) {
+    return { owner: "Action needed from you", text: "Your application is ready. Review it and submit it for our team to assess." };
+  }
+  return { owner: "With Syka", text: "Our team is reviewing your application. We'll email you when there's an update." };
+}
+
+function CopyValue({ label, value }: { label: string; value: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard blocked: the value stays visible and selectable.
+    }
+  };
+  return (
+    <span className="inline-flex flex-wrap items-center justify-end gap-2">
+      <span className="break-all select-all">{value}</span>
+      <button type="button" onClick={copy} aria-label={`Copy ${label.toLowerCase()}`} aria-live="polite" className="rounded-md border border-black/10 bg-white px-2 py-0.5 text-xs font-normal text-[#0a0a0a] transition hover:bg-[#f7f7f7]">{copied ? "Copied" : "Copy"}</button>
+    </span>
+  );
+}
+
 export function ApplicationStatusPage({ token }: { token: string }) {
+  const router = useRouter();
   const [application, setApplication] = useState<ApplicationStatus>();
   const [error, setError] = useState<ApiError | Error>();
   const [attempt, setAttempt] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
+  const [lastChecked, setLastChecked] = useState<Date>();
 
   useEffect(() => {
     let cancelled = false;
@@ -60,14 +103,28 @@ export function ApplicationStatusPage({ token }: { token: string }) {
         if (cancelled) return;
         storeToken(token);
         setApplication(result);
+        setLastChecked(new Date());
       })
       .catch((loadError: Error) => {
         if (!cancelled) setError(loadError);
+      })
+      .finally(() => {
+        if (!cancelled) setRefreshing(false);
       });
     return () => {
       cancelled = true;
     };
   }, [token, attempt]);
+
+  const refresh = () => {
+    setRefreshing(true);
+    setAttempt((value) => value + 1);
+  };
+
+  const removeFromDevice = () => {
+    storeToken(null);
+    router.push("/business");
+  };
 
   if (error) {
     const notFound = error instanceof ApiError && error.status === 404;
@@ -75,11 +132,11 @@ export function ApplicationStatusPage({ token }: { token: string }) {
       <PageShell title="Application status">
         {notFound ? (
           <div className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 sm:p-8">
-            <p role="alert" className="text-sm text-red-700">{error.message}</p>
+            <p role="alert" className="text-sm text-red-700">{ERROR_MESSAGES.linkUnavailable}</p>
             <Link href={RECOVERY_PATH} className={`mt-5 inline-block ${primaryButtonClass}`}>Recover your application</Link>
           </div>
         ) : (
-          <LoadState message={error.message} onRetry={() => { setError(undefined); setAttempt((value) => value + 1); }} />
+          <LoadState message={userMessage(error)} onRetry={() => { setError(undefined); setAttempt((value) => value + 1); }} />
         )}
       </PageShell>
     );
@@ -93,8 +150,8 @@ export function ApplicationStatusPage({ token }: { token: string }) {
     );
   }
 
+  const step = nextStep(application);
   const rows = [
-    ["Reference", application.reference],
     ["Business", application.business_name],
     ["Contact", application.contact_name],
     ["Email", application.contact_email],
@@ -110,6 +167,21 @@ export function ApplicationStatusPage({ token }: { token: string }) {
           <p className="text-sm text-[#717182]">Current status</p>
           <span className="rounded-full bg-[#edf5fb] px-3 py-1 text-sm font-semibold text-[#0c3283]">{application.status_label}</span>
         </div>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs text-[#717182]">
+          <p aria-live="polite">{refreshing ? "Checking…" : lastChecked && `Last checked ${formatTime(lastChecked)}`}</p>
+          <button type="button" onClick={refresh} disabled={refreshing} className="-my-2 py-2 font-semibold text-[#0c3283] hover:underline disabled:opacity-40">Refresh status</button>
+        </div>
+        <div className="mt-5 rounded-[10px] bg-white p-4 text-sm text-[#364153]">
+          <p className="font-semibold text-[#101828]">{step.owner}</p>
+          <p className="mt-1">{step.text}</p>
+          {application.editable && application.missing_documents.length > 0 && (
+            <ul className="mt-2 list-disc pl-5">
+              {application.missing_documents.map((code) => (
+                <li key={code}>{application.required_documents.find((document) => document.code === code)?.label ?? code}</li>
+              ))}
+            </ul>
+          )}
+        </div>
         {application.decision_note && (
           <div className="mt-5 rounded-[10px] bg-white p-4 text-sm text-[#364153]">
             <p className="font-semibold text-[#101828]">Note from our team</p>
@@ -117,8 +189,9 @@ export function ApplicationStatusPage({ token }: { token: string }) {
           </div>
         )}
         <dl className="mt-5 space-y-4 rounded-[10px] bg-white p-5 text-sm sm:p-6">
+          <div className="flex items-start justify-between gap-6"><dt className="shrink-0 text-[#717182]">Reference</dt><dd className="min-w-0 text-right font-medium text-[#0a0a0a]"><CopyValue label="Reference" value={application.reference} /></dd></div>
           {rows.map(([label, value]) => (
-            <div key={label} className="flex items-center justify-between gap-6"><dt className="text-[#717182]">{label}</dt><dd className="min-w-0 truncate text-right font-medium text-[#0a0a0a]">{value}</dd></div>
+            <div key={label} className="flex items-start justify-between gap-6"><dt className="shrink-0 text-[#717182]">{label}</dt><dd className="min-w-0 break-words text-right font-medium text-[#0a0a0a]">{value}</dd></div>
           ))}
         </dl>
         {application.uploaded_documents.length > 0 && (
@@ -126,7 +199,7 @@ export function ApplicationStatusPage({ token }: { token: string }) {
             <p className="font-medium text-[#0a0a0a]">Documents</p>
             <ul className="mt-3 space-y-2">
               {application.uploaded_documents.map((document) => (
-                <li key={document.code} className="flex items-center justify-between gap-6"><span className="text-[#717182]">{document.label}</span><span className="min-w-0 truncate text-right text-[#0a0a0a]">{document.filename}</span></li>
+                <li key={document.code} className="flex items-start justify-between gap-6"><span className="shrink-0 text-[#717182]">{document.label}</span><span className="min-w-0 break-all text-right text-[#0a0a0a]">{document.filename}</span></li>
               ))}
             </ul>
           </div>
@@ -134,6 +207,10 @@ export function ApplicationStatusPage({ token }: { token: string }) {
         <div className="mt-6 flex flex-wrap gap-3">
           {application.editable && <Link href={registrationPath(token)} className={primaryButtonClass}>Continue application</Link>}
           <Link href="/business" className="rounded-[14px] border border-[#0c3283] px-6 py-3 text-sm font-semibold text-[#0c3283] transition hover:bg-[#edf5fb]">Back to website</Link>
+        </div>
+        <div className="mt-6 border-t border-[#e5e7eb] pt-4 text-xs text-[#717182]">
+          <p>On a shared computer? Remove this application from this browser. Your application isn&apos;t deleted, and you can open it again from the link in your email.</p>
+          <button type="button" onClick={removeFromDevice} className="-my-2 mt-1 py-2 font-semibold text-[#0c3283] hover:underline">Remove from this device</button>
         </div>
       </section>
     </PageShell>
@@ -178,7 +255,7 @@ export function RecoverApplicationPage() {
       setNow(Date.now());
       setResendAt(Date.now() + RESEND_COOLDOWN_MS);
     } catch (sendError) {
-      setError(sendError instanceof Error ? sendError.message : "Something went wrong. Please try again.");
+      setError(userMessage(sendError));
     } finally {
       setBusy(false);
     }
@@ -197,7 +274,8 @@ export function RecoverApplicationPage() {
       storeToken(recovered.tracking_token);
       router.push(statusPagePath(recovered.tracking_token));
     } catch (verifyError) {
-      setError(verifyError instanceof ApiError && verifyError.status === 404 ? "That code is incorrect or has expired." : verifyError instanceof Error ? verifyError.message : "Something went wrong. Please try again.");
+      const rejected = verifyError instanceof ApiError && [400, 404, 410, 422].includes(verifyError.status);
+      setError(rejected ? ERROR_MESSAGES.invalidCode : userMessage(verifyError));
       setBusy(false);
     }
   };
@@ -234,6 +312,78 @@ export function RecoverApplicationPage() {
         )}
       </section>
       <p className="mt-4 text-center text-xs text-[#717182]">New to Syka? <Link href="/business/merchant/registration" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">Start an application</Link></p>
+    </PageShell>
+  );
+}
+
+type OperatingSystem = keyof typeof merchantAppDownloads;
+
+const operatingSystems: { id: OperatingSystem; label: string }[] = [
+  { id: "windows", label: "Windows" },
+  { id: "macos", label: "macOS" },
+  { id: "linux", label: "Linux" },
+];
+
+const installSteps = [
+  "Download the build for your computer's operating system.",
+  "Install the Syka Merchant app and open it.",
+  "Complete onboarding in the app to set up your merchant account.",
+];
+
+function detectOperatingSystem(): OperatingSystem | null {
+  const platform = navigator.userAgent.toLowerCase();
+  if (platform.includes("win")) return "windows";
+  if (platform.includes("mac") && !/iphone|ipad/.test(platform)) return "macos";
+  if (platform.includes("linux") && !platform.includes("android")) return "linux";
+  return null;
+}
+
+const noSubscription = () => () => {};
+
+/** Shown to approved merchants. Not linked from the status page until the builds are published. */
+export function MerchantAppDownloadPage() {
+  // Read on the client only, so the server render never guesses the visitor's device.
+  const currentOs = useSyncExternalStore(noSubscription, detectOperatingSystem, () => null);
+
+  return (
+    <PageShell title="Download the Syka Merchant app">
+      <section className="rounded-2xl border border-[#e5e7eb] bg-[#fafafa] p-6 sm:p-8">
+        <p className="text-sm text-[#717b8e]">Your merchant application has been approved. Download the app for your computer to finish setting up your account.</p>
+
+        <ol className="mt-6 space-y-3">
+          {installSteps.map((step, index) => (
+            <li key={step} className="flex items-start gap-3 text-sm text-[#364153]">
+              <span aria-hidden="true" className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#0c3283] text-xs font-semibold text-white">{index + 1}</span>
+              <span className="pt-0.5">{step}</span>
+            </li>
+          ))}
+        </ol>
+
+        <ul className="mt-6 space-y-3">
+          {operatingSystems.map(({ id, label }) => {
+            const href = merchantAppDownloads[id];
+            return (
+              <li key={id} className="flex flex-wrap items-center justify-between gap-3 rounded-[10px] bg-white p-4">
+                <div>
+                  <p className="text-sm font-semibold text-[#101828]">{label}</p>
+                  {id === currentOs && <p className="mt-1 text-xs text-[#717182]">Detected on this device</p>}
+                </div>
+                {href ? (
+                  <a href={href} className={`inline-flex items-center gap-2 ${primaryButtonClass}`}>
+                    <Download aria-hidden="true" className="size-4" />
+                    Download for {label}
+                  </a>
+                ) : (
+                  <p className="text-xs text-[#717182]">Download available soon</p>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        <p className="mt-6 text-xs text-[#717182]">Need help installing the app? Email <a href="mailto:support@sykabank.com" className="-my-2 inline-block py-2 font-semibold text-[#0c3283] hover:underline">support@sykabank.com</a>.</p>
+        <Link href="/business" className="mt-6 inline-block rounded-[14px] border border-[#0c3283] px-6 py-3 text-sm font-semibold text-[#0c3283] transition hover:bg-[#edf5fb]">Back to website</Link>
+      </section>
     </PageShell>
   );
 }

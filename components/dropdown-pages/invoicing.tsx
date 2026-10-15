@@ -60,7 +60,7 @@ const backAndForthPoints: Point[] = [
 const faqItems = [
   {
     question: "Can I invoice in a currency I don't yet hold an account in?",
-    answer: "",
+    answer: "Not straight away. Each invoice carries the account details for the currency it's billed in, so you first need to open the account for that currency. It takes a few minutes, and once it's open, new invoices in that currency pick up the right details automatically. You can do this from the web or mobile app.",
   },
   {
     question: "What happens if a client only pays part of an invoice?",
@@ -68,15 +68,15 @@ const faqItems = [
   },
   {
     question: "Can I set up an invoice to repeat automatically?",
-    answer: "",
+    answer: "Yes. When you create an invoice, you can set it to repeat weekly, monthly, or on any cycle you choose. This suits clients you bill regularly. Syka creates each invoice on schedule, so you don't have to rebuild it every time.",
   },
   {
     question: "Will my client see any Syka branding?",
-    answer: "",
+    answer: "Your invoice carries your own business branding, so your client sees it as an invoice from your business.",
   },
   {
     question: "Can I still download a PDF if I want to send it myself?",
-    answer: "",
+    answer: "Yes. You can download any invoice as a PDF at any time, from the web or the mobile app. You can send it your own way, such as by email or WhatsApp, whether or not you also send it through Syka.",
   },
 ];
 

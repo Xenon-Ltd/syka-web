@@ -66,29 +66,6 @@ const verificationPoints: Point[] = [
   },
 ];
 
-const faqItems = [
-  {
-    question: "Is this a real bank account?",
-    answer: "It functions as one for receiving purposes — your business is issued genuine account details in its own name, held through our regulated banking partners.",
-  },
-  {
-    question: "How long does it take to open an account?",
-    answer: "Most verified businesses are approved and issued account details within two working days.",
-  },
-  {
-    question: "Can I receive payments in more than one currency?",
-    answer: "Yes. Enable US dollar, British pound, and euro accounts individually, each with its own dedicated details.",
-  },
-  {
-    question: "What happens to the money once it arrives?",
-    answer: "It lands in your Syka balance, where you can hold it, convert it to another currency, or pay it out.",
-  },
-  {
-    question: "Do my clients need to do anything unusual to pay me?",
-    answer: "No. From their side, it is an ordinary domestic payment to a local account.",
-  },
-];
-
 export default function VirtualAccountPage() {
   return (
     <>
@@ -215,7 +192,7 @@ export default function VirtualAccountPage() {
         description="Open your first virtual account and start receiving international payments without ever opening a foreign bank account."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
+      <FrequentlyAskedQuestions variant="business" appearance="product" />
     </>
   );
 }

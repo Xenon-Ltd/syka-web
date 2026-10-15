@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { fadeUp, staggerContainer, IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
+import { staggerContainer, IN_VIEW_OPTS, EASE_OUT, riseIn } from "@/lib/animation";
 import { CONTENT, ProductCTA } from "./shared";
 
 type ProductHeroShellProps = {
@@ -40,32 +40,32 @@ export default function ProductHeroShell({
           className="product-hero-copy"
         >
           <motion.p
-            variants={fadeUp}
+            variants={riseIn}
             className="text-[#8893A4]"
           >
             {eyebrow}
           </motion.p>
           <motion.h1
-            variants={fadeUp}
+            variants={riseIn}
             className="text-xenon-gray"
           >
             {title}
           </motion.h1>
           <motion.p
-            variants={fadeUp}
+            variants={riseIn}
             className="product-hero-description"
           >
             {description}
           </motion.p>
-          <motion.div variants={fadeUp}>
+          <motion.div variants={riseIn}>
             <ProductCTA>{ctaLabel}</ProductCTA>
           </motion.div>
         </motion.div>
 
         {/* Right slot (Lottie / image) — slides in from right */}
         <motion.div
-          initial={{ opacity: 0, x: 28 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          initial={{ x: 28 }}
+          animate={isInView ? { x: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.15 }}
           className="product-hero-visual"
         >

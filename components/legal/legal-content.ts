@@ -614,7 +614,7 @@ export const cookieSections: LegalSection[] = [
   {
     title: "10.2 Managing Cookie Preferences",
     paragraphs: [
-      "You can manage your cookie preferences through our Cookie Preference Centre accessible from any page on sykabank.com. You can also control cookies through your browser settings. Disabling essential cookies will affect platform functionality.",
+      "You can control cookies through your browser settings, including blocking cookies or deleting those already set. Disabling essential cookies will affect platform functionality.",
     ],
   },
 ];

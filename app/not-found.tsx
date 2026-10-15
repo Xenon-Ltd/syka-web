@@ -22,6 +22,9 @@ export default function NotFound() {
         <Link href="/business" className={`${buttonBase} border border-xenon-brand text-xenon-brand hover:bg-xenon-brand/5`}>
           Syka for Business
         </Link>
+        <Link href="/support" className={`${buttonBase} text-xenon-brand hover:bg-xenon-brand/5`}>
+          Get help
+        </Link>
       </div>
     </main>
   );

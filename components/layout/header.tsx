@@ -1,5 +1,5 @@
 "use client";
-import { MenuIcon } from "@/assets/icons";
+import { MenuIcon, SykaLogoWhite } from "@/assets/icons";
 import { SykaLogo } from "@/assets/images";
 import {
   DEVELOPER_ITEMS,
@@ -51,7 +51,8 @@ type TopLevelItem =
       items: DropdownItem[];
     };
 
-type RouteVariant = "personal" | "business";
+// "shared": pages for personal and business customers alike, such as /support.
+type RouteVariant = "personal" | "business" | "shared";
 
 const routeSwitchLinks = [
   {
@@ -79,10 +80,13 @@ const companyItem: TopLevelItem = {
 const supportItem: TopLevelItem = {
   label: "Support",
   type: "link",
-  href: "#",
+  href: "/support",
 };
 
-const Header = () => {
+/** "dark": transparent over a navy hero, as on the support hub. */
+type HeaderTone = "light" | "dark";
+
+const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
@@ -92,8 +96,11 @@ const Header = () => {
   const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
   const wasMenuOpenRef = useRef(false);
-  const isBusinessRoute = pathname.startsWith("/business") || pathname.startsWith("/privacy-policy") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/cookies") || pathname.startsWith("/data-security");
-  const routeVariant: RouteVariant = isBusinessRoute ? "business" : "personal";
+  const isBusinessRoute = pathname.startsWith("/business") || pathname.startsWith("/privacy-policy") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/cookies") || pathname.startsWith("/data-security") || pathname.startsWith("/support");
+  const isDark = tone === "dark";
+  const logo = isDark ? SykaLogoWhite : SykaLogo;
+  const isSharedRoute = pathname.startsWith("/support");
+  const routeVariant: RouteVariant = isSharedRoute ? "shared" : isBusinessRoute ? "business" : "personal";
   const primarySignup = isBusinessRoute ? businessLinks.signup : personalLinks.signup;
   const productBasePath = isBusinessRoute ? "/business" : "/";
   const developerBasePath = isBusinessRoute ? "/business" : "/";
@@ -128,12 +135,15 @@ const Header = () => {
   };
 
   const navItems: TopLevelItem[] = isBusinessRoute
-    ? [productsItem, companyItem, { ...supportItem, href: "/business#faq" }, developersItem]
-    : [productsItem, companyItem, { ...supportItem, href: "/#faq" }];
+    ? [productsItem, companyItem, supportItem, developersItem]
+    : [productsItem, companyItem, supportItem];
   const activeDropdown = openDropdown ?? hoveredDropdown;
 
-  const segmentPillTranslateClass =
-    routeVariant === "business" ? "translate-x-full" : "translate-x-0";
+  // On shared pages neither side is selected, so the pill is hidden.
+  const segmentPillTranslateClass = cn(
+    routeVariant === "business" ? "translate-x-full" : "translate-x-0",
+    routeVariant === "shared" && "opacity-0",
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -148,6 +158,9 @@ const Header = () => {
 
     const handleKeydown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        // Closing a desktop menu hides the link that has focus; return focus to its button.
+        const openTrigger = dropdownContainerRef.current?.querySelector<HTMLButtonElement>('button[aria-expanded="true"]');
+        if (openTrigger && dropdownContainerRef.current?.contains(document.activeElement)) openTrigger.focus();
         setOpenDropdown(null);
         setHoveredDropdown(null);
         setIsSheetOpen(false);
@@ -197,13 +210,11 @@ const Header = () => {
   }, [isSheetOpen]);
 
   return (
-    <header className={cn("relative z-40 flex w-full flex-row items-center justify-between lg:mx-auto xl:mt-[62px] xl:mb-[62px]", isBusinessRoute ? "my-5 max-w-[1268px] px-5 sm:px-6" : "my-5 max-w-[1268px] px-5 sm:px-6")}>
+    <header className={cn("relative z-40 flex w-full flex-row items-center justify-between lg:mx-auto xl:my-10", isBusinessRoute ? "my-5 max-w-[1268px] px-5 sm:px-6" : "my-5 max-w-[1268px] px-5 sm:px-6")}>
       <div className="hidden lg:flex lg:items-center lg:gap-6 xl:gap-10">
         <Link href="/" aria-label="Go to Syka home">
           <Image
-            src={SykaLogo}
-            height={192}
-            width={486}
+            src={logo}
             className="h-11 w-auto xl:h-[50px]"
             alt="Syka Logo"
           />
@@ -241,13 +252,13 @@ const Header = () => {
       </div>
 
       <nav ref={dropdownContainerRef} className="hidden lg:block">
-        <ul className={cn("flex items-center text-[#4A4E66]", isBusinessRoute ? "gap-6 xl:gap-8" : "gap-8 text-base")}>
+        <ul className={cn("flex items-center", isDark ? "text-white" : "text-[#4A4E66]", isBusinessRoute ? "gap-6 xl:gap-8" : "gap-8 text-base")}>
           {navItems.map((item) =>
             item.type === "link" ? (
               <li key={item.label}>
                 <Link
                   href={item.href}
-                  className="-my-2 inline-block py-2 text-base font-medium transition-colors hover:text-[#1F2238]"
+                  className={cn("-my-2 inline-block py-2 text-base font-medium transition-colors", isDark ? "hover:text-white/75" : "hover:text-[#1F2238]")}
                 >
                   {item.label}
                 </Link>
@@ -273,7 +284,12 @@ const Header = () => {
                 <button
                   type="button"
                   aria-expanded={activeDropdown === item.label}
-                  className="flex items-center gap-1 text-base font-medium text-[#4A4E66] transition-colors hover:text-[#1F2238] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1F2238]"
+                  className={cn(
+                    "flex items-center gap-1 text-base font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-4",
+                    isDark
+                      ? "text-white hover:text-white/75 focus-visible:outline-white"
+                      : "text-[#4A4E66] hover:text-[#1F2238] focus-visible:outline-[#1F2238]",
+                  )}
                   onClick={() =>
                     setOpenDropdown((prev) => (prev === item.label ? null : item.label))
                   }
@@ -317,16 +333,17 @@ const Header = () => {
         </ul>
       </nav>
 
-      <BusinessAction href={primarySignup} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
-        Get started
-      </BusinessAction>
+      {/* Shared pages serve both audiences, so there is no single sign-up to offer. */}
+      {!isSharedRoute && (
+        <BusinessAction href={primarySignup} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
+          Get started
+        </BusinessAction>
+      )}
 
       <div className="flex w-full items-center justify-between lg:hidden">
         <Link href="/" aria-label="Go to Syka home">
           <Image
-            src={SykaLogo}
-            height={192}
-            width={486}
+            src={logo}
             className="h-11 w-auto"
             alt="Syka Logo"
           />
@@ -334,7 +351,7 @@ const Header = () => {
         <button
           ref={menuButtonRef}
           onClick={() => setIsSheetOpen((prev) => !prev)}
-          className="text-[#2094DF]"
+          className={isDark ? "text-white" : "text-[#2094DF]"}
           aria-label="Toggle menu"
           aria-expanded={isSheetOpen}
           aria-controls="mobile-navigation"

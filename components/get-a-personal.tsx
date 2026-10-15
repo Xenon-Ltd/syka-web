@@ -28,7 +28,7 @@ const GetAPersonalAccount = () => {
           <Image
             src={WomanSmilingAtPhoneNew}
             className="h-full w-full object-cover xl:h-[567px] lg:rounded-2xl"
-            alt="hero-image"
+            alt="A smiling customer using their phone, with a notification reading: You have just received $560 from John"
             sizes="(max-width: 1280px) 100vw, 620px"
             placeholder="blur"
           />

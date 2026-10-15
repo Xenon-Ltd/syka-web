@@ -33,14 +33,21 @@ export const developerPageMetadata: Record<string, PageMetadata> = {
   },
 };
 
-export function metadataForPage(metadata: PageMetadata) {
+// Product and developer pages render under both / and /business; the business
+// address is the canonical one so search engines index each page once.
+export const productCanonical = (slug: string) => `/business?product=${slug}`;
+export const developerCanonical = (slug: string) => `/business?developer=${slug}`;
+
+export function metadataForPage(metadata: PageMetadata, canonical: string) {
   return {
     title: metadata.title,
     description: metadata.description,
+    alternates: { canonical },
     openGraph: {
       title: metadata.title,
       description: metadata.description,
       type: "website" as const,
+      url: canonical,
     },
   };
 }

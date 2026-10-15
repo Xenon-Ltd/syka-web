@@ -8,6 +8,10 @@ import FooterLocations from "./footer-locations";
 type FooterLink = { label: string; href: string };
 type FooterGroup = { title: string; links: FooterLink[] };
 
+// Approved wording, the same on every page.
+const ENTITY_STATEMENT =
+  "Syka is a product of Xenon Technology Inc. which operates as a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed and regulated across multiple jurisdictions.";
+
 const definedLinks = (links: { label: string; href?: string }[]): FooterLink[] =>
   links.filter((link): link is FooterLink => Boolean(link.href));
 
@@ -30,7 +34,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
     { title: "Products", links: PRODUCT_ITEMS.map(({ label, slug }) => ({ label, href: `${basePath}?product=${slug}` })) },
     ...(company.length ? [{ title: "Company", links: company }] : []),
     ...(transparency.length ? [{ title: "Legal", links: transparency }] : []),
-    { title: "Support", links: [{ label: "Contact Us", href: businessLinks.sales }, { label: "FAQs", href: `${basePath}#faq` }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
+    { title: "Support", links: [{ label: "Contact Us", href: businessLinks.sales }, { label: "FAQs", href: "/support" }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
   ];
 
   return (
@@ -41,7 +45,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
             <Link href={basePath} aria-label={isBusiness ? "Syka business home" : "Syka personal home"} className="inline-block rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
               <Image src={SykaLogoWhite} alt="Syka" className="h-10 w-auto lg:h-12" />
             </Link>
-            <p className="mt-5 max-w-[297px] text-sm leading-relaxed text-white/65 lg:text-base">{isBusiness ? "Syka, The Smarter Bridge Between Borders" : "Syka is a product of Xenon Ltd."}</p>
+            <p className="mt-5 max-w-[297px] text-sm leading-relaxed text-white/65 lg:text-base">Syka, The Smarter Bridge Between Borders</p>
           </div>
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
             {groups.map(({ title, links }) => (
@@ -57,13 +61,13 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
           </div>
         </div>
         <p className="mt-12 border-t  border-white/25 pt-12 text-xs leading-relaxed text-white/60 lg:text-lg">
-          {variant === "legal" ? "Syka is a product of Xenon Ltd., which is a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed by BOG." : "Syka is a product of Xenon Technology Inc. which operates as a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed and regulated across multiple jurisdictions."}
+          {ENTITY_STATEMENT}
         </p>
       </div>
 
       <FooterLocations />
 
-      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">{variant === "legal" ? "© 2026 Syka Ltd." : `© ${new Date().getFullYear()} Xenon Technologies Inc.`}</p>
+      <p className="mt-12 text-center text-xs text-white/45 lg:mt-14">© {new Date().getFullYear()} Xenon Technologies Inc.</p>
     </footer>
   );
 }

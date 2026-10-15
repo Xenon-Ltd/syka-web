@@ -5,7 +5,7 @@ import {
   PartnerPartna,
   PartnerSonaQode,
   PartnerSwipelux,
-  PartnerSwyChr,
+  PartnerWorkesAppzIcon,
 } from "@/assets/images";
 import Image, { type StaticImageData } from "next/image";
 
@@ -29,9 +29,8 @@ const LOGOS: Logo[] = [
   { name: "Partna", image: PartnerPartna, width: 171, height: 61, crop: { width: 179.98, height: 263.32, left: -39.48, top: -76.49 } },
   { name: "OwlTing", image: PartnerOwlTing, width: 253, height: 73, crop: { width: 125.79, height: 264.36, left: -12.05, top: -77.09 } },
   { name: "Swipelux", image: PartnerSwipelux, width: 277, height: 66, crop: { width: 109.5, height: 457, left: -5.58, top: -172.43 } },
-  { name: "SwyChr", image: PartnerSwyChr, width: 196, height: 64, crop: { width: 141.97, height: 211.89, left: -21.65, top: -56.22 } },
-  { name: "JS Squared", image: PartnerJSSquared, width: 172.124, height: 64, crop: { width: 118.24, height: 212.01, left: -9.85, top: -30.02 } },
-  { name: "SonaQode", image: PartnerSonaQode, width: 209.875, height: 73, crop: { width: 139.13, height: 400, left: -20.67, top: -150 } },
+  // { name: "JS Squared", image: PartnerJSSquared, width: 172.124, height: 64, crop: { width: 118.24, height: 212.01, left: -9.85, top: -30.02 } },
+  // { name: "SonaQode", image: PartnerSonaQode, width: 209.875, height: 73, crop: { width: 139.13, height: 400, left: -20.67, top: -150 } },
 ];
 
 const GAP = 82;
@@ -76,13 +75,35 @@ function MaryHealthLogo({ decorative }: { decorative: boolean }) {
   );
 }
 
+// WorkesAppz Payments is only supplied as an icon, so the name is live text,
+// laid out like Mary Health.
+function WorkesAppzLogo({ decorative }: { decorative: boolean }) {
+  return (
+    <div className="flex shrink-0 items-center" style={{ gap: scaled(12.549), marginRight: scaled(GAP) }}>
+      <div className="relative shrink-0" style={{ width: scaled(61.9), height: scaled(44) }}>
+        <Image src={PartnerWorkesAppzIcon} alt="" fill sizes="62px" className="object-contain mix-blend-multiply" />
+      </div>
+      <p
+        aria-hidden={decorative || undefined}
+        className="font-poppins font-semibold whitespace-nowrap text-black"
+        style={{ fontSize: scaled(23.425), lineHeight: scaled(26.771) }}
+      >
+        WorkesAppz
+        <br />
+        Payments
+      </p>
+    </div>
+  );
+}
+
 function LogoSet({ decorative }: { decorative: boolean }) {
   return (
     <div aria-hidden={decorative || undefined} className="flex shrink-0 items-center">
       {LOGOS.map((logo) => (
         <CroppedLogo key={logo.name} logo={logo} decorative={decorative} />
       ))}
-      <MaryHealthLogo decorative={decorative} />
+      <WorkesAppzLogo decorative={decorative} />
+      {/* <MaryHealthLogo decorative={decorative} /> */}
     </div>
   );
 }
