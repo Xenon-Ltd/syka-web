@@ -6,52 +6,60 @@ import {
   ForDigitalNomadsAndExpats,
 } from "@/assets/images";
 import Image, { StaticImageData } from "next/image";
-import { useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { cn } from "@/lib/utils";
 import {
   fadeUp,
   staggerContainer,
   IN_VIEW_OPTS,
-  EASE_IN_OUT,
+  EASE_OUT,
 } from "@/lib/animation";
 
 type IndustryCard = {
   title: string;
-  description: string;
   image: StaticImageData;
-  bg: string;
-  textColor?: string;
+  alt: string;
+  /** Desktop placement in the 580px-tall row, as in the design. */
+  offset: string;
+  imageClass: string;
+  /** Darkening behind the title so it reads on the photo. */
+  shade: string;
+  /** Title width and top inset, from the design. */
+  titleClass: string;
 };
 
 const industries: IndustryCard[] = [
   {
     title: "For Freelancers & Remote Workers",
-    description:
-      "Invoice clients globally, get paid in USD or EUR, and convert to your local currency with minimal loss.",
     image: ForFreelancersAndRemoteWorkers,
-    bg: "bg-[#E4F4FB]",
-    textColor: "text-[#223047]",
+    alt: "A freelancer working on a laptop from his sofa",
+    offset: "lg:self-center",
+    imageClass: "object-cover object-bottom",
+    shade: "bg-[linear-gradient(180deg,rgba(0,0,0,0.5)_21.8%,rgba(102,102,102,0)_63.5%)]",
+    titleClass: "max-w-[320px] lg:mt-8",
   },
   {
     title: "For SMEs & Startups",
-    description:
-      "Pay global contractors and suppliers instantly, while managing multi-currency cash flow without high bank fees.",
     image: ForSMEsAndStartups,
-    bg: "bg-[#FDE8E8]",
-    textColor: "text-[#223047]",
+    alt: "A small team talking over coffee in their office",
+    offset: "lg:self-end",
+    imageClass: "object-cover object-center",
+    shade: "bg-[linear-gradient(180deg,rgba(0,0,0,0.5)_14.4%,rgba(102,102,102,0)_67.5%)]",
+    titleClass: "max-w-[300px] lg:mt-[54px]",
   },
   {
     title: "For Digital Nomads & Expats",
-    description:
-      "Send money home affordably and spend anywhere online with your virtual card with no foreign transaction fees.",
     image: ForDigitalNomadsAndExpats,
-    bg: "bg-[#c9f5f6]",
-    textColor: "text-[#223047]",
+    alt: "A traveller checking her phone on a city street",
+    offset: "lg:self-center",
+    imageClass: "object-cover object-[55%_center]",
+    shade: "bg-[linear-gradient(180deg,rgba(0,0,0,0.5)_0%,rgba(102,102,102,0.5)_37.8%)]",
+    titleClass: "max-w-[292px] lg:mt-[54px]",
   },
 ];
 
 function SolutionsThatFit() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
 
@@ -60,142 +68,50 @@ function SolutionsThatFit() {
       ref={ref}
       className="mx-auto max-w-[1268px] px-5 py-16 sm:px-6 md:py-24 lg:py-32"
     >
-      {/* Heading */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mb-4 text-center md:mb-4 lg:mb-10 lg:text-left"
+        className="mb-8 text-center lg:mb-10 lg:text-left"
       >
         <motion.h2
           variants={fadeUp}
           className="text-3xl font-bold leading-tight text-xenon-gray md:text-[36px] lg:text-[40px] lg:leading-[52px]"
         >
           Solutions That Fit
-        </motion.h2>
-        <motion.p
-          variants={fadeUp}
-          className="text-3xl font-bold leading-tight text-xenon-gray md:text-[36px] lg:text-[40px] lg:leading-[52px]"
-        >
+          <br />
           Your <span className="text-xenon-brand">Workflow</span>
-        </motion.p>
+        </motion.h2>
       </motion.div>
 
-      {/* Desktop accordion */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, ease: EASE_IN_OUT, delay: 0.15 }}
-        className="hidden gap-6 lg:flex lg:h-[375px] lg:gap-6"
-        onMouseLeave={() => setActiveIndex(0)}
-      >
-        {industries.map((card, index) => {
-          const isExpanded = index === activeIndex;
-          const textColor = card.textColor ?? "text-[#223047]";
-
-          return (
-            <motion.button
-              type="button"
-              key={card.title}
-              layout
-              onMouseEnter={() => setActiveIndex(index)}
-              onFocus={() => setActiveIndex(index)}
-              tabIndex={0}
-              aria-expanded={isExpanded}
-              aria-controls={`personal-industry-${index}`}
-              className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl border-0 p-0 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon`}
-              animate={{ flex: isExpanded ? 2.2 : 1 }}
-              transition={{ duration: 0.4, ease: EASE_IN_OUT }}
-            >
-              <motion.div id={`personal-industry-${index}`} layout className="h-full p-4 lg:p-6">
-                <AnimatePresence mode="wait" initial={false}>
-                  {isExpanded ? (
-                    <motion.div
-                      key={`expanded-${index}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2, ease: EASE_IN_OUT }}
-                      className={`flex h-full items-stretch gap-5 ${textColor}`}
-                    >
-                      <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left">
-                        <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:text-2xl lg:leading-snug">
-                          {card.title}
-                        </h3>
-                        <p className="mt-3 max-w-[280px] text-base leading-relaxed lg:mt-4 lg:max-w-[360px] lg:text-lg">
-                          {card.description}
-                        </p>
-                      </div>
-                      <div className="relative w-[46%] overflow-hidden rounded-xl lg:rounded-[24px]">
-                        <Image
-                          src={card.image}
-                          alt={card.title}
-                          fill
-                          sizes="(max-width: 1023px) 100vw, 33vw"
-                          placeholder="blur"
-                          className="object-cover object-center"
-                        />
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key={`collapsed-${index}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.15 }}
-                      className={`flex h-full items-center justify-center text-center ${textColor}`}
-                    >
-                      <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:px-4 lg:text-2xl lg:leading-snug">
-                        {card.title}
-                      </h3>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </motion.button>
-          );
-        })}
-      </motion.div>
-
-      {/* Mobile stack */}
-      <div className="flex flex-col gap-6 lg:hidden">
-        {industries.map((card, i) => {
-          const textColor = card.textColor ?? "text-[#223047]";
-          return (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{
-                duration: 0.45,
-                ease: EASE_IN_OUT,
-                delay: i * 0.08,
-              }}
-              className={`${card.bg} overflow-hidden rounded-2xl p-8 text-center`}
-            >
-              <div
-                className={`flex h-full flex-col items-center text-center ${textColor}`}
-              >
-                <h3 className="mobile-card-title">{card.title}</h3>
-                <p className="mobile-body mt-2 max-w-[32ch]">
-                  {card.description}
-                </p>
-                <div className="relative mt-4 h-[260px] w-full overflow-hidden rounded-xl sm:h-[280px]">
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    sizes="100vw"
-                    placeholder="blur"
-                    className="object-cover object-center"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+      <ul className="grid gap-6 sm:grid-cols-2 lg:h-[580px] lg:grid-cols-3">
+        {industries.map((card, index) => (
+          <motion.li
+            key={card.title}
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.1 + index * 0.08 }}
+            className={cn(
+              "relative isolate aspect-[390/471] overflow-hidden rounded-[24px] lg:rounded-[32px]",
+              index === 2 && "sm:col-span-2 sm:aspect-[16/9] lg:col-span-1 lg:aspect-[390/471]",
+              card.offset,
+            )}
+          >
+            <Image
+              src={card.image}
+              alt={card.alt}
+              fill
+              placeholder="blur"
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 390px"
+              className={cn("-z-10", card.imageClass)}
+            />
+            <div aria-hidden className={cn("absolute inset-0 -z-10", card.shade)} />
+            <h3 className="px-6 pt-6 text-[26px] leading-[1.35] font-bold text-white lg:px-8 lg:pt-0 lg:text-[32px] lg:leading-[44.8px]">
+              <span className={cn("block", card.titleClass)}>{card.title}</span>
+            </h3>
+          </motion.li>
+        ))}
+      </ul>
     </section>
   );
 }

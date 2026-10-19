@@ -52,7 +52,7 @@ export default function MoreThanTransfers() {
               <p className={cn(businessStyles.body, "relative z-10 mt-3 max-w-[408px]", card.text)}>{card.body}</p>
               <Link href={card.href} className={cn(linkStyle, card.link)}>Get Now <ArrowRightCircle aria-hidden="true" className="size-4" /></Link>
               <div className="pointer-events-none absolute right-0 bottom-0 h-[140px] w-[190px] lg:h-[160px] lg:w-[210px]">
-                <Image src={card.image} alt="" fill sizes="210px" className="object-contain object-right-bottom" />
+                <Image src={card.image} alt="" fill sizes="(max-width: 1023px) 190px, 210px" className="object-contain object-right-bottom" />
               </div>
             </motion.article>
           ))}

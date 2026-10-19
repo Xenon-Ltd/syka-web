@@ -1,51 +1,12 @@
 "use client";
 
-import {
-  CA,
-  GH,
-  BJ,
-  BF,
-  AU,
-  AE,
-  AR,
-  BR,
-  CL,
-  EURO,
-  GB,
-  ID,
-  IN,
-  KE,
-  MX,
-  NG,
-  PE,
-  PH,
-  TH,
-  TG,
-  TR,
-  VN,
-  US,
-  CN,
-  CM,
-  CF,
-  CI,
-  TD,
-  CG,
-  GQ,
-  GA,
-  GW,
-  ML,
-  NE,
-  SN,
-  TZ,
-  UG,
-  ZA,
-} from "@/assets/icons/countries";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { businessStyles } from "@/lib/business-styles";
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { IN_VIEW_OPTS, EASE_OUT } from "@/lib/animation";
+import { supportedCountries } from "@/lib/countries";
 
 interface CountryItemProps {
   icon: string;
@@ -59,46 +20,7 @@ type CountriesSupportedProps = {
   variant?: "default" | "personal" | "business";
 };
 
-const countries = [
-  { name: "Canada", currency: "CAD", icon: CA },
-  { name: "Ghana", currency: "GHS", icon: GH },
-  { name: "Argentina", currency: "ARS", icon: AR },
-  { name: "United Arab Emirates", currency: "AED", icon: AE },
-  { name: "Brazil", currency: "BRL", icon: BR },
-  { name: "Chile", currency: "CLP", icon: CL },
-  { name: "Eurozone countries", currency: "EUR", icon: EURO },
-  { name: "United Kingdom", currency: "GBP", icon: GB },
-  { name: "Indonesia", currency: "IDR", icon: ID },
-  { name: "India", currency: "INR", icon: IN },
-  { name: "Mexico", currency: "MXN", icon: MX },
-  { name: "Nigeria", currency: "NGN", icon: NG },
-  { name: "Peru", currency: "PEN", icon: PE },
-  { name: "China", currency: "CNY", icon: CN },
-  { name: "United States", currency: "USD", icon: US },
-  { name: "Thailand", currency: "THB", icon: TH },
-  { name: "Turkey", currency: "TRY", icon: TR },
-  { name: "Vietnam", currency: "VND", icon: VN },
-  { name: "Australia", currency: "AUD", icon: AU },
-  { name: "Philippines", currency: "PHP", icon: PH },
-  { name: "South Africa", currency: "ZAR", icon: ZA },
-  { name: "Tanzania", currency: "TZS", icon: TZ },
-  { name: "Uganda", currency: "UGX", icon: UG },
-  { name: "Kenya", currency: "KES", icon: KE },
-  { name: "Cameroon", currency: "XAF", icon: CM },
-  { name: "Central African Republic", currency: "XAF", icon: CF },
-  { name: "Chad", currency: "XAF", icon: TD },
-  { name: "Republic of the Congo", currency: "XAF", icon: CG },
-  { name: "Equatorial Guinea", currency: "XAF", icon: GQ },
-  { name: "Gabon", currency: "XAF", icon: GA },
-  { name: "Benin", currency: "XOF", icon: BJ },
-  { name: "Burkina Faso", currency: "XOF", icon: BF },
-  { name: "Côte d'Ivoire", currency: "XOF", icon: CI },
-  { name: "Guinea-Bissau", currency: "XOF", icon: GW },
-  { name: "Mali", currency: "XOF", icon: ML },
-  { name: "Niger", currency: "XOF", icon: NE },
-  { name: "Senegal", currency: "XOF", icon: SN },
-  { name: "Togo", currency: "XOF", icon: TG },
-];
+const countries = supportedCountries;
 
 function CountryItem({ icon, name, currency, compact = false }: CountryItemProps) {
   return (

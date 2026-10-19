@@ -12,7 +12,9 @@ function useIsAppOnlyRoute() {
 }
 
 // Pages whose hero renders its own header so the hero background runs behind it.
-const ownHeaderRoutes = ["/support"];
+// /business also renders the light header itself for its ?product= and
+// ?developer= views, which share the path.
+const ownHeaderRoutes = ["/support", "/business"];
 
 export function SiteHeader() {
   const pathname = usePathname();

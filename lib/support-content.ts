@@ -3,6 +3,9 @@
 
 export const SUPPORT_EMAIL = "support@sykabank.com";
 
+/** The Contact Support form on the support hub. */
+export const CONTACT_SUPPORT_HREF = "/support#contact-support";
+
 export type SupportArticle = {
   slug: string;
   question: string;

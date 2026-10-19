@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SupportBackLink from "@/components/support/support-back-link";
-import { getSupportCategory, SUPPORT_CATEGORIES, supportArticleHref } from "@/lib/support-content";
+import FaqLayout, { withSupportEmailLink } from "@/components/support/faq-layout";
+import { CONTACT_SUPPORT_HREF, getSupportCategory, SUPPORT_CATEGORIES, supportArticleHref } from "@/lib/support-content";
 
 type Params = Promise<{ category: string }>;
 
@@ -27,22 +27,37 @@ export default async function SupportCategoryPage({ params }: { params: Params }
   if (!category) notFound();
 
   return (
-    <main className="mx-auto max-w-[1268px] px-5 pb-20 sm:px-6 lg:pb-[260px]">
-      <SupportBackLink href="/support">Back to home</SupportBackLink>
-      <h1 className="mt-8 text-[34px] leading-[1.2] font-bold text-black lg:mt-10 lg:text-[44px] lg:leading-[52px]">{category.title}</h1>
+    <FaqLayout
+      variant="topic"
+      navLabel="Support topics"
+      navItems={SUPPORT_CATEGORIES.map(({ slug, title }) => ({ label: title, href: `/support/${slug}`, active: slug === category.slug }))}
+      breadcrumbs={[{ label: "Support", href: "/support" }]}
+      title={category.title}
+    >
+      <div className="legal-intro">
+        <p>
+          {category.articles.length} answers about {category.title.toLowerCase()} with Syka. Select a question to open it on its own page.
+        </p>
+      </div>
 
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3">
-        {category.articles.map((article) => (
-          <li key={article.slug}>
-            <Link
-              href={supportArticleHref(category.slug, article.slug)}
-              className="block h-full min-h-[106px] rounded-2xl bg-[#F7F7F7] p-6 text-xl leading-[1.25] font-semibold text-black transition-colors hover:bg-[#EEF0F3] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-brand lg:text-2xl"
-            >
-              {article.question}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+      {category.articles.map((article) => (
+        <section key={article.slug} className="legal-section is-sub faq-entry">
+          <h2>
+            <Link href={supportArticleHref(category.slug, article.slug)}>{article.question}</Link>
+          </h2>
+          <p>{withSupportEmailLink(article.answer)}</p>
+        </section>
+      ))}
+
+      <section className="legal-section is-sub faq-help">
+        <h2>Still need help?</h2>
+        <p>
+          <Link href={CONTACT_SUPPORT_HREF} className="legal-link">
+            Contact support
+          </Link>{" "}
+          and our team will get back to you.
+        </p>
+      </section>
+    </FaqLayout>
   );
 }

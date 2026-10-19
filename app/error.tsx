@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { CONTACT_SUPPORT_HREF } from "@/lib/support-content";
 
 const buttonBase =
   "inline-flex min-h-12 items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-brand";
@@ -21,7 +22,7 @@ export default function Error({ reset }: { error: Error & { digest?: string }; r
         <button type="button" onClick={reset} className={`${buttonBase} bg-xenon-brand text-white hover:bg-xenon-700`}>
           Try again
         </button>
-        <Link href="/support" className={`${buttonBase} border border-xenon-brand text-xenon-brand hover:bg-xenon-brand/5`}>
+        <Link href={CONTACT_SUPPORT_HREF} className={`${buttonBase} border border-xenon-brand text-xenon-brand hover:bg-xenon-brand/5`}>
           Contact support
         </Link>
         <Link href="/" className={`${buttonBase} text-xenon-brand hover:bg-xenon-brand/5`}>

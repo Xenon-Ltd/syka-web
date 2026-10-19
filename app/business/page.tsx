@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import BusinessHero from "@/components/business/business-hero";
-import SolutionsAndPlatform from "@/components/business/solutions-and-platform";
+import BusinessHeroSolutions from "@/components/business/business-hero-solutions";
 import PlatformShowcase from "@/components/business/platform-showcase";
 import PricingComparison from "@/components/business/pricing-comparison";
 import CountriesSupported from "@/components/countries-supported";
@@ -14,6 +13,7 @@ import {
 } from "@/components/dropdown-pages/product-config";
 import BusinessCTA from "@/components/business/business-cta";
 import BusinessFAQ from "@/components/business/business-faq";
+import Header from "@/components/layout/header";
 import { businessStyles } from "@/lib/business-styles";
 import { developerCanonical, developerPageMetadata, metadataForPage, productCanonical, productPageMetadata } from "@/lib/page-metadata";
 
@@ -34,18 +34,28 @@ export default async function BusinessPage({ searchParams }: BusinessPageProps) 
   const SelectedDeveloperComponent = selectedDeveloper
     ? DEVELOPER_COMPONENTS[selectedDeveloper]
     : null;
+  // The landing page's hero renders a dark header; these views keep the light one.
   if (SelectedProductComponent) {
-    return <main className={`marketing-page product-page product-${selectedProduct}`}><SelectedProductComponent /></main>;
+    return (
+      <>
+        <Header />
+        <main className={`marketing-page product-page product-${selectedProduct}`}><SelectedProductComponent /></main>
+      </>
+    );
   }
 
   if (SelectedDeveloperComponent) {
-    return <main className="overflow-x-clip"><SelectedDeveloperComponent /></main>;
+    return (
+      <>
+        <Header />
+        <main className="overflow-x-clip"><SelectedDeveloperComponent /></main>
+      </>
+    );
   }
 
   return (
     <main className="marketing-page business-page">
-      <BusinessHero />
-      <SolutionsAndPlatform />
+      <BusinessHeroSolutions />
       <PlatformShowcase />
       <PricingComparison />
       <CountriesSupported variant="business" headingClassName={businessStyles.sectionHeading} />

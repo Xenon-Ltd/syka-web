@@ -32,9 +32,10 @@ function EndToEndSecurity() {
         >
           <Image
             src={EndToEndSecurityImage}
-            alt="endtoend"
-            sizes="(max-width: 1280px) 100vw, 620px"
-            className="mx-auto w-full max-w-[500px] scale-x-[-1]"
+            alt="A Syka customer smiling at her phone after a payment goes through"
+            sizes="(max-width: 640px) 100vw, 500px"
+            placeholder="blur"
+            className="mx-auto w-full max-w-[500px]"
           />
         </motion.div>
 

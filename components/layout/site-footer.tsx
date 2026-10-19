@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SykaLogoWhite } from "@/assets/icons";
 import { PRODUCT_ITEMS } from "@/components/dropdown-pages/product-config";
-import { businessLinks, companyLinks, transparencyLinks } from "@/lib/business-links";
+import { companyLinks, transparencyLinks } from "@/lib/business-links";
+import { CONTACT_SUPPORT_HREF } from "@/lib/support-content";
 import FooterLocations from "./footer-locations";
 
 type FooterLink = { label: string; href: string };
@@ -10,7 +11,7 @@ type FooterGroup = { title: string; links: FooterLink[] };
 
 // Approved wording, the same on every page.
 const ENTITY_STATEMENT =
-  "Syka is a product of Xenon Technology Inc. which operates as a financial technology company and not a bank. Our services are provided by our partner banks and other financial institutions that are duly licensed and regulated across multiple jurisdictions.";
+  "Syka is a product of Xenon Technologies Inc. and its affiliates, Xenon Technology Solutions (Canada) Inc. and Xenon Limited (Ghana). Syka is a financial technology company, not a bank. Payment services are delivered with licensed and regulated partner institutions across multiple jurisdictions.";
 
 const definedLinks = (links: { label: string; href?: string }[]): FooterLink[] =>
   links.filter((link): link is FooterLink => Boolean(link.href));
@@ -34,7 +35,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
     { title: "Products", links: PRODUCT_ITEMS.map(({ label, slug }) => ({ label, href: `${basePath}?product=${slug}` })) },
     ...(company.length ? [{ title: "Company", links: company }] : []),
     ...(transparency.length ? [{ title: "Legal", links: transparency }] : []),
-    { title: "Support", links: [{ label: "Contact Us", href: businessLinks.sales }, { label: "FAQs", href: "/support" }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
+    { title: "Support", links: [{ label: "Contact Us", href: CONTACT_SUPPORT_HREF }, { label: "FAQs", href: "/support" }, { label: "API Documentation", href: `${basePath}?developer=api-documentation` }] },
   ];
 
   return (

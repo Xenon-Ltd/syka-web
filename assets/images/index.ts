@@ -7,11 +7,14 @@ export { default as LightningFlowTransfers } from "./lightning-flow-transfers.sv
 export { default as SpendableBalance } from "./spendable-balance.png";
 export { default as LocalPresence } from "./your-local-presence.png";
 
-export { default as EndToEndSecurityImage } from "./end-to-end-secu.svg";
+export { default as EndToEndSecurityImage } from "./end-to-end-security.png";
 
-export { default as ForFreelancersAndRemoteWorkers } from "./for-freelancers-remote.png";
-export { default as ForSMEsAndStartups } from "./smes-startups.jpg";
-export { default as ForDigitalNomadsAndExpats } from "./digital-nomads-expats.png";
+export { default as ForFreelancersAndRemoteWorkers } from "./solutions-freelancers.jpg";
+export { default as ForSMEsAndStartups } from "./solutions-smes.jpg";
+export { default as ForDigitalNomadsAndExpats } from "./solutions-nomads.jpg";
+export { default as StabilityStablecoin } from "./stability-stablecoin.jpg";
+export { default as StabilitySecurity } from "./stability-security.jpg";
+export { default as StabilityWallet } from "./stability-wallet.jpg";
 
 export { default as PhoneWithFrame } from "./phone-with-frame.png";
 export { default as WorldMap } from "./world-map.svg";
@@ -67,3 +70,4 @@ export { default as TreasuryHowItWorks } from "./treasury-how-it-works.png";
 export { default as InvoicingUseCase } from "./invoicing-usecase.jpg";
 export { default as InvoicingHero } from "./invoicing-hero.jpg";
 export { default as InvoicingDetailsAttached } from "./invoicing-details-attached.png";
+export { default as HeroGlobeImage } from "./hero-globe.png";

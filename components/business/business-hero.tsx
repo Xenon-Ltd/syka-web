@@ -3,24 +3,17 @@
 import { businessStyles } from "@/lib/business-styles";
 import { cn } from "@/lib/utils";
 
-import StoreBadges from "./store-badges";
 import BusinessAction from "./business-action";
+import HeroGlobe from "./hero-globe";
+import Header from "@/components/layout/header";
 import { businessLinks } from "@/lib/business-links";
-import { CA, GH, GB, NG, US, MORE } from "@/assets/icons/countries";
-import { WorldMap, HeroMapAvatars } from "@/assets/images";
+import { GH, GB, NG, US, MORE } from "@/assets/icons/countries";
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import CompaniesMarquee from "@/components/business/companies-marquee";
-import {
-  staggerContainer,
-  IN_VIEW_OPTS,
-  EASE_OUT,
-  riseIn,
-} from "@/lib/animation";
+import { staggerContainer, IN_VIEW_OPTS, EASE_OUT, riseIn } from "@/lib/animation";
 
 const countryFlags = [
-  { src: CA, name: "Canada" },
   { src: GH, name: "Ghana" },
   { src: NG, name: "Nigeria" },
   { src: GB, name: "United Kingdom" },
@@ -28,110 +21,85 @@ const countryFlags = [
   { src: MORE, name: "and more countries" },
 ];
 
+/** Flags line, headline, subtext and CTAs, shared by the business heroes. */
+export function BusinessHeroCopy({ isInView }: { isInView: boolean }) {
+  return (
+    <motion.div
+      variants={staggerContainer}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className="relative z-10 mx-auto max-w-[837px] px-5 pt-10 text-center sm:px-6 md:pt-16 lg:pt-[120px] xl:pt-[162px]"
+    >
+      <motion.div
+        variants={riseIn}
+        className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3"
+      >
+        <div className="flex items-center gap-1">
+          {countryFlags.map(({ src, name }) => (
+            <Image key={name} src={src} alt={name} width={36} height={36} className="size-7 lg:size-9" />
+          ))}
+        </div>
+        <p className="text-base leading-[22px] text-[#F7F7F7] lg:text-lg">
+          Over 3000 businesses in 7+ countries use SYKA
+        </p>
+      </motion.div>
+
+      <motion.h1
+        variants={riseIn}
+        className="mx-auto mt-8 text-[40px] font-bold leading-[1.1] text-white capitalize md:text-[54px] xl:text-[62px] xl:leading-[80.6px]"
+      >
+        The Payment Infrastructure Built For Emerging{" "}
+        <span className="text-xenon-sky">Markets</span>
+      </motion.h1>
+
+      <motion.p
+        variants={riseIn}
+        className="mx-auto mt-6 max-w-[547px] text-lg leading-[29px] text-white"
+      >
+        Trusted by financial institutions across Africa and the Caribbean.
+        Built on stablecoin rails. Backed by enterprise-grade compliance.
+      </motion.p>
+
+      <motion.div
+        variants={riseIn}
+        className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start"
+      >
+        <span className="relative inline-flex">
+          {/* Soft glow under the primary button, from the design. */}
+          <span aria-hidden className="absolute inset-x-3 top-3 -bottom-1.5 rounded-lg bg-[rgba(19,119,188,0.4)] blur-[20px]" />
+          <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "relative bg-xenon-brand text-white transition-colors duration-200 hover:bg-xenon-600")}>
+            Get started for free
+          </BusinessAction>
+        </span>
+        <BusinessAction href="/business#platform" className={cn(businessStyles.button, "border border-[#D0ECFF] bg-[#0a1628]/60 text-xenon-sky transition-colors duration-200 hover:bg-[#13213a]")}>
+          See How It Works
+        </BusinessAction>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function BusinessHero() {
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
 
   return (
-    <section
-      ref={ref}
-      className="mx-auto max-w-[1268px] px-5 pt-10 pb-16 sm:px-6 md:pt-16 md:pb-24 lg:pt-20 lg:pb-32"
-    >
-      {/* Hero text — staggered children */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="mx-auto max-w-[837px] text-center"
-      >
-        <motion.div
-          variants={riseIn}
-          className="flex flex-wrap items-center justify-center gap-1"
-        >
-          {countryFlags.map(({ src, name }) => (
-            <Image
-              key={name}
-              src={src}
-              alt={name}
-              width={24}
-              height={24}
-              className="size-6 lg:size-9"
-            />
-          ))}
-          <p className="ml-3 max-w-[368px] text-left text-[#8893A4] text-lg leading-[22px]">
-            Over 3000 businesses use SYKA
-          </p>
-        </motion.div>
+    // z-10 keeps the header's dropdowns and mobile menu above later sections.
+    <section ref={ref} className="relative z-10 isolate overflow-hidden bg-[#0a1628]">
+      {/* The hero renders the header (see ownHeaderRoutes in site-chrome) so the
+          navy background runs behind the navigation, as in the design. */}
+      <Header tone="dark" />
 
-        <motion.h1
-          variants={riseIn}
-          className="mobile-hero-title mt-8 mx-auto md:text-[54px] xl:text-[62px] xl:leading-[80.6px] text-xenon-gray"
-        >
-          The Payment Infrastructure Built For Emerging{" "}
-          <span className="text-xenon-brand">Markets</span>
-        </motion.h1>
+      <BusinessHeroCopy isInView={isInView} />
 
-        <motion.p
-          variants={riseIn}
-          className="mx-auto mt-6 max-w-[547px] text-lg leading-[29px] text-[#8893A4]"
-        >
-          Trusted by financial institutions across Africa and the Caribbean.
-          Built on stablecoin rails. Backed by enterprise-grade compliance.
-        </motion.p>
-
-        <motion.div
-          variants={riseIn}
-          className="mt-8 flex flex-col justify-center gap-4 sm:flex-row xl:h-[54px] xl:items-start"
-        >
-          <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "bg-xenon-brand text-white transition-colors duration-200 hover:bg-xenon-600")}>
-            Get started for free
-          </BusinessAction>
-          <BusinessAction href="/business#platform" className={cn(businessStyles.button, "border border-[#D0ECFF] text-xenon-sky transition-colors duration-200 hover:bg-[#F3F7FB]")}>
-            See How It Works
-          </BusinessAction>
-        </motion.div>
-      </motion.div>
-
-      {/* Static dotted world map — replaces the previous Lottie animation */}
+      {/* Globe — its top sits level with the buttons, as in the design. */}
       <motion.div
         initial={{ y: 24 }}
         animate={isInView ? { y: 0 } : {}}
         transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.25 }}
-        className="relative mx-auto mt-10 flex w-full max-w-[1017px] justify-center overflow-hidden xl:mt-0 xl:h-[410.33px]"
+        className="-mt-10 md:-mt-16 lg:-mt-24"
       >
-        <div className="relative w-full">
-          <Image
-            src={WorldMap}
-            alt="Countries where SYKA operates"
-            className="w-full h-full object-contain"
-            priority
-          />
-          <Image
-            src={HeroMapAvatars}
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute top-[9%] left-[12%] h-auto w-[72%] mix-blend-multiply"
-            sizes="(max-width: 1232px) 72vw, 850px"
-          />
-        </div>
-      </motion.div>
-
-      {/* Tagline + store badges + marquee */}
-      <motion.div
-        initial={{ y: 20 }}
-        animate={isInView ? { y: 0 } : {}}
-        transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.4 }}
-        className="mt-16 flex flex-col items-center text-center xl:mt-[150px]"
-      >
-        <p className={cn(businessStyles.sectionHeading, "max-w-[300px] text-xenon-gray sm:max-w-none md:max-w-[620px] lg:max-w-[980px]")}>
-          Instant Payments, <span className="text-xenon-brand">Zero</span> Limits
-        </p>
-        <p className="mt-6 text-lg leading-[26px] text-[#8893A4]">
-          Simple, fast, and transparent global payments
-        </p>
-        <StoreBadges className="mt-6" />
-
-        <div className="mt-16 w-full flex justify-center xl:mt-[150px]"><CompaniesMarquee /></div>
+        <HeroGlobe className="aspect-[8/5] max-h-[540px] md:aspect-[3/1]" />
       </motion.div>
     </section>
   );

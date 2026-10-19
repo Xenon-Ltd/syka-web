@@ -1,7 +1,7 @@
 "use client";
 
 import { WavyBackgroundDesign } from "@/assets/images";
-import { GH, NG, GB } from "@/assets/icons/countries";
+import { GH, NG, KE } from "@/assets/icons/countries";
 import Image, { StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -17,7 +17,7 @@ import {
 const flagCountry = new Map<StaticImageData | string, string>([
   [GH, "Ghana"],
   [NG, "Nigeria"],
-  [GB, "United Kingdom"],
+  [KE, "Kenya"],
 ]);
 
 interface Testimonial {
@@ -47,7 +47,7 @@ const testimonials: Testimonial[] = [
     title: "Finance Associate",
   },
   {
-    countryFlag: GB,
+    countryFlag: KE,
     feedback:
       "Syka cut our international vendor payment costs by 85% and eliminated the 3-day wait. The virtual EUR accounts have been a game-changer for our EU clients.",
     name: "Liam W.",

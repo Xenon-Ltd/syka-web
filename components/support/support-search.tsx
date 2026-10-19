@@ -1,30 +1,39 @@
 "use client";
 
-import { SUPPORT_SEARCH_INDEX, type SupportSearchEntry } from "@/lib/support-content";
+import { CONTACT_SUPPORT_HREF, SUPPORT_SEARCH_INDEX, type SupportSearchEntry } from "@/lib/support-content";
+import { highlight, searchSupport, snippet, type HighlightPart } from "@/lib/support-search";
 import { cn } from "@/lib/utils";
-import { Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useId, useMemo, useRef, useState } from "react";
 
 const MAX_RESULTS = 6;
 
-function findArticles(query: string): SupportSearchEntry[] {
-  const needle = query.trim().toLowerCase();
-  if (!needle) return [];
-  const words = needle.split(/\s+/);
-  const matches = SUPPORT_SEARCH_INDEX.filter((entry) => {
-    const haystack = `${entry.question} ${entry.answer} ${entry.categoryTitle}`.toLowerCase();
-    return words.every((word) => haystack.includes(word));
-  });
-  // Questions that start with, then contain, the typed text rank above answer-only matches.
-  const rank = (entry: SupportSearchEntry) => {
-    const question = entry.question.toLowerCase();
-    if (question.startsWith(needle)) return 0;
-    if (question.includes(needle)) return 1;
-    return words.every((word) => question.includes(word)) ? 2 : 3;
-  };
-  return matches.sort((a, b) => rank(a) - rank(b)).slice(0, MAX_RESULTS);
+// Shown when the box is focused but empty.
+const POPULAR_SLUGS = [
+  "how-do-i-send-money",
+  "how-much-does-it-cost",
+  "how-long-will-it-take",
+  "which-countries-and-currencies-can-i-use",
+  "my-payment-is-still-processing",
+];
+const POPULAR = POPULAR_SLUGS.map((slug) => SUPPORT_SEARCH_INDEX.find((entry) => entry.slug === slug)).filter(
+  (entry): entry is SupportSearchEntry => Boolean(entry),
+);
+
+type Option = { entry: SupportSearchEntry; question: HighlightPart[]; excerpt?: HighlightPart[] };
+
+function Highlighted({ parts }: { parts: HighlightPart[] }) {
+  return parts.map((part, index) =>
+    part.match ? (
+      <mark key={index} className="bg-transparent font-bold text-xenon-brand">
+        {part.text}
+      </mark>
+    ) : (
+      part.text
+    ),
+  );
 }
 
 export default function SupportSearch() {
@@ -34,10 +43,20 @@ export default function SupportSearch() {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const results = useMemo(() => findArticles(query), [query]);
   const hasQuery = query.trim().length > 0;
-  const isOpen = isFocused && hasQuery;
+
+  const options = useMemo<Option[]>(() => {
+    if (!hasQuery) return POPULAR.map((entry) => ({ entry, question: [{ text: entry.question, match: false }] }));
+    return searchSupport(query, MAX_RESULTS).map((result) => ({
+      entry: result,
+      question: highlight(result.question, result.terms),
+      excerpt: highlight(snippet(result.answer, result.terms), result.terms),
+    }));
+  }, [query, hasQuery]);
+
+  const isOpen = isFocused;
   const isActive = isFocused || hasQuery;
+  const noResults = hasQuery && options.length === 0 && query.trim().length >= 2;
 
   const updateQuery = (value: string) => {
     setQuery(value);
@@ -47,6 +66,7 @@ export default function SupportSearch() {
   const openArticle = (entry: SupportSearchEntry | undefined) => {
     if (!entry) return;
     setIsFocused(false);
+    inputRef.current?.blur();
     router.push(entry.href);
   };
 
@@ -56,12 +76,12 @@ export default function SupportSearch() {
       else inputRef.current?.blur();
       return;
     }
-    if (!results.length || (event.key !== "ArrowDown" && event.key !== "ArrowUp")) return;
+    if (!options.length || (event.key !== "ArrowDown" && event.key !== "ArrowUp")) return;
     event.preventDefault();
     setIsFocused(true);
     setActiveIndex((index) => {
-      if (event.key === "ArrowDown") return index + 1 >= results.length ? 0 : index + 1;
-      return index <= 0 ? results.length - 1 : index - 1;
+      if (event.key === "ArrowDown") return index + 1 >= options.length ? 0 : index + 1;
+      return index <= 0 ? options.length - 1 : index - 1;
     });
   };
 
@@ -71,7 +91,8 @@ export default function SupportSearch() {
       className="relative mx-auto w-full max-w-[1029px] text-left"
       onSubmit={(event) => {
         event.preventDefault();
-        openArticle(results[activeIndex] ?? results[0]);
+        if (hasQuery) openArticle((options[activeIndex] ?? options[0])?.entry);
+        else if (activeIndex >= 0) openArticle(options[activeIndex]?.entry);
       }}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsFocused(false);
@@ -92,12 +113,13 @@ export default function SupportSearch() {
           type="search"
           role="combobox"
           autoComplete="off"
+          spellCheck={false}
           aria-autocomplete="list"
-          aria-expanded={isOpen}
+          aria-expanded={isOpen && options.length > 0}
           aria-controls={listboxId}
           aria-activedescendant={isOpen && activeIndex >= 0 ? `${listboxId}-${activeIndex}` : undefined}
           value={query}
-          placeholder="Search for articles..."
+          placeholder="Search for articles, e.g. fees, verification, refund"
           onChange={(event) => updateQuery(event.target.value)}
           onFocus={() => setIsFocused(true)}
           onKeyDown={handleKeyDown}
@@ -120,37 +142,79 @@ export default function SupportSearch() {
         </button>
       </div>
 
-      {isOpen && (
-        <div className="absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-2xl bg-[#FDFDFD] shadow-[0px_10px_18px_-2px_rgba(16,25,40,0.07)]">
-          {results.length ? (
-            <div id={listboxId} role="listbox" aria-label="Suggested articles" className="flex flex-col p-3 lg:p-4">
-              {results.map((entry, index) => (
-                <Link
-                  key={entry.href}
-                  id={`${listboxId}-${index}`}
-                  href={entry.href}
-                  role="option"
-                  aria-selected={index === activeIndex}
-                  tabIndex={-1}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onClick={() => setIsFocused(false)}
-                  className={cn(
-                    "rounded-xl px-3 py-2.5 text-base font-semibold text-xenon-gray transition-colors lg:px-4 lg:py-[12.5px] lg:text-2xl lg:leading-[26px]",
-                    index === activeIndex && "bg-[#F2F4F7]",
-                  )}
-                >
-                  {entry.question}
-                </Link>
-              ))}
-            </div>
+      <p role="status" className="sr-only">
+        {isOpen && hasQuery ? (noResults ? "No matching articles" : `${options.length} matching articles`) : ""}
+      </p>
+
+      {isOpen && (options.length > 0 || noResults) && (
+        // Mouse down here would blur the input and close the panel before the
+        // click lands (Safari doesn't focus links on click), so keep focus put.
+        <div
+          onMouseDown={(event) => event.preventDefault()}
+          className="absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-2xl bg-[#FDFDFD] shadow-[0px_10px_18px_-2px_rgba(16,25,40,0.07),0px_24px_48px_-12px_rgba(16,25,40,0.18)]"
+        >
+          {options.length > 0 ? (
+            <>
+              <p className="px-5 pt-4 text-xs font-semibold tracking-[0.12em] text-[#8893A4] uppercase lg:px-7 lg:pt-5">
+                {hasQuery ? "Top results" : "Popular questions"}
+              </p>
+              <div id={listboxId} role="listbox" aria-label={hasQuery ? "Matching articles" : "Popular questions"} className="flex flex-col p-2 lg:p-3">
+                {options.map(({ entry, question, excerpt }, index) => (
+                  <Link
+                    key={entry.href}
+                    id={`${listboxId}-${index}`}
+                    href={entry.href}
+                    role="option"
+                    aria-selected={index === activeIndex}
+                    tabIndex={-1}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    onClick={() => setIsFocused(false)}
+                    className={cn(
+                      "group flex items-start gap-4 rounded-xl px-3 py-3 transition-colors lg:px-4 lg:py-3.5",
+                      index === activeIndex && "bg-[#F2F4F7]",
+                    )}
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-base leading-6 font-semibold text-xenon-gray lg:text-xl lg:leading-7">
+                        <Highlighted parts={question} />
+                      </span>
+                      {excerpt && (
+                        <span className="mt-1 line-clamp-2 block text-sm leading-5 text-[#667185] lg:text-[15px] lg:leading-6">
+                          <Highlighted parts={excerpt} />
+                        </span>
+                      )}
+                      <span className="mt-1.5 block text-xs font-medium text-[#8893A4]">{entry.categoryTitle}</span>
+                    </span>
+                    <ArrowRight
+                      aria-hidden
+                      className={cn(
+                        "mt-1 size-5 shrink-0 text-xenon-brand transition-[opacity,transform] duration-150",
+                        index === activeIndex ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0",
+                      )}
+                    />
+                  </Link>
+                ))}
+              </div>
+            </>
           ) : (
-            <p id={listboxId} role="status" className="p-5 text-base text-xenon-gray lg:p-8 lg:text-xl">
-              No articles match &ldquo;{query.trim()}&rdquo;.{" "}
-              <a href="#contact-support" onClick={() => setIsFocused(false)} className="font-semibold text-xenon-brand underline-offset-4 hover:underline">
-                Contact support
-              </a>{" "}
-              and we&apos;ll help you directly.
+            <p id={listboxId} className="p-5 text-base text-xenon-gray lg:p-8 lg:text-xl">
+              No articles match &ldquo;{query.trim()}&rdquo;. Try another word, browse the topics below, or{" "}
+              <Link href={CONTACT_SUPPORT_HREF} onClick={() => setIsFocused(false)} className="font-semibold text-xenon-brand underline-offset-4 hover:underline">
+                contact support
+              </Link>
+              .
             </p>
+          )}
+
+          {options.length > 0 && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-black/5 px-5 py-3 text-sm text-[#667185] lg:px-7">
+              <span className="hidden sm:inline">
+                <kbd className="font-sans">↑</kbd> <kbd className="font-sans">↓</kbd> to move · <kbd className="font-sans">Enter</kbd> to open · <kbd className="font-sans">Esc</kbd> to clear
+              </span>
+              <Link href={CONTACT_SUPPORT_HREF} onClick={() => setIsFocused(false)} className="font-semibold text-xenon-brand underline-offset-4 hover:underline">
+                Can&apos;t find it? Contact support
+              </Link>
+            </div>
           )}
         </div>
       )}
