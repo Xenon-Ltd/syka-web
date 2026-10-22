@@ -38,11 +38,11 @@ function Hero() {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="w-full text-center xl:text-left"
+          className="w-full text-center lg:text-left"
         >
           <motion.div
             variants={riseIn}
-            className="flex items-center justify-center gap-4 text-[#8893A4] text-lg leading-[22px] xl:justify-start"
+            className="flex items-center justify-center gap-4 text-[#8893A4] text-lg leading-[22px] lg:justify-start"
           >
             <p>Available in</p>
             <div className="flex items-center gap-1">
@@ -62,7 +62,7 @@ function Hero() {
           <div className="mt-8">
             <motion.h1
               variants={riseIn}
-              className="personal-hero-title mx-auto text-xenon-gray"
+              className="personal-hero-title mx-auto text-xenon-gray lg:mx-0"
             >
               Send Money <span className="text-xenon-brand">Globally</span>,<br className="hidden xl:block" /> Without
               the heavy fees.
@@ -70,14 +70,14 @@ function Hero() {
 
             <motion.p
               variants={riseIn}
-              className="mx-auto mt-6 max-w-[547px] text-xl leading-[31px] text-[#8893A4] xl:mx-0"
+              className="mx-auto mt-6 max-w-[547px] text-xl leading-[31px] text-[#8893A4] lg:mx-0"
             >
               Syka is payment infrastructure built for African entrepreneurs to send, receive, and store value globally using stablecoins instantly, cheaply, and without discrimination.
             </motion.p>
 
             <motion.div
               variants={riseIn}
-              className="mt-8 flex flex-col justify-center gap-4 sm:flex-row xl:justify-start xl:h-[54px] xl:items-start"
+              className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start xl:h-[54px] xl:items-start"
             >
               <BusinessAction href={personalLinks.signup} className="min-h-12 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] sm:w-fit">
                 Get Started for free

@@ -77,14 +77,14 @@ export function SolutionsContent({ isInView }: { isInView: boolean }) {
           initial={{ opacity: 0, y: 28 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.2 }}
-          className="relative mx-auto mt-12 max-w-[1220px] overflow-hidden rounded-2xl lg:mt-16 lg:rounded-lg"
+          className="relative mx-auto mt-12 max-w-[1220px] overflow-hidden rounded-2xl max-sm:aspect-[4/3] lg:mt-16 lg:rounded-lg"
         >
           <Image
             src={SolutionsDashboardMockup}
             alt="Syka merchant dashboard overview"
             placeholder="blur"
-            sizes="(max-width: 1279px) 100vw, 1220px"
-            className="h-auto w-full"
+            sizes="(max-width: 639px) 190vw, (max-width: 1279px) 100vw, 1220px"
+            className="h-auto w-full max-sm:w-[190%] max-sm:max-w-none"
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-xenon-primary" />
         </motion.div>

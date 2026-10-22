@@ -13,7 +13,7 @@ import { SolutionsContent } from "./solutions-and-platform";
 // --globe is the globe's square size. Its sphere has a radius of
 // --globe / 2 / 1.18 (see FULL_FIT in globe-scene), so its top sits
 // 0.0763 × --globe below the box's top edge.
-const GLOBE_SIZE = "[--globe:120vw] sm:[--globe:100vw] lg:[--globe:min(1100px,100vw)]";
+const GLOBE_SIZE = "[--globe:94vw] sm:[--globe:100vw] lg:[--globe:min(1100px,100vw)]";
 
 /**
  * The business landing page's opening: dark navbar, hero and Solutions in one

@@ -87,14 +87,15 @@ export default function PlatformShowcase() {
               Book a Demo
             </BusinessAction>
           </div>
-          <div className="relative mx-auto aspect-[732/396] w-full max-w-[732px] lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px]">
+          {/* On phones the mockups zoom into their top-left so the UI stays legible. */}
+          <div className="relative mx-auto aspect-[732/396] w-full max-w-[732px] lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px] max-sm:overflow-hidden max-sm:rounded-2xl">
             <Image
               src={MerchantPlatformMockup}
               alt="Syka Merchant Platform transaction approvals dashboard"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
-              className="object-contain"
+              sizes="(max-width: 639px) 160vw, (max-width: 1023px) min(100vw, 732px), 50vw"
+              className="object-contain max-sm:origin-top-left max-sm:scale-[1.6]"
             />
           </div>
         </motion.div>
@@ -132,14 +133,14 @@ export default function PlatformShowcase() {
               See Supported Corridors
             </BusinessAction>
           </div>
-          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:order-1 lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[300px]">
+          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:order-1 lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[300px] max-sm:overflow-hidden max-sm:rounded-2xl">
             <Image
               src={CrossBorderPaymentMockup}
               alt="Cross-border payment transaction list"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
-              className="object-contain object-left"
+              sizes="(max-width: 639px) 160vw, (max-width: 1023px) min(100vw, 732px), 50vw"
+              className="object-contain object-left max-sm:origin-top-left max-sm:scale-[1.6]"
             />
           </div>
         </motion.div>
@@ -165,14 +166,14 @@ export default function PlatformShowcase() {
               Learn About Treasury
             </BusinessAction>
           </div>
-          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px]">
+          <div className="relative mx-auto aspect-[573/396] w-full max-w-[573px] lg:mx-0 lg:aspect-auto lg:max-w-none lg:h-[340px] max-sm:overflow-hidden max-sm:rounded-2xl">
             <Image
               src={TreasuryDashboardMockup}
               alt="Treasury management dashboard with multi-currency wallets and FX rates"
               fill
               placeholder="blur"
-              sizes="(max-width: 1023px) min(100vw, 732px), 50vw"
-              className="object-contain object-right"
+              sizes="(max-width: 639px) 160vw, (max-width: 1023px) min(100vw, 732px), 50vw"
+              className="object-contain object-right max-sm:origin-top-left max-sm:scale-[1.6]"
             />
           </div>
         </motion.div>

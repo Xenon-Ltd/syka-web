@@ -126,7 +126,7 @@ export default function InvoicingPage() {
             </p>
             <PointList points={detailsPoints} />
           </Reveal>
-          <Reveal className="order-first xl:order-last">
+          <Reveal className="order-first lg:order-last">
             <ProductMedia src={InvoicingDetailsAttached} />
           </Reveal>
         </div>
@@ -161,7 +161,7 @@ export default function InvoicingPage() {
                 {CTA_LABEL}
               </ProductCTA>
             </Reveal>
-            <Reveal className="order-first xl:order-last">
+            <Reveal className="order-first lg:order-last">
               <ProductMedia src="/animations/invoicing-get-paid.mp4" height={606} />
             </Reveal>
           </div>

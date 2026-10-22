@@ -35,6 +35,21 @@
   .product-section-title, .product-feature-title { font-size: 44px; }
 }
 
+/* 1024–1279px (landscape tablets, small laptops): two columns with fluid
+   widths, so these rows sit side by side instead of stacking. The fixed
+   desktop widths below take over at 1280px. */
+@media (min-width: 1024px) {
+  .personal-hero-row { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 32px; }
+  .stability-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; }
+  .stability-row-reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+  .product-hero-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px; }
+  .product-hero-copy { margin: 0; text-align: left; }
+  .product-feature-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; }
+  .product-feature-row-reverse { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .product-use-case { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; }
+  .product-use-case > :last-child { padding-left: 24px; }
+}
+
 @media (min-width: 1280px) {
   .marketing-page { gap: 150px; padding-bottom: 150px; }
   .personal-page { padding-top: 22px; }

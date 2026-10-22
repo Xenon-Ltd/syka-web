@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import BackToTop from "./back-to-top";
 
 export const LEGAL_PAGES = [
   { label: "Privacy Policy", href: "/privacy-policy", title: "Privacy Policy" },
@@ -38,6 +39,13 @@ export type LegalSection = {
   note?: string;
   footnote?: string;
 };
+
+/** Anchor id for a section, e.g. "1. Who We Are" → "who-we-are". */
+const sectionId = (title: string) =>
+  title.toLowerCase().replace(/^[\d.\s]+/, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+// Pages with at least this many sections get an "On this page" list on smaller screens.
+const TOC_MIN_SECTIONS = 6;
 
 const EMAIL_PATTERN = /([\w.+-]+@[\w-]+\.[\w.]+[a-z])/gi;
 const HAS_EMAIL = /[\w.+-]+@[\w-]+\.[a-z]/i;
@@ -174,8 +182,22 @@ export default function LegalPage({
             {closing && <p>{closing}</p>}
           </div>
 
+          {sections.length >= TOC_MIN_SECTIONS && (
+            <details className="legal-toc">
+              <summary>On this page</summary>
+              <ol>
+                {sections.map((section) => (
+                  <li key={section.title}>
+                    <a href={`#${sectionId(section.title)}`}>{section.title}</a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+
           {sections.map((section) => (
             <section
+              id={sectionId(section.title)}
               className={flat || section.level === "sub" ? "legal-section is-sub" : "legal-section"}
               key={section.title}
             >
@@ -226,6 +248,7 @@ export default function LegalPage({
           ))}
         </div>
       </article>
+      <BackToTop />
     </main>
   );
 }

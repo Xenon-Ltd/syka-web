@@ -17,19 +17,19 @@ const GetAPersonalAccount = () => {
       ref={ref}
       className="personal-value bg-[#E4F4FB] py-16 md:py-20 lg:py-24"
     >
-      <div className="mx-auto flex max-w-[1268px] flex-col-reverse items-center justify-between gap-12 px-5 sm:px-6 md:gap-14 xl:flex-row-reverse xl:gap-20 xl:min-h-[567px]">
+      <div className="mx-auto flex max-w-[1268px] flex-col-reverse items-center justify-between gap-12 px-5 sm:px-6 md:gap-14 lg:flex-row-reverse lg:gap-12 xl:gap-20 xl:min-h-[567px]">
         {/* Image — slides in from left */}
         <motion.div
           initial={{ opacity: 0, x: -36 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.65, ease: EASE_OUT }}
-          className="w-full xl:w-[608px] xl:shrink-0"
+          className="mx-auto w-full max-w-[480px] lg:mx-0 lg:w-[48%] lg:max-w-none lg:shrink-0 xl:w-[608px]"
         >
           <Image
             src={WomanSmilingAtPhoneNew}
-            className="h-full w-full object-cover xl:h-[567px] lg:rounded-2xl"
+            className="h-auto w-full object-contain lg:rounded-2xl"
             alt="A smiling customer using their phone, with a notification reading: You have just received $560 from John"
-            sizes="(max-width: 1280px) 100vw, 620px"
+            sizes="(max-width: 1023px) min(100vw, 480px), (max-width: 1279px) 48vw, 608px"
             placeholder="blur"
           />
         </motion.div>
@@ -39,7 +39,7 @@ const GetAPersonalAccount = () => {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="flex w-full flex-col text-center xl:max-w-[532px] lg:justify-center lg:text-left"
+          className="flex w-full flex-col text-center lg:max-w-[460px] lg:justify-center lg:text-left xl:max-w-[532px]"
         >
           <motion.p
             variants={fadeIn}

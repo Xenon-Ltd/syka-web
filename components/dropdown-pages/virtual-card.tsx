@@ -155,7 +155,7 @@ export default function VirtualCardPage() {
                 {CTA_LABEL}
               </ProductCTA>
             </Reveal>
-            <Reveal className="order-first xl:order-last">
+            <Reveal className="order-first lg:order-last">
               <ProductMedia src="/animations/virtual-card-free-cards.mp4" height={606} />
             </Reveal>
           </div>

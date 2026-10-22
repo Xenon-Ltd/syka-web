@@ -210,7 +210,7 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             onClick={goToPreviousDesktop}
             aria-label="Previous testimonials"
             disabled={desktopIndex === 0}
-            className="absolute top-1/2 left-3 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 left-3 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronLeft size={22} />
           </button>
@@ -218,7 +218,7 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             onClick={goToNextDesktop}
             aria-label="Next testimonials"
             disabled={desktopIndex === desktopMaxIndex}
-            className="absolute top-1/2 right-3 z-30 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 right-3 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronRight size={22} />
           </button>
@@ -281,11 +281,16 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
                     );
                   }
                 }}
-                className="mx-auto w-full max-w-[26rem]"
+                className="mx-auto grid w-full max-w-[26rem] gap-6 md:max-w-none md:grid-cols-2"
               >
                 <TestimonialCard
                   testimonial={testimonials[activeIndex]}
                   className="max-w-none"
+                />
+                {/* Tablets have room for the next testimonial alongside. */}
+                <TestimonialCard
+                  testimonial={testimonials[(activeIndex + 1) % totalPagesMobile]}
+                  className="hidden max-w-none md:flex"
                 />
               </motion.div>
             </AnimatePresence>
@@ -295,14 +300,14 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             <button
               onClick={goToPreviousMobile}
               aria-label="Previous testimonial"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               onClick={goToNextMobile}
               aria-label="Next testimonial"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
             >
               <ChevronRight size={16} />
             </button>

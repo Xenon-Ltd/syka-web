@@ -335,7 +335,7 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
 
       {/* Shared pages serve both audiences, so there is no single sign-up to offer. */}
       {!isSharedRoute && (
-        <BusinessAction href={primarySignup} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
+        <BusinessAction href={primarySignup} unavailableLabel={null} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
           Get started
         </BusinessAction>
       )}

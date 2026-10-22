@@ -84,7 +84,7 @@ function SolutionsThatFit() {
         </motion.h2>
       </motion.div>
 
-      <ul className="grid gap-6 sm:grid-cols-2 lg:h-[580px] lg:grid-cols-3">
+      <ul className="grid gap-6 sm:grid-cols-2 lg:h-[480px] lg:grid-cols-3 xl:h-[580px]">
         {industries.map((card, index) => (
           <motion.li
             key={card.title}
@@ -102,11 +102,11 @@ function SolutionsThatFit() {
               alt={card.alt}
               fill
               placeholder="blur"
-              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 390px"
+              sizes={index === 2 ? "(max-width: 1023px) 100vw, 390px" : "(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 390px"}
               className={cn("-z-10", card.imageClass)}
             />
             <div aria-hidden className={cn("absolute inset-0 -z-10", card.shade)} />
-            <h3 className="px-6 pt-6 text-[26px] leading-[1.35] font-bold text-white lg:px-8 lg:pt-0 lg:text-[32px] lg:leading-[44.8px]">
+            <h3 className="px-6 pt-6 text-[26px] leading-[1.35] font-bold text-white lg:pt-0 xl:px-8 xl:text-[32px] xl:leading-[44.8px]">
               <span className={cn("block", card.titleClass)}>{card.title}</span>
             </h3>
           </motion.li>

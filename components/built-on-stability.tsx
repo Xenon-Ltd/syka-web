@@ -45,10 +45,10 @@ export default function BuiltOnStability() {
             transition={{ duration: 0.5, ease: EASE_OUT }}
             className={cn("stability-row", index % 2 === 1 && "stability-row-reverse")}
           >
-            <div className={cn("relative aspect-[608/515] overflow-hidden rounded-2xl", index % 2 === 1 && "xl:order-2")}>
-              <Image src={feature.image} alt={feature.alt} fill placeholder="blur" sizes="(max-width: 1279px) 100vw, 608px" className="object-cover" />
+            <div className={cn("relative aspect-[608/515] overflow-hidden rounded-2xl md:max-lg:aspect-[16/9]", index % 2 === 1 && "lg:order-2")}>
+              <Image src={feature.image} alt={feature.alt} fill placeholder="blur" sizes="(max-width: 1023px) 100vw, (max-width: 1279px) 52vw, 608px" className="object-cover" />
             </div>
-            <div className={cn("py-2 md:py-6", index % 2 === 1 && "xl:order-1")}>
+            <div className={cn("py-2 md:py-6", index % 2 === 1 && "lg:order-1")}>
               <h3 className="product-feature-title">{feature.title}</h3>
               <p className={cn("mt-6 text-xl leading-[26px] text-[#8893A4] xl:text-[24px]", index % 2 === 1 && "xl:max-w-[358px]", index === 2 && "xl:max-w-[373px]")}>{feature.body}</p>
             </div>

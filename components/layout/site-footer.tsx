@@ -11,7 +11,7 @@ type FooterGroup = { title: string; links: FooterLink[] };
 
 // Approved wording, the same on every page.
 const ENTITY_STATEMENT =
-  "Syka is a product of Xenon Technologies Inc. and its affiliates, Xenon Technology Solutions (Canada) Inc. and Xenon Limited (Ghana). Syka is a financial technology company, not a bank. Payment services are delivered with licensed and regulated partner institutions across multiple jurisdictions.";
+  "Syka is a product of Xenon Technologies Inc. and its affiliates, Xenon Technology Solutions (Canada) Inc. and Xenon Limited (Ghana). Syka is a financial technology company, not a bank. Payment services are delivered with licensed and regulated partner institutions across multiple jurisdictions. Product availability is subject to KYB/KYC, compliance review, supported corridors and applicable regulatory requirement..";
 
 const definedLinks = (links: { label: string; href?: string }[]): FooterLink[] =>
   links.filter((link): link is FooterLink => Boolean(link.href));
@@ -54,7 +54,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
                 <h2 className="text-sm font-semibold text-white/55 lg:text-base">{title}</h2>
                 <ul className="mt-5 space-y-[14px] text-lg leading-[22px] text-white/75">
                   {links.map(({ label, href }) => (
-                    <li key={label}><Link href={href} className="-my-[7px] inline-block rounded py-[7px] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{label}</Link></li>
+                    <li key={label}><Link href={href} className="-my-[11px] inline-block rounded py-[11px] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">{label}</Link></li>
                   ))}
                 </ul>
               </nav>

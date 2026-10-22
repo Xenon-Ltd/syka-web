@@ -118,12 +118,13 @@ export default function PaymentsPage() {
         ctaLabel={CTA_LABEL}
       >
         <div className="relative aspect-square w-full max-w-[608px] overflow-hidden rounded-2xl bg-xenon-primary">
+          {/* The photo is drawn at ~185% of the box, so sizes is scaled to match. */}
           <div className="absolute top-[-46.55%] left-[-42.94%] h-[248%] w-[185.94%]">
             <Image
               src={VirtualAccountHero}
               alt="Syka dashboard open on a laptop"
               fill
-              sizes="(max-width: 1023px) 100vw, 608px"
+              sizes="(max-width: 1023px) min(186vw, 1131px), 1131px"
               className="object-cover"
               priority
             />
@@ -184,7 +185,7 @@ export default function PaymentsPage() {
             </p>
             <PointList points={enterDetailsPoints} />
           </Reveal>
-          <Reveal className="order-first xl:order-last">
+          <Reveal className="order-first lg:order-last">
             <ProductMedia src="/animations/payments-enter-details.json" />
           </Reveal>
         </div>

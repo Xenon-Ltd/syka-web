@@ -101,12 +101,13 @@ export default function TreasuryManagementPage() {
         ctaLabel={CTA_LABEL}
       >
         <div className="relative aspect-square w-full max-w-[608px] overflow-hidden rounded-2xl">
+          {/* The photo is drawn at ~167% of the box, so sizes is scaled to match. */}
           <div className="absolute top-[-12.73%] left-[-33.5%] h-[125.46%] w-[167%]">
             <Image
               src={TreasuryHero}
               alt="Business owner reviewing treasury balances on a laptop"
               fill
-              sizes="(max-width: 1023px) 100vw, 608px"
+              sizes="(max-width: 1023px) min(167vw, 1015px), 1015px"
               className="object-cover"
               priority
             />
@@ -139,7 +140,7 @@ export default function TreasuryManagementPage() {
             </p>
             <PointList points={schedulePoints} />
           </Reveal>
-          <Reveal className="order-first xl:order-last">
+          <Reveal className="order-first lg:order-last">
             <ProductMedia src="/animations/treasury-convert-schedule.mp4" />
           </Reveal>
         </div>
@@ -174,7 +175,7 @@ export default function TreasuryManagementPage() {
                 {CTA_LABEL}
               </ProductCTA>
             </Reveal>
-            <Reveal className="order-first xl:order-last">
+            <Reveal className="order-first lg:order-last">
               <ProductMedia src={TreasuryHowItWorks} height={606} />
             </Reveal>
           </div>

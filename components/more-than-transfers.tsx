@@ -36,7 +36,7 @@ const reveal = {
   viewport: { once: true, amount: 0.15 },
   transition: { duration: 0.5, ease: EASE_OUT },
 };
-const linkStyle = "relative z-10 mt-2 -mb-2 inline-flex w-fit py-2 items-center gap-2 rounded text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current";
+const linkStyle = "relative z-10 mt-1.5 -mb-2.5 inline-flex min-h-11 w-fit py-2.5 items-center gap-2 rounded text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current";
 
 export default function MoreThanTransfers() {
   return (
