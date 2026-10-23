@@ -7,6 +7,7 @@ import { WavyBackgroundDesign } from "@/assets/images";
 import Header from "@/components/layout/header";
 import { EASE_OUT, IN_VIEW_OPTS } from "@/lib/animation";
 import { BusinessHeroCopy } from "./business-hero";
+import BusinessTagline from "./business-tagline";
 import HeroGlobe from "./hero-globe";
 import { SolutionsContent } from "./solutions-and-platform";
 
@@ -41,8 +42,8 @@ export default function BusinessHeroSolutions() {
 
       {/* flow-root keeps the header's top margin inside, so the navy starts at the top. */}
       <div className="relative flow-root">
-        {/* Navy behind the navbar and hero, fading out across the globe so the
-            purple and its wavy texture take over for Solutions. */}
+        {/* Navy behind the navbar and hero, fading out across the globe and
+            tagline so the purple and its wavy texture take over for Solutions. */}
         <div
           aria-hidden
           className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,#0a1628_0%,#0a1628_calc(100%-var(--globe)*0.45),rgba(10,22,40,0)_100%)]"
@@ -63,6 +64,8 @@ export default function BusinessHeroSolutions() {
         >
           <HeroGlobe framing="full" className="relative left-1/2 aspect-square w-[var(--globe)] max-w-none -translate-x-1/2" />
         </motion.div>
+
+        <BusinessTagline />
       </div>
 
       {/* Solutions starts below the globe's box (the sphere ends at 92% of it),

@@ -18,6 +18,8 @@ import {
 
 type IndustryCard = {
   title: string;
+  /** Revealed on hover or focus, over a navy panel. */
+  description: string;
   image: StaticImageData;
   alt: string;
   /** Desktop placement in the 580px-tall row, as in the design. */
@@ -32,6 +34,8 @@ type IndustryCard = {
 const industries: IndustryCard[] = [
   {
     title: "For Freelancers & Remote Workers",
+    description:
+      "Invoice clients globally, get paid in USD or EUR, and convert to your local currency with minimal loss.",
     image: ForFreelancersAndRemoteWorkers,
     alt: "A freelancer working on a laptop from his sofa",
     offset: "lg:self-center",
@@ -41,6 +45,8 @@ const industries: IndustryCard[] = [
   },
   {
     title: "For SMEs & Startups",
+    description:
+      "Pay global contractors and suppliers instantly, while managing multi-currency cash flow without high bank fees.",
     image: ForSMEsAndStartups,
     alt: "A small team talking over coffee in their office",
     offset: "lg:self-end",
@@ -50,6 +56,8 @@ const industries: IndustryCard[] = [
   },
   {
     title: "For Digital Nomads & Expats",
+    description:
+      "Send money home affordably and spend anywhere online with your virtual card with no foreign transaction fees.",
     image: ForDigitalNomadsAndExpats,
     alt: "A traveller checking her phone on a city street",
     offset: "lg:self-center",
@@ -91,8 +99,10 @@ function SolutionsThatFit() {
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.1 + index * 0.08 }}
+            // Focusable so keyboard and touch users can reveal the description too.
+            tabIndex={0}
             className={cn(
-              "relative isolate aspect-[390/471] overflow-hidden rounded-[24px] lg:rounded-[32px]",
+              "group relative isolate flex aspect-[390/471] flex-col overflow-hidden rounded-[24px] outline-none focus-visible:ring-2 focus-visible:ring-xenon focus-visible:ring-offset-4 lg:rounded-[32px]",
               index === 2 && "sm:col-span-2 sm:aspect-[16/9] lg:col-span-1 lg:aspect-[390/471]",
               card.offset,
             )}
@@ -106,9 +116,16 @@ function SolutionsThatFit() {
               className={cn("-z-10", card.imageClass)}
             />
             <div aria-hidden className={cn("absolute inset-0 -z-10", card.shade)} />
+            <div
+              aria-hidden
+              className="absolute inset-0 -z-10 bg-xenon-primary opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+            />
             <h3 className="px-6 pt-6 text-[26px] leading-[1.35] font-bold text-white lg:pt-0 xl:px-8 xl:text-[32px] xl:leading-[44.8px]">
               <span className={cn("block", card.titleClass)}>{card.title}</span>
             </h3>
+            <p className="mt-auto max-w-[340px] translate-y-3 px-6 pb-6 text-base leading-[1.6] text-white opacity-0 transition-[opacity,translate] duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 motion-reduce:transition-none xl:px-8 xl:pb-10 xl:text-lg">
+              {card.description}
+            </p>
           </motion.li>
         ))}
       </ul>

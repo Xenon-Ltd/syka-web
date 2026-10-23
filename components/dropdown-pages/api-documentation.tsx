@@ -29,7 +29,7 @@ type CodeLine = {
 const featureCards: FeatureCard[] = [
   {
     title: "SDKs in the languages you already use",
-    description: "Coming soon for JavaScript and Python. Drop in, configure once, go live.",
+    description: "For JavaScript and Python. Drop in, configure once, go live.",
     Icon: Code,
     bgClass: "bg-[#23284F]",
     iconColorClass: "text-white/75",
@@ -61,7 +61,7 @@ const featureCards: FeatureCard[] = [
 const steps: Step[] = [
   {
     number: "1",
-    title: "Install the SDK (coming soon)",
+    title: "Install the SDK",
     description:
       "A single command. Works with Node, Python, or any REST client. No complex setup.",
   },
@@ -272,7 +272,7 @@ export default function ApiDocumentationPage() {
               <p className="text-xs font-medium text-white sm:ml-4 lg:text-[14px]">JavaScript</p>
 
               <p className="ml-auto rounded-lg bg-white/8 px-3 py-1.5 text-xs font-medium text-white/80 lg:px-4 lg:text-[13px]">
-                Preview · SDK coming soon
+                Preview
               </p>
             </div>
 

@@ -12,8 +12,10 @@ import Image, { type StaticImageData } from "next/image";
 // Company logo strip used on the business page and every product page
 // (Figma node 7950:10270).
 // Sizes are the desktop values from Figma, multiplied by --logo-scale so the
-// strip shrinks on smaller screens. It loops endlessly: the set renders twice
-// and the track slides by half its width (the `marquee` keyframe in globals.css).
+// strip shrinks on smaller screens. It loops endlessly: the set renders four
+// times and the track slides by half its width (the `marquee` keyframe in
+// globals.css). Four copies keep that half wider than the strip, which a
+// single set of these few logos is not between the md and xl breakpoints.
 
 type Logo = {
   name: string;
@@ -34,6 +36,7 @@ const LOGOS: Logo[] = [
 ];
 
 const GAP = 82;
+const COPIES = 4;
 
 const scaled = (n: number) => `calc(${n}px * var(--logo-scale))`;
 
@@ -114,9 +117,13 @@ export default function CompaniesMarquee() {
       aria-label="Trusted by these companies"
       className="group flex h-[72px] w-full max-w-[1123px] items-center overflow-hidden rounded-[32px] bg-[#f4f4f4] [--logo-scale:0.6] md:h-[88px] md:[--logo-scale:0.8] xl:h-[100px] xl:[--logo-scale:1]"
     >
-      <div className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused]">
-        <LogoSet decorative={false} />
-        <LogoSet decorative />
+      {/* 80s over two sets keeps the speed of the old 40s over one. The
+          animated track is its own stacking context, so it repeats the strip's
+          grey for the WorkesAppz icon's multiply blend to hide its white box. */}
+      <div className="flex w-max animate-[marquee_80s_linear_infinite] bg-[#f4f4f4] group-hover:[animation-play-state:paused]">
+        {Array.from({ length: COPIES }, (_, i) => (
+          <LogoSet key={i} decorative={i > 0} />
+        ))}
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ type BusinessActionProps = {
   unavailableLabel?: string | null;
 };
 
-export default function BusinessAction({ href, children, className, unavailableLabel = "Coming soon", ...props }: BusinessActionProps) {
+export default function BusinessAction({ href, children, className, unavailableLabel = null, ...props }: BusinessActionProps) {
   const styles = cn(
     "inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current",
     className,
@@ -24,7 +24,7 @@ export default function BusinessAction({ href, children, className, unavailableL
         disabled
         aria-disabled="true"
         className={cn(styles, "cursor-not-allowed gap-2 opacity-75")}
-        title={unavailableLabel ?? "Coming soon"}
+        title={unavailableLabel ?? undefined}
         {...props}
       >
         {children}
