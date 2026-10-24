@@ -15,6 +15,9 @@ export { default as ForDigitalNomadsAndExpats } from "./solutions-nomads.jpg";
 export { default as StabilityStablecoin } from "./stability-stablecoin.jpg";
 export { default as StabilitySecurity } from "./stability-security.jpg";
 export { default as StabilityWallet } from "./stability-wallet.jpg";
+export { default as TuitionPaymentsImage } from "./tuition-payments.png";
+export { default as TuitionTriangle } from "./tuition-triangle.svg";
+export { default as TuitionDot } from "./tuition-dot.svg";
 
 export { default as PhoneWithFrame } from "./phone-with-frame.png";
 export { default as WorldMap } from "./world-map.svg";

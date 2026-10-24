@@ -84,8 +84,8 @@
   .personal-how { min-height: 580px; }
   .stability-row { grid-template-columns: 608px 532px; gap: 80px; min-height: 515px; }
   .stability-row-reverse { grid-template-columns: 532px 608px; }
-  /* The standalone SolutionsAndPlatform section; the combined hero sets its own spacing. */
-  .business-page section#solutions > div { padding-top: 228px; padding-bottom: 255px; }
+  /* The standalone SolutionsAndPlatform section; BusinessHeroSolutions' Solutions sets its own spacing. */
+  .business-page section#solutions:not(.business-solutions) > div { padding-top: 228px; padding-bottom: 255px; }
   .business-page #solutions .institution-section { margin-top: 120px; }
   .business-page #platform .platform-row { min-height: 470px; }
 }

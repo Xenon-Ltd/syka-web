@@ -15,6 +15,7 @@ import Hero from "@/components/hero";
 import MoreThanTransfers from "@/components/more-than-transfers";
 import SocialProof from "@/components/social-proof";
 import SolutionsThatFit from "@/components/solutions-that-fit";
+import TuitionPayments from "@/components/tuition-payments";
 import MarketingCTA from "@/components/marketing-cta";
 import FrequentlyAskedQuestions from "@/components/frequently-asked-questions";
 import { developerCanonical, developerPageMetadata, metadataForPage, productCanonical, productPageMetadata } from "@/lib/page-metadata";
@@ -51,6 +52,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       <MoreThanTransfers />
       <EndToEndSecurity />
       <BuiltOnStability />
+      <TuitionPayments />
       <SolutionsThatFit />
       <SocialProof headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[48px]" />
       <CountriesSupported variant="personal" headingClassName="md:text-[36px] lg:text-[40px] lg:leading-[50px]" />
