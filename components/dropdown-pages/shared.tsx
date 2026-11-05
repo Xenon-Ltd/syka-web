@@ -121,7 +121,7 @@ export function AvailableCountries() {
     <section className={`${CONTENT} py-16 md:py-24 lg:py-32`}>
       <Reveal className="flex flex-col items-center gap-8 lg:gap-[61px]">
         <h2 className="mobile-section-title text-center text-xenon-gray md:text-4xl lg:text-[40px] lg:leading-[50px]">
-          Countries We Currently Support
+          Supported Corridors
         </h2>
         <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-4">
           {AVAILABLE_COUNTRIES.map(({ flag, label }) => (

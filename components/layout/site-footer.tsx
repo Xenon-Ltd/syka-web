@@ -11,7 +11,7 @@ type FooterGroup = { title: string; links: FooterLink[] };
 
 // Approved wording, the same on every page.
 const ENTITY_STATEMENT =
-  "Syka is a product of Xenon Technologies Inc. and its affiliates, Xenon Technology Solutions (Canada) Inc. and Xenon Limited (Ghana). Syka is a financial technology company, not a bank. Payment services are delivered with licensed and regulated partner institutions across multiple jurisdictions. Product availability is subject to KYB/KYC, compliance review, supported corridors and applicable regulatory requirement..";
+  "Syka is a product of Xenon Technologies Inc. and its affiliates, Xenon Technology Solutions (Canada) Inc. and Xenon Limited (Ghana). Syka is a financial technology company, not a bank. Xenon Technologies Inc. is registered with FinCEN in the US with registration number (MSB 31000328000712). Payment services are delivered with licensed and regulated partner institutions across multiple jurisdictions. Product availability is subject to KYB/KYC, compliance review, supported corridors and applicable regulatory requirement.";
 
 const definedLinks = (links: { label: string; href?: string }[]): FooterLink[] =>
   links.filter((link): link is FooterLink => Boolean(link.href));

@@ -19,7 +19,8 @@ export { default as TuitionPaymentsImage } from "./tuition-payments.png";
 export { default as TuitionTriangle } from "./tuition-triangle.svg";
 export { default as TuitionDot } from "./tuition-dot.svg";
 
-export { default as PhoneWithFrame } from "./phone-with-frame.png";
+export { default as PhoneHome } from "./phone-home.webp";
+export { default as PhoneTransfer } from "./phone-transfer.webp";
 export { default as WorldMap } from "./world-map.svg";
 
 export { default as ForGlobalTeamsAndContractors } from "./global-teams-contractors.png";

@@ -73,7 +73,7 @@ export default function CountriesSupported({
         transition={{ duration: 0.5, ease: EASE_OUT }}
         className={`mobile-section-title mx-auto max-w-[320px] text-center text-xenon-gray sm:max-w-none lg:max-w-[900px] ${headingSizeClasses}`}
       >
-        Countries We Currently Support
+        Supported Corridors
       </motion.h2>
 
       {/* Mobile — staggered pills */}
