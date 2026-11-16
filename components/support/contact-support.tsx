@@ -73,7 +73,7 @@ export default function ContactSupport() {
 
             <button
               type="submit"
-              className="w-[140px] rounded-lg bg-xenon-primary px-5 py-3 text-base leading-6 text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] transition-colors hover:bg-[#1B1747] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-primary"
+              className="w-[140px] rounded-lg bg-xenon-primary px-5 py-3 text-base leading-6 text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] transition-[color,background-color,border-color,scale] hover:bg-[#1B1747] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-primary"
             >
               Submit
             </button>

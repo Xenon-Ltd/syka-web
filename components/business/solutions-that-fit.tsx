@@ -7,12 +7,13 @@ import {
 } from "@/assets/images";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   fadeUp,
   staggerContainer,
   IN_VIEW_OPTS,
   EASE_IN_OUT,
+  EASE_OUT,
 } from "@/lib/animation";
 
 type IndustryCard = {
@@ -22,6 +23,8 @@ type IndustryCard = {
   image: StaticImageData;
   textColor?: string;
 };
+
+const HOVER_INTENT_MS = 80;
 
 const industries: IndustryCard[] = [
   {
@@ -52,6 +55,18 @@ const industries: IndustryCard[] = [
 
 export default function SolutionsThatFitBusiness() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const hoverTimer = useRef<number | undefined>(undefined);
+  // A short pause before a hovered card opens, so sweeping the pointer across
+  // the row does not resize every card it passes.
+  const hoverTo = (index: number) => {
+    window.clearTimeout(hoverTimer.current);
+    hoverTimer.current = window.setTimeout(() => setActiveIndex(index), HOVER_INTENT_MS);
+  };
+  const focusTo = (index: number) => {
+    window.clearTimeout(hoverTimer.current);
+    setActiveIndex(index);
+  };
+  useEffect(() => () => window.clearTimeout(hoverTimer.current), []);
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
 
@@ -83,11 +98,11 @@ export default function SolutionsThatFitBusiness() {
 
       {/* Desktop accordion — upgraded easing */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, ease: EASE_IN_OUT, delay: 0.15 }}
+        initial={{ opacity: 0, transform: "translateY(20px)" }}
+        animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
+        transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.15 }}
         className="hidden gap-6 lg:flex lg:h-[480px] lg:gap-8"
-        onMouseLeave={() => setActiveIndex(0)}
+        onMouseLeave={() => hoverTo(0)}
       >
         {industries.map((card, index) => {
           const isExpanded = index === activeIndex;
@@ -98,23 +113,24 @@ export default function SolutionsThatFitBusiness() {
               type="button"
               key={card.title}
               layout
-              onMouseEnter={() => setActiveIndex(index)}
-              onFocus={() => setActiveIndex(index)}
+              onMouseEnter={() => hoverTo(index)}
+              onFocus={() => focusTo(index)}
               aria-expanded={isExpanded}
               aria-controls={`business-industry-${index}`}
               className={`${card.bg} relative cursor-pointer overflow-hidden rounded-2xl border-0 p-0 text-left lg:rounded-[30px]`}
               animate={{ flex: isExpanded ? 2.2 : 1 }}
               transition={{ duration: 0.4, ease: EASE_IN_OUT }}
             >
-              <motion.div id={`business-industry-${index}`} layout className="h-full p-4 lg:p-6">
-                <AnimatePresence mode="wait" initial={false}>
+              <motion.div id={`business-industry-${index}`} layout className="relative h-full p-4 lg:p-6">
+                {/* popLayout crossfades both states at once; blur hides the overlap. */}
+                <AnimatePresence mode="popLayout" initial={false}>
                   {isExpanded ? (
                     <motion.div
                       key={`expanded-${index}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2, ease: EASE_IN_OUT }}
+                      initial={{ opacity: 0, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, filter: "blur(2px)" }}
+                      transition={{ duration: 0.2, ease: EASE_OUT }}
                       className={`flex h-full items-stretch gap-5 lg:gap-8 ${textColor}`}
                     >
                       <div className="flex min-w-0 flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left">
@@ -139,10 +155,10 @@ export default function SolutionsThatFitBusiness() {
                   ) : (
                     <motion.div
                       key={`collapsed-${index}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.15 }}
+                      initial={{ opacity: 0, filter: "blur(2px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, filter: "blur(2px)" }}
+                      transition={{ duration: 0.15, ease: EASE_OUT }}
                       className={`flex h-full items-center justify-center text-center ${textColor}`}
                     >
                       <h3 className="text-xl leading-snug font-semibold md:text-2xl lg:px-6 lg:text-[36px] lg:leading-[1.1]">
@@ -164,11 +180,11 @@ export default function SolutionsThatFitBusiness() {
           return (
             <motion.div
               key={card.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, transform: "translateY(20px)" }}
+              animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
               transition={{
                 duration: 0.45,
-                ease: EASE_IN_OUT,
+                ease: EASE_OUT,
                 delay: i * 0.08,
               }}
               className={`${card.bg} overflow-hidden rounded-2xl p-8 text-center`}

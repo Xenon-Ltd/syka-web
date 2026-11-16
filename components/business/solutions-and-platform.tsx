@@ -74,8 +74,8 @@ export function SolutionsContent({ isInView }: { isInView: boolean }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(28px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.2 }}
           className="relative mx-auto mt-12 max-w-[1220px] overflow-hidden rounded-2xl max-sm:aspect-[4/3] lg:mt-16 lg:rounded-lg"
         >
@@ -93,8 +93,8 @@ export function SolutionsContent({ isInView }: { isInView: boolean }) {
       {/* One platform for every institution */}
       <div className="institution-section relative mt-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(20px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT }}
           className="flex flex-col items-center justify-between gap-6 text-center lg:flex-row lg:text-left"
         >
@@ -103,7 +103,7 @@ export function SolutionsContent({ isInView }: { isInView: boolean }) {
             <span className="text-xenon-brand">Every Institution</span> That
             Moves Money.
           </h2>
-          <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "shrink-0 bg-[#413787] text-white transition-colors duration-200 hover:bg-[#51469c]")}>
+          <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "shrink-0 bg-[#413787] text-white hover:bg-[#51469c]")}>
             Get started
           </BusinessAction>
         </motion.div>
@@ -123,8 +123,8 @@ export function SolutionsContent({ isInView }: { isInView: boolean }) {
                   return (
                     <motion.div
                       key={institution.title}
-                      initial={{ opacity: 0, y: 24 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      initial={{ opacity: 0, transform: "translateY(24px)" }}
+                      animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
                       transition={{
                         duration: 0.5,
                         ease: EASE_OUT,

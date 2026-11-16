@@ -64,8 +64,8 @@ export default function ProductHeroShell({
 
         {/* Right slot (Lottie / image) — slides in from right */}
         <motion.div
-          initial={{ x: 28 }}
-          animate={isInView ? { x: 0 } : {}}
+          initial={{ transform: "translateX(28px)" }}
+          animate={isInView ? { transform: "translateX(0px)" } : {}}
           transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.15 }}
           className="product-hero-visual"
         >

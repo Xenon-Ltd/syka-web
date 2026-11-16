@@ -63,8 +63,8 @@ export default function BusinessHeroSolutions() {
 
           {/* Pulled up so the sphere's top meets the hero buttons. */}
           <motion.div
-            initial={{ y: 24 }}
-            animate={heroInView ? { y: 0 } : {}}
+            initial={{ transform: "translateY(24px)" }}
+            animate={heroInView ? { transform: "translateY(0px)" } : {}}
             transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.25 }}
             className="mt-[calc(var(--globe)*-0.0763-40px)] lg:mt-[calc(var(--globe)*-0.0763-56px)]"
           >

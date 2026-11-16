@@ -21,6 +21,7 @@ export default function SiteFooter({ variant }: { variant: "personal" | "busines
   const basePath = isBusiness ? "/business" : "/";
   const company = definedLinks([
     { label: "About Us", href: companyLinks.about },
+    { label: "Coverage", href: companyLinks.coverage },
     { label: "Blog", href: companyLinks.blog },
     { label: "Press", href: companyLinks.press },
     { label: "Careers", href: companyLinks.careers },

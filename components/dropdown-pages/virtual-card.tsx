@@ -19,6 +19,7 @@ import CompaniesMarquee from "../business/companies-marquee";
 import ProductHeroShell from "./product-hero-shell";
 import { CONTENT, PointList, ProductCTA, Reveal, type Point } from "./shared";
 import { ProductMedia } from "./product-media";
+import { cardFaqItems } from "@/lib/card-faq";
 
 const CTA_LABEL = "Create Syka Card";
 
@@ -62,29 +63,6 @@ const internationalPoints: Point[] = [
   {
     Icon: Wallet,
     text: "Every charge appears, tagged to that specific card. Change limit, freeze, or cancel it entirely whenever you need to.",
-  },
-];
-
-const faqItems = [
-  {
-    question: "What currency are cards issued in?",
-    answer: "Cards are issued in US dollars, drawing from your Syka balance.",
-  },
-  {
-    question: "Is there a limit to how many cards I can create?",
-    answer: "No. Create as many as your business needs — one per subscription, per team member, or per campaign.",
-  },
-  {
-    question: "What happens if a card is compromised?",
-    answer: "Freeze it instantly from your dashboard, then cancel and reissue if needed. No charges can be made on a frozen card.",
-  },
-  {
-    question: "Can I give cards to my employees?",
-    answer: "Yes. Assign a card to any team member on your account, with its own limit and its own visibility.",
-  },
-  {
-    question: "Where are the cards accepted?",
-    answer: "Anywhere that accepts standard international card payments online, including cloud providers, advertising platforms, software subscriptions, and international suppliers.",
   },
 ];
 
@@ -198,7 +176,7 @@ export default function VirtualCardPage() {
         description="Create your first card in under a minute, and see exactly what a card built for your business feels like."
       />
 
-      <FrequentlyAskedQuestions variant="business" items={faqItems} appearance="product" />
+      <FrequentlyAskedQuestions variant="business" items={cardFaqItems} appearance="product" />
     </>
   );
 }

@@ -20,8 +20,8 @@ const GetAPersonalAccount = () => {
       <div className="mx-auto flex max-w-[1268px] flex-col-reverse items-center justify-between gap-12 px-5 sm:px-6 md:gap-14 lg:flex-row-reverse lg:gap-12 xl:gap-20 xl:min-h-[567px]">
         {/* Image — slides in from left */}
         <motion.div
-          initial={{ opacity: 0, x: -36 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateX(-36px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateX(0px)" } : {}}
           transition={{ duration: 0.65, ease: EASE_OUT }}
           className="mx-auto w-full max-w-[480px] lg:mx-0 lg:w-[48%] lg:max-w-none lg:shrink-0 xl:w-[608px]"
         >
@@ -61,7 +61,7 @@ const GetAPersonalAccount = () => {
             Built for African entrepreneurs facing systemic payment barriers, our modern borderless platform enables fast, transparent global transactions without unnecessary complexity.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <BusinessAction href={personalLinks.signup} className="mt-7 mx-auto w-fit rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:mx-auto lg:mt-10 lg:mx-0 lg:text-sm">
+            <BusinessAction href={personalLinks.signup} className="mt-7 mx-auto w-fit rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white hover:bg-xenon-600 sm:mx-auto lg:mt-10 lg:mx-0 lg:text-sm">
               Get Started for free
             </BusinessAction>
           </motion.div>

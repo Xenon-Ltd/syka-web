@@ -65,8 +65,8 @@ export default function TuitionPayments() {
   return (
     <section aria-labelledby="tuition-heading" className={cn(businessStyles.sectionSpacing, "mx-auto max-w-[1268px] px-5 sm:px-6")}>
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, transform: "translateY(24px)" }}
+        whileInView={{ opacity: 1, transform: "translateY(0px)" }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.5, ease: EASE_OUT }}
         className="overflow-hidden rounded-2xl border border-[#222] bg-xenon-primary px-6 py-12 drop-shadow-[0px_1px_1.5px_rgba(0,0,0,0.1)] sm:px-10 lg:py-14"

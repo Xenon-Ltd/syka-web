@@ -23,10 +23,11 @@ export const merchantAppDownloads = {
 };
 
 export const companyLinks = {
-  about: optionalUrl(process.env.NEXT_PUBLIC_SYKA_ABOUT_URL),
+  about: optionalUrl(process.env.NEXT_PUBLIC_SYKA_ABOUT_URL) ?? "/about",
+  coverage: "/coverage",
   blog: optionalUrl(process.env.NEXT_PUBLIC_SYKA_BLOG_URL),
   press: optionalUrl(process.env.NEXT_PUBLIC_SYKA_PRESS_URL),
-  careers: optionalUrl(process.env.NEXT_PUBLIC_SYKA_CAREERS_URL),
+  careers: optionalUrl(process.env.NEXT_PUBLIC_SYKA_CAREERS_URL) ?? "/careers",
   community: optionalUrl(process.env.NEXT_PUBLIC_SYKA_COMMUNITY_URL),
 };
 

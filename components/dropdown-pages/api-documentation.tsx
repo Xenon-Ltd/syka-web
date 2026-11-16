@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Blocks, Clock3, Code, type LucideIcon } from "lucide-react";
 import BusinessAction from "@/components/business/business-action";
 import { businessLinks } from "@/lib/business-links";
+import { Reveal } from "./shared";
 
 type FeatureCard = {
   title: string;
@@ -199,7 +200,7 @@ export default function ApiDocumentationPage() {
           </h1>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
+        <Reveal className="mt-10 grid gap-6 md:grid-cols-3 md:gap-8 lg:mt-14 lg:gap-8">
           {featureCards.map((card) => (
             <article
               key={card.title}
@@ -222,9 +223,9 @@ export default function ApiDocumentationPage() {
               </p>
             </article>
           ))}
-        </div>
+        </Reveal>
 
-        <div className="mt-16 grid items-center gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
+        <Reveal className="mt-16 grid items-center gap-12 md:mt-20 lg:mt-28 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1fr)] lg:items-center lg:gap-24">
           <div className="mx-auto w-full text-center lg:mx-0 lg:max-w-[700px] lg:text-left">
             <p className="mobile-eyebrow text-[#9AA8BA] lg:text-[14px] lg:tracking-[0.2em]">
               How It Works
@@ -255,7 +256,7 @@ export default function ApiDocumentationPage() {
 
             <BusinessAction
               href={businessLinks.docs}
-              className="mt-8 rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] transition-colors duration-200 hover:bg-xenon-600 lg:mt-10 lg:text-lg"
+              className="mt-8 rounded-lg bg-xenon px-8 py-4 text-base font-semibold text-white shadow-[0_14px_24px_rgba(0,142,219,0.25)] hover:bg-xenon-600 lg:mt-10 lg:text-lg"
             >
               View full docs
             </BusinessAction>
@@ -293,7 +294,7 @@ export default function ApiDocumentationPage() {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

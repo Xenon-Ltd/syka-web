@@ -39,7 +39,7 @@ import type { ReactNode } from "react";
 export const CONTENT = "mx-auto w-full max-w-[1220px] px-5 sm:px-6 xl:px-0";
 
 export const CTA_BUTTON_CLASS =
-  "mt-8 min-h-12 rounded-lg bg-xenon-brand px-6 py-3 text-sm leading-5 font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] transition-colors duration-200 hover:bg-xenon-700";
+  "mt-8 min-h-12 rounded-lg bg-xenon-brand px-6 py-3 text-sm leading-5 font-semibold text-white shadow-[0_12px_20px_-10px_rgba(19,119,188,0.4)] hover:bg-xenon-700";
 
 export function ProductCTA({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -51,8 +51,8 @@ export function ProductCTA({ children }: { children: ReactNode }) {
 export function Reveal({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, transform: "translateY(24px)" }}
+      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.55, ease: EASE_OUT }}
       className={className}

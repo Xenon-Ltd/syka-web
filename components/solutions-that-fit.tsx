@@ -96,8 +96,8 @@ function SolutionsThatFit() {
         {industries.map((card, index) => (
           <motion.li
             key={card.title}
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, transform: "translateY(24px)" }}
+            animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
             transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.1 + index * 0.08 }}
             // Focusable so keyboard and touch users can reveal the description too.
             tabIndex={0}

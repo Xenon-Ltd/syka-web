@@ -13,7 +13,7 @@ type BusinessActionProps = {
 
 export default function BusinessAction({ href, children, className, unavailableLabel = null, ...props }: BusinessActionProps) {
   const styles = cn(
-    "inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current",
+    "inline-flex items-center justify-center transition-[color,background-color,border-color,scale] duration-150 ease-out active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current",
     className,
   );
 
@@ -23,7 +23,7 @@ export default function BusinessAction({ href, children, className, unavailableL
         type="button"
         disabled
         aria-disabled="true"
-        className={cn(styles, "cursor-not-allowed gap-2 opacity-75")}
+        className={cn(styles, "cursor-not-allowed gap-2 opacity-75 active:scale-100")}
         title={unavailableLabel ?? undefined}
         {...props}
       >

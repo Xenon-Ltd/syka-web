@@ -17,8 +17,8 @@ export default function BusinessTagline() {
     // The page's section gap supplies the vertical spacing (see marketing-layout.css).
     <section ref={ref} className="bg-white px-5 sm:px-6">
       <motion.div
-        initial={{ y: 20 }}
-        animate={isInView ? { y: 0 } : {}}
+        initial={{ transform: "translateY(20px)" }}
+        animate={isInView ? { transform: "translateY(0px)" } : {}}
         transition={{ duration: 0.55, ease: EASE_OUT }}
         className="flex flex-col items-center text-center"
       >

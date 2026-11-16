@@ -96,7 +96,7 @@ function PlanCards() {
             <BusinessAction
               href={businessLinks.sales}
               aria-label={`Contact Sales about ${plan.name}`}
-              className={cn(businessStyles.button, "w-full bg-xenon-brand text-white transition-colors hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4", plan.featured ? "focus-visible:outline-xenon-brand" : "focus-visible:outline-white")}
+              className={cn(businessStyles.button, "w-full bg-xenon-brand text-white hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4", plan.featured ? "focus-visible:outline-xenon-brand" : "focus-visible:outline-white")}
             >
               Contact Sales
             </BusinessAction>
@@ -148,8 +148,8 @@ export default function PricingComparison() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(28px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.15 }}
           className="mx-auto mt-10 max-w-[999px] md:mt-16 xl:mt-[87px]"
         >
@@ -199,7 +199,7 @@ export default function PricingComparison() {
                     <BusinessAction
                       href={businessLinks.sales}
                       aria-label="Contact Sales about Powered by Syka"
-                      className={cn(businessStyles.button, "max-w-full bg-xenon-brand text-white transition-colors hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white")}
+                      className={cn(businessStyles.button, "max-w-full bg-xenon-brand text-white hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white")}
                     >
                       Contact Sales
                     </BusinessAction>
@@ -208,7 +208,7 @@ export default function PricingComparison() {
                     <BusinessAction
                       href={businessLinks.sales}
                       aria-label="Contact Sales about White-Label"
-                      className={cn(businessStyles.button, "max-w-full bg-xenon-brand text-white transition-colors hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-brand")}
+                      className={cn(businessStyles.button, "max-w-full bg-xenon-brand text-white hover:bg-xenon-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-xenon-brand")}
                     >
                       Contact Sales
                     </BusinessAction>

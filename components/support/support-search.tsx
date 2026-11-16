@@ -134,7 +134,7 @@ export default function SupportSearch() {
           type="submit"
           aria-label="Search"
           className={cn(
-            "absolute right-4 flex size-10 items-center justify-center rounded-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 lg:right-[15px]",
+            "absolute right-4 flex size-10 items-center justify-center rounded-lg transition-[color,background-color,border-color,scale] focus-visible:outline-2 focus-visible:outline-offset-2 lg:right-[15px]",
             isActive ? "text-xenon-gray focus-visible:outline-xenon-gray" : "text-white focus-visible:outline-white",
           )}
         >
@@ -188,8 +188,9 @@ export default function SupportSearch() {
                     <ArrowRight
                       aria-hidden
                       className={cn(
-                        "mt-1 size-5 shrink-0 text-xenon-brand transition-[opacity,transform] duration-150",
-                        index === activeIndex ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0",
+                        "mt-1 size-5 shrink-0 text-xenon-brand",
+                        // Follows the arrow keys, so it changes at once instead of animating.
+                        index === activeIndex ? "opacity-100" : "opacity-0",
                       )}
                     />
                   </Link>

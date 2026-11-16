@@ -8,10 +8,10 @@ export const EASE_IN_OUT = [0.77, 0, 0.175, 1] as const;
 
 /** Fade up: element rises 24px and fades in */
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, transform: "translateY(24px)" },
   visible: {
     opacity: 1,
-    y: 0,
+    transform: "translateY(0px)",
     transition: { duration: 0.55, ease: EASE_OUT },
   },
 };
@@ -30,29 +30,29 @@ export const fadeIn: Variants = {
  * readable in the server HTML before any JavaScript runs.
  */
 export const riseIn: Variants = {
-  hidden: { y: 16 },
+  hidden: { transform: "translateY(16px)" },
   visible: {
-    y: 0,
+    transform: "translateY(0px)",
     transition: { duration: 0.55, ease: EASE_OUT },
   },
 };
 
 /** Slide in from left */
 export const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -32 },
+  hidden: { opacity: 0, transform: "translateX(-32px)" },
   visible: {
     opacity: 1,
-    x: 0,
+    transform: "translateX(0px)",
     transition: { duration: 0.6, ease: EASE_OUT },
   },
 };
 
 /** Slide in from right */
 export const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 32 },
+  hidden: { opacity: 0, transform: "translateX(32px)" },
   visible: {
     opacity: 1,
-    x: 0,
+    transform: "translateX(0px)",
     transition: { duration: 0.6, ease: EASE_OUT },
   },
 };
@@ -73,7 +73,7 @@ export const staggerContainerSlow: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.12,
+      staggerChildren: 0.06,
       delayChildren: 0.1,
     },
   },

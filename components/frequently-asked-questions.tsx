@@ -1,4 +1,5 @@
 import { FaqArrowIcon } from "@/assets/icons";
+import { Reveal } from "@/components/dropdown-pages/shared";
 import { businessStyles } from "@/lib/business-styles";
 import { SUPPORT_SEARCH_INDEX } from "@/lib/support-content";
 import { cn } from "@/lib/utils";
@@ -58,9 +59,11 @@ export default function FrequentlyAskedQuestions({ variant = "personal", items, 
   const questions = (items ?? (variant === "personal" ? personalQuestions : businessQuestions)).filter(({ answer }) => answer);
   return (
     <section id="faq" aria-labelledby={headingId} className={cn(businessStyles.sectionSpacing, "mx-auto max-w-[1268px] scroll-mt-8 px-5 sm:px-6")}>
-      <h2 id={headingId} className={"faq-title text-xenon-gray"}>
-        Frequently Asked<br />Questions
-      </h2>
+      <Reveal>
+        <h2 id={headingId} className={"faq-title text-xenon-gray"}>
+          Frequently Asked<br />Questions
+        </h2>
+      </Reveal>
       <div className={cn("mt-10", isProduct ? "space-y-4" : "space-y-6")}>
         {questions.map(({ question, answer }, index) => (
           <details key={question} name={`${variant}-faq`} open={index === 1} className={cn("group bg-[#fcfbf1] px-5 text-xenon-primary sm:px-8", isProduct ? "rounded-2xl lg:px-[60px]" : "rounded-lg lg:px-10")}>

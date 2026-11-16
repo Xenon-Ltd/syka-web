@@ -87,8 +87,8 @@ function Hero() {
 
         {/* Fades up after the hero copy. */}
         <motion.div
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : {}}
+          initial={{ transform: "translateY(20px)" }}
+          animate={isInView ? { transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.4 }}
           className="flex flex-col items-center text-center"
         >

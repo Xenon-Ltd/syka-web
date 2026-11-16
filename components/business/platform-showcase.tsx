@@ -67,8 +67,8 @@ export default function PlatformShowcase() {
       <div className="space-y-10">
         {/* Row 1 — Syka Merchant Platform */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(28px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT }}
           className="platform-row grid items-center gap-8 overflow-hidden rounded-2xl bg-[#fbfbf2] p-6 md:p-8 lg:grid-cols-2 lg:gap-10 lg:rounded-2xl lg:p-10"
         >
@@ -83,7 +83,7 @@ export default function PlatformShowcase() {
               platform. We handle the rest: conversion, settlement, payout,
               and confirmation.
             </p>
-            <BusinessAction href={businessLinks.sales} className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white transition-colors duration-200 hover:bg-xenon-primary/90")}>
+            <BusinessAction href={businessLinks.sales} className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white hover:bg-xenon-primary/90")}>
               Book a Demo
             </BusinessAction>
           </div>
@@ -102,8 +102,8 @@ export default function PlatformShowcase() {
 
         {/* Row 2 — Cross-Border Payment Processing */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(28px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.08 }}
           className="platform-row grid items-center gap-8 overflow-hidden rounded-2xl bg-[#fafafa] p-6 md:p-8 lg:grid-cols-2 lg:gap-10 lg:rounded-2xl lg:p-10"
         >
@@ -129,7 +129,7 @@ export default function PlatformShowcase() {
                 />
               ))}
             </div>
-            <BusinessAction href="/business#supported-countries" className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white transition-colors duration-200 hover:bg-xenon-primary/90")}>
+            <BusinessAction href="/business#supported-countries" className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white hover:bg-xenon-primary/90")}>
               See Supported Corridors
             </BusinessAction>
           </div>
@@ -147,8 +147,8 @@ export default function PlatformShowcase() {
 
         {/* Row 3 — Treasury Management and Yield */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(28px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.16 }}
           className="platform-row grid items-center gap-8 overflow-hidden rounded-2xl bg-[#fbfbf2] p-6 md:p-8 lg:grid-cols-2 lg:gap-10 lg:rounded-2xl lg:p-10"
         >
@@ -162,7 +162,7 @@ export default function PlatformShowcase() {
               suite with full liquidity. Treasury tools give your institution
               full control over currency strategy.
             </p>
-            <BusinessAction href="/business?product=treasury-management" className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white transition-colors duration-200 hover:bg-xenon-primary/90")}>
+            <BusinessAction href="/business?product=treasury-management" className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white hover:bg-xenon-primary/90")}>
               Learn About Treasury
             </BusinessAction>
           </div>
@@ -180,8 +180,8 @@ export default function PlatformShowcase() {
 
         {/* Row 4 — KYC and Compliance Infrastructure */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(28px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.24 }}
           className="platform-row grid items-center gap-8 overflow-hidden rounded-2xl bg-[#fafafa] p-6 md:p-8 lg:grid-cols-2 lg:gap-10 lg:rounded-2xl lg:p-10"
         >
@@ -196,7 +196,7 @@ export default function PlatformShowcase() {
               process, powered by best-in-class identity verification and
               sanctions screening technology.
             </p>
-            <BusinessAction href={businessLinks.sales} className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white transition-colors duration-200 hover:bg-xenon-primary/90")}>
+            <BusinessAction href={businessLinks.sales} className={cn(businessStyles.button, "mt-8 bg-[#413787] text-white hover:bg-xenon-primary/90")}>
               Talk to Our Compliance Team
             </BusinessAction>
           </div>

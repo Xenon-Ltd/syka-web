@@ -85,14 +85,16 @@
   transition: opacity 160ms ease, transform 160ms ease;
 }
 
-.legal-nav-link:hover {
-  background: rgba(19, 119, 188, 0.06);
-  color: var(--legal-navy);
-}
+@media (hover: hover) and (pointer: fine) {
+  .legal-nav-link:hover {
+    background: rgba(19, 119, 188, 0.06);
+    color: var(--legal-navy);
+  }
 
-.legal-nav-link:hover::after {
-  opacity: 0.5;
-  transform: translateX(0) rotate(45deg);
+  .legal-nav-link:hover::after {
+    opacity: 0.5;
+    transform: translateX(0) rotate(45deg);
+  }
 }
 
 .legal-nav-link.is-active {

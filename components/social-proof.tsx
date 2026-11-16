@@ -201,8 +201,8 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
 
         {/* Desktop carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(24px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
           className="relative hidden overflow-visible lg:block"
         >
@@ -210,7 +210,7 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             onClick={goToPreviousDesktop}
             aria-label="Previous testimonials"
             disabled={desktopIndex === 0}
-            className="absolute top-1/2 left-3 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 left-3 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-[color,background-color,border-color,scale] duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronLeft size={22} />
           </button>
@@ -218,7 +218,7 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             onClick={goToNextDesktop}
             aria-label="Next testimonials"
             disabled={desktopIndex === desktopMaxIndex}
-            className="absolute top-1/2 right-3 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
+            className="absolute top-1/2 right-3 z-30 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-[color,background-color,border-color,scale] duration-200 hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/15"
           >
             <ChevronRight size={22} />
           </button>
@@ -251,13 +251,14 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
 
         {/* Mobile carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateY(24px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
           transition={{ duration: 0.55, ease: EASE_OUT, delay: 0.2 }}
           className="lg:hidden"
         >
-          <div className="overflow-hidden">
-            <AnimatePresence mode="wait" custom={direction}>
+          <div className="relative overflow-hidden">
+            {/* popLayout runs the exit and entry together, so each step takes one transition. */}
+            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
               <motion.div
                 key={activeIndex}
                 custom={direction}
@@ -270,10 +271,11 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.15}
                 onDragEnd={(_, info) => {
-                  if (info.offset.x < -50) {
+                  // A quick flick counts even when it is short.
+                  if (info.offset.x < -50 || info.velocity.x < -500) {
                     setDirection(1);
                     setActiveIndex((prev) => (prev + 1) % totalPagesMobile);
-                  } else if (info.offset.x > 50) {
+                  } else if (info.offset.x > 50 || info.velocity.x > 500) {
                     setDirection(-1);
                     setActiveIndex(
                       (prev) =>
@@ -300,14 +302,14 @@ function SocialProof({ headingClassName = "" }: SocialProofProps) {
             <button
               onClick={goToPreviousMobile}
               aria-label="Previous testimonial"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-[color,background-color,border-color,scale] duration-200 hover:bg-white/25"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               onClick={goToNextMobile}
               aria-label="Next testimonial"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:bg-white/25"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-white/40 bg-[#414a5b] text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-[color,background-color,border-color,scale] duration-200 hover:bg-white/25"
             >
               <ChevronRight size={16} />
             </button>

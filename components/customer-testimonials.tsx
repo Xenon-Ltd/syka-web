@@ -63,8 +63,8 @@ export default function CustomerTestimonials() {
   return (
     <section className="py-16 md:py-24 lg:min-h-[514px]">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, transform: "translateY(24px)" }}
+        whileInView={{ opacity: 1, transform: "translateY(0px)" }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.55, ease: EASE_OUT }}
         className="px-5 text-center"
@@ -99,7 +99,7 @@ export default function CustomerTestimonials() {
           type="button"
           onClick={scrollNext}
           aria-label="Show next testimonial"
-          className="absolute top-1/2 right-6 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-xenon-gray transition-colors hover:bg-xenon-gray/90 lg:right-[max(2.5rem,calc((100%-1220px)/2-69px))] lg:flex"
+          className="absolute top-1/2 right-6 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-xenon-gray transition-[color,background-color,border-color,scale] hover:bg-xenon-gray/90 lg:right-[max(2.5rem,calc((100%-1220px)/2-69px))] lg:flex"
         >
           <Image src={ArrowRight01Icon} alt="" aria-hidden />
         </button>

@@ -57,7 +57,7 @@ export default function QuickAnswers() {
                       className={`group flex items-center justify-between gap-3 rounded py-3.5 text-base leading-6 text-xenon-gray transition-colors hover:text-xenon-brand ${linkFocus}`}
                     >
                       <span>{article.question}</span>
-                      <ChevronRight aria-hidden className="size-4 shrink-0 text-[#98A2B3] transition-[color,transform] duration-150 group-hover:translate-x-0.5 group-hover:text-xenon-brand" />
+                      <ChevronRight aria-hidden className="size-4 shrink-0 text-[#98A2B3] transition-[color,translate] duration-150 ease-out group-hover:translate-x-0.5 group-hover:text-xenon-brand" />
                     </Link>
                   </li>
                 ))}

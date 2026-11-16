@@ -39,8 +39,8 @@ export default function BuiltOnStability() {
         {features.map((feature, index) => (
           <motion.article
             key={feature.title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: "translateY(24px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, ease: EASE_OUT }}
             className={cn("stability-row", index % 2 === 1 && "stability-row-reverse")}

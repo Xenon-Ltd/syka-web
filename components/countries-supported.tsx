@@ -21,6 +21,7 @@ type CountriesSupportedProps = {
 };
 
 const countries = supportedCountries;
+const MOBILE_PREVIEW_COUNT = 5;
 
 function CountryItem({ icon, name, currency, compact = false }: CountryItemProps) {
   return (
@@ -42,7 +43,7 @@ function CountryItem({ icon, name, currency, compact = false }: CountryItemProps
       <p className={cn("leading-relaxed text-[#344054]", compact ? "text-sm lg:text-base" : "text-sm md:text-base lg:text-[18px] lg:leading-[1.3]")}>
         {name}
       </p>
-      <span role="tooltip" className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-md bg-xenon-primary px-2.5 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+      <span role="tooltip" className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-md bg-xenon-primary px-2.5 py-1.5 text-xs font-semibold text-white opacity-0 shadow-lg transition-[opacity,translate] duration-150 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
         {currency}
       </span>
     </div>
@@ -55,7 +56,7 @@ export default function CountriesSupported({
 }: CountriesSupportedProps) {
   const isCompact = variant !== "default";
   const [showAllCountries, setShowAllCountries] = useState(false);
-  const mobileCountries = showAllCountries ? countries : countries.slice(0, 5);
+  const mobileCountries = showAllCountries ? countries : countries.slice(0, MOBILE_PREVIEW_COUNT);
   const ref = useRef(null);
   const isInView = useInView(ref, IN_VIEW_OPTS);
   const headingSizeClasses =
@@ -68,8 +69,8 @@ export default function CountriesSupported({
       className={cn("mx-auto scroll-mt-8 px-5 py-16 sm:px-6 md:py-24", isCompact ? cn(businessStyles.sectionSpacing, "max-w-[1288px]") : "max-w-[1440px] lg:flex lg:min-h-[55vh] lg:flex-col lg:justify-center lg:py-32 xl:px-0")}
     >
       <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        initial={{ opacity: 0, transform: "translateY(20px)" }}
+        animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
         transition={{ duration: 0.5, ease: EASE_OUT }}
         className={`mobile-section-title mx-auto max-w-[320px] text-center text-xenon-gray sm:max-w-none lg:max-w-[900px] ${headingSizeClasses}`}
       >
@@ -81,9 +82,10 @@ export default function CountriesSupported({
         {mobileCountries.map((country, i) => (
           <motion.div
             key={country.name}
-            initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.35, ease: EASE_OUT, delay: i * 0.04 }}
+            initial={{ opacity: 0, transform: "translateY(12px)" }}
+            animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
+            // Countries added by "Show all" start at once instead of waiting behind the first five.
+            transition={{ duration: 0.35, ease: EASE_OUT, delay: (i < MOBILE_PREVIEW_COUNT || !showAllCountries ? i : i - MOBILE_PREVIEW_COUNT) * 0.03 }}
           >
             <CountryItem icon={country.icon} name={country.name} currency={country.currency} compact={isCompact} />
           </motion.div>
@@ -95,7 +97,7 @@ export default function CountriesSupported({
           <button
             type="button"
             onClick={() => setShowAllCountries(true)}
-            className="rounded-lg border border-xenon px-8 py-4 text-base font-semibold text-xenon transition-colors duration-200 hover:bg-[#F3F7FB]"
+            className="rounded-lg border border-xenon px-8 py-4 text-base font-semibold text-xenon transition-[color,background-color,border-color,scale] duration-200 hover:bg-[#F3F7FB]"
           >
             Show all countries we support
           </button>
@@ -107,8 +109,8 @@ export default function CountriesSupported({
         {countries.map((country, i) => (
           <motion.div
             key={country.name}
-            initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, transform: "translateY(12px)" }}
+            animate={isInView ? { opacity: 1, transform: "translateY(0px)" } : {}}
             transition={{ duration: 0.35, ease: EASE_OUT, delay: i * 0.03 }}
           >
             <CountryItem icon={country.icon} name={country.name} currency={country.currency} compact={isCompact} />

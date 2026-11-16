@@ -25,8 +25,8 @@ function EndToEndSecurity() {
     >
       {/* Image — slides in from right */}
         <motion.div
-          initial={{ opacity: 0, x: 36 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, transform: "translateX(36px)" }}
+          animate={isInView ? { opacity: 1, transform: "translateX(0px)" } : {}}
           transition={{ duration: 0.65, ease: EASE_OUT }}
           className="w-full lg:w-1/2 lg:shrink-0"
         >
@@ -68,7 +68,7 @@ function EndToEndSecurity() {
             single platform.
           </motion.p>
           <motion.div variants={fadeUp}>
-            <BusinessAction href={personalLinks.signup} className="mt-7 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-xenon-600 sm:mx-auto sm:w-fit lg:mt-10 lg:mx-0 lg:text-sm">
+            <BusinessAction href={personalLinks.signup} className="mt-7 w-full rounded-lg bg-xenon-brand px-6 py-3 text-sm font-semibold text-white hover:bg-xenon-600 sm:mx-auto sm:w-fit lg:mt-10 lg:mx-0 lg:text-sm">
               Get Started for free
             </BusinessAction>
           </motion.div>

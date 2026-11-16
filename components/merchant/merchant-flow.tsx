@@ -170,7 +170,7 @@ function TopBar({ step, total, title }: { step: number; total: number; title?: s
         aria-valuemax={total}
         aria-valuenow={step + 1}
       >
-        <div className="h-full bg-[#0c3283] transition-[width] duration-300" style={{ width: `${((step + 1) / total) * 100}%` }} />
+        <div className="h-full w-full origin-left bg-[#0c3283] transition-[scale] duration-300 ease-out" style={{ scale: `${(step + 1) / total} 1` }} />
       </div>
       <div className="px-6 pt-2 sm:px-8 lg:px-12">
         <p className="text-[13px] leading-5 text-[#99a1af]">Step {step + 1} of {total}</p>
@@ -401,7 +401,7 @@ function DocumentRow({ document, uploaded, localFile, progress, error, onFile, o
       </div>
       {busy && (
         <div className="mt-3 h-1 overflow-hidden rounded-full bg-[#e5e7eb]" role="progressbar" aria-label={`Uploading ${document.label}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress * 100)}>
-          <div className="h-full rounded-full bg-[#3b82f6] transition-[width]" style={{ width: `${Math.round(progress * 100)}%` }} />
+          <div className="h-full w-full origin-left rounded-full bg-[#3b82f6] transition-[scale] duration-150 ease-out" style={{ scale: `${progress} 1` }} />
         </div>
       )}
       {error && (
@@ -430,7 +430,7 @@ function DocumentsStep({ token, documents, application, localFiles, failedFiles,
         <p className="text-xs text-[#8893a4]">{percent}% complete</p>
       </div>
       <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#e5e7eb]" role="progressbar" aria-label="Document upload progress" aria-valuemin={0} aria-valuemax={required.length} aria-valuenow={uploaded}>
-        <div className="h-full rounded-full bg-[#3b82f6] transition-[width]" style={{ width: `${percent}%` }} />
+        <div className="h-full w-full origin-left rounded-full bg-[#3b82f6] transition-[scale] duration-300 ease-out" style={{ scale: `${percent / 100} 1` }} />
       </div>
       <div className="mt-5 space-y-3">
         {documents.map((document) => (

@@ -67,11 +67,11 @@ export function BusinessHeroCopy({ isInView }: { isInView: boolean }) {
         <span className="relative inline-flex">
           {/* Soft glow under the primary button, from the design. */}
           <span aria-hidden className="absolute inset-x-3 top-3 -bottom-1.5 rounded-lg bg-[rgba(19,119,188,0.4)] blur-[20px]" />
-          <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "relative bg-xenon-brand text-white transition-colors duration-200 hover:bg-xenon-600")}>
+          <BusinessAction href={businessLinks.signup} className={cn(businessStyles.button, "relative bg-xenon-brand text-white hover:bg-xenon-600")}>
             Get started for free
           </BusinessAction>
         </span>
-        <BusinessAction href="/business#platform" className={cn(businessStyles.button, "border border-[#D0ECFF] bg-[#0a1628]/60 text-xenon-sky transition-colors duration-200 hover:bg-[#13213a]")}>
+        <BusinessAction href="/business#platform" className={cn(businessStyles.button, "border border-[#D0ECFF] bg-[#0a1628]/60 text-xenon-sky hover:bg-[#13213a]")}>
           See How It Works
         </BusinessAction>
       </motion.div>
@@ -94,8 +94,8 @@ export default function BusinessHero() {
 
       {/* Globe — its top sits level with the buttons, as in the design. */}
       <motion.div
-        initial={{ y: 24 }}
-        animate={isInView ? { y: 0 } : {}}
+        initial={{ transform: "translateY(24px)" }}
+        animate={isInView ? { transform: "translateY(0px)" } : {}}
         transition={{ duration: 0.6, ease: EASE_OUT, delay: 0.25 }}
         className="-mt-10 md:-mt-16 lg:-mt-24"
       >

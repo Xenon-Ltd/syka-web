@@ -11,13 +11,14 @@ import {
 } from "@/components/dropdown-pages/product-config";
 import { cn } from "@/lib/utils";
 import BusinessAction from "@/components/business/business-action";
-import { businessLinks, personalLinks } from "@/lib/business-links";
+import { businessLinks, companyLinks, personalLinks } from "@/lib/business-links";
 import {
   BookText,
   BriefcaseBusiness,
   ChevronDown,
   CreditCard,
   FileCode2,
+  Globe2,
   Landmark,
   Megaphone,
   Newspaper,
@@ -31,6 +32,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAudience, usePillAudience } from "@/components/layout/use-audience";
 import React, { useEffect, useRef, useState } from "react";
 
 type DropdownItem = {
@@ -51,9 +53,6 @@ type TopLevelItem =
       items: DropdownItem[];
     };
 
-// "shared": pages for personal and business customers alike, such as /support.
-type RouteVariant = "personal" | "business" | "shared";
-
 const routeSwitchLinks = [
   {
     label: "Personal",
@@ -69,12 +68,13 @@ const companyItem: TopLevelItem = {
   label: "Company",
   type: "dropdown",
   items: [
-    { label: "About Us", href: "#", icon: Sparkles },
-    { label: "Blog", href: "#", icon: BookText },
-    { label: "Press", href: "#", icon: Newspaper },
-    { label: "Careers", href: "#", icon: BriefcaseBusiness },
-    { label: "Community", href: "#", icon: Megaphone },
-  ],
+    { label: "About Us", href: companyLinks.about, icon: Sparkles },
+    { label: "Coverage", href: companyLinks.coverage, icon: Globe2 },
+    { label: "Blog", href: companyLinks.blog, icon: BookText },
+    { label: "Press", href: companyLinks.press, icon: Newspaper },
+    { label: "Careers", href: companyLinks.careers, icon: BriefcaseBusiness },
+    { label: "Community", href: companyLinks.community, icon: Megaphone },
+  ].filter((item): item is DropdownItem => Boolean(item.href)),
 };
 
 const supportItem: TopLevelItem = {
@@ -96,11 +96,11 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
   const closeMenuButtonRef = useRef<HTMLButtonElement>(null);
   const menuPanelRef = useRef<HTMLDivElement>(null);
   const wasMenuOpenRef = useRef(false);
-  const isBusinessRoute = pathname.startsWith("/business") || pathname.startsWith("/privacy-policy") || pathname.startsWith("/terms-and-conditions") || pathname.startsWith("/cookies") || pathname.startsWith("/data-security") || pathname.startsWith("/support");
+  const audience = useAudience(pathname);
+  const { pillAudience, canSlide } = usePillAudience(audience);
+  const isBusinessRoute = audience === "business";
   const isDark = tone === "dark";
   const logo = isDark ? SykaLogoWhite : SykaLogo;
-  const isSharedRoute = pathname.startsWith("/support");
-  const routeVariant: RouteVariant = isSharedRoute ? "shared" : isBusinessRoute ? "business" : "personal";
   const primarySignup = isBusinessRoute ? businessLinks.signup : personalLinks.signup;
   const productBasePath = isBusinessRoute ? "/business" : "/";
   const developerBasePath = isBusinessRoute ? "/business" : "/";
@@ -139,11 +139,12 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
     : [productsItem, companyItem, supportItem];
   const activeDropdown = openDropdown ?? hoveredDropdown;
 
-  // On shared pages neither side is selected, so the pill is hidden.
-  const segmentPillTranslateClass = cn(
-    routeVariant === "business" ? "translate-x-full" : "translate-x-0",
-    routeVariant === "shared" && "opacity-0",
+  const segmentPillClass = cn(
+    pillAudience === "business" ? "translate-x-full" : "translate-x-0",
+    canSlide && "transition-[translate] duration-200 ease-[var(--ease-in-out)]",
   );
+  // Same timing as the pill, so a label turns white as the pill arrives under it.
+  const segmentLabelTransition = canSlide && "transition-[color,scale] duration-200 ease-[var(--ease-in-out)]";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -215,7 +216,7 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
         <Link href="/" aria-label="Go to Syka home">
           <Image
             src={logo}
-            className="h-11 w-auto xl:h-[50px]"
+            className="h-11 w-[112px] object-contain object-left xl:h-[50px] xl:w-[127px]"
             alt="Syka Logo"
           />
         </Link>
@@ -223,22 +224,23 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
           <span
             aria-hidden
             className={cn(
-              "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F9B004] transition-transform duration-300 ease-out",
-              segmentPillTranslateClass,
+              "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F9B004]",
+              segmentPillClass,
             )}
           />
           {routeSwitchLinks.map((link) => {
             const isActive =
               link.href === "/"
-                ? routeVariant === "personal"
-                : routeVariant === "business";
+                ? pillAudience === "personal"
+                : pillAudience === "business";
 
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative z-10 w-20 rounded-full px-2 py-2 text-center text-base leading-4 font-medium transition-colors",
+                  "relative z-10 w-20 rounded-full px-2 py-2 text-center text-base leading-4 font-medium active:scale-[0.97]",
+                  segmentLabelTransition,
                   isActive
                     ? "text-white"
                     : "text-[#2C2F54] hover:text-[#1E213F]",
@@ -285,7 +287,7 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
                   type="button"
                   aria-expanded={activeDropdown === item.label}
                   className={cn(
-                    "flex items-center gap-1 text-base font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-4",
+                    "flex items-center gap-1 text-base font-medium transition-[color,background-color,border-color,scale] focus-visible:outline-2 focus-visible:outline-offset-4",
                     isDark
                       ? "text-white hover:text-white/75 focus-visible:outline-white"
                       : "text-[#4A4E66] hover:text-[#1F2238] focus-visible:outline-[#1F2238]",
@@ -295,12 +297,12 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
                   }
                 >
                   <span>{item.label}</span>
-                  <ChevronDown className="size-4" />
+                  <ChevronDown className={cn("size-4 transition-[rotate] duration-150 ease-out", activeDropdown === item.label && "rotate-180")} />
                 </button>
                 <div
                   className={cn(
-                    "absolute top-full left-0 z-[120] min-w-52 pt-2",
-                    activeDropdown === item.label ? "block" : "hidden",
+                    "absolute top-full left-0 z-[120] min-w-52 origin-top-left pt-2 transition-[opacity,scale,visibility] ease-out",
+                    activeDropdown === item.label ? "visible scale-100 opacity-100 duration-150" : "invisible scale-[0.97] opacity-0 duration-100",
                   )}
                 >
                   <div className="rounded-xl border border-[#E6E8F1] bg-white p-2 shadow-lg">
@@ -333,18 +335,15 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
         </ul>
       </nav>
 
-      {/* Shared pages serve both audiences, so there is no single sign-up to offer. */}
-      {!isSharedRoute && (
-        <BusinessAction href={primarySignup} unavailableLabel={null} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white transition-colors hover:bg-xenon-600 lg:inline-flex">
-          Get started
-        </BusinessAction>
-      )}
+      <BusinessAction href={primarySignup} unavailableLabel={null} className="hidden h-12 w-[183px] rounded-lg bg-xenon px-5 text-base font-semibold text-white hover:bg-xenon-600 lg:inline-flex">
+        Get started
+      </BusinessAction>
 
       <div className="flex w-full items-center justify-between lg:hidden">
         <Link href="/" aria-label="Go to Syka home">
           <Image
             src={logo}
-            className="h-11 w-auto"
+            className="h-11 w-[112px] object-contain object-left"
             alt="Syka Logo"
           />
         </Link>
@@ -371,7 +370,7 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
         // after the slide, so the closing animation still plays.
         inert={!isSheetOpen}
         className={cn(
-          "fixed top-0 left-0 z-50 h-full w-full transform overflow-y-auto bg-white transition-[transform,visibility] duration-300",
+          "fixed top-0 left-0 z-50 h-full w-full overflow-y-auto bg-white transition-[translate,visibility] duration-300 ease-[var(--ease-drawer)]",
           isSheetOpen ? "visible translate-x-0" : "invisible -translate-x-full",
         )}
       >
@@ -394,15 +393,15 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
             <span
               aria-hidden
               className={cn(
-                "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F9B004] transition-transform duration-300 ease-out",
-                segmentPillTranslateClass,
+                "pointer-events-none absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-[#F9B004]",
+                segmentPillClass,
               )}
             />
             {routeSwitchLinks.map((link) => {
               const isActive =
                 link.href === "/"
-                  ? routeVariant === "personal"
-                  : routeVariant === "business";
+                  ? pillAudience === "personal"
+                  : pillAudience === "business";
 
               return (
                 <Link
@@ -410,7 +409,8 @@ const Header = ({ tone = "light" }: { tone?: HeaderTone }) => {
                   href={link.href}
                   onClick={() => setIsSheetOpen(false)}
                   className={cn(
-                    "relative z-10 w-20 rounded-full px-2 py-2 text-center text-base leading-4 font-medium transition-colors",
+                    "relative z-10 w-20 rounded-full px-2 py-2 text-center text-base leading-4 font-medium active:scale-[0.97]",
+                  segmentLabelTransition,
                     isActive
                       ? "text-white"
                       : "text-[#2C2F54] hover:text-[#1E213F]",
